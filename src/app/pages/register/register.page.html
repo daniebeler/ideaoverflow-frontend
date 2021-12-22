@@ -1,9 +1,53 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <div style="margin-top: 150px;" class="ion-align-items-center ion-justify-content-center">
 
-<ion-content style="background-color: #ff8e3c;">
 
+    <ion-grid class="ion-padding register-grid container">
+      <ion-row class="ion-align-items-center ion-justify-content-center">
+        <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="5" size-xl="5" style="padding-left: 75px;">
+
+          <h1>Sign up</h1>
+
+          <div class="form-group">
+            <label for="email"><i><ion-icon name="mail"></ion-icon></i></label>
+            <input type="email" name="email" id="email" placeholder="Your Email" [(ngModel)]="email"/>
+          </div>
+
+          <div class="form-group">
+            <label for="email"><i><ion-icon name="person"></ion-icon></i></label>
+            <input type="name" name="name" id="given-name" placeholder="Your given name" />
+          </div>
+
+          <div class="form-group">
+            <label for="email"><i><ion-icon name="person"></ion-icon></i></label>
+            <input type="name" name="name" id="family-name" placeholder="Family Name" />
+          </div>
+
+          <div class="form-group">
+            <label for="email"><i><ion-icon name="lock-closed"></ion-icon></i></label>
+            <input type="password" name="passwort" id="password" placeholder="Password" [(ngModel)]="password1"/>
+          </div>
+
+          <div class="form-group">
+            <label for="email"><i><ion-icon name="lock-closed"></ion-icon></i></label>
+            <input type="password" name="passwort" id="password" placeholder="Repeat your password" [(ngModel)]="password2"/>
+          </div>
+
+          <div class="row d-flex justify-content-center submit-button-container">
+            <button type="button" class="btn-standard btn-black mt-4" (click)="register()"
+              *ngIf="(email && password1 && password2 && vorname && nachname && schule) !== '';else: lockedbutton">Bestätigen</button>
+          </div>
+          <ng-template #lockedbutton>
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn-disabled mt-4" disabled>Bestätigen</button>
+            </div>
+          </ng-template>
+        </ion-col>
+
+        <ion-col>
+          fief
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
