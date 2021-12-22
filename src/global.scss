@@ -30,13 +30,33 @@ html, body{
 }
 
 @font-face {
-  font-family: "myFont";
-  src: url("/assets/Poppins-Regular.ttf") format("truetype");
+  font-family: "poppins-regular";
+  src: url("/assets/fonts/Poppins-Regular.ttf") format("truetype");
   font-display: swap;
 }
 
-*{
-  font-family: "myFont", sans-serif !important;;
+@font-face {
+  font-family: "poppins-bold";
+  src: url("/assets/fonts/Poppins-Bold.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 500;
+}
+
+*:not(h1){
+  font-family: "poppins-regular", sans-serif;
+}
+
+h1{
+  font-family: "poppins-bold", sans-serif !important;
+}
+
+button:focus,img:focus{
+  outline: none;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow:0 0 0 50px white inset;
+  -webkit-text-fill-color: black;
 }
 
 .container {
@@ -59,4 +79,28 @@ html, body{
   .container {
     width: 1170px;
   }
+}
+
+.btn-standard {
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 6px;
+}
+
+.btn-large {
+  color: white;
+  padding: 18px 28px 18px 28px;
+  border-radius: 5px;
+  font-size: 0.9em;
+}
+
+.btn-orange{
+  background-color: #f58332;
+}
+
+.btn-orange:hover{
+  background-color: #e2701e;
 }

@@ -1,26 +1,26 @@
 <ion-content>
-  <div style="margin-top: 150px;" class="ion-align-items-center ion-justify-content-center">
+  <div style="margin-top: 150px;" class="ion-padding ion-align-items-center ion-justify-content-center">
 
 
     <ion-grid class="ion-padding register-grid container">
-      <ion-row class="ion-align-items-center ion-justify-content-center">
-        <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="5" size-xl="5" style="padding-left: 75px;">
+      <ion-row>
+        <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="6" size-xl="6" style="padding-left: 75px; padding-right: 50px;">
 
-          <h1>Sign up</h1>
+          <h1 class="register-header"><strong>Sign up</strong></h1>
 
           <div class="form-group">
             <label for="email"><i><ion-icon name="mail"></ion-icon></i></label>
-            <input type="email" name="email" id="email" placeholder="Your Email" [(ngModel)]="email"/>
+            <input type="email" name="email" id="email" placeholder="Email" [(ngModel)]="email"/>
           </div>
 
           <div class="form-group">
             <label for="email"><i><ion-icon name="person"></ion-icon></i></label>
-            <input type="name" name="name" id="given-name" placeholder="Your given name" />
+            <input type="name" name="name" id="given-name" placeholder="First name" />
           </div>
 
           <div class="form-group">
             <label for="email"><i><ion-icon name="person"></ion-icon></i></label>
-            <input type="name" name="name" id="family-name" placeholder="Family Name" />
+            <input type="name" name="name" id="family-name" placeholder="Last name" />
           </div>
 
           <div class="form-group">
@@ -34,18 +34,13 @@
           </div>
 
           <div class="row d-flex justify-content-center submit-button-container">
-            <button type="button" class="btn-standard btn-black mt-4" (click)="register()"
-              *ngIf="(email && password1 && password2 && vorname && nachname && schule) !== '';else: lockedbutton">Bestätigen</button>
+            <button type="button" class="btn-large btn-orange" style="margin-top: 10px;" (click)="register()">Register</button>
           </div>
-          <ng-template #lockedbutton>
-            <div class="d-flex justify-content-center">
-              <button type="button" class="btn-disabled mt-4" disabled>Bestätigen</button>
-            </div>
-          </ng-template>
         </ion-col>
 
-        <ion-col>
-          fief
+        <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="6" size-xl="6" style="padding-left: 50px; padding-right: 75px;">
+          <img [hidden]="devWidth < 767" src="./../../../assets/character_16.svg" style="width: 100%; padding-bottom: 10px;" alt="">
+          <p class="ion-text-center txt-gotologin">I already have an account? <strong (click)="gotoLogin()">Login here</strong></p>
         </ion-col>
       </ion-row>
     </ion-grid>

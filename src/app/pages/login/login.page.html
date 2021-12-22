@@ -1,0 +1,36 @@
+<ion-content>
+  <div style="margin-top: 150px;" class="ion-padding ion-align-items-center ion-justify-content-center">
+
+
+    <ion-grid class="ion-padding register-grid container">
+      <ion-row>
+
+        <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="6" size-xl="6" style="padding-left: 75px; padding-right: 50px;">
+          <img [hidden]="devWidth < 767" src="./../../../assets/character_7.svg" style="width: 100%; padding-bottom: 10px;" alt="">
+          <p class="ion-text-center txt-gotologin"><strong (click)="gotoRegister()">Create an account</strong></p>
+        </ion-col>
+
+        <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="6" size-xl="6" style="padding-left: 50px; padding-right: 75px;">
+
+          <h1 class="register-header"><strong>Login</strong></h1>
+
+          <div class="form-group">
+            <label for="email"><i><ion-icon name="mail"></ion-icon></i></label>
+            <input type="email" name="email" id="email" placeholder="Email" [(ngModel)]="email"/>
+          </div>
+
+          <div class="form-group">
+            <label for="email"><i><ion-icon name="lock-closed"></ion-icon></i></label>
+            <input type="password" name="passwort" id="password" placeholder="Password" [(ngModel)]="password"/>
+          </div>
+
+          <div class="row d-flex justify-content-center submit-button-container">
+            <button type="button" class="btn-large btn-orange" style="margin-top: 10px;" (click)="login()">Log in</button>
+          </div>
+        </ion-col>
+
+
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

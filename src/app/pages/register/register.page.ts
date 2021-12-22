@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -17,7 +19,9 @@ export class RegisterPage implements OnInit {
 
   allschooldata: Array<any> = [];
 
-  constructor(private auth: AuthService) { }
+  public devWidth = this.plt.width();
+
+  constructor(private auth: AuthService, private plt: Platform, private router: Router) { }
 
   ngOnInit() {
   }
@@ -33,6 +37,10 @@ export class RegisterPage implements OnInit {
 
   register() {
     this.auth.register(this.schule, this.email, this.vorname, this.nachname, this.password1, this.password2);
+  }
+
+  gotoLogin() {
+    this.router.navigate(['login']);
   }
 
 }
