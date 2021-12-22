@@ -1,0 +1,7 @@
+{
+  "name": "ideaoverflow",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
