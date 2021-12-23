@@ -1,0 +1,54 @@
+input:-webkit-autofill {
+  -webkit-box-shadow:0 0 0 50px var(--ion-background-color) inset;
+  -webkit-text-fill-color: black;
+}
+
+.icon-label{
+  position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    color: #222;
+}
+
+.text-label{
+  font-size: 0.8em;
+}
+
+input{
+  background-color: var(--ion-background-color);
+  display: block;
+  border: none;
+  border-bottom: 1px solid #999;
+  box-sizing: border-box;
+  font-size: 0.8em;
+}
+
+.icon-input{
+  padding: 6px 30px;
+}
+
+.form-group{
+  position: relative;
+  margin-bottom: 25px;
+}
+
+*:focus {
+  outline: none;
+}
+
+.txt-gotologin{
+  font-size: 0.9em;
+
+  strong{
+    text-decoration: underline;
+  }
+
+  strong:hover{
+    cursor: pointer;
+  }
+}

@@ -84,7 +84,7 @@ input:-webkit-autofill {
 
 .btn-medium {
   color: white;
-  padding: 10px 20px 10px 20px;
+  padding: 13px 10px 13px 10px;
   border-radius: 5px;
   font-size: 0.9em;
 }
@@ -102,6 +102,14 @@ input:-webkit-autofill {
 
 .btn-orange:hover{
   background-color: #e2701e;
+}
+
+.btn-dark{
+  background-color: #414141;
+}
+
+.btn-dark:hover{
+  background-color: #313131;
 }
 
 .ideaoverflow-logo:hover{

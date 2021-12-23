@@ -44,6 +44,10 @@ export class ProfilePage implements OnInit {
     this.router.navigate(['profile']);
   }
 
+  gotoSettings() {
+    this.router.navigate(['settings']);
+  }
+
   gotoLogin() {
     this.router.navigate(['login']);
   }

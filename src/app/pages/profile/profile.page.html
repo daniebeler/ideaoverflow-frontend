@@ -31,7 +31,7 @@
     <ion-row>
       <ion-col size-xs="12" size-sm="12" size-md="4" size-lg="4" size-xl="4">
 
-        <ion-avatar style="height: 80px; width: 80px; --border-radius: 10px">
+        <ion-avatar style="height: 80px; width: 80px; --border-radius: 5px">
           <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
         </ion-avatar>
 
@@ -61,7 +61,19 @@
 
           <hr style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin-top: 20px; margin-right: 10px;">
 
-          <button type="button" class="btn-medium btn-orange" style="margin-top: 10px;" (click)="logout()">Logout</button>
+          <ion-grid style="padding: 0; padding-top: 10px;">
+            <ion-row>
+              <ion-col style="padding-left: 0;">
+                <button type="button" class="btn-medium btn-dark" style="width: 100%;" (click)="gotoSettings()">Settings</button>
+
+              </ion-col>
+              <ion-col style="padding-right: 10px;">
+                <button type="button" class="btn-medium btn-orange" style="width: 100%;" (click)="logout()">Logout</button>
+
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
 
         </div>
 
