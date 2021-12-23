@@ -4,9 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { AlertController } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 import { catchError } from 'rxjs/operators';
-// import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage';
 
 const TOKEN_KEY = 'access_token_1';
 
@@ -15,17 +15,38 @@ const TOKEN_KEY = 'access_token_1';
 })
 export class AuthService {
 
-  authenticationRole = new BehaviorSubject<string>(null);
+  authenticationState = new BehaviorSubject<boolean>(null);
   private user = null;
 
   constructor(
     private router: Router,
     private http: HttpClient,
     private alertController: AlertController,
-    // private storage: Storage,
-    private helper: JwtHelperService
-  ) { }
+    private storage: Storage,
+    private helper: JwtHelperService,
+    private platform: Platform
+  ) {
+    this.platform.ready().then(() => {
+      this.checkToken();
+    });
+  }
 
+  checkToken() {
+    this.storage.get(TOKEN_KEY).then(token => {
+      if (token) {
+        const decoded = this.helper.decodeToken(token);
+        const isExpired = this.helper.isTokenExpired(token);
+
+        if (!isExpired) {
+          this.user = decoded;
+          this.authenticationState.next(true);
+        }
+      }
+      else {
+        this.authenticationState.next(false);
+      }
+    });
+  }
 
   register(email, username, password1, password2) {
 
@@ -69,15 +90,12 @@ export class AuthService {
 
   login(email, password) {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    this.http.post<any>(environment.api + 'login', { email, password }).subscribe(async res => {
+    this.http.post<any>(environment.api + 'user/login', { email, password }).subscribe(async res => {
       if (res.token) {
-        // await this.storage.set(TOKEN_KEY, res.token);
+        await this.storage.set(TOKEN_KEY, res.token);
         this.user = this.helper.decodeToken(res.token);
-
-        if (this.user.role === 'user') {
-          this.authenticationRole.next('user');
-          this.router.navigate(['home']);
-        }
+        console.log(this.user);
+        this.router.navigate(['home']);
       }
       else {
         if (res.notverified === true) {
