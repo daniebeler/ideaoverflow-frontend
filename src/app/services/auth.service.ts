@@ -149,4 +149,17 @@ export class AuthService {
     // eslint-disable-next-line @typescript-eslint/no-shadow
     alert.then(alert => alert.present());
   }
+
+  public getUser(){
+    return this.user;
+  }
+
+  logout() {
+    this.storage.remove(TOKEN_KEY).then(() => {
+      // this.api.clearData();
+      this.user = null;
+      this.authenticationState.next(false);
+      this.router.navigate(['/home']);
+    });
+  }
 }

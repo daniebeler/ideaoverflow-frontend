@@ -1,9 +1,74 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>profile</ion-title>
+    <ion-grid class="container">
+      <ion-row>
+        <ion-col style="display: flex; align-items: center;">
+          <h1 (click)="gotoHome()" class="ideaoverflow-logo" style="margin: 0;">
+            Idea Overflow
+          </h1>
+        </ion-col>
+        <ion-col *ngIf="loggedIn; else elseBlock" size="auto">
+          <ion-avatar (click)="gotoProfile()" style="height: 40px; width: 40px;">
+            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+          </ion-avatar>
+        </ion-col>
+        <ng-template #elseBlock>
+          <ion-col size="auto">
+            <button type="button" class="btn-medium btn-orange" style="margin-top: 10px; margin-bottom: 10px;"
+              (click)="gotoLogin()">Login</button>
+          </ion-col>
+        </ng-template>
+      </ion-row>
+    </ion-grid>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+
+  <ion-grid class="container" style="margin-top: 30px;">
+    <ion-row>
+      <ion-col size-xs="12" size-sm="12" size-md="4" size-lg="4" size-xl="4">
+
+        <ion-avatar style="height: 80px; width: 80px; --border-radius: 10px">
+          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+        </ion-avatar>
+
+        <div *ngIf="user">
+          <h2 *ngIf="user.firstname && user.lastname"><strong>{{user.firstname}} {{user.lastname}}</strong></h2>
+
+          <p *ngIf="user.username">@{{user.username}}</p>
+
+          <ul>
+            <li *ngIf="user.github">
+              <ion-icon (click)="openLink(user.github)" class="socialmedia-icon" style="height: 20px; width: 20px;"
+                name="logo-github"></ion-icon>
+            </li>
+            <li *ngIf="user.website">
+              <ion-icon (click)="openLink(user.website)" class="socialmedia-icon" style="height: 20px; width: 20px;"
+                name="globe-outline"></ion-icon>
+            </li>
+            <li *ngIf="user.twitter">
+              <ion-icon (click)="openLink(user.twitter)" class="socialmedia-icon" style="height: 20px; width: 20px;"
+                name="logo-twitter"></ion-icon>
+            </li>
+            <li *ngIf="user.instagram">
+              <ion-icon (click)="openLink(user.instagram)" class="socialmedia-icon" style="height: 20px; width: 20px;"
+                name="logo-instagram"></ion-icon>
+            </li>
+          </ul>
+
+          <hr style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin-top: 20px; margin-right: 10px;">
+
+          <button type="button" class="btn-medium btn-orange" style="margin-top: 10px;" (click)="logout()">Logout</button>
+
+        </div>
+
+      </ion-col>
+      <ion-col size-xs="12" size-sm="12" size-md="8" size-lg="8" size-xl="8" style="background-color: white;">
+        anderer shit
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

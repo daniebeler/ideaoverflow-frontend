@@ -64,6 +64,7 @@ input:-webkit-autofill {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+  max-width: 900px;
 }
 @media (min-width: 768px) {
   .container {
@@ -81,13 +82,11 @@ input:-webkit-autofill {
   }
 }
 
-.btn-standard {
+.btn-medium {
   color: white;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border-radius: 6px;
+  padding: 10px 20px 10px 20px;
+  border-radius: 5px;
+  font-size: 0.9em;
 }
 
 .btn-large {
@@ -103,4 +102,8 @@ input:-webkit-autofill {
 
 .btn-orange:hover{
   background-color: #e2701e;
+}
+
+.ideaoverflow-logo:hover{
+  cursor: pointer;
 }
