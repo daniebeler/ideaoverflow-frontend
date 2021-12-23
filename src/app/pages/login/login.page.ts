@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +15,13 @@ export class LoginPage implements OnInit {
 
   public devWidth = this.plt.width();
 
-  constructor(private plt: Platform, private router: Router) { }
+  constructor(private plt: Platform, private router: Router, private auth: AuthService) { }
 
   ngOnInit() {
   }
 
   login() {
-    // this.auth.login(this.email, this.password);
+    this.auth.login(this.email, this.password);
   }
 
   gotoRegister() {

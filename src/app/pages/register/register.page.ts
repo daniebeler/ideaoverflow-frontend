@@ -10,10 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class RegisterPage implements OnInit {
 
-  schule: string;
   email: string;
-  vorname: string;
-  nachname: string;
+  username: string;
   password1: string;
   password2: string;
 
@@ -28,15 +26,13 @@ export class RegisterPage implements OnInit {
 
   ionViewWillEnter(){
     this.email = '';
-    this.vorname = '';
-    this.nachname = '';
-    this.schule = '';
+    this.username = '';
     this.password1 = '';
     this.password2 = '';
   }
 
   register() {
-    this.auth.register(this.schule, this.email, this.vorname, this.nachname, this.password1, this.password2);
+    this.auth.register(this.email, this.username, this.password1, this.password2);
   }
 
   gotoLogin() {
