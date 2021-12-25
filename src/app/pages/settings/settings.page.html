@@ -7,9 +7,15 @@
             Idea Overflow
           </h1>
         </ion-col>
-          <ion-col size="auto">
+          <ion-col *ngIf="user" size="auto">
+
             <button type="button" class="btn-medium btn-orange" style="margin-top: 10px; margin-bottom: 10px;"
-              (click)="save()">Save changes</button>
+              (click)="updateUser()"
+              *ngIf="user.firstname !== firstname || user.lastname !== lastname || user.instagram !== instagram || user.twitter !== twitter || user.github !== github || user.website !== website; else elseBlock">Save changes</button>
+
+              <ng-template #elseBlock>
+                <button type="button" class="btn-medium btn-disabled" style="margin-top: 10px; margin-bottom: 10px;" disabled>Save changes</button>
+              </ng-template>
           </ion-col>
       </ion-row>
     </ion-grid>
@@ -37,7 +43,31 @@
 
     <ion-row>
       <ion-col>
-        <h1>Connected Accounts</h1>
+        <h1>Social Information</h1>
+
+        <div class="form-group">
+          <label class="text-label" for="fname"><strong>Instagram Username</strong></label>
+          <label class="icon-label-both" for="password"><i><ion-icon name="logo-instagram"></ion-icon></i></label>
+          <input class="icon-input" type="text" name="fname" id="fname" placeholder="..." [(ngModel)]="instagram"/>
+        </div>
+
+        <div class="form-group">
+          <label class="text-label" for="fname"><strong>Twitter Username</strong></label>
+          <label class="icon-label-both" for="password"><i><ion-icon name="logo-twitter"></ion-icon></i></label>
+          <input class="icon-input" type="text" name="fname" id="fname" placeholder="..." [(ngModel)]="twitter"/>
+        </div>
+
+        <div class="form-group">
+          <label class="text-label" for="fname"><strong>Github Username</strong></label>
+          <label class="icon-label-both" for="password"><i><ion-icon name="logo-github"></ion-icon></i></label>
+          <input class="icon-input" type="text" name="fname" id="fname" placeholder="..." [(ngModel)]="github"/>
+        </div>
+
+        <div class="form-group">
+          <label class="text-label" for="fname"><strong>Website URL</strong></label>
+          <label class="icon-label-both" for="password"><i><ion-icon name="globe-outline"></ion-icon></i></label>
+          <input class="icon-input" type="text" name="fname" id="fname" placeholder="https://example.com" [(ngModel)]="website"/>
+        </div>
       </ion-col>
     </ion-row>
 

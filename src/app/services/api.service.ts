@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -7,15 +8,21 @@ import { environment } from 'src/environments/environment';
 })
 export class ApiService {
 
-  private userData: any = null;
+  private user = new BehaviorSubject<any>(null);
 
   constructor(private http: HttpClient) { }
 
+  getLatestUser(): Observable<any> {
+    return this.user;
+  }
 
-  getUserData(id) {
-    if (this.userData === null) {
-      this.userData = this.http.get<any>(environment.api + 'user/daten/' + id);
-    }
-    return this.userData;
+  setUser(user) {
+    this.user.next(user);
+  }
+
+  fetchUserFromApi(id) {
+    this.http.get<any>(environment.api + 'user/daten/' + id).subscribe(res => {
+      this.setUser(res);
+    });
   }
 }

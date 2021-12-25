@@ -16,16 +16,16 @@ export class ProfilePage implements OnInit {
   constructor(private auth: AuthService, private api: ApiService, private router: Router) { }
 
   ngOnInit() {
-  }
-
-  ionViewWillEnter() {
-    if (this.auth.getUser) {
-      this.loggedIn = true;
-      this.api.getUserData(this.auth.getUser().id).subscribe(userData => {
-        this.user = userData;
-        console.log(this.user);
-      });
-    }
+    this.api.getLatestUser()
+    .subscribe((latestUser) => {
+      if(latestUser){
+        this.loggedIn = true;
+        this.user = latestUser;
+      }
+      else{
+        this.loggedIn = false;
+      }
+    });
   }
 
   logout() {

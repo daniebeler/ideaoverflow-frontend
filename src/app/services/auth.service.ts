@@ -7,6 +7,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { AlertController, Platform } from '@ionic/angular';
 import { catchError } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
+import { ApiService } from './api.service';
 
 const TOKEN_KEY = 'access_token_1';
 
@@ -24,7 +25,8 @@ export class AuthService {
     private alertController: AlertController,
     private storage: Storage,
     private helper: JwtHelperService,
-    private platform: Platform
+    private platform: Platform,
+    private api: ApiService
   ) {
     this.platform.ready().then(() => {
       this.checkToken();
@@ -40,6 +42,7 @@ export class AuthService {
         if (!isExpired) {
           this.user = decoded;
           this.authenticationState.next(true);
+          this.api.fetchUserFromApi(this.getUser().id);
         }
       }
       else {
@@ -161,5 +164,58 @@ export class AuthService {
       this.authenticationState.next(false);
       this.router.navigate(['/home']);
     });
+  }
+
+  updateUser(firstname, lastname, instagram, twitter, github, website) {
+
+    const obj = {
+      id: this.getUser().id,
+      firstname,
+      lastname,
+      instagram,
+      twitter,
+      github,
+      website
+    };
+
+    return this.http.post<any>(environment.api + 'user/changedata', obj).subscribe(async res => {
+      if (res.status === 200) {
+        console.log('user aktualisiert');
+        this.api.fetchUserFromApi(this.getUser().id);
+
+        const alert = await this.alertController.create({
+          cssClass: 'custom-alert-ok',
+          backdropDismiss: false,
+          header: res.header,
+          message: res.message,
+          buttons: [{
+            text: 'Okay',
+            handler: () => {
+            }
+          }]
+        });
+        await alert.present();
+      }
+      else {
+        const alert = await this.alertController.create({
+          cssClass: 'custom-alert-ok',
+          backdropDismiss: false,
+          header: res.header,
+          message: res.message,
+          buttons: [{
+            text: 'Fuck',
+            handler: () => {
+            }
+          }]
+        });
+
+        await alert.present();
+      }
+
+    }),
+      catchError(e => {
+        this.showAlert(e.error.message);
+        throw new Error(e);
+      });
   }
 }

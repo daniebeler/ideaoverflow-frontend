@@ -13,6 +13,11 @@ export class SettingsPage implements OnInit {
   firstname: string;
   lastname: string;
 
+  instagram: string;
+  twitter: string;
+  github: string;
+  website: string;
+
   oldpassword: string;
   newpassword1: string;
   newpassword2: string;
@@ -22,25 +27,38 @@ export class SettingsPage implements OnInit {
   constructor(private router: Router, private auth: AuthService, private api: ApiService) { }
 
   ngOnInit() {
+    this.api.getLatestUser()
+    .subscribe((latestUser) => {
+      if(latestUser){
+        console.log(latestUser);
+        this.user = latestUser;
+        this.setLocalUser();
+      }
+    });
   }
 
   ionViewWillEnter() {
-    if (this.auth.getUser) {
-      this.api.getUserData(this.auth.getUser().id).subscribe(userData => {
-        this.user = userData;
-        this.firstname = userData.firstname;
-        this.lastname = userData.lastname;
-      });
-    }
+    // this.api.getUserFromApi(this.auth.getUser().id);
+  }
+
+  setLocalUser() {
+    console.log(this.user);
+    this.firstname = this.user.firstname;
+    this.lastname = this.user.lastname;
+    this.instagram = this.user.instagram;
+    this.twitter = this.user.twitter;
+    this.github = this.user.github;
+    this.website = this.user.website;
   }
 
   gotoHome() {
     this.router.navigate(['home']);
   }
 
-  save() {
+  updateUser() {
+    this.auth.updateUser(this.firstname, this.lastname, this.instagram, this.twitter, this.github, this.website);
   }
 
-  changePassword(){}
+  changePassword() { }
 
 }
