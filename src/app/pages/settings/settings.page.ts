@@ -18,9 +18,9 @@ export class SettingsPage implements OnInit {
   github: string;
   website: string;
 
-  oldpassword: string;
-  newpassword1: string;
-  newpassword2: string;
+  oldPassword: string;
+  newPassword1: string;
+  newPassword2: string;
 
   user: any = null;
 
@@ -30,15 +30,10 @@ export class SettingsPage implements OnInit {
     this.api.getLatestUser()
     .subscribe((latestUser) => {
       if(latestUser){
-        console.log(latestUser);
         this.user = latestUser;
         this.setLocalUser();
       }
     });
-  }
-
-  ionViewWillEnter() {
-    // this.api.getUserFromApi(this.auth.getUser().id);
   }
 
   setLocalUser() {
@@ -55,10 +50,16 @@ export class SettingsPage implements OnInit {
     this.router.navigate(['home']);
   }
 
+  gotoProfile() {
+    this.router.navigate(['profile']);
+  }
+
   updateUser() {
     this.auth.updateUser(this.firstname, this.lastname, this.instagram, this.twitter, this.github, this.website);
   }
 
-  changePassword() { }
+  changePassword() {
+    this.auth.changePassword(this.oldPassword, this.newPassword1, this.newPassword2);
+   }
 
 }

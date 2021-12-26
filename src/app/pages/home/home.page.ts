@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -8,19 +8,22 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit{
 
   loggedIn = false;
 
-  constructor(private router: Router, private auth: AuthService) {}
+  constructor(private router: Router, private api: ApiService, private auth: AuthService) {}
 
-  ionViewWillEnter() {
-    if(this.auth.getUser()){
-      this.loggedIn = true;
-    }
-    else{
-      this.loggedIn = false;
-    }
+  ngOnInit() {
+    this.api.getLatestUser()
+    .subscribe((latestUser) => {
+      if(latestUser){
+        this.loggedIn = true;
+      }
+      else{
+        this.loggedIn = false;
+      }
+    });
   }
 
   gotoProfile() {

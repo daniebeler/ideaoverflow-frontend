@@ -16,6 +16,13 @@
               <ng-template #elseBlock>
                 <button type="button" class="btn-medium btn-disabled" style="margin-top: 10px; margin-bottom: 10px;" disabled>Save changes</button>
               </ng-template>
+
+
+          </ion-col>
+          <ion-col size="auto">
+            <ion-avatar (click)="gotoProfile()" style="height: 40px; width: 40px;">
+              <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            </ion-avatar>
           </ion-col>
       </ion-row>
     </ion-grid>
@@ -77,17 +84,17 @@
 
         <div class="form-group">
           <label class="icon-label" for="password"><i><ion-icon name="lock-open"></ion-icon></i></label>
-          <input class="icon-input" type="password" name="passwort" id="password" placeholder="Current Password" [(ngModel)]="oldpassword"/>
+          <input class="icon-input" type="password" name="passwort" id="password" placeholder="Current Password" [(ngModel)]="oldPassword"/>
         </div>
 
         <div class="form-group">
           <label class="icon-label" for="password"><i><ion-icon name="lock-closed"></ion-icon></i></label>
-          <input class="icon-input" type="password" name="passwort" id="password" placeholder="New Password" [(ngModel)]="newpassword1"/>
+          <input class="icon-input" type="password" name="passwort" id="password" placeholder="New Password" [(ngModel)]="newPassword1"/>
         </div>
 
         <div class="form-group">
           <label class="icon-label" for="password"><i><ion-icon name="lock-closed"></ion-icon></i></label>
-          <input class="icon-input" type="password" name="passwort" id="password" placeholder="New Password" [(ngModel)]="newpassword2"/>
+          <input class="icon-input" type="password" name="passwort" id="password" placeholder="New Password" [(ngModel)]="newPassword2"/>
         </div>
 
         <div class="row d-flex justify-content-center submit-button-container">

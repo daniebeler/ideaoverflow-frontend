@@ -97,7 +97,7 @@ export class AuthService {
       if (res.token) {
         await this.storage.set(TOKEN_KEY, res.token);
         this.user = this.helper.decodeToken(res.token);
-        console.log(this.user);
+        this.api.fetchUserFromApi(this.getUser().id);
         this.router.navigate(['home']);
       }
       else {
@@ -141,6 +141,10 @@ export class AuthService {
       });
   }
 
+  verify(code) {
+    return this.http.get<any>(environment.api + 'user/verify/' + code);
+  }
+
   showAlert(msg) {
     const alert = this.alertController.create({
       cssClass: 'custom-alert-ok',
@@ -153,7 +157,7 @@ export class AuthService {
     alert.then(alert => alert.present());
   }
 
-  public getUser(){
+  public getUser() {
     return this.user;
   }
 
@@ -180,21 +184,7 @@ export class AuthService {
 
     return this.http.post<any>(environment.api + 'user/changedata', obj).subscribe(async res => {
       if (res.status === 200) {
-        console.log('user aktualisiert');
         this.api.fetchUserFromApi(this.getUser().id);
-
-        const alert = await this.alertController.create({
-          cssClass: 'custom-alert-ok',
-          backdropDismiss: false,
-          header: res.header,
-          message: res.message,
-          buttons: [{
-            text: 'Okay',
-            handler: () => {
-            }
-          }]
-        });
-        await alert.present();
       }
       else {
         const alert = await this.alertController.create({
@@ -217,5 +207,33 @@ export class AuthService {
         this.showAlert(e.error.message);
         throw new Error(e);
       });
+  }
+
+  changePassword(oldPassword, newPassword1, newPassword2) {
+    const obj = {
+      oldPassword,
+      newPassword1,
+      newPassword2,
+      id: this.getUser().id
+    };
+    return this.http.post<any>(environment.api + 'user/changepw', obj).subscribe(async res => {
+      const alert = await this.alertController.create({
+        cssClass: 'custom-alert-ok',
+        backdropDismiss: false,
+        header: res.header,
+        message: res.message,
+        buttons: [{
+          text: 'Okay'
+        }]
+      });
+
+      await alert.present();
+
+    }),
+      catchError(e => {
+        this.showAlert(e.error.message);
+        throw new Error(e);
+      });
+
   }
 }

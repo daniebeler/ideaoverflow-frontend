@@ -29,6 +29,10 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'verify/:code',
+    loadChildren: () => import('./pages/verify/verify.module').then( m => m.VerifyPageModule)
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'

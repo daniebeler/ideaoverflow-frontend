@@ -1,0 +1,56 @@
+.register-header{
+  font-size: 2em;
+  margin-bottom: 30px;
+}
+
+.register-grid{
+  border-radius: 20px;
+  background-color: white;
+  padding-top: 75px;
+  padding-bottom: 75px;
+  max-width: 900px;
+}
+
+label{
+  position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    color: #222;
+}
+
+input{
+  background-color: white;
+  width: 100%;
+  display: block;
+  border: none;
+  border-bottom: 1px solid #999;
+  padding: 6px 30px;
+  box-sizing: border-box;
+  font-size: 0.8em;
+}
+
+.form-group{
+  position: relative;
+  margin-bottom: 25px;
+}
+
+*:focus {
+  outline: none;
+}
+
+.txt-gotologin{
+  font-size: 0.9em;
+
+  strong{
+    text-decoration: underline;
+  }
+
+  strong:hover{
+    cursor: pointer;
+  }
+}

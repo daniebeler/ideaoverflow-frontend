@@ -16,13 +16,9 @@ export class ApiService {
     return this.user;
   }
 
-  setUser(user) {
-    this.user.next(user);
-  }
-
   fetchUserFromApi(id) {
-    this.http.get<any>(environment.api + 'user/daten/' + id).subscribe(res => {
-      this.setUser(res);
+    this.http.get<any>(environment.api + 'user/daten/' + id).subscribe(user => {
+      this.user.next(user);
     });
   }
 }
