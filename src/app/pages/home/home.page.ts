@@ -11,12 +11,14 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HomePage implements OnInit{
 
   loggedIn = false;
+  user: any;
 
   constructor(private router: Router, private api: ApiService, private auth: AuthService) {}
 
   ngOnInit() {
     this.api.getLatestUser()
     .subscribe((latestUser) => {
+      this.user = latestUser;
       if(latestUser){
         this.loggedIn = true;
       }
@@ -27,7 +29,7 @@ export class HomePage implements OnInit{
   }
 
   gotoProfile() {
-    this.router.navigate(['profile']);
+    this.router.navigate(['profile/' + this.user.username]);
   }
 
   gotoLogin() {

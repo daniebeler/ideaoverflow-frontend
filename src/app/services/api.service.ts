@@ -21,4 +21,8 @@ export class ApiService {
       this.user.next(user);
     });
   }
+
+  getUser(username) {
+    return this.http.get<any>(environment.api + 'user/databyusername/' + username);
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -12,15 +12,31 @@ export class ProfilePage implements OnInit {
 
   user: any = null;
   loggedIn = false;
+  isMyProfile = false;
+  isPrivate = true;
+  currentProfile = '';
 
-  constructor(private auth: AuthService, private api: ApiService, private router: Router) { }
+  constructor(
+    private auth: AuthService,
+    private api: ApiService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+    ) { }
 
   ngOnInit() {
+    this.currentProfile = this.activatedRoute.snapshot.paramMap.get('username');
+    this.api.getUser(this.currentProfile).subscribe(res => {
+      this.user = res;
+      this.isPrivate = this.user.private;
+    });
+
     this.api.getLatestUser()
     .subscribe((latestUser) => {
       if(latestUser){
         this.loggedIn = true;
-        this.user = latestUser;
+        if(latestUser.username === this.currentProfile){
+          this.isMyProfile = true;
+        }
       }
       else{
         this.loggedIn = false;
@@ -41,7 +57,7 @@ export class ProfilePage implements OnInit {
   }
 
   gotoProfile() {
-    this.router.navigate(['profile']);
+    this.router.navigate(['profile/' + this.user.username]);
   }
 
   gotoSettings() {

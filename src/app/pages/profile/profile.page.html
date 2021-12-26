@@ -28,7 +28,7 @@
 
 
   <ion-grid class="container" style="margin-top: 30px;">
-    <ion-row>
+    <ion-row *ngIf="!isPrivate || isMyProfile; else dontShow">
       <ion-col size-xs="12" size-sm="12" size-md="4" size-lg="4" size-xl="4">
 
         <ion-avatar style="height: 80px; width: 80px; --border-radius: 5px">
@@ -40,47 +40,58 @@
 
           <p *ngIf="user.username">@{{user.username}}</p>
 
+          <p *ngIf="user.country"><ion-icon name="location-outline"></ion-icon><span *ngIf="user.state">{{user.state}}, </span>{{user.country}}</p>
+
           <ul>
             <li *ngIf="user.github">
-              <ion-icon (click)="openLink('https://github.com/' + user.github)" class="socialmedia-icon" style="height: 20px; width: 20px;"
-                name="logo-github"></ion-icon>
+              <ion-icon (click)="openLink('https://github.com/' + user.github)" class="socialmedia-icon"
+                style="height: 20px; width: 20px;" name="logo-github"></ion-icon>
             </li>
             <li *ngIf="user.website">
               <ion-icon (click)="openLink(user.website)" class="socialmedia-icon" style="height: 20px; width: 20px;"
                 name="globe-outline"></ion-icon>
             </li>
             <li *ngIf="user.twitter">
-              <ion-icon (click)="openLink('https://twitter.com/' + user.twitter)" class="socialmedia-icon" style="height: 20px; width: 20px;"
-                name="logo-twitter"></ion-icon>
+              <ion-icon (click)="openLink('https://twitter.com/' + user.twitter)" class="socialmedia-icon"
+                style="height: 20px; width: 20px;" name="logo-twitter"></ion-icon>
             </li>
             <li *ngIf="user.instagram">
-              <ion-icon (click)="openLink('https://instagram.com/' + user.instagram)" class="socialmedia-icon" style="height: 20px; width: 20px;"
-                name="logo-instagram"></ion-icon>
+              <ion-icon (click)="openLink('https://instagram.com/' + user.instagram)" class="socialmedia-icon"
+                style="height: 20px; width: 20px;" name="logo-instagram"></ion-icon>
             </li>
           </ul>
 
-          <hr style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin-top: 20px; margin-right: 10px;">
+          <div *ngIf="isMyProfile">
+            <hr
+              style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin-top: 20px; margin-right: 10px;">
 
-          <ion-grid style="padding: 0; padding-top: 10px;">
-            <ion-row>
-              <ion-col style="padding-left: 0;">
-                <button type="button" class="btn-medium btn-dark" style="width: 100%;" (click)="gotoSettings()">Settings</button>
+            <ion-grid style="padding: 0; padding-top: 10px;">
+              <ion-row>
+                <ion-col style="padding-left: 0;">
+                  <button type="button" class="btn-medium btn-dark" style="width: 100%;"
+                    (click)="gotoSettings()">Settings</button>
 
-              </ion-col>
-              <ion-col style="padding-right: 10px;">
-                <button type="button" class="btn-medium btn-orange" style="width: 100%;" (click)="logout()">Logout</button>
-
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-
-
+                </ion-col>
+                <ion-col style="padding-right: 10px;">
+                  <button type="button" class="btn-medium btn-orange" style="width: 100%;"
+                    (click)="logout()">Logout</button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
         </div>
-
       </ion-col>
       <ion-col size-xs="12" size-sm="12" size-md="8" size-lg="8" size-xl="8" style="background-color: white;">
         anderer shit
       </ion-col>
     </ion-row>
+
+    <ng-template #dontShow>
+      <ion-row>
+        <ion-col>
+          <h2>This account is private.</h2>
+        </ion-col>
+      </ion-row>
+    </ng-template>
   </ion-grid>
 </ion-content>

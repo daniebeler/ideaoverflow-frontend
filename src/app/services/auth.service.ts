@@ -170,12 +170,15 @@ export class AuthService {
     });
   }
 
-  updateUser(firstname, lastname, instagram, twitter, github, website) {
+  updateUser(firstname, lastname, isPrivate, country, state, instagram, twitter, github, website) {
 
     const obj = {
       id: this.getUser().id,
       firstname,
       lastname,
+      private: isPrivate,
+      country,
+      state,
       instagram,
       twitter,
       github,

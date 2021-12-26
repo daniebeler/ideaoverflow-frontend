@@ -7,23 +7,25 @@
             Idea Overflow
           </h1>
         </ion-col>
-          <ion-col *ngIf="user" size="auto">
+        <ion-col *ngIf="user" size="auto">
 
-            <button type="button" class="btn-medium btn-orange" style="margin-top: 10px; margin-bottom: 10px;"
-              (click)="updateUser()"
-              *ngIf="user.firstname !== firstname || user.lastname !== lastname || user.instagram !== instagram || user.twitter !== twitter || user.github !== github || user.website !== website; else elseBlock">Save changes</button>
+          <button type="button" class="btn-medium btn-orange" style="margin-top: 10px; margin-bottom: 10px;"
+            (click)="updateUser()"
+            *ngIf="user.firstname !== firstname || user.lastname !== lastname || user.private !== isPrivate || user.country !== country || user.state !== state || user.instagram !== instagram || user.twitter !== twitter || user.github !== github || user.website !== website; else elseBlock">Save
+            changes</button>
 
-              <ng-template #elseBlock>
-                <button type="button" class="btn-medium btn-disabled" style="margin-top: 10px; margin-bottom: 10px;" disabled>Save changes</button>
-              </ng-template>
+          <ng-template #elseBlock>
+            <button type="button" class="btn-medium btn-disabled" style="margin-top: 10px; margin-bottom: 10px;"
+              disabled>Save changes</button>
+          </ng-template>
 
 
-          </ion-col>
-          <ion-col size="auto">
-            <ion-avatar (click)="gotoProfile()" style="height: 40px; width: 40px;">
-              <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-            </ion-avatar>
-          </ion-col>
+        </ion-col>
+        <ion-col size="auto">
+          <ion-avatar (click)="gotoProfile()" style="height: 40px; width: 40px;">
+            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+          </ion-avatar>
+        </ion-col>
       </ion-row>
     </ion-grid>
   </ion-toolbar>
@@ -35,15 +37,50 @@
     <ion-row>
       <ion-col>
         <h1 style="padding-bottom: 20px;">General</h1>
-
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
         <div class="form-group">
           <label class="text-label" for="fname"><strong>First Name</strong></label>
-          <input type="text" name="fname" id="fname" placeholder="First Name" [(ngModel)]="firstname"/>
+          <input type="text" name="fname" id="fname" placeholder="First Name" [(ngModel)]="firstname" />
         </div>
-
+      </ion-col>
+      <ion-col>
         <div class="form-group">
           <label class="text-label" for="email"><strong>Last Name</strong></label>
-          <input type="text" name="lname" id="lname" placeholder="Last Name" [(ngModel)]="lastname"/>
+          <input type="text" name="lname" id="lname" placeholder="Last Name" [(ngModel)]="lastname" />
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="form-group">
+          <label class="text-label" for="email"><strong>Account Type</strong></label>
+          <select [(ngModel)]="isPrivate">
+            <option value="1">Private</option>
+            <option value="0">Public</option>
+          </select>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="form-group" *ngIf="countries">
+          <label class="text-label"><strong>Country</strong></label>
+          <select [(ngModel)]="country">
+            <option value="" disabled>Select Country</option>
+            <option *ngFor="let country of countries.countries" [ngValue]="country">{{country.country}}</option>
+          </select>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="form-group" *ngIf="countries || country">
+          <label class="text-label"><strong>State</strong></label>
+          <select [(ngModel)]="state">
+            <option value="" disabled>Select State</option>
+            <option *ngFor="let state of country.states" [ngValue]="state">{{state}}</option>
+          </select>
         </div>
       </ion-col>
     </ion-row>
@@ -51,29 +88,50 @@
     <ion-row>
       <ion-col>
         <h1>Social Information</h1>
-
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
         <div class="form-group">
           <label class="text-label" for="fname"><strong>Instagram Username</strong></label>
-          <label class="icon-label-both" for="password"><i><ion-icon name="logo-instagram"></ion-icon></i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="..." [(ngModel)]="instagram"/>
+          <label class="icon-label-both" for="password"><i>
+              <ion-icon name="logo-instagram"></ion-icon>
+            </i></label>
+          <input class="icon-input" type="text" name="fname" id="fname" placeholder="..." [(ngModel)]="instagram" />
         </div>
-
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
         <div class="form-group">
           <label class="text-label" for="fname"><strong>Twitter Username</strong></label>
-          <label class="icon-label-both" for="password"><i><ion-icon name="logo-twitter"></ion-icon></i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="..." [(ngModel)]="twitter"/>
+          <label class="icon-label-both" for="password"><i>
+              <ion-icon name="logo-twitter"></ion-icon>
+            </i></label>
+          <input class="icon-input" type="text" name="fname" id="fname" placeholder="..." [(ngModel)]="twitter" />
         </div>
-
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
         <div class="form-group">
           <label class="text-label" for="fname"><strong>Github Username</strong></label>
-          <label class="icon-label-both" for="password"><i><ion-icon name="logo-github"></ion-icon></i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="..." [(ngModel)]="github"/>
+          <label class="icon-label-both" for="password"><i>
+              <ion-icon name="logo-github"></ion-icon>
+            </i></label>
+          <input class="icon-input" type="text" name="fname" id="fname" placeholder="..." [(ngModel)]="github" />
         </div>
-
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
         <div class="form-group">
           <label class="text-label" for="fname"><strong>Website URL</strong></label>
-          <label class="icon-label-both" for="password"><i><ion-icon name="globe-outline"></ion-icon></i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="https://example.com" [(ngModel)]="website"/>
+          <label class="icon-label-both" for="password"><i>
+              <ion-icon name="globe-outline"></ion-icon>
+            </i></label>
+          <input class="icon-input" type="text" name="fname" id="fname" placeholder="https://example.com"
+            [(ngModel)]="website" />
         </div>
       </ion-col>
     </ion-row>
@@ -81,27 +139,46 @@
     <ion-row>
       <ion-col>
         <h1 style="padding-bottom: 20px;">Change Password</h1>
-
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
         <div class="form-group">
-          <label class="icon-label" for="password"><i><ion-icon name="lock-open"></ion-icon></i></label>
-          <input class="icon-input" type="password" name="passwort" id="password" placeholder="Current Password" [(ngModel)]="oldPassword"/>
-        </div>
-
-        <div class="form-group">
-          <label class="icon-label" for="password"><i><ion-icon name="lock-closed"></ion-icon></i></label>
-          <input class="icon-input" type="password" name="passwort" id="password" placeholder="New Password" [(ngModel)]="newPassword1"/>
-        </div>
-
-        <div class="form-group">
-          <label class="icon-label" for="password"><i><ion-icon name="lock-closed"></ion-icon></i></label>
-          <input class="icon-input" type="password" name="passwort" id="password" placeholder="New Password" [(ngModel)]="newPassword2"/>
-        </div>
-
-        <div class="row d-flex justify-content-center submit-button-container">
-          <button type="button" class="btn-large btn-orange" style="margin-top: 10px;" (click)="changePassword()">Change Password</button>
+          <label class="icon-label" for="password"><i>
+              <ion-icon name="lock-open"></ion-icon>
+            </i></label>
+          <input class="icon-input" type="password" name="passwort" id="password" placeholder="Current Password"
+            [(ngModel)]="oldPassword" />
         </div>
       </ion-col>
-
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="form-group">
+          <label class="icon-label" for="password"><i>
+              <ion-icon name="lock-closed"></ion-icon>
+            </i></label>
+          <input class="icon-input" type="password" name="passwort" id="password" placeholder="New Password"
+            [(ngModel)]="newPassword1" />
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="form-group">
+          <label class="icon-label" for="password"><i>
+              <ion-icon name="lock-closed"></ion-icon>
+            </i></label>
+          <input class="icon-input" type="password" name="passwort" id="password" placeholder="New Password"
+            [(ngModel)]="newPassword2" />
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="row d-flex justify-content-center submit-button-container">
+          <button type="button" class="btn-large btn-orange" style="margin-top: 10px;" (click)="changePassword()">Change
+            Password</button>
+        </div>
+      </ion-col>
     </ion-row>
   </ion-grid>
 
