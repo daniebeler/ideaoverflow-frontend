@@ -18,6 +18,7 @@ export class ProfilePage implements OnInit {
   isMyProfile = false;
   isPrivate = true;
   currentProfile = '';
+  amFollowingThisProfile = false;
 
   numberOfFollowers = 0;
   numberOfFollowees = 0;
@@ -36,6 +37,8 @@ export class ProfilePage implements OnInit {
       this.user = res;
       this.user.profileimage = this.api.getSanitizedUrlFromArrayBuffer(this.user.profileimage);
 
+      console.log(this.user);
+
       this.isPrivate = this.user.private;
     });
 
@@ -46,6 +49,11 @@ export class ProfilePage implements OnInit {
           this.loggedIn = true;
           if (latestUser.username === this.currentProfile) {
             this.isMyProfile = true;
+          }
+          else {
+            this.auth.checkIfFollowing(this.user.id).subscribe(following => {
+              this.amFollowingThisProfile = following.user[0].following;
+            });
           }
         }
         else {
@@ -91,6 +99,10 @@ export class ProfilePage implements OnInit {
 
   follow() {
     this.auth.addFollower(this.user.id);
+  }
+
+  unfollow() {
+    this.auth.removeFollower(this.user.id);
   }
 
 }
