@@ -170,22 +170,8 @@ export class AuthService {
     });
   }
 
-  updateUser(firstname, lastname, isPrivate, country, state, instagram, twitter, github, website) {
-
-    const obj = {
-      id: this.getUser().id,
-      firstname,
-      lastname,
-      private: isPrivate,
-      country,
-      state,
-      instagram,
-      twitter,
-      github,
-      website
-    };
-
-    return this.http.post<any>(environment.api + 'user/changedata', obj).subscribe(async res => {
+  updateUser(dataToUpdate) {
+    return this.http.post<any>(environment.api + 'user/changedata', dataToUpdate).subscribe(async res => {
       if (res.status === 200) {
         this.api.fetchUserFromApi(this.getUser().id);
       }

@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ProfilePage implements OnInit {
 
+  latestUser: any = null;
   user: any = null;
   loggedIn = false;
   isMyProfile = false;
@@ -21,34 +22,37 @@ export class ProfilePage implements OnInit {
     private api: ApiService,
     private router: Router,
     private activatedRoute: ActivatedRoute
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.currentProfile = this.activatedRoute.snapshot.paramMap.get('username');
     this.api.getUser(this.currentProfile).subscribe(res => {
       this.user = res;
+      this.user.profileimage = this.api.getSanitizedUrlFromArrayBuffer(this.user.profileimage);
+
       this.isPrivate = this.user.private;
     });
 
     this.api.getLatestUser()
-    .subscribe((latestUser) => {
-      if(latestUser){
-        this.loggedIn = true;
-        if(latestUser.username === this.currentProfile){
-          this.isMyProfile = true;
+      .subscribe((latestUser) => {
+        this.latestUser = latestUser;
+        if (latestUser) {
+          this.loggedIn = true;
+          if (latestUser.username === this.currentProfile) {
+            this.isMyProfile = true;
+          }
         }
-      }
-      else{
-        this.loggedIn = false;
-      }
-    });
+        else {
+          this.loggedIn = false;
+        }
+      });
   }
 
   logout() {
     this.auth.logout();
   }
 
-  openLink(url){
+  openLink(url) {
     window.open(url, '_blank');
   }
 
@@ -57,7 +61,7 @@ export class ProfilePage implements OnInit {
   }
 
   gotoProfile() {
-    this.router.navigate(['profile/' + this.user.username]);
+    this.router.navigate(['profile/' + this.latestUser.username]);
   }
 
   gotoSettings() {

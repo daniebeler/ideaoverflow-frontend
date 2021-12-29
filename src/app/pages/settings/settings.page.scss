@@ -45,6 +45,14 @@ input{
   padding: 6px 30px;
 }
 
+select{
+  background-color: var(--ion-background-color);
+  border: none;
+  border-bottom: 1px solid #999;
+  font-size: 0.8em;
+  width: 100%;
+}
+
 .form-group{
   position: relative;
   margin-bottom: 25px;

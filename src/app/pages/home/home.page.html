@@ -9,7 +9,7 @@
         </ion-col>
         <ion-col *ngIf="loggedIn; else elseBlock" size="auto">
           <ion-avatar (click)="gotoProfile()" style="height: 40px; width: 40px;">
-            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            <img [src]="user.profileimage">
           </ion-avatar>
         </ion-col>
         <ng-template #elseBlock>
