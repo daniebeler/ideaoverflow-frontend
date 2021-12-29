@@ -54,7 +54,7 @@ export class SettingsPage implements OnInit {
   setLocalUserValues() {
     this.firstname = this.user.firstname;
     this.lastname = this.user.lastname;
-    this.isPrivate = this.user.private;
+    this.isPrivate = !!this.user.private;
     this.country = this.findCountry(this.user.country);
     this.state = this.user.state;
     this.instagram = this.user.instagram;
@@ -63,6 +63,7 @@ export class SettingsPage implements OnInit {
     this.github = this.user.github;
     this.linkedin = this.user.linkedin;
     this.website = this.user.website;
+    this.checkForChange();
   }
 
   gotoHome() {
@@ -126,7 +127,7 @@ export class SettingsPage implements OnInit {
     if (
       this.user.firstname !== this.firstname
       || this.user.lastname !== this.lastname
-      || this.user.private !== this.isPrivate
+      || !!this.user.private !== this.isPrivate
       || this.user.country !== this.country.country
       || this.user.state !== this.state
       || this.user.instagram !== this.instagram

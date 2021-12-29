@@ -36,6 +36,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'followers',
+    loadChildren: () => import('./modals/followers/followers.module').then( m => m.FollowersPageModule)
+  },
 ];
 
 @NgModule({

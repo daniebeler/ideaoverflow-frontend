@@ -223,6 +223,42 @@ export class AuthService {
         this.showAlert(e.error.message);
         throw new Error(e);
       });
-
   }
+
+  addFollower(followeeID) {
+    const obj = {
+      followerID: this.getUser().id,
+      followeeID
+    };
+    return this.http.post<any>(environment.api + 'user/follow', obj).subscribe(async res => {
+      if (res.status === 200) {
+        this.api.fetchUserFromApi(this.getUser().id);
+      }
+      else {
+        const alert = await this.alertController.create({
+          cssClass: 'custom-alert-ok',
+          backdropDismiss: false,
+          header: res.header,
+          message: res.message,
+          buttons: [{
+            text: 'Fuck',
+            handler: () => {
+            }
+          }]
+        });
+
+        await alert.present();
+      }
+
+    }),
+      catchError(e => {
+        this.showAlert(e.error.message);
+        throw new Error(e);
+      });
+  }
+
+  getFollowees(id): any {
+    return this.http.get<any>(environment.api + 'user/followees/' + id);
+  }
+
 }

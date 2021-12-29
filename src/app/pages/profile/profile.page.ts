@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { FollowersPage } from 'src/app/modals/followers/followers.page';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -17,11 +19,15 @@ export class ProfilePage implements OnInit {
   isPrivate = true;
   currentProfile = '';
 
+  numberOfFollowers = 0;
+  numberOfFollowees = 0;
+
   constructor(
     private auth: AuthService,
     private api: ApiService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private modalController: ModalController
   ) { }
 
   ngOnInit() {
@@ -48,6 +54,17 @@ export class ProfilePage implements OnInit {
       });
   }
 
+  async openFollowersModal() {
+    const modal = await this.modalController.create({
+      component: FollowersPage,
+      cssClass: 'bezahlen-modal',
+      swipeToClose: true,
+      presentingElement: await this.modalController.getTop()
+    });
+
+    return await modal.present();
+  }
+
   logout() {
     this.auth.logout();
   }
@@ -70,6 +87,10 @@ export class ProfilePage implements OnInit {
 
   gotoLogin() {
     this.router.navigate(['login']);
+  }
+
+  follow() {
+    this.auth.addFollower(this.user.id);
   }
 
 }

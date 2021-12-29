@@ -54,8 +54,8 @@
         <div class="form-group">
           <label class="text-label" for="email"><strong>Account Type</strong></label>
           <select [(ngModel)]="isPrivate" (ngModelChange)="checkForChange()">
-            <option value="1">Private</option>
-            <option value="0">Public</option>
+            <option [ngValue]="true">Private</option>
+            <option [ngValue]="false">Public</option>
           </select>
         </div>
       </ion-col>
@@ -65,7 +65,7 @@
         <div class="form-group" *ngIf="countries">
           <label class="text-label"><strong>Country</strong></label>
           <select [(ngModel)]="country" (ngModelChange)="checkForChange()">
-            <option value="" disabled>Select Country</option>
+            <option value="">--Leave empty--</option>
             <option *ngFor="let country of countries.countries" [ngValue]="country">{{country.country}}</option>
           </select>
         </div>
@@ -74,7 +74,7 @@
         <div class="form-group" *ngIf="country">
           <label class="text-label"><strong>State</strong></label>
           <select [(ngModel)]="state" (ngModelChange)="checkForChange()">
-            <option value="" disabled>Select State</option>
+            <option value="">--Leave empty--</option>
             <option *ngFor="let state of country.states" [ngValue]="state">{{state}}</option>
           </select>
         </div>
