@@ -30,6 +30,11 @@ body {
   -webkit-user-select: none;
 }
 
+[contenteditable] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
 @font-face {
   font-family: "poppins-regular";
   src: url("/assets/fonts/Poppins-Regular.ttf") format("truetype");
