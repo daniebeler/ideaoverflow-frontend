@@ -1,20 +1,18 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-grid class="container">
       <ion-row>
         <ion-col style="display: flex; align-items: center;">
-          <h1 (click)="gotoHome()" class="ideaoverflow-logo" style="margin: 0;">
-            Idea Overflow
-          </h1>
+          <img (click)="gotoHome()" class="ideaoverflow-logo" src="./../../../assets/io-green-dark.svg" height="40px"
+            alt="">
         </ion-col>
         <ion-col *ngIf="user" size="auto">
 
-          <button type="button" class="btn-medium btn-orange" style="margin-top: 10px; margin-bottom: 10px;"
-            (click)="updateUser()" *ngIf="unsavedDataExists; else elseBlock">Save changes</button>
+          <button type="button" class="btn-medium btn-orange" (click)="updateUser()"
+            *ngIf="unsavedDataExists; else elseBlock">Save changes</button>
 
           <ng-template #elseBlock>
-            <button type="button" class="btn-medium btn-disabled" style="margin-top: 10px; margin-bottom: 10px;"
-              disabled>Save changes</button>
+            <button type="button" class="btn-medium btn-disabled" disabled>Save changes</button>
           </ng-template>
 
         </ion-col>
@@ -39,13 +37,15 @@
       <ion-col>
         <div class="form-group">
           <label class="text-label" for="fname"><strong>First Name</strong></label>
-          <input type="text" name="fname" id="fname" placeholder="First Name" [(ngModel)]="firstname" (ngModelChange)="checkForChange()" />
+          <input type="text" name="fname" id="fname" placeholder="First Name" [(ngModel)]="firstname"
+            (ngModelChange)="checkForChange()" />
         </div>
       </ion-col>
       <ion-col>
         <div class="form-group">
           <label class="text-label" for="email"><strong>Last Name</strong></label>
-          <input type="text" name="lname" id="lname" placeholder="Last Name" [(ngModel)]="lastname" (ngModelChange)="checkForChange()" />
+          <input type="text" name="lname" id="lname" placeholder="Last Name" [(ngModel)]="lastname"
+            (ngModelChange)="checkForChange()" />
         </div>
       </ion-col>
     </ion-row>
@@ -101,7 +101,8 @@
           <label class="icon-label-both" for="password"><i>
               <ion-icon name="logo-instagram"></ion-icon>
             </i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="..." [(ngModel)]="instagram" (ngModelChange)="checkForChange()" />
+          <input class="icon-input" type="text" name="fname" id="fname" placeholder="..." [(ngModel)]="instagram"
+            (ngModelChange)="checkForChange()" />
         </div>
       </ion-col>
     </ion-row>
@@ -112,7 +113,8 @@
           <label class="icon-label-both" for="password"><i>
               <ion-icon name="logo-twitter"></ion-icon>
             </i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="..." [(ngModel)]="twitter" (ngModelChange)="checkForChange()" />
+          <input class="icon-input" type="text" name="fname" id="fname" placeholder="..." [(ngModel)]="twitter"
+            (ngModelChange)="checkForChange()" />
         </div>
       </ion-col>
     </ion-row>
@@ -123,7 +125,8 @@
           <label class="icon-label-both" for="password"><i>
               <ion-icon name="logo-dribbble"></ion-icon>
             </i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="..." [(ngModel)]="dribbble" (ngModelChange)="checkForChange()" />
+          <input class="icon-input" type="text" name="fname" id="fname" placeholder="..." [(ngModel)]="dribbble"
+            (ngModelChange)="checkForChange()" />
         </div>
       </ion-col>
     </ion-row>
@@ -134,7 +137,8 @@
           <label class="icon-label-both" for="password"><i>
               <ion-icon name="logo-github"></ion-icon>
             </i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="..." [(ngModel)]="github" (ngModelChange)="checkForChange()" />
+          <input class="icon-input" type="text" name="fname" id="fname" placeholder="..." [(ngModel)]="github"
+            (ngModelChange)="checkForChange()" />
         </div>
       </ion-col>
     </ion-row>
@@ -145,7 +149,8 @@
           <label class="icon-label-both" for="password"><i>
               <ion-icon name="logo-linkedin"></ion-icon>
             </i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="..." [(ngModel)]="linkedin" (ngModelChange)="checkForChange()" />
+          <input class="icon-input" type="text" name="fname" id="fname" placeholder="..." [(ngModel)]="linkedin"
+            (ngModelChange)="checkForChange()" />
         </div>
       </ion-col>
     </ion-row>
@@ -156,7 +161,8 @@
           <label class="icon-label-both" for="password"><i>
               <ion-icon name="globe-outline"></ion-icon>
             </i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="https://example.com" [(ngModel)]="website" (ngModelChange)="checkForChange()"/>
+          <input class="icon-input" type="text" name="fname" id="fname" placeholder="https://example.com"
+            [(ngModel)]="website" (ngModelChange)="checkForChange()" />
         </div>
       </ion-col>
     </ion-row>

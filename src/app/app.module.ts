@@ -12,6 +12,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'src/environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
+import { SuperTabsModule } from '@ionic-super-tabs/angular';
+
 // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 export function jwtOptionsFactory(storage) {
   return {
@@ -24,13 +26,13 @@ export function jwtOptionsFactory(storage) {
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot({ mode: 'md' }), AppRoutingModule, HttpClientModule,
-  IonicStorageModule.forRoot(), JwtModule.forRoot({
-    jwtOptionsProvider: {
-      provide: JWT_OPTIONS,
-      useFactory: jwtOptionsFactory,
-      deps: [Storage],
-    }
-  }),
+  SuperTabsModule.forRoot(), IonicStorageModule.forRoot(), JwtModule.forRoot({
+      jwtOptionsProvider: {
+        provide: JWT_OPTIONS,
+        useFactory: jwtOptionsFactory,
+        deps: [Storage],
+      }
+    }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerImmediately'

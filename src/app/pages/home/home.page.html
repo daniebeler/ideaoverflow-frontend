@@ -1,11 +1,10 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-grid class="container">
       <ion-row>
         <ion-col style="display: flex; align-items: center;">
-          <h1 class="ideaoverflow-logo" style="margin: 0;">
-            Idea Overflow
-          </h1>
+          <img class="ideaoverflow-logo" src="./../../../assets/io-green-dark.svg" height="40px"
+            alt="">
         </ion-col>
         <ion-col *ngIf="loggedIn; else elseBlock" size="auto">
           <ion-avatar (click)="gotoProfile()" style="height: 40px; width: 40px;">

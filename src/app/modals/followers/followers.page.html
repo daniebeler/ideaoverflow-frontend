@@ -1,9 +1,28 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>followers</ion-title>
+    <ion-title>Super Tabs</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
-</ion-content>
+<super-tabs>
+  <super-tabs-toolbar slot="top">
+    <super-tab-button>
+      <ion-label>Followers</ion-label>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-label>Following</ion-label>
+    </super-tab-button>
+  </super-tabs-toolbar>
+  <super-tabs-container>
+    <super-tab>
+      <ion-content>
+        Page #1
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <ion-content>
+        Page #2
+      </ion-content>
+    </super-tab>
+  </super-tabs-container>
+</super-tabs>

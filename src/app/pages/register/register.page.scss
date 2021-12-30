@@ -1,9 +1,13 @@
-.register-header{
+ion-content {
+  --ion-background-color: #f0f0f0;
+}
+
+.register-header {
   font-size: 2em;
   margin-bottom: 30px;
 }
 
-.register-grid{
+.register-grid {
   border-radius: 20px;
   background-color: white;
   padding-top: 75px;
@@ -11,19 +15,19 @@
   max-width: 900px;
 }
 
-label{
+label {
   position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    color: #222;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  color: #222;
 }
 
-input{
+input {
   background-color: white;
   width: 100%;
   display: block;
@@ -34,7 +38,7 @@ input{
   font-size: 0.8em;
 }
 
-.form-group{
+.form-group {
   position: relative;
   margin-bottom: 25px;
 }
@@ -43,14 +47,14 @@ input{
   outline: none;
 }
 
-.txt-gotologin{
+.txt-gotologin {
   font-size: 0.9em;
 
-  strong{
+  strong {
     text-decoration: underline;
   }
 
-  strong:hover{
+  strong:hover {
     cursor: pointer;
   }
 }
