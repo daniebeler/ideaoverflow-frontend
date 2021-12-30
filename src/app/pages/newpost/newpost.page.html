@@ -1,0 +1,27 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-grid class="container">
+      <ion-row>
+        <ion-col style="display: flex; align-items: center;">
+          <img (click)="gotoHome()" class="ideaoverflow-logo" src="./../../../assets/io-green-dark.svg" height="40px"
+            alt="">
+        </ion-col>
+        <ion-col *ngIf="loggedIn; else elseBlock" size="auto">
+          <ion-avatar (click)="gotoProfile()" style="height: 40px; width: 40px;">
+            <img [src]="user.profileimage">
+          </ion-avatar>
+        </ion-col>
+        <ng-template #elseBlock>
+          <ion-col size="auto">
+            <button type="button" class="btn-medium btn-orange" style="margin-top: 10px; margin-bottom: 10px;"
+              (click)="gotoLogin()">Login</button>
+          </ion-col>
+        </ng-template>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+</ion-content>

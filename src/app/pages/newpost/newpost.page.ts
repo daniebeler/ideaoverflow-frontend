@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
-import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-newpost',
+  templateUrl: './newpost.page.html',
+  styleUrls: ['./newpost.page.scss'],
 })
-export class HomePage implements OnInit{
+export class NewpostPage implements OnInit {
 
   loggedIn = false;
   user: any;
 
-  constructor(private router: Router, private api: ApiService, private auth: AuthService) {}
+  constructor(
+    private router: Router,
+    private api: ApiService
+  ) { }
 
   ngOnInit() {
     this.api.getLatestUser()
@@ -36,8 +38,8 @@ export class HomePage implements OnInit{
     this.router.navigate(['login']);
   }
 
-  gotoNewpost() {
-    this.router.navigate(['newpost']);
+  gotoHome() {
+    this.router.navigate(['home']);
   }
 
 }

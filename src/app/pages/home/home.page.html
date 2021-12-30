@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-grid class="container">
       <ion-row>
-        <ion-col style="display: flex; align-items: center;">
+        <ion-col>
           <img class="ideaoverflow-logo" src="./../../../assets/io-green-dark.svg" height="40px"
             alt="">
         </ion-col>
@@ -23,6 +23,15 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-grid class="container">
+    <ion-row>
+      <ion-col>
+        <h2>Best Ideas</h2>
+      </ion-col>
+      <ion-col size="auto">
+        <button type="button" class="btn-medium btn-orange" style="margin-top: 10px; margin-bottom: 10px;" (click)="gotoNewpost()">I have a great Idea</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>

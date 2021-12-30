@@ -31,6 +31,10 @@ input:-webkit-autofill {
   font-size: 0.8em;
 }
 
+ion-avatar:hover{
+  cursor: pointer;
+}
+
 input{
   background-color: var(--ion-background-color);
   display: block;
