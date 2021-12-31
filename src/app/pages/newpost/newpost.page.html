@@ -3,20 +3,14 @@
     <ion-grid class="container">
       <ion-row>
         <ion-col style="display: flex; align-items: center;">
-          <img (click)="gotoHome()" class="ideaoverflow-logo" src="./../../../assets/io-green-dark.svg" height="40px"
+          <img (click)="gotoHome()" class="ideaoverflow-logo" src="./../../../assets/icon/logo.svg" height="40px"
             alt="">
         </ion-col>
-        <ion-col *ngIf="loggedIn; else elseBlock" size="auto">
+        <ion-col *ngIf="user" size="auto">
           <ion-avatar (click)="gotoProfile()" style="height: 40px; width: 40px;">
             <img [src]="user.profileimage">
           </ion-avatar>
         </ion-col>
-        <ng-template #elseBlock>
-          <ion-col size="auto">
-            <button type="button" class="btn-medium btn-orange" style="margin-top: 10px; margin-bottom: 10px;"
-              (click)="gotoLogin()">Login</button>
-          </ion-col>
-        </ng-template>
       </ion-row>
     </ion-grid>
   </ion-toolbar>
@@ -26,9 +20,32 @@
   <ion-grid class="container">
     <ion-row>
       <ion-col>
-        <quill-editor></quill-editor>
+        <div class="form-group">
+          <label class="text-label" for="fname"><strong>Header</strong></label>
+          <input type="text" placeholder="The best Idea ever" [(ngModel)]="header" />
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <quill-editor [(ngModel)]="body"></quill-editor>
       </ion-col>
     </ion-row>
   </ion-grid>
 
 </ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center">
+        <button type="button" class="btn-medium btn-orange" (click)="savePost()"
+          *ngIf="header && body; else elseBlock">Release your post</button>
+
+        <ng-template #elseBlock>
+          <button type="button" class="btn-medium btn-disabled" disabled>Release your post</button>
+        </ng-template>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

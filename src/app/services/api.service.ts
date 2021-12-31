@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AlertController } from '@ionic/angular';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,9 @@ export class ApiService {
 
   constructor(
     private http: HttpClient,
-    private sanitizer: DomSanitizer) { }
+    private sanitizer: DomSanitizer,
+    private alertController: AlertController
+    ) { }
 
   getLatestUser(): Observable<any> {
     return this.user;
@@ -41,5 +45,50 @@ export class ApiService {
     }
 
     return this.sanitizer.bypassSecurityTrustUrl(imageURL);
+  }
+
+  createPost(header, body, userID) {
+    const obj = {
+      header,
+      body,
+      userID
+    };
+    return this.http.post<any>(environment.api + 'post/create/', obj).subscribe(async res => {
+      if (res.status === 200) {
+        console.log('that worked');
+      }
+      else {
+        const alert = await this.alertController.create({
+          cssClass: 'custom-alert-ok',
+          backdropDismiss: false,
+          header: res.header,
+          message: res.message,
+          buttons: [{
+            text: 'Fuck',
+            handler: () => {
+            }
+          }]
+        });
+
+        await alert.present();
+      }
+
+    }),
+      catchError(e => {
+        this.showAlert(e.error.message);
+        throw new Error(e);
+      });
+  }
+
+  showAlert(msg) {
+    const alert = this.alertController.create({
+      cssClass: 'custom-alert-ok',
+      backdropDismiss: false,
+      message: msg,
+      header: 'Error',
+      buttons: ['Okay']
+    });
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    alert.then(alert => alert.present());
   }
 }

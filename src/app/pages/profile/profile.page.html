@@ -3,7 +3,7 @@
     <ion-grid class="container">
       <ion-row>
         <ion-col style="display: flex; align-items: center;">
-          <img (click)="gotoHome()" class="ideaoverflow-logo" src="./../../../assets/io-green-dark.svg" height="40px"
+          <img (click)="gotoHome()" class="ideaoverflow-logo" src="./../../../assets/icon/logo.svg" height="40px"
             alt="">
         </ion-col>
         <ion-col *ngIf="loggedIn; else elseBlock" size="auto">
@@ -13,7 +13,7 @@
         </ion-col>
         <ng-template #elseBlock>
           <ion-col size="auto">
-            <button type="button" class="btn-medium btn-orange" style="margin-top: 10px; margin-bottom: 10px;"
+            <button type="button" class="btn-medium btn-orange"
               (click)="gotoLogin()">Login</button>
           </ion-col>
         </ng-template>
@@ -34,6 +34,11 @@
       <ion-row>
         <ion-col class="ion-text-center">
           <h2><strong>This user does not exist.</strong></h2>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <button type="button" class="btn-medium btn-orange" (click)="gotoHome()">Go Home</button>
         </ion-col>
       </ion-row>
     </div>

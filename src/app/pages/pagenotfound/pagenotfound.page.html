@@ -1,0 +1,49 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-grid class="container">
+      <ion-row>
+        <ion-col style="display: flex; align-items: center;">
+          <img (click)="gotoHome()" class="ideaoverflow-logo" src="./../../../assets/icon/logo.svg" height="40px"
+            alt="">
+        </ion-col>
+        <ion-col *ngIf="user; else elseBlock" size="auto">
+          <ion-avatar (click)="gotoProfile()" style="height: 40px; width: 40px;">
+            <img [src]="user.profileimage">
+          </ion-avatar>
+        </ion-col>
+        <ng-template #elseBlock>
+          <ion-col size="auto">
+            <button type="button" class="btn-medium btn-orange" (click)="gotoLogin()">Login</button>
+          </ion-col>
+        </ng-template>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="container" style="margin-top: 30px;">
+    <ion-row>
+      <ion-col>
+        <ion-grid>
+          <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
+            <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="10"
+              size-sm="10" size-md="6" size-lg="5" size-xl="5">
+              <img src="./../../../assets/404.svg" style="width: 100%;" alt="">
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="margin-top: 20px;" class="ion-text-center">
+              <h2><strong>This page does not exist.</strong></h2>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="ion-text-center">
+              <button type="button" class="btn-medium btn-orange" (click)="gotoHome()">Go Home</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

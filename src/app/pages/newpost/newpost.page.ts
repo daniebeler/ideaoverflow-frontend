@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -9,37 +10,51 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class NewpostPage implements OnInit {
 
-  loggedIn = false;
   user: any;
+
+  header: string;
+  body: string;
 
   constructor(
     private router: Router,
-    private api: ApiService
+    private api: ApiService,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
     this.api.getLatestUser()
-    .subscribe((latestUser) => {
-      this.user = latestUser;
-      if(latestUser){
-        this.loggedIn = true;
-      }
-      else{
-        this.loggedIn = false;
-      }
-    });
+      .subscribe((latestUser) => {
+        this.user = latestUser;
+      });
   }
 
   gotoProfile() {
     this.router.navigate(['profile/' + this.user.username]);
   }
 
-  gotoLogin() {
-    this.router.navigate(['login']);
-  }
-
   gotoHome() {
     this.router.navigate(['home']);
+  }
+
+  async savePost() {
+    const alert = await this.alertController.create({
+      cssClass: 'custom-alert-ok',
+      backdropDismiss: false,
+      header: 'Are you sure?',
+      message: 'MeeeM',
+      buttons: [{
+        text: 'Back'
+      }, {
+        text: 'Okay',
+        role: 'ok',
+        handler: () => {
+          console.log('header: ' + this.header);
+          console.log('body: ' + this.body);
+          this.api.createPost(this.header, this.body, this.user.id);
+        }
+      }]
+    });
+    await alert.present();
   }
 
 }

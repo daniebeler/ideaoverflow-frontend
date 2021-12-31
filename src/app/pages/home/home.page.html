@@ -2,8 +2,8 @@
   <ion-toolbar>
     <ion-grid class="container">
       <ion-row>
-        <ion-col>
-          <img class="ideaoverflow-logo" src="./../../../assets/io-green-dark.svg" height="40px"
+        <ion-col style="display: flex; align-items: center;">
+          <img class="ideaoverflow-logo" src="./../../../assets/icon/logo.svg" height="40px"
             alt="">
         </ion-col>
         <ion-col *ngIf="loggedIn; else elseBlock" size="auto">
@@ -13,7 +13,7 @@
         </ion-col>
         <ng-template #elseBlock>
           <ion-col size="auto">
-            <button type="button" class="btn-medium btn-orange" style="margin-top: 10px; margin-bottom: 10px;" (click)="gotoLogin()">Login</button>
+            <button type="button" class="btn-medium btn-orange" (click)="gotoLogin()">Login</button>
           </ion-col>
         </ng-template>
       </ion-row>
