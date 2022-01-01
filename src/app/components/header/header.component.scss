@@ -1,3 +1,35 @@
 ion-avatar:hover{
   cursor: pointer;
 }
+
+.icon-label{
+  position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    color: #222;
+}
+
+i{
+  display: flex;
+  justify-content: center;
+}
+
+input{
+  background-color: var(--ion-color-light);
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  padding-left: 40px;
+  box-sizing: border-box;
+  font-size: 0.8em;
+}
+
+*:focus {
+  outline: none;
+}

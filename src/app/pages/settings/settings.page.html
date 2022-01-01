@@ -77,69 +77,79 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col size="6">
-        <div class="form-group">
-          <label class="icon-label" for="password"><i>
-              <ion-icon name="logo-instagram"></ion-icon>
-            </i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="Instagram username"
-            [(ngModel)]="instagram" (ngModelChange)="checkForChange()" />
-        </div>
+      <ion-col>
+        <ion-grid style="padding: 0;">
+          <ion-row>
+            <ion-col style="padding: 0;">
+              <div class="form-group">
+                <label class="icon-label" for="password"><i>
+                    <ion-icon name="logo-instagram"></ion-icon>
+                  </i></label>
+                <input class="icon-input" type="text" name="fname" id="fname" placeholder="Instagram username"
+                  [(ngModel)]="instagram" (ngModelChange)="checkForChange()" />
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="padding: 0;">
+              <div class="form-group">
+                <label class="icon-label" for="password"><i>
+                    <ion-icon name="logo-twitter"></ion-icon>
+                  </i></label>
+                <input class="icon-input" type="text" name="fname" id="fname" placeholder="Twitter username"
+                  [(ngModel)]="twitter" (ngModelChange)="checkForChange()" />
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="padding: 0;">
+              <div class="form-group">
+                <label class="icon-label" for="password"><i>
+                    <ion-icon name="logo-dribbble"></ion-icon>
+                  </i></label>
+                <input class="icon-input" type="text" name="fname" id="fname" placeholder="Dribbble username"
+                  [(ngModel)]="dribbble" (ngModelChange)="checkForChange()" />
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="padding: 0;">
+              <div class="form-group">
+                <label class="icon-label" for="password"><i>
+                    <ion-icon name="logo-github"></ion-icon>
+                  </i></label>
+                <input class="icon-input" type="text" name="fname" id="fname" placeholder="Github username"
+                  [(ngModel)]="github" (ngModelChange)="checkForChange()" />
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="padding: 0;">
+              <div class="form-group">
+                <label class="icon-label" for="password"><i>
+                    <ion-icon name="logo-linkedin"></ion-icon>
+                  </i></label>
+                <input class="icon-input" type="text" name="fname" id="fname" placeholder="LinkedIn username"
+                  [(ngModel)]="linkedin" (ngModelChange)="checkForChange()" />
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="padding: 0;">
+              <div class="form-group">
+                <label class="icon-label" for="password"><i>
+                    <ion-icon name="globe-outline"></ion-icon>
+                  </i></label>
+                <input class="icon-input" type="text" name="fname" id="fname" placeholder="https://example.com"
+                  [(ngModel)]="website" (ngModelChange)="checkForChange()" />
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="6">
-        <div class="form-group">
-          <label class="icon-label" for="password"><i>
-              <ion-icon name="logo-twitter"></ion-icon>
-            </i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="Twitter username"
-            [(ngModel)]="twitter" (ngModelChange)="checkForChange()" />
-        </div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="6">
-        <div class="form-group">
-          <label class="icon-label" for="password"><i>
-              <ion-icon name="logo-dribbble"></ion-icon>
-            </i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="Dribbble username"
-            [(ngModel)]="dribbble" (ngModelChange)="checkForChange()" />
-        </div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="6">
-        <div class="form-group">
-          <label class="icon-label" for="password"><i>
-              <ion-icon name="logo-github"></ion-icon>
-            </i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="Github username"
-            [(ngModel)]="github" (ngModelChange)="checkForChange()" />
-        </div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="6">
-        <div class="form-group">
-          <label class="icon-label" for="password"><i>
-              <ion-icon name="logo-linkedin"></ion-icon>
-            </i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="LinkedIn username"
-            [(ngModel)]="linkedin" (ngModelChange)="checkForChange()" />
-        </div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="6">
-        <div class="form-group">
-          <label class="icon-label" for="password"><i>
-              <ion-icon name="globe-outline"></ion-icon>
-            </i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="https://example.com"
-            [(ngModel)]="website" (ngModelChange)="checkForChange()" />
-        </div>
+
+      <ion-col class="ion-justify-content-center" style="display: flex;">
+        <img src="./../../../assets/socialmediagirl.svg" style="width: 100%; padding-bottom: 10px;" alt="">
       </ion-col>
     </ion-row>
 

@@ -5,6 +5,14 @@
         <ion-col style="display: flex; align-items: center;">
           <img (click)="gotoHome()" class="ideaoverflow-logo" src="./../../../assets/icon/logo.svg" height="40px" alt="">
         </ion-col>
+        <ion-col size="auto">
+          <div class="form-group">
+            <label class="icon-label" for="password"><i>
+                <ion-icon name="search"></ion-icon>
+              </i></label>
+            <input class="icon-input" type="text" name="fname" id="fname" placeholder="Search" />
+          </div>
+        </ion-col>
         <ion-col *ngIf="loggedIn; else elseBlock" size="auto">
           <ion-avatar (click)="gotoProfile()" style="height: 40px; width: 40px;">
             <img [src]="user.profileimage">
@@ -17,6 +25,5 @@
         </ng-template>
       </ion-row>
     </ion-grid>
-
   </ion-toolbar>
 </ion-header>
