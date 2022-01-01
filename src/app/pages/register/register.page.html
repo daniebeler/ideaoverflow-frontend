@@ -9,22 +9,18 @@
           <h1 class="register-header"><strong>Sign up</strong></h1>
 
           <div class="form-group">
-            <label for="email"><i><ion-icon name="mail"></ion-icon></i></label>
             <input type="email" name="email" id="email" placeholder="Email" [(ngModel)]="email"/>
           </div>
 
           <div class="form-group">
-            <label for="email"><i><ion-icon name="person"></ion-icon></i></label>
             <input type="name" name="name" id="username" placeholder="Username" [(ngModel)]="username"/>
           </div>
 
           <div class="form-group">
-            <label for="email"><i><ion-icon name="lock-closed"></ion-icon></i></label>
             <input type="password" name="passwort" id="password" placeholder="Password" [(ngModel)]="password1"/>
           </div>
 
           <div class="form-group">
-            <label for="email"><i><ion-icon name="lock-closed"></ion-icon></i></label>
             <input type="password" name="passwort" id="password" placeholder="Repeat your password" [(ngModel)]="password2" (keyup.enter)="register()"/>
           </div>
 
@@ -35,7 +31,7 @@
 
         <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="6" size-xl="6" style="padding-left: 50px; padding-right: 75px;">
           <img [hidden]="devWidth < 767" src="./../../../assets/character_16.svg" style="width: 100%; padding-bottom: 10px;" alt="">
-          <p class="ion-text-center txt-gotologin">I already have an account? <strong (click)="gotoLogin()">Login here</strong></p>
+          <p class="ion-text-center txt-gotologin">Already have an account? <strong (click)="gotoLogin()">Login here</strong></p>
         </ion-col>
       </ion-row>
     </ion-grid>

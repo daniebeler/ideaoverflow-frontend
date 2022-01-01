@@ -1,24 +1,7 @@
-input:-webkit-autofill {
-  -webkit-box-shadow:0 0 0 50px var(--ion-background-color) inset;
-  -webkit-text-fill-color: black;
-}
-
 .icon-label{
   position: absolute;
-    left: 0;
+    left: 15px;
     top: 50%;
-    transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    color: #222;
-}
-
-.icon-label-both{
-  position: absolute;
-    left: 0;
-    top: 75%;
     transform: translateY(-50%);
     -moz-transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
@@ -36,25 +19,29 @@ ion-avatar:hover{
 }
 
 input{
-  background-color: var(--ion-background-color);
+  background-color: var(--ion-color-light);
+  width: 100%;
   display: block;
   border: none;
-  border-bottom: 1px solid #999;
+  border-radius: 10px;
+  padding: 15px;
   box-sizing: border-box;
   font-size: 0.8em;
-  width: 100%;
 }
 
 .icon-input{
-  padding: 6px 30px;
+  padding-left: 40px;
 }
 
 select{
-  background-color: var(--ion-background-color);
-  border: none;
-  border-bottom: 1px solid #999;
-  font-size: 0.8em;
+  background-color: var(--ion-color-light);
   width: 100%;
+  display: block;
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 0.8em;
 }
 
 .form-group{

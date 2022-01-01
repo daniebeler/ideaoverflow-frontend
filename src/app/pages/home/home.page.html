@@ -53,12 +53,26 @@
           <ion-grid>
             <ion-row>
               <ion-col>
-                <h2>{{post.Title}}</h2>
+                <h2 style="margin: 0;">{{post.Title}}</h2>
+              </ion-col>
+              <ion-col size="auto">
+                <ion-avatar (click)="gotoProfile()" style="height: 40px; width: 40px;">
+                  <img [src]="user.profileimage">
+                </ion-avatar>
               </ion-col>
             </ion-row>
             <ion-row>
               <ion-col>
                 <div innerHTML={{post.Body}}></div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-badge style="color: white; margin-right: 10px; padding: 5px;" color="secondary">programming</ion-badge>
+                <ion-badge style="color: white; margin-right: 10px; padding: 5px;" color="primary">unity</ion-badge>
+                <ion-badge style="color: white; margin-right: 10px; padding: 5px;" color="primary">mobile-game</ion-badge>
+                <ion-badge style="color: white; margin-right: 10px; padding: 5px;" color="primary">jump</ion-badge>
+                <ion-badge style="color: white; margin-right: 10px; padding: 5px;" color="primary">Game</ion-badge>
               </ion-col>
             </ion-row>
           </ion-grid>

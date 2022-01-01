@@ -1,5 +1,5 @@
 ion-content {
-  --ion-background-color: #f0f0f0;
+  --ion-background-color: var(--ion-color-primary);
 }
 
 .register-header {
@@ -17,7 +17,7 @@ ion-content {
 
 label {
   position: absolute;
-  left: 0;
+  left: 10px;
   top: 50%;
   transform: translateY(-50%);
   -moz-transform: translateY(-50%);
@@ -28,12 +28,12 @@ label {
 }
 
 input {
-  background-color: white;
+  background-color: var(--ion-color-light);
   width: 100%;
   display: block;
   border: none;
-  border-bottom: 1px solid #999;
-  padding: 6px 30px;
+  border-radius: 10px;
+  padding: 15px;
   box-sizing: border-box;
   font-size: 0.8em;
 }

@@ -34,7 +34,7 @@ export class PagenotfoundPage implements OnInit {
   }
 
   gotoHome() {
-    this.router.navigate(['home']);
+    this.router.navigate(['']);
   }
 
 }

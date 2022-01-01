@@ -69,7 +69,7 @@ export class SettingsPage implements OnInit {
   gotoHome() {
     console.log(this.isPrivate);
     console.log(this.user.private);
-    this.router.navigate(['home']);
+    this.router.navigate(['']);
   }
 
   gotoProfile() {

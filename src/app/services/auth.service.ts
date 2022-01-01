@@ -98,7 +98,7 @@ export class AuthService {
         await this.storage.set(TOKEN_KEY, res.token);
         this.user = this.helper.decodeToken(res.token);
         this.api.fetchUserFromApi(this.getUser().id);
-        this.router.navigate(['home']);
+        this.router.navigate(['']);
       }
       else {
         if (res.notverified === true) {
@@ -166,7 +166,7 @@ export class AuthService {
       // this.api.clearData();
       this.user = null;
       this.authenticationState.next(false);
-      this.router.navigate(['/home']);
+      this.router.navigate(['']);
     });
   }
 

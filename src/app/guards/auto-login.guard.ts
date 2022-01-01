@@ -19,7 +19,7 @@ export class AutoLoginGuard implements CanActivate {
       take(1),
       map(isAuthenticated => {
         if (isAuthenticated) {
-          this.router.navigate(['/home']);
+          this.router.navigate(['']);
           return false;
         }
         else {
