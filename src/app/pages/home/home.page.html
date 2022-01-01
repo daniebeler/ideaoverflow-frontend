@@ -3,8 +3,7 @@
     <ion-grid class="container">
       <ion-row>
         <ion-col style="display: flex; align-items: center;">
-          <img class="ideaoverflow-logo" src="./../../../assets/icon/logo.svg" height="40px"
-            alt="">
+          <img class="ideaoverflow-logo" src="./../../../assets/icon/logo.svg" height="40px" alt="">
         </ion-col>
         <ion-col *ngIf="loggedIn; else elseBlock" size="auto">
           <ion-avatar (click)="gotoProfile()" style="height: 40px; width: 40px;">
@@ -29,7 +28,51 @@
         <h2>Best Ideas</h2>
       </ion-col>
       <ion-col size="auto">
-        <button type="button" class="btn-medium btn-orange" style="margin-top: 10px; margin-bottom: 10px;" (click)="gotoNewpost()">I have a great Idea</button>
+        <button type="button" class="btn-medium btn-orange" style="margin-top: 10px; margin-bottom: 10px;"
+          (click)="gotoNewpost()">I have a great Idea</button>
+      </ion-col>
+    </ion-row>
+
+    <div *ngIf="!posts; else postsExists">
+      <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
+        <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="10" size-sm="10"
+          size-md="6" size-lg="4" size-xl="4">
+          <img src="./../../../assets/noprofile.svg" style="width: 100%; padding-bottom: 10px;" alt="">
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <h2><strong>Failed to load posts.</strong></h2>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <ng-template #postsExists>
+      <ion-row class="post-wrapper" *ngFor="let post of posts">
+        <ion-col>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <h2>{{post.Title}}</h2>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <div innerHTML={{post.Body}}></div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+        </ion-col>
+      </ion-row>
+
+    </ng-template>
+
+    <ion-row *ngIf="posts">
+      <ion-col>
+        <ion-grid>
+
+        </ion-grid>
       </ion-col>
     </ion-row>
   </ion-grid>

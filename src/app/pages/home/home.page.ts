@@ -13,6 +13,8 @@ export class HomePage implements OnInit{
   loggedIn = false;
   user: any;
 
+  posts: any = null;
+
   constructor(private router: Router, private api: ApiService, private auth: AuthService) {}
 
   ngOnInit() {
@@ -25,6 +27,16 @@ export class HomePage implements OnInit{
       else{
         this.loggedIn = false;
       }
+    });
+
+
+    this.getLatestPosts();
+  }
+
+  getLatestPosts(){
+    this.api.getLatestPosts().subscribe(posts => {
+      this.posts = posts;
+      console.log(this.posts);
     });
   }
 

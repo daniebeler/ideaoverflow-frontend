@@ -17,7 +17,7 @@ export class ApiService {
     private http: HttpClient,
     private sanitizer: DomSanitizer,
     private alertController: AlertController
-    ) { }
+  ) { }
 
   getLatestUser(): Observable<any> {
     return this.user;
@@ -36,11 +36,11 @@ export class ApiService {
 
   getSanitizedUrlFromArrayBuffer(data: any) {
     let imageURL = null;
-    if(data){
+    if (data) {
       const arrayBuffer = new Uint8Array(data.data).buffer;
       const blob = new Blob([arrayBuffer]);
       imageURL = URL.createObjectURL(blob);
-    } else{
+    } else {
       imageURL = '../assets/icon/favicon.png';
     }
 
@@ -78,6 +78,10 @@ export class ApiService {
         this.showAlert(e.error.message);
         throw new Error(e);
       });
+  }
+
+  getLatestPosts() {
+    return this.http.get<any>(environment.api + 'post/latest');
   }
 
   showAlert(msg) {
