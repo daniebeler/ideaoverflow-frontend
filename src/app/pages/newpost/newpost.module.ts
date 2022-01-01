@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { NewpostPageRoutingModule } from './newpost-routing.module';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 import { NewpostPage } from './newpost.page';
 import { QuillModule } from 'ngx-quill';
@@ -14,6 +15,7 @@ import { QuillModule } from 'ngx-quill';
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentsModule,
     NewpostPageRoutingModule,
     QuillModule
   ],

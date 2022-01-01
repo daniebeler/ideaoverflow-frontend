@@ -1,36 +1,18 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-grid class="container">
-      <ion-row>
-        <ion-col style="display: flex; align-items: center;">
-          <img (click)="gotoHome()" class="ideaoverflow-logo" src="./../../../assets/icon/logo.svg" height="40px"
-            alt="">
-        </ion-col>
-        <ion-col *ngIf="user" size="auto">
-
-          <button type="button" class="btn-medium btn-orange" (click)="updateUser()"
-            *ngIf="unsavedDataExists; else elseBlock">Save changes</button>
-
-          <ng-template #elseBlock>
-            <button type="button" class="btn-medium btn-disabled" disabled>Save changes</button>
-          </ng-template>
-
-        </ion-col>
-        <ion-col *ngIf="user" size="auto">
-          <ion-avatar (click)="gotoProfile()" style="height: 40px; width: 40px;">
-            <img [src]="user.profileimage">
-          </ion-avatar>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-toolbar>
-</ion-header>
+<app-header></app-header>
 
 <ion-content>
   <ion-grid class="container" style="margin-top: 30px;">
     <ion-row>
       <ion-col>
         <h1 style="padding-bottom: 20px;">General</h1>
+      </ion-col>
+      <ion-col size="auto">
+        <button type="button" class="btn-medium btn-orange" (click)="updateUser()"
+          *ngIf="unsavedDataExists; else elseBlock">Save changes</button>
+
+        <ng-template #elseBlock>
+          <button type="button" class="btn-medium btn-disabled" disabled>Save changes</button>
+        </ng-template>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -100,8 +82,8 @@
           <label class="icon-label" for="password"><i>
               <ion-icon name="logo-instagram"></ion-icon>
             </i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="Instagram username" [(ngModel)]="instagram"
-            (ngModelChange)="checkForChange()" />
+          <input class="icon-input" type="text" name="fname" id="fname" placeholder="Instagram username"
+            [(ngModel)]="instagram" (ngModelChange)="checkForChange()" />
         </div>
       </ion-col>
     </ion-row>
@@ -111,8 +93,8 @@
           <label class="icon-label" for="password"><i>
               <ion-icon name="logo-twitter"></ion-icon>
             </i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="Twitter username" [(ngModel)]="twitter"
-            (ngModelChange)="checkForChange()" />
+          <input class="icon-input" type="text" name="fname" id="fname" placeholder="Twitter username"
+            [(ngModel)]="twitter" (ngModelChange)="checkForChange()" />
         </div>
       </ion-col>
     </ion-row>
@@ -122,8 +104,8 @@
           <label class="icon-label" for="password"><i>
               <ion-icon name="logo-dribbble"></ion-icon>
             </i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="Dribbble username" [(ngModel)]="dribbble"
-            (ngModelChange)="checkForChange()" />
+          <input class="icon-input" type="text" name="fname" id="fname" placeholder="Dribbble username"
+            [(ngModel)]="dribbble" (ngModelChange)="checkForChange()" />
         </div>
       </ion-col>
     </ion-row>
@@ -133,8 +115,8 @@
           <label class="icon-label" for="password"><i>
               <ion-icon name="logo-github"></ion-icon>
             </i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="Github username" [(ngModel)]="github"
-            (ngModelChange)="checkForChange()" />
+          <input class="icon-input" type="text" name="fname" id="fname" placeholder="Github username"
+            [(ngModel)]="github" (ngModelChange)="checkForChange()" />
         </div>
       </ion-col>
     </ion-row>
@@ -144,8 +126,8 @@
           <label class="icon-label" for="password"><i>
               <ion-icon name="logo-linkedin"></ion-icon>
             </i></label>
-          <input class="icon-input" type="text" name="fname" id="fname" placeholder="LinkedIn username" [(ngModel)]="linkedin"
-            (ngModelChange)="checkForChange()" />
+          <input class="icon-input" type="text" name="fname" id="fname" placeholder="LinkedIn username"
+            [(ngModel)]="linkedin" (ngModelChange)="checkForChange()" />
         </div>
       </ion-col>
     </ion-row>

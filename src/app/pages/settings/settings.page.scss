@@ -10,12 +10,13 @@
     color: #222;
 }
 
-.text-label{
-  font-size: 0.8em;
+i{
+  display: flex;
+  justify-content: center;
 }
 
-ion-avatar:hover{
-  cursor: pointer;
+.text-label{
+  font-size: 0.8em;
 }
 
 input{
