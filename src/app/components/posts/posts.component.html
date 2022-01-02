@@ -1,0 +1,53 @@
+<div *ngIf="allLoadedPosts.length > 0; else noPosts">
+  <ion-list>
+    <ion-grid class="post-wrapper" *ngFor="let post of allLoadedPosts">
+      <ion-row>
+        <ion-col>
+          <h2 style="margin: 0;">{{post.title}}</h2>
+        </ion-col>
+        <ion-col size="auto">
+          <!-- <ion-avatar style="height: 40px; width: 40px;">
+            <img [src]="user.profileimage">
+          </ion-avatar> -->
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div innerHTML={{post.body}}></div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-badge style="color: white; margin-right: 10px; padding: 5px;" color="secondary">programming</ion-badge>
+          <ion-badge style="color: white; margin-right: 10px; padding: 5px;" color="primary">unity</ion-badge>
+          <ion-badge style="color: white; margin-right: 10px; padding: 5px;" color="primary">mobile-game</ion-badge>
+          <ion-badge style="color: white; margin-right: 10px; padding: 5px;" color="primary">jump</ion-badge>
+          <ion-badge style="color: white; margin-right: 10px; padding: 5px;" color="primary">Game</ion-badge>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more posts...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</div>
+
+<ng-template #noPosts>
+  <ion-grid>
+    <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
+      <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="10" size-sm="10"
+        size-md="6" size-lg="4" size-xl="4">
+        <img src="./../../../assets/noprofile.svg" style="width: 100%; padding-bottom: 10px;" alt="">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <h2><strong>Failed to load posts.</strong></h2>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ng-template>
