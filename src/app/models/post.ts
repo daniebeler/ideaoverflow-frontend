@@ -1,6 +1,3 @@
 export class Post {
-  id: number;
-  title: string;
-  body: string;
-  createdAt: Date;
+  constructor(public id: number, public title: string, public body: string, public creationDate: Date) { }
 }

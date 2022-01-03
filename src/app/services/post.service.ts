@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap, catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { PostAdapter } from '../adapter/post-adapter';
 import { Post } from '../models/post';
 
 @Injectable({
@@ -10,15 +11,14 @@ import { Post } from '../models/post';
 export class PostService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private adapter: PostAdapter
   ) { }
 
   getSelectedPosts(params) {
     return this.http.get<Post[]>(environment.api + 'post/newest/' + params)
       .pipe(
-        tap((posts: Post[]) => {
-          if (posts.length === 0) {throw new Error('No posts to retrieve');}
-        })
+        map((data: any[]) => data.map((item) => this.adapter.adapt(item)))
       );
   }
 }
