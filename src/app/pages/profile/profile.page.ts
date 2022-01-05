@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { FollowersPage } from 'src/app/modals/followers/followers.page';
+import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -12,16 +13,13 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ProfilePage implements OnInit {
 
-  latestUser: any = null;
-  user: any = null;
+  latestUser: User = null;
+  user: User = null;
   loggedIn = false;
   isMyProfile = false;
   isPrivate = true;
   currentProfile = '';
   amFollowingThisProfile = false;
-
-  numberOfFollowers = 0;
-  numberOfFollowees = 0;
 
   constructor(
     private auth: AuthService,
@@ -39,7 +37,7 @@ export class ProfilePage implements OnInit {
 
       console.log(this.user);
 
-      this.isPrivate = this.user.private;
+      this.isPrivate = this.user.isPrivate;
     });
 
     this.api.getLatestUser()

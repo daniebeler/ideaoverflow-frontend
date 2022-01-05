@@ -8,11 +8,7 @@ import { Adapter } from './adapter';
 
 export class PostAdapter implements Adapter<Post> {
   adapt(item: any): Post {
-    return new Post(
-      item.id,
-      item.title,
-      item.body,
-      new Date(item.creation_date)
-    );
+    item.creationdate = new Date(item.creation_date);
+    return new Post(item);
   }
 }

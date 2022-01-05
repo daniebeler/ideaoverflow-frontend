@@ -77,8 +77,8 @@
               </li>
             </ul>
 
-            <p style="margin-bottom: 0;" (click)="openFollowersModal()">Followers: {{user.followers}}</p>
-            <p style="margin-top: 0;" (click)="openFollowersModal()">Following: {{numberOfFollowees}}</p>
+            <p style="margin-bottom: 0;" (click)="openFollowersModal()">Followers: {{user.numberOfFollowers}}</p>
+            <p style="margin-top: 0;" (click)="openFollowersModal()">Following: {{user.numberOfFollowees}}</p>
 
             <div *ngIf="isMyProfile; else isNotMyProfile">
               <ion-grid style="padding: 0; padding-top: 10px;">

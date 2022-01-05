@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Post } from 'src/app/models/post';
 import { PostService } from 'src/app/services/post.service';
 
@@ -15,7 +16,8 @@ export class PostsComponent implements OnInit {
   skipPosts = 0;
 
   constructor(
-    private postService: PostService
+    private postService: PostService,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit() {
@@ -29,11 +31,10 @@ export class PostsComponent implements OnInit {
     this.queryParams = this.numberOfPosts + '/' + this.skipPosts;
 
     this.postService
-      .getSelectedPosts(this.queryParams)
-      .subscribe((posts: Post[]) => {
-        // eslint-disable-next-line @typescript-eslint/prefer-for-of
-        for (let postIndex = 0; postIndex < posts.length; postIndex++) {
-          this.allLoadedPosts.push(posts[postIndex]);
+      .getSelectedPosts(this.queryParams).subscribe((posts: Post[]) => {
+        for (const post of posts) {
+          post.body = this.sanitizer.bypassSecurityTrustHtml(post.body);
+          this.allLoadedPosts.push(post);
         }
         console.log(this.allLoadedPosts);
         if (isInitialLoad) { event.target.complete(); }

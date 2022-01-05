@@ -4,34 +4,40 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AlertController } from '@ionic/angular';
-import { catchError } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import { User } from '../models/user';
+import { UserAdapter } from '../adapter/user-adapter';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  private user = new BehaviorSubject<any>(null);
+  private user = new BehaviorSubject<User>(null);
 
   constructor(
     private http: HttpClient,
     private sanitizer: DomSanitizer,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private adapter: UserAdapter
   ) { }
 
-  getLatestUser(): Observable<any> {
+  getLatestUser(): Observable<User> {
     return this.user;
   }
 
   fetchUserFromApi(id) {
     this.http.get<any>(environment.api + 'user/daten/' + id).subscribe(user => {
       user.profileimage = this.getSanitizedUrlFromArrayBuffer(user.profileimage);
-      this.user.next(user);
+      this.user.next(this.adapter.adapt(user));
+      console.log(user);
     });
   }
 
   getUser(username): any {
-    return this.http.get<any>(environment.api + 'user/databyusername/' + username);
+    return this.http.get<any>(environment.api + 'user/databyusername/' + username).pipe(
+      map(data => this.adapter.adapt(data))
+    );
   }
 
   getSanitizedUrlFromArrayBuffer(data: any) {

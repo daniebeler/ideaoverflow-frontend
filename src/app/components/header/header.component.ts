@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class HeaderComponent implements OnInit {
 
-  user: any;
+  user: User;
   loggedIn = false;
 
   constructor(
@@ -20,6 +21,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.api.getLatestUser()
     .subscribe((latestUser) => {
+      console.log(latestUser);
       this.user = latestUser;
       if(latestUser){
         this.loggedIn = true;

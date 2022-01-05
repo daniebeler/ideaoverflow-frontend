@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-settings',
@@ -29,7 +30,8 @@ export class SettingsPage implements OnInit {
   newPassword1: string;
   newPassword2: string;
 
-  user: any = null;
+  user: User = null;
+
   countries: any = null;
   states: any = null;
 
@@ -54,7 +56,7 @@ export class SettingsPage implements OnInit {
   setLocalUserValues() {
     this.firstname = this.user.firstname;
     this.lastname = this.user.lastname;
-    this.isPrivate = !!this.user.private;
+    this.isPrivate = !!this.user.isPrivate;
     this.country = this.findCountry(this.user.country);
     this.state = this.user.state;
     this.instagram = this.user.instagram;
@@ -68,7 +70,7 @@ export class SettingsPage implements OnInit {
 
   gotoHome() {
     console.log(this.isPrivate);
-    console.log(this.user.private);
+    console.log(this.user.isPrivate);
     this.router.navigate(['']);
   }
 
@@ -127,7 +129,7 @@ export class SettingsPage implements OnInit {
     if (
       this.user.firstname !== this.firstname
       || this.user.lastname !== this.lastname
-      || !!this.user.private !== this.isPrivate
+      || !!this.user.isPrivate !== this.isPrivate
       || this.user.country !== this.country.country
       || this.user.state !== this.state
       || this.user.instagram !== this.instagram
