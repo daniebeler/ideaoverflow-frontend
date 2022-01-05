@@ -20,23 +20,7 @@
         </ion-grid>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col>
-        <h4 style="margin: 0;"><strong>Trending Ideas</strong></h4>
-      </ion-col>
-      <ion-col size="auto">
-        <div id="myBtnContainer">
-          <button class="btn active">Best</button>
-          <button class="btn">Newest</button>
-          <button class="btn">Most liked</button>
-        </div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <app-posts></app-posts>
-      </ion-col>
-    </ion-row>
+    <app-posts [header]="postsHeader"></app-posts>
   </ion-grid>
 
   <app-footer></app-footer>

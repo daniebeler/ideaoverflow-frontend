@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +12,8 @@ export class HomePage implements OnInit {
 
   loggedIn = false;
   user: any;
+
+  postsHeader = 'Popular Posts';
 
   constructor(
     private router: Router,

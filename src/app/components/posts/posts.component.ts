@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Post } from 'src/app/models/post';
 import { PostService } from 'src/app/services/post.service';
@@ -9,6 +9,9 @@ import { PostService } from 'src/app/services/post.service';
   styleUrls: ['./posts.component.scss'],
 })
 export class PostsComponent implements OnInit {
+
+  @Input() header = '';
+  @Input() filterByUsername = '';
 
   queryParams: string;
   allLoadedPosts: Post[] = [];
@@ -28,7 +31,13 @@ export class PostsComponent implements OnInit {
     if (this.skipPosts === 20) {
       event.target.disabled = true;
     }
-    this.queryParams = this.numberOfPosts + '/' + this.skipPosts;
+
+    if(this.filterByUsername){
+      this.queryParams = this.numberOfPosts + '/' + this.skipPosts + '/' + this.filterByUsername;
+    }
+    else{
+      this.queryParams = this.numberOfPosts + '/' + this.skipPosts;
+    }
 
     this.postService
       .getSelectedPosts(this.queryParams).subscribe((posts: Post[]) => {

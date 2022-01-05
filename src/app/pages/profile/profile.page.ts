@@ -22,6 +22,9 @@ export class ProfilePage implements OnInit {
   currentProfile = '';
   amFollowingThisProfile = false;
 
+  postsHeader = '';
+  postsFilter = '';
+
   constructor(
     private authService: AuthService,
     private apiService: ApiService,
@@ -37,7 +40,8 @@ export class ProfilePage implements OnInit {
       this.user = res;
       this.user.profileimage = this.apiService.getSanitizedUrlFromArrayBuffer(this.user.profileimage);
 
-      console.log(this.user);
+      this.postsHeader = 'Posts by ' + this.user.firstname + ' ' + this.user.lastname;
+      this.postsFilter = this.user.username;
 
       this.isPrivate = this.user.isPrivate;
     });

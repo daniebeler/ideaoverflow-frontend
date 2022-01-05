@@ -40,6 +40,10 @@ export class ApiService {
     );
   }
 
+  getNumberOfTotalUsers() {
+    return this.http.get<any>(environment.api + 'user/numberoftotalusers');
+  }
+
   getSanitizedUrlFromArrayBuffer(data: any) {
     let imageURL = null;
     if (data) {

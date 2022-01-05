@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/services/api.service';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,8 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  numberOfTotalPosts = 0;
+  numberOfTotalUsers = 0;
 
-  ngOnInit() {}
+  constructor(
+    private postService: PostService,
+    private apiService: ApiService
+  ) { }
+
+  ngOnInit() {
+    this.postService.getNumberOfTotalPosts().subscribe(numberOfTotalPosts => {
+      this.numberOfTotalPosts = numberOfTotalPosts.numberoftotalposts;
+    });
+
+    this.apiService.getNumberOfTotalUsers().subscribe(numberOfTotalUsers => {
+      this.numberOfTotalUsers = numberOfTotalUsers.numberoftotalusers;
+    });
+  }
 
 }
