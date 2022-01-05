@@ -5,6 +5,7 @@ import { FollowersPage } from 'src/app/modals/followers/followers.page';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { FollowerService } from 'src/app/services/follower.service';
 
 @Component({
   selector: 'app-profile',
@@ -22,8 +23,9 @@ export class ProfilePage implements OnInit {
   amFollowingThisProfile = false;
 
   constructor(
-    private auth: AuthService,
-    private api: ApiService,
+    private authService: AuthService,
+    private apiService: ApiService,
+    private followerService: FollowerService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private modalController: ModalController
@@ -31,16 +33,16 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {
     this.currentProfile = this.activatedRoute.snapshot.paramMap.get('username');
-    this.api.getUser(this.currentProfile).subscribe(res => {
+    this.apiService.getUser(this.currentProfile).subscribe(res => {
       this.user = res;
-      this.user.profileimage = this.api.getSanitizedUrlFromArrayBuffer(this.user.profileimage);
+      this.user.profileimage = this.apiService.getSanitizedUrlFromArrayBuffer(this.user.profileimage);
 
       console.log(this.user);
 
       this.isPrivate = this.user.isPrivate;
     });
 
-    this.api.getLatestUser()
+    this.apiService.getLatestUser()
       .subscribe((latestUser) => {
         this.latestUser = latestUser;
         if (latestUser) {
@@ -49,7 +51,7 @@ export class ProfilePage implements OnInit {
             this.isMyProfile = true;
           }
           else {
-            this.auth.checkIfFollowing(this.user.id).subscribe(following => {
+            this.followerService.checkIfFollowing(this.user.id).subscribe(following => {
               this.amFollowingThisProfile = following.user[0].following;
             });
           }
@@ -72,7 +74,7 @@ export class ProfilePage implements OnInit {
   }
 
   logout() {
-    this.auth.logout();
+    this.authService.logout();
   }
 
   openLink(url) {
@@ -96,11 +98,11 @@ export class ProfilePage implements OnInit {
   }
 
   follow() {
-    this.auth.addFollower(this.user.id);
+    this.followerService.addFollower(this.user.id);
   }
 
   unfollow() {
-    this.auth.removeFollower(this.user.id);
+    this.followerService.removeFollower(this.user.id);
   }
 
 }

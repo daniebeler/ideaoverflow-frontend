@@ -27,7 +27,7 @@ export class ApiService {
   }
 
   fetchUserFromApi(id) {
-    this.http.get<any>(environment.api + 'user/daten/' + id).subscribe(user => {
+    this.http.get<any>(environment.api + 'user/databyuserid/' + id).subscribe(user => {
       user.profileimage = this.getSanitizedUrlFromArrayBuffer(user.profileimage);
       this.user.next(this.adapter.adapt(user));
       console.log(user);

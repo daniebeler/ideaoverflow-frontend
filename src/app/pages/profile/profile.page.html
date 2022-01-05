@@ -114,9 +114,6 @@
             </ng-template>
           </div>
         </ion-col>
-        <!-- <ion-col size-xs="12" size-sm="12" size-md="8" size-lg="8" size-xl="8" style="background-color: white;">
-          anderer shit
-        </ion-col> -->
       </ion-row>
 
       <ion-row style="margin-top: 20px; border-top: 1px solid rgb(233, 233, 233);">
@@ -125,11 +122,24 @@
             <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
               <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="10"
                 size-sm="10" size-md="6" size-lg="5" size-xl="5">
-                <img src="./../../../assets/noposts.svg" style="width: 100%;" alt="">
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <h4 style="margin: 0;"><strong>Posts by Daniel Hiebeler</strong></h4>
+              </ion-col>
+              <ion-col size="auto">
+                <div id="myBtnContainer">
+                  <button class="btn active">Best</button>
+                  <button class="btn">Newest</button>
+                  <button class="btn">Most liked</button>
+                </div>
               </ion-col>
             </ion-row>
             <ion-row>
               <ion-col class="ion-text-center">
+                <app-posts></app-posts>
+                <img src="./../../../assets/noposts.svg" style="width: 100%;" alt="">
                 <h2 style="margin-top: 0;"><strong>No posts yet...</strong></h2>
               </ion-col>
             </ion-row>
@@ -138,4 +148,7 @@
       </ion-row>
     </ng-template>
   </ion-grid>
+
+
+  <app-footer></app-footer>
 </ion-content>

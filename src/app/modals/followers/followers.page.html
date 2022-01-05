@@ -16,12 +16,30 @@
   <super-tabs-container>
     <super-tab>
       <ion-content>
-        Page #1
+        <ion-grid *ngFor="let follower of followers">
+          <ion-row>
+            <ion-col>
+              <p>{{follower.username}}</p>
+            </ion-col>
+            <ion-col>
+              <p>{{follower.username}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-content>
     </super-tab>
     <super-tab>
       <ion-content>
-        Page #2
+        <ion-grid *ngFor="let followee of followees">
+          <ion-row>
+            <ion-col>
+              <p>{{followee.username}}</p>
+            </ion-col>
+            <ion-col>
+              <p>{{followee.username}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-content>
     </super-tab>
   </super-tabs-container>

@@ -17,11 +17,11 @@ const TOKEN_KEY = 'access_token_1';
 export class AuthService {
 
   authenticationState = new BehaviorSubject<boolean>(null);
-  private user = null;
+  private decodedUserToken = null;
 
   constructor(
     private router: Router,
-    private http: HttpClient,
+    private httpClient: HttpClient,
     private alertController: AlertController,
     private storage: Storage,
     private helper: JwtHelperService,
@@ -40,7 +40,7 @@ export class AuthService {
         const isExpired = this.helper.isTokenExpired(token);
 
         if (!isExpired) {
-          this.user = decoded;
+          this.decodedUserToken = decoded;
           this.authenticationState.next(true);
           this.api.fetchUserFromApi(this.getUser().id);
         }
@@ -60,7 +60,7 @@ export class AuthService {
       password2
     };
 
-    return this.http.post<any>(environment.api + 'user/register', obj).subscribe(async res => {
+    return this.httpClient.post<any>(environment.api + 'user/register', obj).subscribe(async res => {
       if (res.status === 201) {
 
         this.router.navigate(['welcome']);
@@ -93,10 +93,10 @@ export class AuthService {
 
   login(email, password) {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    this.http.post<any>(environment.api + 'user/login', { email, password }).subscribe(async res => {
+    this.httpClient.post<any>(environment.api + 'user/login', { email, password }).subscribe(async res => {
       if (res.token) {
         await this.storage.set(TOKEN_KEY, res.token);
-        this.user = this.helper.decodeToken(res.token);
+        this.decodedUserToken = this.helper.decodeToken(res.token);
         this.api.fetchUserFromApi(this.getUser().id);
         this.router.navigate(['']);
       }
@@ -142,7 +142,7 @@ export class AuthService {
   }
 
   verify(code) {
-    return this.http.get<any>(environment.api + 'user/verify/' + code);
+    return this.httpClient.get<any>(environment.api + 'user/verify/' + code);
   }
 
   showAlert(msg) {
@@ -158,20 +158,20 @@ export class AuthService {
   }
 
   public getUser() {
-    return this.user;
+    return this.decodedUserToken;
   }
 
   logout() {
     this.storage.remove(TOKEN_KEY).then(() => {
       // this.api.clearData();
-      this.user = null;
+      this.decodedUserToken = null;
       this.authenticationState.next(false);
       this.router.navigate(['']);
     });
   }
 
   updateUser(dataToUpdate) {
-    return this.http.post<any>(environment.api + 'user/changedata', dataToUpdate).subscribe(async res => {
+    return this.httpClient.post<any>(environment.api + 'user/changedata', dataToUpdate).subscribe(async res => {
       if (res.status === 200) {
         this.api.fetchUserFromApi(this.getUser().id);
       }
@@ -205,7 +205,7 @@ export class AuthService {
       newPassword2,
       id: this.getUser().id
     };
-    return this.http.post<any>(environment.api + 'user/changepw', obj).subscribe(async res => {
+    return this.httpClient.post<any>(environment.api + 'user/changepw', obj).subscribe(async res => {
       const alert = await this.alertController.create({
         cssClass: 'custom-alert-ok',
         backdropDismiss: false,
@@ -225,80 +225,6 @@ export class AuthService {
       });
   }
 
-  addFollower(followeeID) {
-    const obj = {
-      followerID: this.getUser().id,
-      followeeID
-    };
-    return this.http.post<any>(environment.api + 'user/follow', obj).subscribe(async res => {
-      if (res.status === 200) {
-        this.api.fetchUserFromApi(this.getUser().id);
-      }
-      else {
-        const alert = await this.alertController.create({
-          cssClass: 'custom-alert-ok',
-          backdropDismiss: false,
-          header: res.header,
-          message: res.message,
-          buttons: [{
-            text: 'Fuck',
-            handler: () => {
-            }
-          }]
-        });
 
-        await alert.present();
-      }
-
-    }),
-      catchError(e => {
-        this.showAlert(e.error.message);
-        throw new Error(e);
-      });
-  }
-
-  removeFollower(followeeID) {
-    const obj = {
-      followerID: this.getUser().id,
-      followeeID
-    };
-    return this.http.post<any>(environment.api + 'user/unfollow', obj).subscribe(async res => {
-      if (res.status === 200) {
-        this.api.fetchUserFromApi(this.getUser().id);
-      }
-      else {
-        const alert = await this.alertController.create({
-          cssClass: 'custom-alert-ok',
-          backdropDismiss: false,
-          header: res.header,
-          message: res.message,
-          buttons: [{
-            text: 'Fuck',
-            handler: () => {
-            }
-          }]
-        });
-
-        await alert.present();
-      }
-
-    }),
-      catchError(e => {
-        this.showAlert(e.error.message);
-        throw new Error(e);
-      });
-  }
-
-  getFollowees(id) {
-    return this.http.get<any>(environment.api + 'user/followees/' + id);
-  }
-
-  checkIfFollowing(followeeID) {
-    const obj = {
-      followerID: this.getUser().id,
-      followeeID
-    };
-    return this.http.post<any>(environment.api + 'user/checkfollow', obj);
-  }
 
 }
