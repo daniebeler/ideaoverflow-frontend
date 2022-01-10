@@ -69,7 +69,7 @@ export class ProfilePage implements OnInit {
   async openFollowersModal() {
     const modal = await this.modalController.create({
       component: FollowersPage,
-      cssClass: 'bezahlen-modal',
+      cssClass: 'follower-modal',
       swipeToClose: true,
       presentingElement: await this.modalController.getTop()
     });

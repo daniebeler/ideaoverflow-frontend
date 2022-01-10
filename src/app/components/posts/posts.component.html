@@ -1,7 +1,7 @@
 <div *ngIf="allLoadedPosts.length > 0; else noPosts">
   <ion-row>
     <ion-col>
-      <h4 style="margin: 0;"><strong>{{header}}</strong></h4>
+      <h2 style="margin: 0;">{{header}}</h2>
     </ion-col>
     <ion-col size="auto">
       <div id="myBtnContainer">
@@ -14,10 +14,10 @@
   <ion-row>
     <ion-col>
       <ion-list>
-        <ion-grid class="post-wrapper" *ngFor="let post of allLoadedPosts">
-          <ion-row>
-            <ion-col>
-              <h2 style="margin: 0;">{{post.title}}</h2>
+        <ion-grid style="padding: 0;" class="post-wrapper" *ngFor="let post of allLoadedPosts">
+          <ion-row style="padding: 0;">
+            <ion-col style="padding: 0;">
+              <h1 style="margin: 0;">{{post.title}}</h1>
             </ion-col>
             <ion-col size="auto">
               <!-- <ion-avatar style="height: 40px; width: 40px;">
@@ -30,7 +30,7 @@
               <div [innerHTML]=post.body></div>
             </ion-col>
           </ion-row>
-          <ion-row>
+          <!-- <ion-row>
             <ion-col>
               <ion-badge style="color: white; margin-right: 10px; padding: 5px;" color="secondary">programming
               </ion-badge>
@@ -38,6 +38,12 @@
               <ion-badge style="color: white; margin-right: 10px; padding: 5px;" color="primary">mobile-game</ion-badge>
               <ion-badge style="color: white; margin-right: 10px; padding: 5px;" color="primary">jump</ion-badge>
               <ion-badge style="color: white; margin-right: 10px; padding: 5px;" color="primary">Game</ion-badge>
+            </ion-col>
+          </ion-row> -->
+          <ion-row>
+            <ion-col>
+              <hr
+                style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin-top: 20px; margin-right: 10px;">
             </ion-col>
           </ion-row>
         </ion-grid>

@@ -35,7 +35,6 @@ body {
   background: var(--ion-color-primary);
 }
 
-
 [contenteditable] {
   -webkit-user-select: text;
   user-select: text;
@@ -43,18 +42,18 @@ body {
 
 @font-face {
   font-family: "poppins-regular";
-  src: url("/assets/fonts/Poppins-Regular.ttf") format("truetype");
+  src: url("/assets/fonts/Segoe.ttf") format("truetype");
   font-display: swap;
 }
 
 @font-face {
   font-family: "poppins-bold";
-  src: url("/assets/fonts/Poppins-Bold.ttf") format("truetype");
+  src: url("/assets/fonts/Segoe-Bold.ttf") format("truetype");
   font-display: swap;
   font-weight: 500;
 }
 
-*:not(h1) {
+* {
   font-family: "poppins-regular", sans-serif;
 }
 
@@ -62,8 +61,23 @@ ion-header {
   border-bottom: 1px solid rgb(233, 233, 233);
 }
 
+* {
+  color: var(--ion-color-secondary);
+}
+
+p {
+  margin-top: 0;
+}
+
 h1 {
   font-family: "poppins-bold", sans-serif !important;
+  font-weight: 1000 !important;
+  font-size: 2.6rem;
+}
+
+h2 {
+  font-family: "poppins-bold", sans-serif !important;
+  font-weight: 1000 !important;
 }
 
 button:focus,
@@ -211,5 +225,13 @@ ion-alert {
 
   .alert-button:nth-of-type(2) {
     background-color: adjust-color($color: #99c1de);
+  }
+}
+
+.follower-modal {
+  .modal-wrapper {
+    height: 30%;
+    width: 90%;
+    border-radius: 15px;
   }
 }
