@@ -81,62 +81,70 @@
       </ion-row>
       <ion-row>
         <ion-col style="margin-bottom: 20px; margin-top: 50px">
-          <p style="margin-bottom: 0; margin-right: 20px; display: inline-block;" (click)="openFollowersModal()">
+          <p style="margin-bottom: 0; margin-right: 20px; display: inline-block;" (click)="showFollowers()">
             {{user.numberOfFollowers}} Followers</p>
-          <p style="margin-top: 0; display: inline-block; margin-bottom: 0;" (click)="openFollowersModal()">
+          <p style="margin-top: 0; display: inline-block; margin-bottom: 0;" (click)="showFollowers()">
             {{user.numberOfFollowees}} Following</p>
           <hr style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin-right: 10px;">
         </ion-col>
       </ion-row>
 
-      <ion-row>
-        <ion-col style="margin-bottom: 20px; margin-top: 30px">
-          <h3>Social Media</h3>
-          <ul>
-            <li *ngIf="user.github">
-              <ion-icon (click)="openLink('https://github.com/' + user.github)" class="socialmedia-icon"
-                style="height: 20px; width: 20px;" name="logo-github"></ion-icon>
-            </li>
-            <li *ngIf="user.twitter">
-              <ion-icon (click)="openLink('https://twitter.com/' + user.twitter)" class="socialmedia-icon"
-                style="height: 20px; width: 20px;" name="logo-twitter"></ion-icon>
-            </li>
-            <li *ngIf="user.instagram">
-              <ion-icon (click)="openLink('https://instagram.com/' + user.instagram)" class="socialmedia-icon"
-                style="height: 20px; width: 20px;" name="logo-instagram"></ion-icon>
-            </li>
-            <li *ngIf="user.dribbble">
-              <ion-icon (click)="openLink('https://dribbble.com/' + user.dribbble)" class="socialmedia-icon"
-                style="height: 20px; width: 20px;" name="logo-dribbble"></ion-icon>
-            </li>
-            <li *ngIf="user.linkedin">
-              <ion-icon (click)="openLink('https://www.linkedin.com/in/' + user.linkedin)" class="socialmedia-icon"
-                style="height: 20px; width: 20px;" name="logo-linkedin"></ion-icon>
-            </li>
-            <li *ngIf="user.website">
-              <ion-icon (click)="openLink(user.website)" class="socialmedia-icon" style="height: 20px; width: 20px;"
-                name="globe-outline"></ion-icon>
-            </li>
-          </ul>
+      <div *ngIf="showFollowersPage; else nofollowers">
+        <app-followers></app-followers>
+      </div>
 
-          <p style="margin-top: 30px;" *ngIf="user.country">
-            <ion-icon name="location-outline"></ion-icon><span *ngIf="user.state">{{user.state}},
-            </span>{{user.country}}
-          </p>
-        </ion-col>
-      </ion-row>
+      <ng-template #nofollowers>
 
 
+        <ion-row>
+          <ion-col style="margin-bottom: 20px; margin-top: 30px">
+            <h3>Social Media</h3>
+            <ul>
+              <li *ngIf="user.github">
+                <ion-icon (click)="openLink('https://github.com/' + user.github)" class="socialmedia-icon"
+                  style="height: 20px; width: 20px;" name="logo-github"></ion-icon>
+              </li>
+              <li *ngIf="user.twitter">
+                <ion-icon (click)="openLink('https://twitter.com/' + user.twitter)" class="socialmedia-icon"
+                  style="height: 20px; width: 20px;" name="logo-twitter"></ion-icon>
+              </li>
+              <li *ngIf="user.instagram">
+                <ion-icon (click)="openLink('https://instagram.com/' + user.instagram)" class="socialmedia-icon"
+                  style="height: 20px; width: 20px;" name="logo-instagram"></ion-icon>
+              </li>
+              <li *ngIf="user.dribbble">
+                <ion-icon (click)="openLink('https://dribbble.com/' + user.dribbble)" class="socialmedia-icon"
+                  style="height: 20px; width: 20px;" name="logo-dribbble"></ion-icon>
+              </li>
+              <li *ngIf="user.linkedin">
+                <ion-icon (click)="openLink('https://www.linkedin.com/in/' + user.linkedin)" class="socialmedia-icon"
+                  style="height: 20px; width: 20px;" name="logo-linkedin"></ion-icon>
+              </li>
+              <li *ngIf="user.website">
+                <ion-icon (click)="openLink(user.website)" class="socialmedia-icon" style="height: 20px; width: 20px;"
+                  name="globe-outline"></ion-icon>
+              </li>
+            </ul>
 
-      <ion-row>
-        <ion-col style="margin-bottom: 20px; margin-top: 30px">
-          <hr
-            style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin-top: 20px; margin-right: 10px;">
-        </ion-col>
-      </ion-row>
+            <p style="margin-top: 30px;" *ngIf="user.country">
+              <ion-icon name="location-outline"></ion-icon><span *ngIf="user.state">{{user.state}},
+              </span>{{user.country}}
+            </p>
+          </ion-col>
+        </ion-row>
 
 
-      <app-posts [header]="postsHeader" [filterByUsername]="postsFilter"></app-posts>
+
+        <ion-row>
+          <ion-col style="margin-bottom: 20px; margin-top: 30px">
+            <hr
+              style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin-top: 20px; margin-right: 10px;">
+          </ion-col>
+        </ion-row>
+
+
+        <app-posts [header]="postsHeader" [filterByUsername]="postsFilter"></app-posts>
+      </ng-template>
     </ng-template>
   </ion-grid>
 

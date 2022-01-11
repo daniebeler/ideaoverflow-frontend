@@ -4,26 +4,18 @@ import { FollowerService } from 'src/app/services/follower.service';
 
 @Component({
   selector: 'app-followers',
-  templateUrl: './followers.page.html',
-  styleUrls: ['./followers.page.scss'],
+  templateUrl: './followers.component.html',
+  styleUrls: ['./followers.component.scss'],
 })
-export class FollowersPage implements OnInit {
+export class FollowersComponent implements OnInit {
 
   followers: User[] = [];
-  followees: User[] = [];
 
-  constructor(
-    private followerService: FollowerService
-  ) { }
+  constructor(private followerService: FollowerService) { }
 
   ngOnInit() {
     this.followerService.getFollowers('daniebeler').subscribe(res => {
       this.followers = res;
-      console.log(res);
-    });
-
-    this.followerService.getFollowees('daniebeler').subscribe(res => {
-      this.followees = res;
       console.log(res);
     });
   }

@@ -4,8 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
-import { SafeUrl } from '@angular/platform-browser';
-import { SanitizerService } from 'src/app/services/sanitizer.service';
 
 @Component({
   selector: 'app-settings',
@@ -19,8 +17,7 @@ export class SettingsPage implements OnInit {
   isPrivate: boolean;
   country: any;
   state: string;
-  profilePictureSource: any;
-  profilePicture: SafeUrl;
+  profilePicture: any;
 
   instagram: string;
   twitter: string;
@@ -44,10 +41,7 @@ export class SettingsPage implements OnInit {
     private router: Router,
     private auth: AuthService,
     private api: ApiService,
-    private httpClient: HttpClient,
-    private sanitizerService: SanitizerService) {
-
-  }
+    private httpClient: HttpClient) { }
 
   ngOnInit() {
     this.httpClient.get('./assets/json/countries.json').subscribe(data => {
@@ -73,6 +67,7 @@ export class SettingsPage implements OnInit {
     this.github = this.user.github;
     this.linkedin = this.user.linkedin;
     this.website = this.user.website;
+    this.profilePicture = this.user.profileimage;
     this.checkForChange();
   }
 
@@ -94,7 +89,7 @@ export class SettingsPage implements OnInit {
       private: this.isPrivate,
       country: this.country.country,
       state: this.state,
-      profilepicture: this.profilePictureSource,
+      profilepicture: this.profilePicture,
       instagram: this.instagram,
       twitter: this.twitter,
       dribbble: this.dribbble,
@@ -128,11 +123,7 @@ export class SettingsPage implements OnInit {
     const fileReader = new FileReader();
     fileReader.readAsDataURL(event.target.files[0]);
     fileReader.onload = () => {
-      this.profilePictureSource = fileReader.result;
-      console.log(this.profilePictureSource);
-      this.profilePicture = this.sanitizerService.getSanitizedUrlFromArrayBuffer(this.profilePictureSource);
-      console.log(this.profilePicture);
-      console.log(this.user.profileimage);
+      this.profilePicture = fileReader.result;
       this.checkForChange();
     };
   }

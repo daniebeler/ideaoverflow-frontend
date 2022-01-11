@@ -15,6 +15,17 @@
         </ng-template>
       </ion-col>
     </ion-row>
+
+    <ion-row style="margin-bottom: 50px;" *ngIf="user">
+      <ion-col style="display: flex;" class="ion-justify-content-center">
+        <div class="profile-pic-div">
+          <img [src]="profilePicture" id="photo">
+          <input type="file" id="file" accept=".png,.jpg," (change)="onFileChange($event)">
+          <label for="file" id="uploadBtn">Change</label>
+        </div>
+      </ion-col>
+    </ion-row>
+
     <ion-row>
       <ion-col>
         <div class="form-group">
@@ -59,14 +70,6 @@
             <option value="">--Leave empty--</option>
             <option *ngFor="let state of country.states" [ngValue]="state">{{state}}</option>
           </select>
-        </div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <div class="form-group">
-          <label class="text-label" for="fname"><strong>Profile Image</strong></label>
-          <input type="file" accept=".png,.jpg," (change)="onFileChange($event)" />
         </div>
       </ion-col>
     </ion-row>

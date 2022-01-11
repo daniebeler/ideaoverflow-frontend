@@ -28,10 +28,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/verify/verify.module').then(m => m.VerifyPageModule)
   },
   {
-    path: 'followers',
-    loadChildren: () => import('./modals/followers/followers.module').then(m => m.FollowersPageModule)
-  },
-  {
     path: 'newpost',
     loadChildren: () => import('./pages/newpost/newpost.module').then(m => m.NewpostPageModule),
     canActivate: [AuthGuard]

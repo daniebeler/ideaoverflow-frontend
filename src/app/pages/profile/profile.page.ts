@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { FollowersPage } from 'src/app/modals/followers/followers.page';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -24,6 +23,8 @@ export class ProfilePage implements OnInit {
 
   postsHeader = '';
   postsFilter = '';
+
+  showFollowersPage = false;
 
   constructor(
     private authService: AuthService,
@@ -65,17 +66,6 @@ export class ProfilePage implements OnInit {
       });
   }
 
-  async openFollowersModal() {
-    const modal = await this.modalController.create({
-      component: FollowersPage,
-      cssClass: 'follower-modal',
-      swipeToClose: true,
-      presentingElement: await this.modalController.getTop()
-    });
-
-    return await modal.present();
-  }
-
   logout() {
     this.authService.logout();
   }
@@ -106,6 +96,10 @@ export class ProfilePage implements OnInit {
 
   unfollow() {
     this.followerService.removeFollower(this.user.id);
+  }
+
+  showFollowers() {
+    this.showFollowersPage = true;
   }
 
 }

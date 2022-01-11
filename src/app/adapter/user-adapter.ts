@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { User } from '../models/user';
 import { SanitizerService } from '../services/sanitizer.service';
 import { Adapter } from './adapter';
