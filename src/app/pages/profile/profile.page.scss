@@ -11,3 +11,24 @@ li{
 .socialmedia-icon:hover{
   cursor: pointer;
 }
+
+.btn {
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  padding: 10px 10px;
+  background-color: #fff;
+  color: #414141c2;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.btn:hover {
+  background-color: #cfcfcf6c;
+}
+
+.btn.active {
+  background-color: #cfcfcf6c;
+  color: var(--ion-color-secondary);
+  font-family: "poppins-bold", sans-serif !important;
+}

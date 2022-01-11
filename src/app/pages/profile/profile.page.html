@@ -21,7 +21,6 @@
       </ion-row>
     </div>
 
-
     <ng-template #userExists>
       <ng-container *ngIf="isPrivate && !isMyProfile; else myProfile">
         <ion-row>
@@ -79,26 +78,29 @@
           </ng-template>
         </ion-col>
       </ion-row>
+      <ion-row style="margin-top: 50px;">
+        <ion-col size="auto">
+            <div id="myBtnContainer">
+              <button (click)="showComponent('about')" class="btn active">About</button>
+              <button (click)="showComponent('followers')" class="btn">{{user.numberOfFollowers}} Followers</button>
+              <button (click)="showComponent('followers')" class="btn">{{user.numberOfFollowees}} Following</button>
+            </div>
+        </ion-col>
+      </ion-row>
       <ion-row>
-        <ion-col style="margin-bottom: 20px; margin-top: 50px">
-          <p style="margin-bottom: 0; margin-right: 20px; display: inline-block;" (click)="showFollowers()">
-            {{user.numberOfFollowers}} Followers</p>
-          <p style="margin-top: 0; display: inline-block; margin-bottom: 0;" (click)="showFollowers()">
-            {{user.numberOfFollowees}} Following</p>
+        <ion-col>
           <hr style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin-right: 10px;">
         </ion-col>
       </ion-row>
 
-      <div *ngIf="showFollowersPage; else nofollowers">
+      <div *ngIf="activeComponent === 'followers'; else nofollowers">
         <app-followers></app-followers>
       </div>
 
       <ng-template #nofollowers>
-
-
         <ion-row>
           <ion-col style="margin-bottom: 20px; margin-top: 30px">
-            <h3>Social Media</h3>
+            <h2>Social Media</h2>
             <ul>
               <li *ngIf="user.github">
                 <ion-icon (click)="openLink('https://github.com/' + user.github)" class="socialmedia-icon"

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -24,15 +23,14 @@ export class ProfilePage implements OnInit {
   postsHeader = '';
   postsFilter = '';
 
-  showFollowersPage = false;
+  activeComponent = 'about';
 
   constructor(
     private authService: AuthService,
     private apiService: ApiService,
     private followerService: FollowerService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private modalController: ModalController
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -98,8 +96,8 @@ export class ProfilePage implements OnInit {
     this.followerService.removeFollower(this.user.id);
   }
 
-  showFollowers() {
-    this.showFollowersPage = true;
+  showComponent(component: string) {
+    this.activeComponent = component;
   }
 
 }
