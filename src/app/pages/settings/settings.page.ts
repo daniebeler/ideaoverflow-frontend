@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
+import { SafeUrl } from '@angular/platform-browser';
+import { SanitizerService } from 'src/app/services/sanitizer.service';
 
 @Component({
   selector: 'app-settings',
@@ -17,7 +19,8 @@ export class SettingsPage implements OnInit {
   isPrivate: boolean;
   country: any;
   state: string;
-  profilePicture: any;
+  profilePictureSource: any;
+  profilePicture: SafeUrl;
 
   instagram: string;
   twitter: string;
@@ -37,7 +40,12 @@ export class SettingsPage implements OnInit {
 
   unsavedDataExists = false;
 
-  constructor(private router: Router, private auth: AuthService, private api: ApiService, private httpClient: HttpClient) {
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+    private api: ApiService,
+    private httpClient: HttpClient,
+    private sanitizerService: SanitizerService) {
 
   }
 
@@ -86,7 +94,7 @@ export class SettingsPage implements OnInit {
       private: this.isPrivate,
       country: this.country.country,
       state: this.state,
-      profilepicture: this.profilePicture,
+      profilepicture: this.profilePictureSource,
       instagram: this.instagram,
       twitter: this.twitter,
       dribbble: this.dribbble,
@@ -120,8 +128,12 @@ export class SettingsPage implements OnInit {
     const fileReader = new FileReader();
     fileReader.readAsDataURL(event.target.files[0]);
     fileReader.onload = () => {
-      this.profilePicture = fileReader.result;
-      console.log(fileReader.result);
+      this.profilePictureSource = fileReader.result;
+      console.log(this.profilePictureSource);
+      this.profilePicture = this.sanitizerService.getSanitizedUrlFromArrayBuffer(this.profilePictureSource);
+      console.log(this.profilePicture);
+      console.log(this.user.profileimage);
+      this.checkForChange();
     };
   }
 
@@ -138,6 +150,7 @@ export class SettingsPage implements OnInit {
       || this.user.github !== this.github
       || this.user.linkedin !== this.linkedin
       || this.user.website !== this.website
+      || this.user.profileimage !== this.profilePicture
     ) {
       this.unsavedDataExists = true;
     }

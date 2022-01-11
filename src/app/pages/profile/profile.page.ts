@@ -38,7 +38,6 @@ export class ProfilePage implements OnInit {
     this.currentProfile = this.activatedRoute.snapshot.paramMap.get('username');
     this.apiService.getUser(this.currentProfile).subscribe(res => {
       this.user = res;
-      this.user.profileimage = this.apiService.getSanitizedUrlFromArrayBuffer(this.user.profileimage);
 
       this.postsHeader = 'Posts by ' + this.user.firstname + ' ' + this.user.lastname;
       this.postsFilter = this.user.username;

@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AlertController } from '@ionic/angular';
@@ -17,7 +16,6 @@ export class ApiService {
 
   constructor(
     private http: HttpClient,
-    private sanitizer: DomSanitizer,
     private alertController: AlertController,
     private adapter: UserAdapter
   ) { }
@@ -28,7 +26,6 @@ export class ApiService {
 
   fetchUserFromApi(id) {
     this.http.get<any>(environment.api + 'user/databyuserid/' + id).subscribe(user => {
-      user.profileimage = this.getSanitizedUrlFromArrayBuffer(user.profileimage);
       this.user.next(this.adapter.adapt(user));
       console.log(user);
     });
@@ -42,19 +39,6 @@ export class ApiService {
 
   getNumberOfTotalUsers() {
     return this.http.get<any>(environment.api + 'user/numberoftotalusers');
-  }
-
-  getSanitizedUrlFromArrayBuffer(data: any) {
-    let imageURL = null;
-    if (data) {
-      const arrayBuffer = new Uint8Array(data.data).buffer;
-      const blob = new Blob([arrayBuffer]);
-      imageURL = URL.createObjectURL(blob);
-    } else {
-      imageURL = '../assets/icon/favicon.png';
-    }
-
-    return this.sanitizer.bypassSecurityTrustUrl(imageURL);
   }
 
   createPost(header, body, userID) {
