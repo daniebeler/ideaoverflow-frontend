@@ -48,8 +48,8 @@ export class SettingsPage implements OnInit {
     this.httpClient.get('./assets/json/countries.json').subscribe(data => {
       this.countries = data;
       this.api.getLatestUser().subscribe((latestUser) => {
+        this.user = latestUser;
         if (latestUser) {
-          this.user = latestUser;
           this.setLocalUserValues();
         }
       });

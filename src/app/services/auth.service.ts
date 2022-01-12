@@ -83,6 +83,7 @@ export class AuthService {
       if (res.token) {
         await this.storage.set(TOKEN_KEY, res.token);
         this.decodedUserToken = this.helper.decodeToken(res.token);
+        this.authenticationState.next(true);
         this.apiService.fetchUserFromApi(this.getUser().id);
         this.router.navigate(['']);
       }
@@ -107,7 +108,7 @@ export class AuthService {
 
   logout() {
     this.storage.remove(TOKEN_KEY).then(() => {
-      // this.api.clearData();
+      this.apiService.clearData();
       this.decodedUserToken = null;
       this.authenticationState.next(false);
       this.router.navigate(['login']);
@@ -146,7 +147,4 @@ export class AuthService {
         throw new Error(e);
       });
   }
-
-
-
 }

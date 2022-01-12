@@ -60,19 +60,29 @@
             </ion-grid>
           </div>
           <ng-template #isNotMyProfile>
-            <hr
-              style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin-top: 20px; margin-right: 10px;">
-
+            <ng-component *ngIf="latestUser; else notLoggedIn">
+              <ion-grid style="padding: 0; padding-top: 10px;">
+                <ion-row>
+                  <ion-col *ngIf="amFollowingThisProfile; else notFollowing" style="padding-right: 10px;">
+                    <button type="button" class="btn-medium btn-dark" style="width: 100%;"
+                      (click)="unfollow()">Unfollow</button>
+                  </ion-col>
+                  <ng-template #notFollowing>
+                    <button type="button" class="btn-medium btn-orange" style="width: 100%;"
+                      (click)="follow()">Follow</button>
+                  </ng-template>
+                </ion-row>
+              </ion-grid>
+            </ng-component>
+          </ng-template>
+          <ng-template #notLoggedIn>
             <ion-grid style="padding: 0; padding-top: 10px;">
               <ion-row>
-                <ion-col *ngIf="amFollowingThisProfile; else notFollowing" style="padding-right: 10px;">
-                  <button type="button" class="btn-medium btn-dark" style="width: 100%;"
-                    (click)="unfollow()">Unfollow</button>
+                <ion-col>
+                  <button type="button" class="btn-medium btn-orange" style="width: 100%;" (click)="gotoLogin()">
+                    Login to follow
+                  </button>
                 </ion-col>
-                <ng-template #notFollowing>
-                  <button type="button" class="btn-medium btn-orange" style="width: 100%;"
-                    (click)="follow()">Follow</button>
-                </ng-template>
               </ion-row>
             </ion-grid>
           </ng-template>

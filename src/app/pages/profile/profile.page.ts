@@ -14,7 +14,6 @@ export class ProfilePage implements OnInit {
 
   latestUser: User = null;
   user: User = null;
-  loggedIn = false;
   isMyProfile = false;
   isPrivate = true;
   currentProfile = '';
@@ -48,7 +47,6 @@ export class ProfilePage implements OnInit {
       .subscribe((latestUser) => {
         this.latestUser = latestUser;
         if (latestUser) {
-          this.loggedIn = true;
           if (latestUser.username === this.currentProfile) {
             this.isMyProfile = true;
           }
@@ -59,7 +57,8 @@ export class ProfilePage implements OnInit {
           }
         }
         else {
-          this.loggedIn = false;
+          this.isMyProfile = false;
+          this.amFollowingThisProfile = false;
         }
       });
   }

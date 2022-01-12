@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AlertController } from '@ionic/angular';
 import { map, catchError } from 'rxjs/operators';
 import { User } from '../models/user';
 import { UserAdapter } from '../adapter/user-adapter';
@@ -17,7 +16,6 @@ export class ApiService {
 
   constructor(
     private http: HttpClient,
-    private alertController: AlertController,
     private adapter: UserAdapter,
     private alertService: AlertService
   ) { }
@@ -64,5 +62,9 @@ export class ApiService {
 
   getLatestPosts() {
     return this.http.get<any>(environment.api + 'post/latest');
+  }
+
+  clearData(){
+    this.user.next(null);
   }
 }
