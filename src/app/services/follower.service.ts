@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AlertController } from '@ionic/angular';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { UserAdapter } from '../adapter/user-adapter';
+import { AlertService } from './alert.service';
 import { ApiService } from './api.service';
 import { AuthService } from './auth.service';
 
@@ -16,9 +16,9 @@ export class FollowerService {
     private authService: AuthService,
     private httpClient: HttpClient,
     private apiService: ApiService,
-    private alertController: AlertController,
-    private adapter: UserAdapter
-    ) { }
+    private adapter: UserAdapter,
+    private alertService: AlertService
+  ) { }
 
   addFollower(followeeID) {
     const obj = {
@@ -30,24 +30,12 @@ export class FollowerService {
         this.apiService.fetchUserFromApi(this.authService.getUser().id);
       }
       else {
-        const alert = await this.alertController.create({
-          cssClass: 'custom-alert-ok',
-          backdropDismiss: false,
-          header: res.header,
-          message: res.message,
-          buttons: [{
-            text: 'Fuck',
-            handler: () => {
-            }
-          }]
-        });
-
-        await alert.present();
+        this.alertService.showOkayAlertWithoutAction(res.header, res.message);
       }
 
     }),
       catchError(e => {
-        this.showAlert(e.error.message);
+        this.alertService.showOkayAlertWithoutAction('Error', e.error.message);
         throw new Error(e);
       });
   }
@@ -62,24 +50,12 @@ export class FollowerService {
         this.apiService.fetchUserFromApi(this.authService.getUser().id);
       }
       else {
-        const alert = await this.alertController.create({
-          cssClass: 'custom-alert-ok',
-          backdropDismiss: false,
-          header: res.header,
-          message: res.message,
-          buttons: [{
-            text: 'Fuck',
-            handler: () => {
-            }
-          }]
-        });
-
-        await alert.present();
+        this.alertService.showOkayAlertWithoutAction(res.header, res.message);
       }
 
     }),
       catchError(e => {
-        this.showAlert(e.error.message);
+        this.alertService.showOkayAlertWithoutAction('Error', e.error.message);
         throw new Error(e);
       });
   }
@@ -102,17 +78,5 @@ export class FollowerService {
       followeeID
     };
     return this.httpClient.post<any>(environment.api + 'follower/checkfollow', obj);
-  }
-
-  showAlert(msg) {
-    const alert = this.alertController.create({
-      cssClass: 'custom-alert-ok',
-      backdropDismiss: false,
-      message: msg,
-      header: 'Error',
-      buttons: ['Okay']
-    });
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    alert.then(alert => alert.present());
   }
 }

@@ -4,10 +4,11 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { AlertController, Platform } from '@ionic/angular';
 import { catchError } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import { ApiService } from './api.service';
+import { AlertService } from './alert.service';
+import { Platform } from '@ionic/angular';
 
 const TOKEN_KEY = 'access_token_1';
 
@@ -22,11 +23,11 @@ export class AuthService {
   constructor(
     private router: Router,
     private httpClient: HttpClient,
-    private alertController: AlertController,
     private storage: Storage,
     private helper: JwtHelperService,
     private platform: Platform,
-    private api: ApiService
+    private apiService: ApiService,
+    private alertService: AlertService
   ) {
     this.platform.ready().then(() => {
       this.checkToken();
@@ -42,7 +43,7 @@ export class AuthService {
         if (!isExpired) {
           this.decodedUserToken = decoded;
           this.authenticationState.next(true);
-          this.api.fetchUserFromApi(this.getUser().id);
+          this.apiService.fetchUserFromApi(this.getUser().id);
         }
       }
       else {
@@ -66,27 +67,12 @@ export class AuthService {
         this.router.navigate(['welcome']);
       }
       else {
-        const alert = await this.alertController.create({
-          cssClass: 'custom-alert-ok',
-          backdropDismiss: false,
-          header: res.header,
-          message: res.message,
-          buttons: [{
-            text: 'Okay',
-            handler: () => {
-              if (res.header === 'So weit, so gut.') {
-                // this.goToLogin();
-              }
-            }
-          }]
-        });
-
-        await alert.present();
+        this.alertService.showOkayAlertWithoutAction(res.header, res.message);
       }
 
     }),
       catchError(e => {
-        this.showAlert(e.error.message);
+        this.alertService.showOkayAlertWithoutAction('Error', e.error.message);
         throw new Error(e);
       });
   }
@@ -97,64 +83,22 @@ export class AuthService {
       if (res.token) {
         await this.storage.set(TOKEN_KEY, res.token);
         this.decodedUserToken = this.helper.decodeToken(res.token);
-        this.api.fetchUserFromApi(this.getUser().id);
+        this.apiService.fetchUserFromApi(this.getUser().id);
         this.router.navigate(['']);
       }
       else {
-        if (res.notverified === true) {
-          const alert = await this.alertController.create({
-            cssClass: 'custom-alert-ok',
-            backdropDismiss: false,
-            header: 'Hoppla!',
-            message: res.message,
-            buttons: [{
-              text: 'Abbrechen'
-            }, {
-              text: 'Okay',
-              role: 'ok',
-              handler: () => {
-                //neuen Link schicken
-                // this.sendVerificationAgain(email);
-              }
-            }]
-          });
-          await alert.present();
-        }
-        else {
-          const alert = await this.alertController.create({
-            cssClass: 'custom-alert-ok',
-            backdropDismiss: false,
-            header: 'Hoppla!',
-            message: res.message,
-            buttons: [{
-              text: 'Okay'
-            }]
-          });
-          await alert.present();
-        }
+        this.alertService.showOkayAlertWithoutAction('Ooops', res.message);
       }
 
     }),
       catchError(e => {
-        this.showAlert(e.error.message);
+        this.alertService.showOkayAlertWithoutAction('Error', e.error.message);
         throw new Error(e);
       });
   }
 
   verify(code) {
     return this.httpClient.get<any>(environment.api + 'user/verify/' + code);
-  }
-
-  showAlert(msg) {
-    const alert = this.alertController.create({
-      cssClass: 'custom-alert-ok',
-      backdropDismiss: false,
-      message: msg,
-      header: 'Error',
-      buttons: ['Okay']
-    });
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    alert.then(alert => alert.present());
   }
 
   public getUser() {
@@ -173,27 +117,15 @@ export class AuthService {
   updateUser(dataToUpdate) {
     return this.httpClient.post<any>(environment.api + 'user/changedata', dataToUpdate).subscribe(async res => {
       if (res.status === 200) {
-        this.api.fetchUserFromApi(this.getUser().id);
+        this.apiService.fetchUserFromApi(this.getUser().id);
       }
       else {
-        const alert = await this.alertController.create({
-          cssClass: 'custom-alert-ok',
-          backdropDismiss: false,
-          header: res.header,
-          message: res.message,
-          buttons: [{
-            text: 'Fuck',
-            handler: () => {
-            }
-          }]
-        });
-
-        await alert.present();
+        this.alertService.showOkayAlertWithoutAction(res.header, res.message);
       }
 
     }),
       catchError(e => {
-        this.showAlert(e.error.message);
+        this.alertService.showOkayAlertWithoutAction('Error', e.error.message);
         throw new Error(e);
       });
   }
@@ -206,21 +138,11 @@ export class AuthService {
       id: this.getUser().id
     };
     return this.httpClient.post<any>(environment.api + 'user/changepw', obj).subscribe(async res => {
-      const alert = await this.alertController.create({
-        cssClass: 'custom-alert-ok',
-        backdropDismiss: false,
-        header: res.header,
-        message: res.message,
-        buttons: [{
-          text: 'Okay'
-        }]
-      });
-
-      await alert.present();
+      this.alertService.showOkayAlertWithoutAction(res.header, res.message);
 
     }),
       catchError(e => {
-        this.showAlert(e.error.message);
+        this.alertService.showOkayAlertWithoutAction('Error', e.error.message);
         throw new Error(e);
       });
   }

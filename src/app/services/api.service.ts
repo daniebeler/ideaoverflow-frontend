@@ -6,6 +6,7 @@ import { AlertController } from '@ionic/angular';
 import { map, catchError } from 'rxjs/operators';
 import { User } from '../models/user';
 import { UserAdapter } from '../adapter/user-adapter';
+import { AlertService } from './alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private alertController: AlertController,
-    private adapter: UserAdapter
+    private adapter: UserAdapter,
+    private alertService: AlertService
   ) { }
 
   getLatestUser(): Observable<User> {
@@ -50,41 +52,17 @@ export class ApiService {
       if (res.status === 200) {
       }
       else {
-        const alert = await this.alertController.create({
-          cssClass: 'custom-alert-ok',
-          backdropDismiss: false,
-          header: res.header,
-          message: res.message,
-          buttons: [{
-            text: 'Fuck',
-            handler: () => {
-            }
-          }]
-        });
-
-        await alert.present();
+        this.alertService.showOkayAlertWithoutAction(res.header, res.message);
       }
 
     }),
       catchError(e => {
-        this.showAlert(e.error.message);
+        this.alertService.showOkayAlertWithoutAction('Error', e.error.message);
         throw new Error(e);
       });
   }
 
   getLatestPosts() {
     return this.http.get<any>(environment.api + 'post/latest');
-  }
-
-  showAlert(msg) {
-    const alert = this.alertController.create({
-      cssClass: 'custom-alert-ok',
-      backdropDismiss: false,
-      message: msg,
-      header: 'Error',
-      buttons: ['Okay']
-    });
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    alert.then(alert => alert.present());
   }
 }

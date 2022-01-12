@@ -42,7 +42,6 @@ export class NewpostPage implements OnInit {
       cssClass: 'custom-alert-ok',
       backdropDismiss: false,
       header: 'Are you sure?',
-      message: 'MeeeM',
       buttons: [{
         text: 'Back'
       }, {

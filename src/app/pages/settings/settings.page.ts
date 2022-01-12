@@ -106,10 +106,9 @@ export class SettingsPage implements OnInit {
   }
 
   findCountry(valueToFind) {
-    // eslint-disable-next-line @typescript-eslint/prefer-for-of
-    for (let i = 0; i < this.countries.countries.length; i++) {
-      if (this.countries.countries[i].country === valueToFind) {
-        return this.countries.countries[i];
+    for (const country of this.countries.countries) {
+      if (country.country === valueToFind) {
+        return country;
       }
     }
     return null;
