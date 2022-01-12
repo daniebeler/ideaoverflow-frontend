@@ -18,6 +18,8 @@ export class PostsComponent implements OnInit {
   numberOfPosts = 5;
   skipPosts = 0;
 
+  sortingCriteria = 'newest';
+
   constructor(
     private postService: PostService,
     private sanitizer: DomSanitizer

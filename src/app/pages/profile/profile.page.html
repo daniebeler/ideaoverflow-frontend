@@ -81,9 +81,12 @@
       <ion-row style="margin-top: 50px;">
         <ion-col size="auto">
           <div id="myBtnContainer">
-            <button (click)="showComponent('about')" class="btn active">About</button>
-            <button (click)="showComponent('followers')" class="btn">{{user.numberOfFollowers}} Followers</button>
-            <button (click)="showComponent('followers')" class="btn">{{user.numberOfFollowees}} Following</button>
+            <button [ngClass]="{'active': selectedTab === 'about'}" (click)="selectedTab = 'about'"
+              class="btn">About</button>
+            <button [ngClass]="{'active': selectedTab === 'followers'}" (click)="selectedTab = 'followers'"
+              class="btn">{{user.numberOfFollowers}} Followers</button>
+            <button [ngClass]="{'active': selectedTab === 'following'}" (click)="selectedTab = 'following'"
+              class="btn">{{user.numberOfFollowees}} Following</button>
           </div>
         </ion-col>
       </ion-row>
@@ -93,9 +96,15 @@
         </ion-col>
       </ion-row>
 
-      <div *ngIf="activeComponent === 'followers'; else about">
+      <div *ngIf="selectedTab === 'followers'; else following">
         <app-followers></app-followers>
       </div>
+
+      <ng-template #following>
+        <ng-container *ngIf="selectedTab === 'following'; else about">
+          Following placeholder
+        </ng-container>
+      </ng-template>
 
       <ng-template #about>
         <app-about></app-about>

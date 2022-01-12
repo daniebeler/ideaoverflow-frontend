@@ -23,7 +23,7 @@ export class ProfilePage implements OnInit {
   postsHeader = '';
   postsFilter = '';
 
-  activeComponent = 'about';
+  selectedTab = 'about';
 
   constructor(
     private authService: AuthService,
@@ -91,9 +91,4 @@ export class ProfilePage implements OnInit {
   unfollow() {
     this.followerService.removeFollower(this.user.id);
   }
-
-  showComponent(component: string) {
-    this.activeComponent = component;
-  }
-
 }

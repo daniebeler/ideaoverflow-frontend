@@ -5,9 +5,9 @@
     </ion-col>
     <ion-col size="auto">
       <div id="myBtnContainer">
-        <button class="btn active">Best</button>
-        <button class="btn">Newest</button>
-        <button class="btn">Most liked</button>
+        <button [ngClass]="{'active': sortingCriteria === 'best'}" (click)="sortingCriteria = 'best'" class="btn">Best</button>
+        <button [ngClass]="{'active': sortingCriteria === 'newest'}" (click)="sortingCriteria = 'newest'" class="btn">Newest</button>
+        <button [ngClass]="{'active': sortingCriteria === 'mostliked'}" (click)="sortingCriteria = 'mostliked'" class="btn">Most liked</button>
       </div>
     </ion-col>
   </ion-row>

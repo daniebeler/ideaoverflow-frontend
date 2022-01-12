@@ -1,4 +1,4 @@
-<ion-row>
+<ion-row *ngIf="user">
   <ion-col>
     <h2>Social Media</h2>
     <ul>
@@ -34,6 +34,11 @@
       </li>
     </ul>
 
+  </ion-col>
+  <ion-col *ngIf="user.bio">
+    <h2>About</h2>
+    <p>{{user.bio}}</p>
+
     <div style="margin-top: 30px;" *ngIf="user.country">
       <ion-icon name="location"></ion-icon><span *ngIf="user.state"> {{user.state}},
       </span>{{user.country}}
@@ -44,11 +49,6 @@
       <span> Joined at {{user.creationDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day:
         'numeric' })}}</span>
     </div>
-
-  </ion-col>
-  <ion-col *ngIf="user.bio">
-    <h2>About</h2>
-    <p>{{user.bio}}</p>
   </ion-col>
 </ion-row>
 
