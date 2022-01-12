@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { FollowerService } from 'src/app/services/follower.service';
 
@@ -12,15 +12,20 @@ export class FollowersComponent implements OnInit {
 
   followers: User[] = [];
 
-  constructor(private followerService: FollowerService,
-    private activatedRoute: ActivatedRoute
-    ) { }
+  constructor(
+    private followerService: FollowerService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.followerService.getFollowers(this.activatedRoute.snapshot.paramMap.get('username')).subscribe(res => {
       this.followers = res;
-      console.log(res);
     });
+  }
+
+  gotoFollower(username: string) {
+    this.router.navigate(['profile/' + username]);
   }
 
 }

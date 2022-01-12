@@ -2,7 +2,7 @@
   <ion-grid style="margin-bottom: 100px;">
     <ion-row>
       <ion-col size="4" *ngFor="let follower of followers">
-        <ion-grid class="wrapper">
+        <ion-grid class="wrapper" (click)="gotoFollower(follower.username)">
           <ion-row>
             <ion-col size="auto">
               <ion-avatar style="height: 60px; width: 60px; --border-radius: 50%">
@@ -20,7 +20,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
 </div>
 
 <ng-template #noFollowers>

@@ -68,10 +68,6 @@ export class ProfilePage implements OnInit {
     this.authService.logout();
   }
 
-  openLink(url) {
-    window.open(url, '_blank');
-  }
-
   gotoHome() {
     this.router.navigate(['']);
   }

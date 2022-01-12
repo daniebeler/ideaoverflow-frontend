@@ -7,6 +7,7 @@ export class User {
   public username: string;
   public firstname: string;
   public lastname: string;
+  public bio: string;
   public website: string;
   public github: string;
   public twitter: string;
@@ -27,6 +28,7 @@ export class User {
     this.username = data.username;
     this.firstname = data.firstname;
     this.lastname = data.lastname;
+    this.bio = data.bio;
     this.website = data.website;
     this.github = data.github;
     this.twitter = data.twitter;

@@ -32,10 +32,10 @@ export class PostsComponent implements OnInit {
       event.target.disabled = true;
     }
 
-    if(this.filterByUsername){
+    if (this.filterByUsername) {
       this.queryParams = this.numberOfPosts + '/' + this.skipPosts + '/' + this.filterByUsername;
     }
-    else{
+    else {
       this.queryParams = this.numberOfPosts + '/' + this.skipPosts;
     }
 
@@ -45,7 +45,6 @@ export class PostsComponent implements OnInit {
           post.body = this.sanitizer.bypassSecurityTrustHtml(post.body);
           this.allLoadedPosts.push(post);
         }
-        console.log(this.allLoadedPosts);
         if (isInitialLoad) { event.target.complete(); }
         this.skipPosts = this.skipPosts + 5;
       });

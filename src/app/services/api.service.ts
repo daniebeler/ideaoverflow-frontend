@@ -27,7 +27,6 @@ export class ApiService {
   fetchUserFromApi(id) {
     this.http.get<any>(environment.api + 'user/databyuserid/' + id).subscribe(user => {
       this.user.next(this.adapter.adapt(user));
-      console.log(user);
     });
   }
 
@@ -49,7 +48,6 @@ export class ApiService {
     };
     return this.http.post<any>(environment.api + 'post/create/', obj).subscribe(async res => {
       if (res.status === 200) {
-        console.log('that worked');
       }
       else {
         const alert = await this.alertController.create({

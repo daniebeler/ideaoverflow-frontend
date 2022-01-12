@@ -19,6 +19,7 @@ export class SettingsPage implements OnInit {
   state: string;
   profilePicture: any;
 
+  bio: string;
   instagram: string;
   twitter: string;
   github: string;
@@ -61,6 +62,7 @@ export class SettingsPage implements OnInit {
     this.isPrivate = !!this.user.isPrivate;
     this.country = this.findCountry(this.user.country);
     this.state = this.user.state;
+    this.bio = this.user.bio;
     this.instagram = this.user.instagram;
     this.twitter = this.user.twitter;
     this.dribbble = this.user.dribbble;
@@ -72,8 +74,6 @@ export class SettingsPage implements OnInit {
   }
 
   gotoHome() {
-    console.log(this.isPrivate);
-    console.log(this.user.isPrivate);
     this.router.navigate(['']);
   }
 
@@ -90,6 +90,7 @@ export class SettingsPage implements OnInit {
       country: this.country.country,
       state: this.state,
       profilepicture: this.profilePicture,
+      bio: this.bio,
       instagram: this.instagram,
       twitter: this.twitter,
       dribbble: this.dribbble,
@@ -115,11 +116,6 @@ export class SettingsPage implements OnInit {
   }
 
   onFileChange(event) {
-
-    console.log(event.target.files);
-    const filename = event.target.files[0].name;
-    console.log('File Name');
-    console.log(filename);
     const fileReader = new FileReader();
     fileReader.readAsDataURL(event.target.files[0]);
     fileReader.onload = () => {
@@ -135,6 +131,7 @@ export class SettingsPage implements OnInit {
       || !!this.user.isPrivate !== this.isPrivate
       || this.user.country !== this.country.country
       || this.user.state !== this.state
+      || this.user.bio !== this.bio
       || this.user.instagram !== this.instagram
       || this.user.twitter !== this.twitter
       || this.user.dribbble !== this.dribbble

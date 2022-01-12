@@ -49,8 +49,6 @@ export class NewpostPage implements OnInit {
         text: 'Okay',
         role: 'ok',
         handler: () => {
-          console.log('header: ' + this.header);
-          console.log('body: ' + this.body);
           this.api.createPost(this.header, this.body, this.user.id);
         }
       }]

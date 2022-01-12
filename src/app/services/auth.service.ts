@@ -166,7 +166,7 @@ export class AuthService {
       // this.api.clearData();
       this.decodedUserToken = null;
       this.authenticationState.next(false);
-      this.router.navigate(['']);
+      this.router.navigate(['login']);
     });
   }
 

@@ -80,8 +80,18 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col>
+      <ion-col style="padding-bottom: 0;">
+        <div class="form-group">
+          <label class="text-label" for="fname"><strong>Bio</strong></label>
+          <textarea style="resize: none;" rows="5" type="text" name="fname" id="fname" placeholder="Something about myself..." [(ngModel)]="bio"
+            (ngModelChange)="checkForChange()"></textarea>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col style="padding-top: 0;">
         <ion-grid style="padding: 0;">
+
           <ion-row>
             <ion-col style="padding: 0;">
               <div class="form-group">

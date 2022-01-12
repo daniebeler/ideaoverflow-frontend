@@ -21,7 +21,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.api.getLatestUser()
     .subscribe((latestUser) => {
-      console.log(latestUser);
       this.user = latestUser;
       if(latestUser){
         this.loggedIn = true;
