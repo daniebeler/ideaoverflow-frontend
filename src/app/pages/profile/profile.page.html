@@ -107,12 +107,12 @@
       </ion-row>
 
       <div *ngIf="selectedTab === 'followers'; else following">
-        <app-followers></app-followers>
+        <app-followers [type]="selectedTab"></app-followers>
       </div>
 
       <ng-template #following>
         <ng-container *ngIf="selectedTab === 'following'; else about">
-          Following placeholder
+          <app-followers [type]="selectedTab"></app-followers>
         </ng-container>
       </ng-template>
 

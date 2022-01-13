@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { FollowerService } from 'src/app/services/follower.service';
@@ -10,7 +10,11 @@ import { FollowerService } from 'src/app/services/follower.service';
 })
 export class FollowersComponent implements OnInit {
 
+  @Input() type = '';
+
   followers: User[] = [];
+
+  header = '';
 
   constructor(
     private followerService: FollowerService,
@@ -19,9 +23,18 @@ export class FollowersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.followerService.getFollowers(this.activatedRoute.snapshot.paramMap.get('username')).subscribe(res => {
-      this.followers = res;
-    });
+    if (this.type === 'followers') {
+      this.header = 'Followers';
+      this.followerService.getFollowers(this.activatedRoute.snapshot.paramMap.get('username')).subscribe(res => {
+        this.followers = res;
+      });
+    }
+    else {
+      this.header = 'Following';
+      this.followerService.getFollowees(this.activatedRoute.snapshot.paramMap.get('username')).subscribe(res => {
+        this.followers = res;
+      });
+    }
   }
 
   gotoFollower(username: string) {
