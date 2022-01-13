@@ -10,7 +10,7 @@
             <label class="icon-label" for="password"><i>
                 <ion-icon name="search"></ion-icon>
               </i></label>
-            <input class="icon-input" type="text" name="fname" id="fname" placeholder="Search" />
+            <input class="icon-input" type="text" name="fname" #searchvalue placeholder="Search" (keyup.enter)="search(searchvalue.value)"/>
           </div>
         </ion-col>
         <ion-col *ngIf="loggedIn; else elseBlock" size="auto">

@@ -33,6 +33,10 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'search/:search',
+    loadChildren: () => import('./pages/search/search.module').then( m => m.SearchPageModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
   },
