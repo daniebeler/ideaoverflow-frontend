@@ -12,6 +12,7 @@ export class PostsComponent implements OnInit {
 
   @Input() header = '';
   @Input() filterByUsername = '';
+  @Input() searchTerm = '';
 
   queryParams: string;
   allLoadedPosts: Post[] = [];
@@ -37,12 +38,17 @@ export class PostsComponent implements OnInit {
     if (this.filterByUsername) {
       this.queryParams = this.numberOfPosts + '/' + this.skipPosts + '/' + this.filterByUsername;
     }
+    else if (this.searchTerm) {
+      console.log(this.searchTerm);
+      this.queryParams = this.numberOfPosts + '/' + this.skipPosts + '/' + this.searchTerm;
+    }
     else {
       this.queryParams = this.numberOfPosts + '/' + this.skipPosts;
     }
 
     this.postService
       .getSelectedPosts(this.queryParams).subscribe((posts: Post[]) => {
+        console.log(posts);
         for (const post of posts) {
           post.body = this.sanitizer.bypassSecurityTrustHtml(post.body);
           this.allLoadedPosts.push(post);

@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SearchPage implements OnInit {
 
+  searchTerm = '';
   postsHeader = '';
 
   constructor(
@@ -15,7 +16,8 @@ export class SearchPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.postsHeader = 'Results for "' + this.activatedRoute.snapshot.paramMap.get('search') + '"';
+    this.searchTerm = this.activatedRoute.snapshot.paramMap.get('search');
+    this.postsHeader = 'Results for "' + this.searchTerm + '"';
   }
 
 }

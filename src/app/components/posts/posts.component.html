@@ -5,9 +5,12 @@
     </ion-col>
     <ion-col size="auto">
       <div id="myBtnContainer">
-        <button [ngClass]="{'active': sortingCriteria === 'best'}" (click)="sortingCriteria = 'best'" class="btn">Best</button>
-        <button [ngClass]="{'active': sortingCriteria === 'newest'}" (click)="sortingCriteria = 'newest'" class="btn">Newest</button>
-        <button [ngClass]="{'active': sortingCriteria === 'mostliked'}" (click)="sortingCriteria = 'mostliked'" class="btn">Most liked</button>
+        <button [ngClass]="{'active': sortingCriteria === 'best'}" (click)="sortingCriteria = 'best'"
+          class="btn">Best</button>
+        <button [ngClass]="{'active': sortingCriteria === 'newest'}" (click)="sortingCriteria = 'newest'"
+          class="btn">Newest</button>
+        <button [ngClass]="{'active': sortingCriteria === 'mostliked'}" (click)="sortingCriteria = 'mostliked'"
+          class="btn">Most liked</button>
       </div>
     </ion-col>
   </ion-row>
@@ -40,10 +43,20 @@
               <ion-badge style="color: white; margin-right: 10px; padding: 5px;" color="primary">Game</ion-badge>
             </ion-col>
           </ion-row> -->
+          <ion-row style="margin-top: 20px;">
+            <ion-col size="auto">
+              <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
+                <img src="../../../assets/icon/favicon.png">
+              </ion-avatar>
+            </ion-col>
+            <ion-col size="auto" style="display: flex;" class="ion-align-items-center">
+              <p style="margin-bottom: 0;">{{post.ownerUsername}}</p>
+            </ion-col>
+          </ion-row>
+
           <ion-row>
             <ion-col>
-              <hr
-                style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin-top: 20px; margin-right: 10px;">
+              <hr style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin-right: 10px; margin: 0;">
             </ion-col>
           </ion-row>
         </ion-grid>
