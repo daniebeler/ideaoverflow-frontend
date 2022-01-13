@@ -22,16 +22,7 @@
     </div>
 
     <ng-template #userExists>
-      <ng-container *ngIf="isPrivate && !isMyProfile; else myProfile">
-        <ion-row>
-          <ion-col>
-            <h2>This profile is private.</h2>
-          </ion-col>
-        </ion-row>
-      </ng-container>
-    </ng-template>
-    <ng-template #myProfile>
-      <ion-row *ngIf="user">
+      <ion-row>
         <ion-col>
           <ion-avatar style="height: 80px; width: 80px; --border-radius: 50%">
             <img [src]="user.profileimage">
@@ -42,7 +33,8 @@
           <h2 style="margin-top: 0;" *ngIf="user.username">@{{user.username}}</h2>
         </ion-col>
       </ion-row>
-      <ion-row *ngIf="user">
+
+      <ion-row>
         <ion-col size-xs="12" size-sm="12" size-md="4" size-lg="4" size-xl="4">
           <div *ngIf="isMyProfile; else isNotMyProfile">
             <ion-grid style="padding: 0; padding-top: 10px;">
@@ -60,16 +52,16 @@
             </ion-grid>
           </div>
           <ng-template #isNotMyProfile>
-            <ng-component *ngIf="latestUser; else notLoggedIn">
+            <ng-component>
               <ion-grid style="padding: 0; padding-top: 10px;">
                 <ion-row>
                   <ion-col *ngIf="amFollowingThisProfile; else notFollowing" style="padding-right: 10px;">
                     <button type="button" class="btn-medium btn-dark" style="width: 100%;"
-                      (click)="unfollow()">Unfollow</button>
+                      (click)="unfollow()">Unfollow</button>meem
                   </ion-col>
                   <ng-template #notFollowing>
                     <button type="button" class="btn-medium btn-orange" style="width: 100%;"
-                      (click)="follow()">Follow</button>
+                      (click)="follow()">Follow</button>lool
                   </ng-template>
                 </ion-row>
               </ion-grid>

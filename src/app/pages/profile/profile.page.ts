@@ -36,6 +36,7 @@ export class ProfilePage implements OnInit {
     this.currentProfile = this.activatedRoute.snapshot.paramMap.get('username');
     this.apiService.getUser(this.currentProfile).subscribe(res => {
       this.user = res;
+      console.log(this.user);
 
       this.postsHeader = 'Posts by ' + this.user.firstname + ' ' + this.user.lastname;
       this.postsFilter = this.user.username;
@@ -53,6 +54,7 @@ export class ProfilePage implements OnInit {
           else {
             this.followerService.checkIfFollowing(this.user.id).subscribe(following => {
               this.amFollowingThisProfile = following.user[0].following;
+              this.isMyProfile = false;
             });
           }
         }
@@ -60,6 +62,10 @@ export class ProfilePage implements OnInit {
           this.isMyProfile = false;
           this.amFollowingThisProfile = false;
         }
+
+        console.log('myprofile: ' + this.isMyProfile);
+        console.log('private: ' + this.isPrivate);
+        console.log('amfollowing: ' + this.amFollowingThisProfile);
       });
   }
 

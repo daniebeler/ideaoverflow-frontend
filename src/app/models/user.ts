@@ -35,13 +35,13 @@ export class User {
     this.instagram = data.instagram;
     this.dribbble = data.dribbble;
     this.linkedin = data.linkedin;
-    this.isPrivate = data.private;
+    this.isPrivate = true;
     this.country = data.country;
     this.state = data.state;
     this.profileimage = data.profileimage;
     this.creationDate = data.creationdate;
     this.numberOfFollowers = data.followers;
-    this.numberOfFollowees = data.followees;
+    this.numberOfFollowees = data.following;
    }
 }
 
