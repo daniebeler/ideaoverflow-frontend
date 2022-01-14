@@ -19,44 +19,52 @@
       <ion-list>
         <ion-grid style="padding: 0;" class="post-wrapper" *ngFor="let post of allLoadedPosts">
           <ion-row style="padding: 0;">
+            <ion-col size="auto" style="margin-right: 20px;">
+              <div style="width: 7px; height: 100%; border-radius: 100px; background-color: var(--ion-color-primary);">
+              </div>
+            </ion-col>
             <ion-col style="padding: 0;">
-              <h1 style="margin: 0;">{{post.title}}</h1>
+              <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    <h1 style="margin: 0;">{{post.title}}</h1>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <div [innerHTML]=post.body></div>
+                  </ion-col>
+                </ion-row>
+                <ion-row style="margin-top: 20px;">
+                  <ion-col size="auto" class="owner" style="display: flex; align-items: center;"
+                    (click)="gotoProfile(post.ownerUsername)">
+                    <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
+                      <img [src]="post.ownerImage">
+                    </ion-avatar>
+                  </ion-col>
+                  <ion-col size="auto" style="display: flex;" class="ion-align-items-center owner"
+                    (click)="gotoProfile(post.ownerUsername)">
+                    <p style="margin-bottom: 0;"><strong>{{post.ownerUsername}}</strong></p>
+                  </ion-col>
+                  <ion-col size="auto"
+                    style="padding-left: 20px; display: flex; flex-direction: column; align-items: center;">
+                    <ion-icon name="thumbs-up-outline"></ion-icon>
+                    <p style="margin: 0;">{{post.numberOfUpvotes}}</p>
+                  </ion-col>
+                  <ion-col size="auto"
+                    style="padding-left: 20px; display: flex; flex-direction: column; align-items: center;">
+                    <ion-icon name="thumbs-down-outline"></ion-icon>
+                    <p style="margin: 0;">{{post.numberOfDownvotes}}</p>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
             </ion-col>
             <ion-col size="auto">
-              <!-- <ion-avatar style="height: 40px; width: 40px;">
-                <img [src]="user.profileimage">
-              </ion-avatar> -->
             </ion-col>
           </ion-row>
-          <ion-row>
+          <ion-row style="margin-top: 30px;">
             <ion-col>
-              <div [innerHTML]=post.body></div>
-            </ion-col>
-          </ion-row>
-          <!-- <ion-row>
-            <ion-col>
-              <ion-badge style="color: white; margin-right: 10px; padding: 5px;" color="secondary">programming
-              </ion-badge>
-              <ion-badge style="color: white; margin-right: 10px; padding: 5px;" color="primary">unity</ion-badge>
-              <ion-badge style="color: white; margin-right: 10px; padding: 5px;" color="primary">mobile-game</ion-badge>
-              <ion-badge style="color: white; margin-right: 10px; padding: 5px;" color="primary">jump</ion-badge>
-              <ion-badge style="color: white; margin-right: 10px; padding: 5px;" color="primary">Game</ion-badge>
-            </ion-col>
-          </ion-row> -->
-          <ion-row style="margin-top: 20px;">
-            <ion-col size="auto">
-              <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
-                <img src="../../../assets/icon/favicon.png">
-              </ion-avatar>
-            </ion-col>
-            <ion-col size="auto" style="display: flex;" class="ion-align-items-center">
-              <p style="margin-bottom: 0;">{{post.ownerUsername}}</p>
-            </ion-col>
-          </ion-row>
-
-          <ion-row>
-            <ion-col>
-              <hr style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin-right: 10px; margin: 0;">
+              <hr style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin: 0;">
             </ion-col>
           </ion-row>
         </ion-grid>

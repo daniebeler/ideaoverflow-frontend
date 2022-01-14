@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { Post } from 'src/app/models/post';
+import { User } from 'src/app/models/user';
+import { ApiService } from 'src/app/services/api.service';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -19,11 +22,15 @@ export class PostsComponent implements OnInit {
   numberOfPosts = 5;
   skipPosts = 0;
 
+  currentUser: User = null;
+
   sortingCriteria = 'newest';
 
   constructor(
     private postService: PostService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private router: Router,
+    private apiService: ApiService
   ) { }
 
   ngOnInit() {
@@ -31,23 +38,25 @@ export class PostsComponent implements OnInit {
   }
 
   getPosts(isInitialLoad: boolean, event) {
-    if (this.skipPosts === 20) {
-      event.target.disabled = true;
-    }
 
-    if (this.filterByUsername) {
-      this.queryParams = this.numberOfPosts + '/' + this.skipPosts + '/' + this.filterByUsername;
-    }
-    else if (this.searchTerm) {
-      console.log(this.searchTerm);
-      this.queryParams = this.numberOfPosts + '/' + this.skipPosts + '/' + this.searchTerm;
-    }
-    else {
-      this.queryParams = this.numberOfPosts + '/' + this.skipPosts;
-    }
+    this.apiService.getLatestUser().subscribe((latestUser) => {
+      const params: any = {
+        skip: this.skipPosts,
+        take: this.numberOfPosts,
+        currenUserId: latestUser?.id
+      };
 
-    this.postService
-      .getSelectedPosts(this.queryParams).subscribe((posts: Post[]) => {
+      if (this.filterByUsername) {
+        params.username = this.filterByUsername;
+      }
+      else if (this.searchTerm) {
+        console.log(this.searchTerm);
+        params.searchTerm = this.searchTerm;
+      }
+
+      console.log(params);
+
+      this.postService.getSelectedPosts(params).subscribe((posts: Post[]) => {
         console.log(posts);
         for (const post of posts) {
           post.body = this.sanitizer.bypassSecurityTrustHtml(post.body);
@@ -56,10 +65,17 @@ export class PostsComponent implements OnInit {
         if (isInitialLoad) { event.target.complete(); }
         this.skipPosts = this.skipPosts + 5;
       });
+    });
+
+
   }
 
   loadData(event) {
     this.getPosts(true, event);
+  }
+
+  gotoProfile(username: string) {
+    this.router.navigate(['profile/' + username]);
   }
 
 }
