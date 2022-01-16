@@ -42,10 +42,8 @@ export class ProfilePage implements OnInit {
       this.postsFilter = this.user.username;
 
       this.isPrivate = this.user.isPrivate;
-    });
 
-    this.apiService.getLatestUser()
-      .subscribe((latestUser) => {
+      this.apiService.getLatestUser().subscribe((latestUser) => {
         this.latestUser = latestUser;
         if (latestUser) {
           if (latestUser.username === this.currentProfile) {
@@ -67,6 +65,10 @@ export class ProfilePage implements OnInit {
         console.log('private: ' + this.isPrivate);
         console.log('amfollowing: ' + this.amFollowingThisProfile);
       });
+
+    });
+
+
   }
 
   logout() {

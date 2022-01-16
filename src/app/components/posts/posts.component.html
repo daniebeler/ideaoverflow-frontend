@@ -3,7 +3,7 @@
     <ion-col>
       <h2 style="margin: 0;">{{header}}</h2>
     </ion-col>
-    <ion-col size="auto">
+    <ion-col size="auto" *ngIf="showSortingButtons">
       <div id="myBtnContainer">
         <button [ngClass]="{'active': sortingCriteria === 'best'}" (click)="sortingCriteria = 'best'"
           class="btn">Best</button>
@@ -48,12 +48,12 @@
                   </ion-col>
                   <ion-col size="auto"
                     style="padding-left: 20px; display: flex; flex-direction: column; align-items: center;">
-                    <ion-icon name="thumbs-up-outline"></ion-icon>
+                    <ion-icon name="thumbs-up-outline" (click)="votePost(1, post.id)"></ion-icon>
                     <p style="margin: 0;">{{post.numberOfUpvotes}}</p>
                   </ion-col>
                   <ion-col size="auto"
                     style="padding-left: 20px; display: flex; flex-direction: column; align-items: center;">
-                    <ion-icon name="thumbs-down-outline"></ion-icon>
+                    <ion-icon name="thumbs-down-outline" (click)="votePost(-1, post.id)"></ion-icon>
                     <p style="margin: 0;">{{post.numberOfDownvotes}}</p>
                   </ion-col>
                 </ion-row>

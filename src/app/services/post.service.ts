@@ -26,4 +26,10 @@ export class PostService {
   getNumberOfTotalPosts() {
     return this.http.get<any>(environment.api + 'post/numberoftotalposts');
   }
+
+  votePost(voteValue: number, postId: number, userId: number) {
+    this.http.post<any>(environment.api + 'post/vote/', { voteValue, postId, userId }).subscribe((res) => {
+      console.log('meem');
+    });
+  }
 }

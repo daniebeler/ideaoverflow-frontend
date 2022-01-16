@@ -15,12 +15,15 @@ export class PostsComponent implements OnInit {
 
   @Input() header = '';
   @Input() filterByUsername = '';
+  @Input() savedByUsername = false;
   @Input() searchTerm = '';
 
   queryParams: string;
   allLoadedPosts: Post[] = [];
   numberOfPosts = 5;
   skipPosts = 0;
+
+  showSortingButtons = true;
 
   currentUser: User = null;
 
@@ -43,11 +46,15 @@ export class PostsComponent implements OnInit {
       const params: any = {
         skip: this.skipPosts,
         take: this.numberOfPosts,
-        currenUserId: latestUser?.id
+        currentUserId: latestUser?.id
       };
 
       if (this.filterByUsername) {
         params.username = this.filterByUsername;
+      }
+      else if (this.savedByUsername) {
+        this.showSortingButtons = false;
+        params.savedByUsername = this.savedByUsername;
       }
       else if (this.searchTerm) {
         console.log(this.searchTerm);
@@ -76,6 +83,13 @@ export class PostsComponent implements OnInit {
 
   gotoProfile(username: string) {
     this.router.navigate(['profile/' + username]);
+  }
+
+  votePost(voteValue: number, postId: number) {
+    this.apiService.getLatestUser().subscribe((latestUser) => {
+      this.postService.votePost(voteValue, postId, latestUser.id);
+      console.log('done');
+    });
   }
 
 }

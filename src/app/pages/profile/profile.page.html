@@ -89,6 +89,8 @@
               class="btn">{{user.numberOfFollowers}} Followers</button>
             <button [ngClass]="{'active': selectedTab === 'following'}" (click)="selectedTab = 'following'"
               class="btn">{{user.numberOfFollowees}} Following</button>
+              <button *ngIf="isMyProfile" [ngClass]="{'active': selectedTab === 'saved'}" (click)="selectedTab = 'saved'"
+              class="btn">Saved Posts</button>
           </div>
         </ion-col>
       </ion-row>
@@ -103,8 +105,14 @@
       </div>
 
       <ng-template #following>
-        <ng-container *ngIf="selectedTab === 'following'; else about">
+        <ng-container *ngIf="selectedTab === 'following'; else saved">
           <app-followers [type]="selectedTab"></app-followers>
+        </ng-container>
+      </ng-template>
+
+      <ng-template #saved>
+        <ng-container *ngIf="selectedTab === 'saved'; else about">
+          <app-posts header="Saved Posts" [savedByUsername]="true"></app-posts>
         </ng-container>
       </ng-template>
 
