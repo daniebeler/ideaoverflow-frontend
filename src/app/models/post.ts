@@ -11,6 +11,7 @@ export class Post {
   public numberOfUpvotes: number;
   public numberOfDownvotes: number;
   public currentUserVoteValue: number;
+  public saved: boolean;
 
   constructor(data: any) {
     this.id = data.id;
@@ -22,5 +23,6 @@ export class Post {
     this.numberOfUpvotes = data.upvotes;
     this.numberOfDownvotes = data.downvotes;
     this.currentUserVoteValue = data.votevalue;
+    this.saved = data.saved;
    }
 }

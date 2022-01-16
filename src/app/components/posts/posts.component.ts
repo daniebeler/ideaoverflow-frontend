@@ -88,7 +88,22 @@ export class PostsComponent implements OnInit {
   votePost(voteValue: number, postId: number) {
     this.apiService.getLatestUser().subscribe((latestUser) => {
       this.postService.votePost(voteValue, postId, latestUser.id);
-      console.log('done');
+      this.allLoadedPosts.find(x=>x.id === postId).currentUserVoteValue = voteValue;
+    });
+  }
+
+  savePost(postId: number) {
+    this.apiService.getLatestUser().subscribe((latestUser) => {
+      console.log(latestUser);
+      this.postService.savePost(postId, latestUser.id);
+      this.allLoadedPosts.find(x=>x.id === postId).saved = true;
+    });
+  }
+
+  unsavePost(postId: number) {
+    this.apiService.getLatestUser().subscribe((latestUser) => {
+      this.postService.unsavePost(postId, latestUser.id);
+      this.allLoadedPosts.find(x=>x.id === postId).saved = false;
     });
   }
 

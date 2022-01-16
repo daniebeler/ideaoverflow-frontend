@@ -28,8 +28,20 @@ export class PostService {
   }
 
   votePost(voteValue: number, postId: number, userId: number) {
-    this.http.post<any>(environment.api + 'post/vote/', { voteValue, postId, userId }).subscribe((res) => {
-      console.log('meem');
+    this.http.post<any>(environment.api + 'post/vote/', { voteValue, postId, userId }).subscribe(() => {
+      console.log('voted');
+    });
+  }
+
+  savePost(postId: number, userId: number) {
+    this.http.post<any>(environment.api + 'post/save/', { postId, userId }).subscribe(() => {
+      console.log('saved');
+    });
+  }
+
+  unsavePost(postId: number, userId: number) {
+    this.http.post<any>(environment.api + 'post/unsave/', { postId, userId }).subscribe(() => {
+      console.log('unsaved');
     });
   }
 }

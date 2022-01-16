@@ -48,13 +48,28 @@
                   </ion-col>
                   <ion-col size="auto"
                     style="padding-left: 20px; display: flex; flex-direction: column; align-items: center;">
-                    <ion-icon name="thumbs-up-outline" (click)="votePost(1, post.id)"></ion-icon>
+                    <ion-icon *ngIf="post.currentUserVoteValue === 1; else notUpvoted" name="thumbs-up" (click)="votePost(0, post.id)"></ion-icon>
+                    <ng-template #notUpvoted>
+                      <ion-icon name="thumbs-up-outline" (click)="votePost(1, post.id)"></ion-icon>
+                    </ng-template>
                     <p style="margin: 0;">{{post.numberOfUpvotes}}</p>
                   </ion-col>
                   <ion-col size="auto"
                     style="padding-left: 20px; display: flex; flex-direction: column; align-items: center;">
-                    <ion-icon name="thumbs-down-outline" (click)="votePost(-1, post.id)"></ion-icon>
+                    <ion-icon *ngIf="post.currentUserVoteValue === -1; else notDownvoted" name="thumbs-down" (click)="votePost(0, post.id)"></ion-icon>
+                    <ng-template #notDownvoted>
+                      <ion-icon name="thumbs-down-outline" (click)="votePost(-1, post.id)"></ion-icon>
+                    </ng-template>
                     <p style="margin: 0;">{{post.numberOfDownvotes}}</p>
+                  </ion-col>
+
+                  <ion-col size="auto"
+                    style="padding-left: 20px; display: flex; flex-direction: column; align-items: center;">
+                    <ion-icon *ngIf="post.saved; else notsaved" name="bookmark" (click)="unsavePost(post.id)">
+                    </ion-icon>
+                    <ng-template #notsaved>
+                      <ion-icon name="bookmark-outline" (click)="savePost(post.id)"></ion-icon>
+                    </ng-template>
                   </ion-col>
                 </ion-row>
               </ion-grid>
