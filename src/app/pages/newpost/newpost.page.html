@@ -12,7 +12,8 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <quill-editor [(ngModel)]="body"></quill-editor>
+        <quill-editor [(ngModel)]="textBind" [modules]="" (onEditorCreated)="editor($event)" trackChanges="all"></quill-editor>
+        {{textBind}}
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -31,5 +32,6 @@
         </ng-template>
       </ion-col>
     </ion-row>
+
   </ion-grid>
 </ion-footer>

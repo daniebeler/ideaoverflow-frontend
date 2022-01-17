@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -42,6 +42,15 @@ export class PostService {
   unsavePost(postId: number, userId: number) {
     this.http.post<any>(environment.api + 'post/unsave/', { postId, userId }).subscribe(() => {
       console.log('unsaved');
+    });
+  }
+
+  uploadImage(data: FormData) {
+    console.log(data);
+    const headers = new HttpHeaders({ authorization: 'Client-ID c0df3b4f744766f' });
+    this.http.post('https://api.imgur.com/3/image/', data, { headers }).subscribe((res) => {
+      console.log(res);
+      console.log('meeeeeem');
     });
   }
 }

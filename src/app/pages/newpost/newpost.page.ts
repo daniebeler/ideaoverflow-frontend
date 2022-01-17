@@ -1,8 +1,12 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
+/* eslint-disable eqeqeq */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
+import { PostService } from 'src/app/services/post.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-newpost',
@@ -16,10 +20,17 @@ export class NewpostPage implements OnInit {
   header: string;
   body: string;
 
+
+  quillText = 'fief';
+  textBind: string;
+  editorInstance: any = {};
+
   constructor(
     private router: Router,
     private api: ApiService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private postService: PostService,
+    private http: HttpClient
   ) { }
 
   ngOnInit() {
@@ -53,6 +64,53 @@ export class NewpostPage implements OnInit {
       }]
     });
     await alert.present();
+  }
+
+
+  editor(quill: any) {
+    this.editorInstance = quill;
+    const toolbar = quill.getModule('toolbar');
+    toolbar.addHandler('image', this.imageEditor.bind(this));
+  }
+
+  imageEditor() {
+    const data: any = this.editorInstance;
+    if (this.editorInstance != null) {
+      const range = this.editorInstance.getSelection();
+      if (range != null) {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.addEventListener('change', () => {
+          if (input.files != null) {
+            const file = input.files[0];
+            console.log(file);
+            if (file != null) {
+              const dataFile = new FormData();
+              dataFile.append('image', file);
+              const reader = new FileReader();
+              reader.readAsDataURL(file);
+              reader.onload = function(){
+                if (reader.readyState == 2){
+                  const base64result = reader.result;
+                  // data.insertEmbed(range.index, 'image', base64result);
+                  console.log(reader.result);
+                }
+              };
+              console.log('1');
+              // this.postService.uploadImage(dataFile);
+
+              const headers = new HttpHeaders({ authorization: 'Client-ID c0df3b4f744766f' });
+              this.http.post('https://api.imgur.com/3/image/', dataFile, { headers }).subscribe((res) => {
+                console.log(res);
+                console.log('meeeeeem');
+              });
+            }
+          }
+        });
+        input.click();
+      }
+    }
   }
 
 }
