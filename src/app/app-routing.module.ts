@@ -29,8 +29,7 @@ const routes: Routes = [
   },
   {
     path: 'newpost',
-    loadChildren: () => import('./pages/newpost/newpost.module').then(m => m.NewpostPageModule),
-    canActivate: [AuthGuard]
+    loadChildren: () => import('./pages/newpost/newpost.module').then(m => m.NewpostPageModule)
   },
   {
     path: 'search/:search',
