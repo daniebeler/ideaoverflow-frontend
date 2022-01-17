@@ -29,6 +29,12 @@ ion-avatar:hover {
   font-family: "poppins-bold", sans-serif !important;
 }
 
+.owner{
+  border: 1px solid rgb(180, 180, 180);
+  border-radius: 10px;
+  padding: 10px;
+}
+
 .owner:hover {
   cursor: pointer;
 }

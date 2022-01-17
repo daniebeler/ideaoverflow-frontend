@@ -41,10 +41,7 @@
                     <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
                       <img [src]="post.ownerImage">
                     </ion-avatar>
-                  </ion-col>
-                  <ion-col size="auto" style="display: flex;" class="ion-align-items-center owner"
-                    (click)="gotoProfile(post.ownerUsername)">
-                    <p style="margin-bottom: 0;"><strong>{{post.ownerUsername}}</strong></p>
+                    <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{post.ownerUsername}}</strong></p>
                   </ion-col>
                   <ion-col size="auto"
                     style="padding-left: 20px; display: flex; flex-direction: column; align-items: center;">
