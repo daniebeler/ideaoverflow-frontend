@@ -1,5 +1,5 @@
 <ion-row *ngIf="user">
-  <ion-col>
+  <ion-col *ngIf="user.github || user.twitter || user.instagram || user.dribbble || user.linkedin || user.website">
     <h2>Social Media</h2>
     <ul>
       <li *ngIf="user.github" (click)="openLink('https://github.com/' + user.github)">
@@ -52,7 +52,7 @@
   </ion-col>
 </ion-row>
 
-<ion-row>
+<ion-row *ngIf="user.github || user.twitter || user.instagram || user.dribbble || user.linkedin || user.website || user.bio">
   <ion-col style="margin-bottom: 20px; margin-top: 30px">
     <hr style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin-top: 20px; margin-right: 10px;">
   </ion-col>
