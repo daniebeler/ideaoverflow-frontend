@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api: 'http://165.227.128.21:8080/'
+  api: 'https://api.ideaoverflow.xyz:8080/'
 };
