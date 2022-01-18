@@ -88,22 +88,23 @@ export class NewpostPage implements OnInit {
             if (file != null) {
               const dataFile = new FormData();
               dataFile.append('image', file);
-              const reader = new FileReader();
-              reader.readAsDataURL(file);
-              reader.onload = function(){
-                if (reader.readyState == 2){
-                  const base64result = reader.result;
-                  // data.insertEmbed(range.index, 'image', base64result);
-                  console.log(reader.result);
-                }
-              };
-              console.log('1');
+              // const reader = new FileReader();
+              // reader.readAsDataURL(file);
+              // reader.onload = function(){
+              //   if (reader.readyState == 2){
+              //     const base64result = reader.result;
+              //     // data.insertEmbed(range.index, 'image', base64result);
+              //     console.log(reader.result);
+              //   }
+              // };
+              // console.log('1');
               // this.postService.uploadImage(dataFile);
 
               const headers = new HttpHeaders({ authorization: 'Client-ID c0df3b4f744766f' });
-              this.http.post('https://api.imgur.com/3/image/', dataFile, { headers }).subscribe((res) => {
+              this.http.post('https://api.imgur.com/3/image/', dataFile, { headers }).subscribe((res: any) => {
                 console.log(res);
                 console.log('meeeeeem');
+                data.insertEmbed(range.index, 'image', res.data.link);
               });
             }
           }
