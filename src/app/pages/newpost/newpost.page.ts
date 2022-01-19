@@ -81,14 +81,11 @@ export class NewpostPage implements OnInit {
         input.addEventListener('change', () => {
           if (input.files != null) {
             const file = input.files[0];
-            console.log(file);
             if (file != null) {
               const dataFile = new FormData();
               dataFile.append('image', file);
               const headers = new HttpHeaders({ authorization: 'Client-ID c0df3b4f744766f' });
               this.http.post('https://api.imgur.com/3/image/', dataFile, { headers }).subscribe((res: any) => {
-                console.log(res);
-                console.log('meeeeeem');
                 data.insertEmbed(range.index, 'image', res.data.link);
               });
             }

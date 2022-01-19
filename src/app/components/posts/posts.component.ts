@@ -57,14 +57,10 @@ export class PostsComponent implements OnInit {
         params.savedByUsername = this.savedByUsername;
       }
       else if (this.searchTerm) {
-        console.log(this.searchTerm);
         params.searchTerm = this.searchTerm;
       }
 
-      console.log(params);
-
       this.postService.getSelectedPosts(params).subscribe((posts: Post[]) => {
-        console.log(posts);
         for (const post of posts) {
           post.body = this.sanitizer.bypassSecurityTrustHtml(post.body);
           this.allLoadedPosts.push(post);
@@ -88,22 +84,21 @@ export class PostsComponent implements OnInit {
   votePost(voteValue: number, postId: number) {
     this.apiService.getLatestUser().subscribe((latestUser) => {
       this.postService.votePost(voteValue, postId, latestUser.id);
-      this.allLoadedPosts.find(x=>x.id === postId).currentUserVoteValue = voteValue;
+      this.allLoadedPosts.find(x => x.id === postId).currentUserVoteValue = voteValue;
     });
   }
 
   savePost(postId: number) {
     this.apiService.getLatestUser().subscribe((latestUser) => {
-      console.log(latestUser);
       this.postService.savePost(postId, latestUser.id);
-      this.allLoadedPosts.find(x=>x.id === postId).saved = true;
+      this.allLoadedPosts.find(x => x.id === postId).saved = true;
     });
   }
 
   unsavePost(postId: number) {
     this.apiService.getLatestUser().subscribe((latestUser) => {
       this.postService.unsavePost(postId, latestUser.id);
-      this.allLoadedPosts.find(x=>x.id === postId).saved = false;
+      this.allLoadedPosts.find(x => x.id === postId).saved = false;
     });
   }
 

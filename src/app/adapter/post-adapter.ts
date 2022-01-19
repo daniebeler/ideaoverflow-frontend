@@ -16,7 +16,6 @@ export class PostAdapter implements Adapter<Post> {
     item.ownerImage = this.sanitizerService.getSanitizedUrlFromArrayBuffer(item.profileimage);
     item.votevalue = item.votevalue ? item.votevalue : 0;
     item.saved = item.saved ? true : false;
-    console.log(item);
     return new Post(item);
   }
 }
