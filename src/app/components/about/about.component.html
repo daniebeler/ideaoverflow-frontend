@@ -52,8 +52,12 @@
   </ion-col>
 </ion-row>
 
-<ion-row *ngIf="user.github || user.twitter || user.instagram || user.dribbble || user.linkedin || user.website || user.bio">
-  <ion-col style="margin-bottom: 20px; margin-top: 30px">
-    <hr style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin-top: 20px; margin-right: 10px;">
-  </ion-col>
-</ion-row>
+<div *ngIf="user">
+  <ion-row
+    *ngIf="user.github || user.twitter || user.instagram || user.dribbble || user.linkedin || user.website || user.bio">
+    <ion-col style="margin-bottom: 20px; margin-top: 30px">
+      <hr
+        style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin-top: 20px; margin-right: 10px;">
+    </ion-col>
+  </ion-row>
+</div>
