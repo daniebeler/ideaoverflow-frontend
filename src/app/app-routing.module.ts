@@ -29,11 +29,17 @@ const routes: Routes = [
   },
   {
     path: 'newpost',
-    loadChildren: () => import('./pages/newpost/newpost.module').then(m => m.NewpostPageModule)
+    loadChildren: () => import('./pages/newpost/newpost.module').then(m => m.NewpostPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'search/:search',
     loadChildren: () => import('./pages/search/search.module').then( m => m.SearchPageModule)
+  },
+  {
+    path: 'editpost',
+    loadChildren: () => import('./pages/editpost/editpost.module').then( m => m.EditpostPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: '',
@@ -43,6 +49,7 @@ const routes: Routes = [
     path: '**',
     loadChildren: () => import('./pages/pagenotfound/pagenotfound.module').then( m => m.PagenotfoundPageModule)
   }
+
 ];
 
 @NgModule({

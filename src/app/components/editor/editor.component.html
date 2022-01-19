@@ -1,0 +1,24 @@
+<ion-grid class="container">
+  <ion-row>
+    <ion-col>
+      <div class="form-group">
+        <label class="text-label" for="fname"><strong>Header</strong></label>
+        <input type="text" placeholder="The best Idea ever" [(ngModel)]="header" />
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <quill-editor [(ngModel)]="body" [modules]="" (onEditorCreated)="editor($event)" trackChanges="all">
+      </quill-editor>
+      <!-- {{textBind}} -->
+      <button style="margin-top: 20px;" type="button" class="btn-medium btn-orange" (click)="savePost()"
+        *ngIf="header && body; else elseBlock">Release your post</button>
+
+      <ng-template #elseBlock>
+        <button style="margin-top: 20px;" type="button" class="btn-medium btn-disabled" disabled>Release your
+          post</button>
+      </ng-template>
+    </ion-col>
+  </ion-row>
+</ion-grid>

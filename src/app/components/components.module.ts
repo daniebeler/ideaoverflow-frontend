@@ -6,13 +6,18 @@ import { PostsComponent } from './posts/posts.component';
 import { FooterComponent } from './footer/footer.component';
 import { FollowersComponent } from './followers/followers.component';
 import { AboutComponent } from './about/about.component';
+import { EditorComponent } from './editor/editor.component';
+import { QuillModule } from 'ngx-quill';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, PostsComponent, FollowersComponent, AboutComponent],
-  exports: [HeaderComponent, FooterComponent, PostsComponent, FollowersComponent, AboutComponent],
+  declarations: [HeaderComponent, FooterComponent, PostsComponent, FollowersComponent, AboutComponent, EditorComponent],
+  exports: [HeaderComponent, FooterComponent, PostsComponent, FollowersComponent, AboutComponent, EditorComponent],
   imports: [
     IonicModule,
-    CommonModule
+    CommonModule,
+    QuillModule,
+    FormsModule
   ]
 })
 export class ComponentsModule{}

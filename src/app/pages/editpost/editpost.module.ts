@@ -4,10 +4,10 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { NewpostPageRoutingModule } from './newpost-routing.module';
+import { EditpostPageRoutingModule } from './editpost-routing.module';
 import { ComponentsModule } from 'src/app/components/components.module';
 
-import { NewpostPage } from './newpost.page';
+import { EditpostPage } from './editpost.page';
 
 @NgModule({
   imports: [
@@ -15,8 +15,8 @@ import { NewpostPage } from './newpost.page';
     FormsModule,
     IonicModule,
     ComponentsModule,
-    NewpostPageRoutingModule
+    EditpostPageRoutingModule
   ],
-  declarations: [NewpostPage]
+  declarations: [EditpostPage]
 })
-export class NewpostPageModule {}
+export class EditpostPageModule {}
