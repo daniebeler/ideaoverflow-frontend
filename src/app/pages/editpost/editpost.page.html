@@ -1,5 +1,5 @@
 <app-header></app-header>
 
-<ion-content>
-  <app-editor></app-editor>
+<ion-content *ngIf="post">
+  <app-editor [title]="post.title" [body]="post.body" [postId]="post.id"></app-editor>
 </ion-content>

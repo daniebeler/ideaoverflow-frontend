@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { Post } from 'src/app/models/post';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
@@ -31,12 +30,16 @@ export class PostsComponent implements OnInit {
 
   constructor(
     private postService: PostService,
-    private sanitizer: DomSanitizer,
     private router: Router,
     private apiService: ApiService
   ) { }
 
   ngOnInit() {
+    this.apiService.getLatestUser()
+      .subscribe((latestUser) => {
+        this.currentUser = latestUser;
+      });
+
     this.getPosts(false, '');
   }
 
@@ -62,7 +65,6 @@ export class PostsComponent implements OnInit {
 
       this.postService.getSelectedPosts(params).subscribe((posts: Post[]) => {
         for (const post of posts) {
-          post.body = this.sanitizer.bypassSecurityTrustHtml(post.body);
           this.allLoadedPosts.push(post);
         }
         if (isInitialLoad) { event.target.complete(); }
@@ -81,6 +83,15 @@ export class PostsComponent implements OnInit {
 
   gotoProfile(username: string) {
     this.router.navigate(['profile/' + username]);
+  }
+
+  editPost(post: Post) {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        post
+      }
+    };
+    this.router.navigate(['editpost/'], navigationExtras);
   }
 
   votePost(voteValue: number, postId: number) {

@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { User } from 'src/app/models/user';
@@ -13,10 +13,12 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class EditorComponent implements OnInit {
 
-  user: User;
+  @Input() title = '';
+  @Input() body: any;
+  @Input() buttonText = 'Release Post';
+  @Input() postId: number;
 
-  header: string;
-  body: string;
+  user: User;
 
   editorInstance: any = {};
 
@@ -32,6 +34,7 @@ export class EditorComponent implements OnInit {
     this.api.getLatestUser()
       .subscribe((latestUser) => {
         this.user = latestUser;
+        console.log(this.body);
       });
   }
 
@@ -54,7 +57,12 @@ export class EditorComponent implements OnInit {
         text: 'Okay',
         role: 'ok',
         handler: () => {
-          this.api.createPost(this.header, this.body, this.user.id);
+          if (this.postId) {
+            this.postService.updatePost(this.title, this.body, this.postId);
+          }
+          else {
+            this.api.createPost(this.title, this.body, this.user.id);
+          }
         }
       }]
     });
@@ -95,3 +103,4 @@ export class EditorComponent implements OnInit {
   }
 
 }
+

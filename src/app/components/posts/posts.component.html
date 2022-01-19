@@ -29,6 +29,11 @@
                   <ion-col>
                     <h1 style="margin: 0;">{{post.title}}</h1>
                   </ion-col>
+                  <div *ngIf="currentUser">
+                    <ion-col *ngIf="currentUser.id === post.ownerId" size="auto" style="display: flex;">
+                      <ion-icon (click)="editPost(post)" class="edit-button" name="settings-outline" style="height: 30px; width: 30px;"></ion-icon>
+                    </ion-col>
+                  </div>
                 </ion-row>
                 <ion-row>
                   <ion-col>

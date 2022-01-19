@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { PostAdapter } from '../adapter/post-adapter';
 import { Post } from '../models/post';
@@ -47,4 +47,25 @@ export class PostService {
     this.http.post('https://api.imgur.com/3/image/', data, { headers }).subscribe((res) => {
     });
   }
+
+  updatePost(title, body, postId) {
+    const obj = {
+      title,
+      body,
+      postId
+    };
+    return this.http.post<any>(environment.api + 'post/update/', obj).subscribe(async res => {
+      if (res.status === 200) {
+      }
+      else {
+        // this.alertService.showOkayAlertWithoutAction(res.header, res.message);
+      }
+
+    }),
+      catchError(e => {
+        // this.alertService.showOkayAlertWithoutAction('Error', e.error.message);
+        throw new Error(e);
+      });
+  }
 }
+

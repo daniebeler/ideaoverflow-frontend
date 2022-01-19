@@ -6,6 +6,7 @@ export class Post {
   public title: string;
   public body: any;
   public creationDate: Date;
+  public ownerId: number;
   public ownerUsername: string;
   public ownerImage: SafeUrl;
   public numberOfUpvotes: number;
@@ -18,6 +19,7 @@ export class Post {
     this.title = data.title;
     this.body = data.body;
     this.creationDate = data.creationdate;
+    this.ownerId = data.ownerid;
     this.ownerUsername = data.username;
     this.ownerImage = data.ownerImage;
     this.numberOfUpvotes = data.upvotes;
