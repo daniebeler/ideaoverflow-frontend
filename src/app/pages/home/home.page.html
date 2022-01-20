@@ -5,18 +5,35 @@
     <ion-row>
       <ion-col>
         <ion-grid class="contribute-grid">
-          <ion-row>
-            <ion-col>
-              <h4>
-                If you have a great idea please feel free to post it.
-              </h4>
-              <button type="button" class="btn-medium btn-white" style="margin-top: 10px; margin-bottom: 10px;"
-                (click)="gotoNewpost()">Create post</button>
+          <ion-row *ngIf="user; else notloggedin">
+            <ion-col style="display: flex; flex-direction: column; justify-content: center;">
+              <div>
+                <h4><strong>Hello, {{user.firstname}}!</strong></h4>
+                <p>If you have a great idea please share it with your community!</p>
+                <button type="button" class="btn-medium btn-dark" style="margin-top: 10px; margin-bottom: 10px;"
+                  (click)="gotoNewpost()">Create post</button>
+              </div>
             </ion-col>
-            <ion-col style="display: flex; justify-content: center;" size="5">
-              <img src="./../../../assets/noposts.svg" style="width: 50%;" alt="">
+            <ion-col style="display: flex; justify-content: center; padding: 20px;" size="5">
+              <img src="./../../../assets/svgs/people.svg" alt="">
             </ion-col>
           </ion-row>
+          <ng-template #notloggedin>
+            <ion-row>
+              <ion-col style="display: flex; flex-direction: column; justify-content: center;">
+                <div>
+                  <h4><strong>New to Idea Overflow?</strong></h4>
+                <p>Sign up now to post your own ideas!</p>
+                <button type="button" class="btn-medium btn-dark" style="margin-top: 10px; margin-bottom: 10px;"
+                  (click)="gotoRegister()">Register</button>
+                </div>
+              </ion-col>
+              <ion-col style="display: flex; justify-content: center; padding: 20px;" size="5">
+                <img src="./../../../assets/svgs/people.svg" alt="">
+              </ion-col>
+            </ion-row>
+          </ng-template>
+
         </ion-grid>
       </ion-col>
     </ion-row>

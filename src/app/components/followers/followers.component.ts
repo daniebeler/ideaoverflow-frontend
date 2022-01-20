@@ -11,6 +11,7 @@ import { FollowerService } from 'src/app/services/follower.service';
 export class FollowersComponent implements OnInit {
 
   @Input() type = '';
+  @Input() textIfNoFollowers = '';
 
   followers: User[] = [];
 

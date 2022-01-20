@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -10,8 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HomePage implements OnInit {
 
-  loggedIn = false;
-  user: any;
+  user: User;
 
   postsHeader = 'Popular Posts';
 
@@ -25,12 +25,6 @@ export class HomePage implements OnInit {
     this.api.getLatestUser()
       .subscribe((latestUser) => {
         this.user = latestUser;
-        if (latestUser) {
-          this.loggedIn = true;
-        }
-        else {
-          this.loggedIn = false;
-        }
       });
   }
 
@@ -38,8 +32,8 @@ export class HomePage implements OnInit {
     this.router.navigate(['profile/' + this.user.username]);
   }
 
-  gotoLogin() {
-    this.router.navigate(['login']);
+  gotoRegister() {
+    this.router.navigate(['register']);
   }
 
   gotoNewpost() {
