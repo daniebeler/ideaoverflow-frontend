@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-settings',
@@ -42,7 +43,9 @@ export class SettingsPage implements OnInit {
     private router: Router,
     private auth: AuthService,
     private api: ApiService,
-    private httpClient: HttpClient) { }
+    private httpClient: HttpClient,
+    private domSanitizer: DomSanitizer
+    ) { }
 
   ngOnInit() {
     this.httpClient.get('./assets/json/countries.json').subscribe(data => {
@@ -115,26 +118,20 @@ export class SettingsPage implements OnInit {
   }
 
   onFileChange(event) {
+    if (event.target.files != null) {
+      console.log(event.target.files[0]);
+      const file = event.target.files[0];
+      if (file != null) {
+        this.api.uploadImage(file).subscribe((res: any) => {
+          if(res.data.link){
 
-    // if (event.files != null) {
-    //   const file = event.files[0];
-    //   if (file != null) {
-    //     const dataFile = new FormData();
-    //     dataFile.append('image', file);
-    //     const headers = new HttpHeaders({ authorization: 'Client-ID c0df3b4f744766f' });
-    //     this.http.post('https://api.imgur.com/3/image/', dataFile, { headers }).subscribe((res: any) => {
-    //       data.insertEmbed(range.index, 'image', res.data.link);
-    //     });
-    //   }
-    // }
-
-
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(event.target.files[0]);
-    fileReader.onload = () => {
-      this.profilePicture = fileReader.result;
-      this.checkForChange();
-    };
+            this.profilePicture = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
+            console.log(this.profilePicture);
+            this.checkForChange();
+          }
+        });
+      }
+    }
   }
 
   checkForChange() {

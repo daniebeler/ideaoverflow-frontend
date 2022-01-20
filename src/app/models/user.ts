@@ -1,4 +1,4 @@
-import { SafeUrl } from '@angular/platform-browser';
+import { SafeResourceUrl } from '@angular/platform-browser';
 
 export class User {
 
@@ -17,7 +17,7 @@ export class User {
   public isPrivate: boolean;
   public country: string;
   public state: string;
-  public profileimage: SafeUrl;
+  public profileimage: SafeResourceUrl;
   public creationDate: Date;
   public numberOfFollowers: number;
   public numberOfFollowees: number;

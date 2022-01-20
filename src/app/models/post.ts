@@ -1,4 +1,4 @@
-import { SafeUrl } from '@angular/platform-browser';
+import { SafeResourceUrl } from '@angular/platform-browser';
 
 export class Post {
 
@@ -8,7 +8,7 @@ export class Post {
   public creationDate: Date;
   public ownerId: number;
   public ownerUsername: string;
-  public ownerImage: SafeUrl;
+  public ownerImage: SafeResourceUrl;
   public numberOfUpvotes: number;
   public numberOfDownvotes: number;
   public currentUserVoteValue: number;
