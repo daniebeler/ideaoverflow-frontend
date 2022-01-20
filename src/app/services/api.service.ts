@@ -1,11 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, range } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { map, catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { User } from '../models/user';
 import { UserAdapter } from '../adapter/user-adapter';
-import { AlertService } from './alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +15,7 @@ export class ApiService {
 
   constructor(
     private http: HttpClient,
-    private adapter: UserAdapter,
-    private alertService: AlertService
+    private adapter: UserAdapter
   ) { }
 
   getLatestUser(): Observable<User> {
@@ -38,26 +36,6 @@ export class ApiService {
 
   getNumberOfTotalUsers() {
     return this.http.get<any>(environment.api + 'user/numberoftotalusers');
-  }
-
-  createPost(header, body, userID) {
-    const obj = {
-      header,
-      body,
-      userID
-    };
-    return this.http.post<any>(environment.api + 'post/create/', obj).subscribe(async res => {
-      if (res.status === 200) {
-      }
-      else {
-        this.alertService.showOkayAlertWithoutAction(res.header, res.message);
-      }
-
-    }),
-      catchError(e => {
-        this.alertService.showOkayAlertWithoutAction('Error', e.error.message);
-        throw new Error(e);
-      });
   }
 
   getLatestPosts() {

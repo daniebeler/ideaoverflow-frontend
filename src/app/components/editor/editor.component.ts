@@ -56,10 +56,14 @@ export class EditorComponent implements OnInit {
         role: 'ok',
         handler: () => {
           if (this.postId) {
-            this.postService.updatePost(this.title, this.body, this.postId);
+            this.postService.updatePost(this.title, this.body, this.postId).subscribe(async res => {
+              this.redirect(res);
+            });
           }
           else {
-            this.api.createPost(this.title, this.body, this.user.id);
+            this.postService.createPost(this.title, this.body, this.user.id).subscribe(async res => {
+              this.redirect(res);
+            });
           }
         }
       }]
@@ -67,6 +71,24 @@ export class EditorComponent implements OnInit {
     await alert.present();
   }
 
+  async redirect(res) {
+    const alert = await this.alertController.create({
+      cssClass: 'custom-alert-ok',
+      backdropDismiss: false,
+      header: res.header,
+      message: res.message,
+      buttons: [{
+        text: 'Okay',
+        role: 'ok',
+        handler: () => {
+          if (res.status === 200) {
+            this.router.navigate(['']);
+          }
+        }
+      }]
+    });
+    await alert.present();
+  }
 
   editor(quill: any) {
     this.editorInstance = quill;
