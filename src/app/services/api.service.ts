@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, range } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { map, catchError } from 'rxjs/operators';
 import { User } from '../models/user';
@@ -64,7 +64,14 @@ export class ApiService {
     return this.http.get<any>(environment.api + 'post/latest');
   }
 
-  clearData(){
+  clearData() {
     this.user.next(null);
+  }
+
+  uploadImage(file: any) {
+    const dataFile = new FormData();
+    dataFile.append('image', file);
+    const headers = new HttpHeaders({ authorization: 'Client-ID c0df3b4f744766f' });
+    return this.http.post('https://api.imgur.com/3/image/', dataFile, { headers });
   }
 }

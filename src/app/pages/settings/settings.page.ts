@@ -115,6 +115,20 @@ export class SettingsPage implements OnInit {
   }
 
   onFileChange(event) {
+
+    // if (event.files != null) {
+    //   const file = event.files[0];
+    //   if (file != null) {
+    //     const dataFile = new FormData();
+    //     dataFile.append('image', file);
+    //     const headers = new HttpHeaders({ authorization: 'Client-ID c0df3b4f744766f' });
+    //     this.http.post('https://api.imgur.com/3/image/', dataFile, { headers }).subscribe((res: any) => {
+    //       data.insertEmbed(range.index, 'image', res.data.link);
+    //     });
+    //   }
+    // }
+
+
     const fileReader = new FileReader();
     fileReader.readAsDataURL(event.target.files[0]);
     fileReader.onload = () => {

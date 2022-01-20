@@ -1,4 +1,3 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
@@ -26,8 +25,7 @@ export class EditorComponent implements OnInit {
     private router: Router,
     private api: ApiService,
     private alertController: AlertController,
-    private postService: PostService,
-    private http: HttpClient
+    private postService: PostService
   ) { }
 
   ngOnInit() {
@@ -88,10 +86,7 @@ export class EditorComponent implements OnInit {
           if (input.files != null) {
             const file = input.files[0];
             if (file != null) {
-              const dataFile = new FormData();
-              dataFile.append('image', file);
-              const headers = new HttpHeaders({ authorization: 'Client-ID c0df3b4f744766f' });
-              this.http.post('https://api.imgur.com/3/image/', dataFile, { headers }).subscribe((res: any) => {
+              this.api.uploadImage(file).subscribe((res: any) => {
                 data.insertEmbed(range.index, 'image', res.data.link);
               });
             }
@@ -101,6 +96,5 @@ export class EditorComponent implements OnInit {
       }
     }
   }
-
 }
 
