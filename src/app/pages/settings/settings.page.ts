@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-settings',
@@ -18,7 +18,7 @@ export class SettingsPage implements OnInit {
   isPrivate: boolean;
   country: any;
   state: string;
-  profilePicture: any;
+  profilePicture: SafeResourceUrl;
 
   bio: string;
   instagram: string;
@@ -45,7 +45,7 @@ export class SettingsPage implements OnInit {
     private api: ApiService,
     private httpClient: HttpClient,
     private domSanitizer: DomSanitizer
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.httpClient.get('./assets/json/countries.json').subscribe(data => {
@@ -74,6 +74,7 @@ export class SettingsPage implements OnInit {
     this.website = this.user.website;
     this.profilePicture = this.user.profileimage;
     this.checkForChange();
+    console.log(this.profilePicture);
   }
 
   gotoHome() {
@@ -85,6 +86,8 @@ export class SettingsPage implements OnInit {
   }
 
   updateUser() {
+    const url: any = this.profilePicture;
+
     const dataToUpdate = {
       id: this.auth.getUser().id,
       firstname: this.firstname,
@@ -92,7 +95,7 @@ export class SettingsPage implements OnInit {
       private: this.isPrivate,
       country: this.country.country,
       state: this.state,
-      profilepicture: this.profilePicture,
+      profilepicture: url.changingThisBreaksApplicationSecurity,
       bio: this.bio,
       instagram: this.instagram,
       twitter: this.twitter,
@@ -123,8 +126,7 @@ export class SettingsPage implements OnInit {
       const file = event.target.files[0];
       if (file != null) {
         this.api.uploadImage(file).subscribe((res: any) => {
-          if(res.data.link){
-
+          if (res.data.link) {
             this.profilePicture = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
             console.log(this.profilePicture);
             this.checkForChange();
