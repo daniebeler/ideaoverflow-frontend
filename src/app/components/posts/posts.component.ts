@@ -20,7 +20,7 @@ export class PostsComponent implements OnInit {
   queryParams: string;
   allLoadedPosts: Post[] = [];
   numberOfPosts = 5;
-  skipPosts = 0;
+  skipPosts = -5;
 
   showSortingButtons = true;
 
@@ -38,41 +38,39 @@ export class PostsComponent implements OnInit {
     this.apiService.getLatestUser()
       .subscribe((latestUser) => {
         this.currentUser = latestUser;
+        this.getPosts(false, '');
       });
-
-    this.getPosts(false, '');
   }
 
   getPosts(isInitialLoad: boolean, event) {
+    this.skipPosts = this.skipPosts + 5;
+    const params: any = {
+      skip: this.skipPosts,
+      take: this.numberOfPosts,
+      currentUserId: this.currentUser?.id
+    };
 
-    this.apiService.getLatestUser().subscribe((latestUser) => {
-      const params: any = {
-        skip: this.skipPosts,
-        take: this.numberOfPosts,
-        currentUserId: latestUser?.id
-      };
+    console.log(params);
 
-      if (this.filterByUsername) {
-        params.username = this.filterByUsername;
-      }
-      else if (this.savedByUsername) {
-        this.showSortingButtons = false;
-        params.savedByUsername = this.savedByUsername;
-      }
-      else if (this.searchTerm) {
-        params.searchTerm = this.searchTerm;
-      }
+    if (this.filterByUsername) {
+      params.username = this.filterByUsername;
+    }
+    else if (this.savedByUsername) {
+      this.showSortingButtons = false;
+      params.savedByUsername = this.savedByUsername;
+    }
+    else if (this.searchTerm) {
+      params.searchTerm = this.searchTerm;
+    }
 
-      this.postService.getSelectedPosts(params).subscribe((posts: Post[]) => {
-        for (const post of posts) {
-          this.allLoadedPosts.push(post);
-        }
-        if (isInitialLoad) { event.target.complete(); }
-        this.skipPosts = this.skipPosts + 5;
-      });
+    this.postService.getSelectedPosts(params).subscribe((posts: Post[]) => {
+      for (const post of posts) {
+        this.allLoadedPosts.push(post);
+      }
+      if (isInitialLoad) {
+        event.target.complete();
+      }
     });
-
-
   }
 
   loadData(event) {
