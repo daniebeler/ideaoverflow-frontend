@@ -31,6 +31,16 @@
                 "output": "./svg"
               },
               {
+                "glob": "robots.txt",
+                "input": "src",
+                "output": "/"
+              },
+              {
+                "glob": "sitemap.xml",
+                "input": "src",
+                "output": "/"
+              },
+              {
                 "glob": "_redirects",
                 "input": "src",
                 "output": "/"
