@@ -11,6 +11,8 @@ export class SearchPage implements OnInit {
   searchTerm = '';
   postsHeader = '';
 
+  tab = 'posts';
+
   constructor(
     private activatedRoute: ActivatedRoute
   ) { }

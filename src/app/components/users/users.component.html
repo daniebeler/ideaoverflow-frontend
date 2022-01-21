@@ -1,0 +1,37 @@
+<div *ngIf="users.length > 0; else noFollowers">
+  <ion-grid style="margin-bottom: 100px;">
+    <ion-row>
+      <ion-col size-xs="6" size-sm="4" size-md="4" size-lg="4" size-xl="4" *ngFor="let user of users">
+        <ion-grid class="wrapper" (click)="gotoProfile(user.username)">
+          <ion-row>
+            <ion-col size="auto">
+              <ion-avatar style="height: 60px; width: 60px; --border-radius: 50%">
+                <img [src]="user.profileimage">
+              </ion-avatar>
+            </ion-col>
+            <ion-col size="auto" style="display: flex;" class="ion-align-items-center">
+              <div>
+                <p style="margin-bottom: 0;"><strong>{{user.firstname}} {{user.lastname}}</strong></p>
+                <p style="margin-bottom: 0;">@{{user.username}}</p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+
+<ng-template #noFollowers>
+  <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
+    <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="10" size-sm="10"
+      size-md="6" size-lg="5" size-xl="5">
+      <img src="./../../../assets/svgs/no-followers.svg" style="width: 100%; padding-top: 10px;" alt="">
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="ion-text-center">
+      <h2 style="margin-top: 0;"><strong>Didn't find any users</strong></h2>
+    </ion-col>
+  </ion-row>
+</ng-template>
