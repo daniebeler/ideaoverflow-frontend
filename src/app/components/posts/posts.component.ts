@@ -21,6 +21,7 @@ export class PostsComponent implements OnInit {
   allLoadedPosts: Post[] = [];
   numberOfPosts = 5;
   skipPosts = -5;
+  loadedUser = false;
 
   showSortingButtons = true;
 
@@ -38,6 +39,8 @@ export class PostsComponent implements OnInit {
     this.apiService.getLatestUser()
       .subscribe((latestUser) => {
         this.currentUser = latestUser;
+        this.allLoadedPosts = [];
+        this.skipPosts = -5;
         this.getPosts(false, '');
       });
   }
