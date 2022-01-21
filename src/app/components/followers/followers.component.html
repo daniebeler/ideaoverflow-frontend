@@ -2,7 +2,7 @@
   <h2>{{followers.length}} {{header}}</h2>
   <ion-grid style="margin-bottom: 100px;">
     <ion-row>
-      <ion-col size="4" *ngFor="let follower of followers">
+      <ion-col size-xs="6" size-sm="4" size-md="4" size-lg="4" size-xl="4" *ngFor="let follower of followers">
         <ion-grid class="wrapper" (click)="gotoFollower(follower.username)">
           <ion-row>
             <ion-col size="auto">

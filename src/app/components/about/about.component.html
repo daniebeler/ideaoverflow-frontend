@@ -1,5 +1,6 @@
 <ion-row *ngIf="user">
-  <ion-col *ngIf="user.github || user.twitter || user.instagram || user.dribbble || user.linkedin || user.website">
+  <ion-col *ngIf="user.github || user.twitter || user.instagram || user.dribbble || user.linkedin || user.website"
+  size-xs="12" size-sm="6" size-md="6" size-lg="6" size-xl="6">
     <h2>Social Media</h2>
     <ul>
       <li *ngIf="user.github" (click)="openLink('https://github.com/' + user.github)">
@@ -27,7 +28,7 @@
           name="logo-linkedin"></ion-icon>
         <span style="vertical-align:middle"><strong> Linkedin</strong></span>
       </li>
-      <li *ngIf="user.website" (click)="openLink(user.website)">
+      <li *ngIf="user.website" (click)="openLink('http://' + user.website)">
         <ion-icon class="socialmedia-icon" style="height: 20px; width: 20px; vertical-align: middle;"
           name="globe-outline"></ion-icon>
         <span style="vertical-align:middle"><strong> {{user.website}}</strong></span>
