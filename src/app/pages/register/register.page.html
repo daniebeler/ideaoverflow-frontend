@@ -1,7 +1,5 @@
 <ion-content>
-  <div style="margin-top: 150px;" class="ion-padding ion-align-items-center ion-justify-content-center">
-
-
+  <div style="min-height: 100%; display: flex;" class="ion-padding ion-align-items-center ion-justify-content-center">
     <ion-grid class="ion-padding register-grid container">
       <ion-row>
         <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="6" size-xl="6" style="padding-left: 75px; padding-right: 50px;">
@@ -17,11 +15,11 @@
           </div>
 
           <div class="form-group">
-            <input type="password" name="passwort" id="password" placeholder="Password" [(ngModel)]="password1"/>
+            <input type="password" name="passwort" placeholder="Password" [(ngModel)]="password1"/>
           </div>
 
           <div class="form-group">
-            <input type="password" name="passwort" id="password" placeholder="Repeat your password" [(ngModel)]="password2" (keyup.enter)="register()"/>
+            <input type="password" name="passwort" placeholder="Repeat your password" [(ngModel)]="password2" (keyup.enter)="register()"/>
           </div>
 
           <div class="row d-flex justify-content-center submit-button-container">
@@ -29,7 +27,7 @@
           </div>
         </ion-col>
 
-        <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="6" size-xl="6" style="padding-left: 50px; padding-right: 75px;">
+        <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="6" size-xl="6" style="padding-left: 50px; padding-right: 75px; display: flex; flex-direction: column; justify-content: center;">
           <img [hidden]="devWidth < 767" src="./../../../assets/character_16.svg" style="width: 100%; padding-bottom: 10px;" alt="">
           <p class="ion-text-center txt-gotologin">Already have an account? <strong (click)="gotoLogin()">Login here</strong></p>
         </ion-col>

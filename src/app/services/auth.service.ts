@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import { ApiService } from './api.service';
 import { AlertService } from './alert.service';
-import { Platform } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 
 const TOKEN_KEY = 'access_token_1';
 
@@ -27,7 +27,8 @@ export class AuthService {
     private helper: JwtHelperService,
     private platform: Platform,
     private apiService: ApiService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private alertController: AlertController
   ) {
     this.platform.ready().then(() => {
       this.checkToken();
@@ -61,15 +62,23 @@ export class AuthService {
       password2
     };
 
-    return this.httpClient.post<any>(environment.api + 'user/register', obj).subscribe(async res => {
-      if (res.status === 201) {
-
-        this.router.navigate(['welcome']);
-      }
-      else {
-        this.alertService.showOkayAlertWithoutAction(res.header, res.message);
-      }
-
+    return this.httpClient.post<any>(environment.api + 'registration/register', obj).subscribe(async res => {
+      const alert = this.alertController.create({
+        cssClass: 'custom-alert-ok',
+        backdropDismiss: false,
+        header: res.header,
+        message: res.message,
+        buttons: [{
+          text: 'Okay',
+          role: 'ok',
+          handler: () => {
+            if(res.status === 1){
+              this.router.navigate(['login']);
+            }
+          }
+        }]
+      });
+      alert.then(createdAlert => createdAlert.present());
     }),
       catchError(e => {
         this.alertService.showOkayAlertWithoutAction('Error', e.error.message);
@@ -79,13 +88,31 @@ export class AuthService {
 
   login(email, password) {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    this.httpClient.post<any>(environment.api + 'user/login', { email, password }).subscribe(async res => {
+    this.httpClient.post<any>(environment.api + 'registration/login', { email, password }).subscribe(async res => {
       if (res.token) {
         await this.storage.set(TOKEN_KEY, res.token);
         this.decodedUserToken = this.helper.decodeToken(res.token);
         this.authenticationState.next(true);
         this.apiService.fetchUserFromApi(this.getUser().id);
         this.router.navigate(['']);
+      }
+      else if (res.notverified === true) {
+        const alert = await this.alertController.create({
+          cssClass: 'custom-alert-ok',
+          backdropDismiss: false,
+          header: 'Ooops!',
+          message: 'Your email is not verified yet. Do you want to receive another verification code?',
+          buttons: [{
+            text: 'Cancel'
+          }, {
+            text: 'Send again',
+            role: 'ok',
+            handler: () => {
+              this.sendVerificationMailAgain(email);
+            }
+          }]
+        });
+        await alert.present();
       }
       else {
         this.alertService.showOkayAlertWithoutAction('Ooops', res.message);
@@ -99,7 +126,13 @@ export class AuthService {
   }
 
   verify(code) {
-    return this.httpClient.get<any>(environment.api + 'user/verify/' + code);
+    return this.httpClient.get<any>(environment.api + 'registration/verify/' + code);
+  }
+
+  sendVerificationMailAgain(email) {
+    this.httpClient.post<any>(environment.api + 'registration/sendverificationmailagain', { email }).subscribe(async res => {
+      this.alertService.showOkayAlertWithoutAction(res.header, res.message);
+    });
   }
 
   public getUser() {

@@ -8,7 +8,7 @@
           <ion-row *ngIf="user; else notloggedin">
             <ion-col style="display: flex; flex-direction: column; justify-content: center;">
               <div>
-                <h4><strong>Hello, {{user.firstname}}!</strong></h4>
+                <h4><strong *ngIf="user.firstname">Hello, {{user.firstname}}!</strong><strong *ngIf="!user.firstname">Hey!</strong></h4>
                 <p>If you have a great idea please share it with your community!</p>
                 <button type="button" class="btn-medium btn-dark" style="margin-top: 10px; margin-bottom: 10px;"
                   (click)="gotoNewpost()">Create post</button>

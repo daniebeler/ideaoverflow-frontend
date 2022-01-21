@@ -34,7 +34,7 @@
         </ion-col>
       </ion-row>
 
-      <ion-row>
+      <ion-row *ngIf="latestUser">
         <ion-col size-xs="12" size-sm="12" size-md="4" size-lg="4" size-xl="4">
           <div *ngIf="isMyProfile; else isNotMyProfile">
             <ion-grid style="padding: 0; padding-top: 10px;">
@@ -52,29 +52,18 @@
             </ion-grid>
           </div>
           <ng-template #isNotMyProfile>
-            <ng-component>
-              <ion-grid style="padding: 0; padding-top: 10px;">
-                <ion-row>
-                  <ion-col *ngIf="amFollowingThisProfile; else notFollowing" style="padding-right: 10px;">
-                    <button type="button" class="btn-medium btn-dark" style="width: 100%;"
-                      (click)="unfollow()">Unfollow</button>meem
-                  </ion-col>
-                  <ng-template #notFollowing>
-                    <button type="button" class="btn-medium btn-orange" style="width: 100%;"
-                      (click)="follow()">Follow</button>lool
-                  </ng-template>
-                </ion-row>
-              </ion-grid>
-            </ng-component>
-          </ng-template>
-          <ng-template #notLoggedIn>
             <ion-grid style="padding: 0; padding-top: 10px;">
               <ion-row>
-                <ion-col>
-                  <button type="button" class="btn-medium btn-orange" style="width: 100%;" (click)="gotoLogin()">
-                    Login to follow
-                  </button>
+                <ion-col *ngIf="amFollowingThisProfile; else notFollowing">
+                  <button type="button" class="btn-medium btn-dark" style="width: 100%;"
+                    (click)="unfollow()">Unfollow</button>
                 </ion-col>
+                <ng-template #notFollowing>
+                  <ion-col>
+                    <button type="button" class="btn-medium btn-orange" style="width: 100%;"
+                      (click)="follow()">Follow</button>
+                  </ion-col>
+                </ng-template>
               </ion-row>
             </ion-grid>
           </ng-template>
@@ -89,7 +78,7 @@
               class="btn">{{user.numberOfFollowers}} Followers</button>
             <button [ngClass]="{'active': selectedTab === 'following'}" (click)="selectedTab = 'following'"
               class="btn">{{user.numberOfFollowees}} Following</button>
-              <button *ngIf="isMyProfile" [ngClass]="{'active': selectedTab === 'saved'}" (click)="selectedTab = 'saved'"
+            <button *ngIf="isMyProfile" [ngClass]="{'active': selectedTab === 'saved'}" (click)="selectedTab = 'saved'"
               class="btn">Saved Posts</button>
           </div>
         </ion-col>

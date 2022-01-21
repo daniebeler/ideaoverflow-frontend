@@ -74,7 +74,6 @@ export class SettingsPage implements OnInit {
     this.website = this.user.website;
     this.profilePicture = this.user.profileimage;
     this.checkForChange();
-    console.log(this.profilePicture);
   }
 
   gotoHome() {
@@ -122,13 +121,11 @@ export class SettingsPage implements OnInit {
 
   onFileChange(event) {
     if (event.target.files != null) {
-      console.log(event.target.files[0]);
       const file = event.target.files[0];
       if (file != null) {
         this.api.uploadImage(file).subscribe((res: any) => {
           if (res.data.link) {
             this.profilePicture = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
-            console.log(this.profilePicture);
             this.checkForChange();
           }
         });

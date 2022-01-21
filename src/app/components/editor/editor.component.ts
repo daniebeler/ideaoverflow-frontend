@@ -32,7 +32,6 @@ export class EditorComponent implements OnInit {
     this.api.getLatestUser()
       .subscribe((latestUser) => {
         this.user = latestUser;
-        console.log(this.body);
       });
   }
 

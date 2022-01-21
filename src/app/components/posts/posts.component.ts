@@ -69,8 +69,6 @@ export class PostsComponent implements OnInit {
         }
         if (isInitialLoad) { event.target.complete(); }
         this.skipPosts = this.skipPosts + 5;
-
-        console.log(this.allLoadedPosts);
       });
     });
 
