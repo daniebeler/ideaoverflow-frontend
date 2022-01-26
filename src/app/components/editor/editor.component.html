@@ -11,13 +11,13 @@
     <ion-col>
       <quill-editor [(ngModel)]="body" [modules]="" (onEditorCreated)="editor($event)" trackChanges="all">
       </quill-editor>
-      <button style="margin-top: 20px;" type="button" class="btn-medium btn-orange" (click)="savePost()"
+      <button style="margin-top: 20px;" type="button" class="btn-small btn-primary" (click)="savePost()"
         *ngIf="title && body; else elseBlock">
         <span *ngIf="!postId">Release post</span><span *ngIf="postId">Update post</span>
       </button>
 
       <ng-template #elseBlock>
-        <button style="margin-top: 20px;" type="button" class="btn-medium btn-disabled" disabled>
+        <button style="margin-top: 20px;" type="button" class="btn-small btn-disabled" disabled>
           <span *ngIf="!postId">Release post</span><span *ngIf="postId">Update post</span>
         </button>
       </ng-template>

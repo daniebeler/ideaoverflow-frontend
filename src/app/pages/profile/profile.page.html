@@ -16,7 +16,7 @@
       </ion-row>
       <ion-row>
         <ion-col class="ion-text-center">
-          <button type="button" class="btn-medium btn-orange" (click)="gotoHome()">Go Home</button>
+          <button type="button" class="btn-small btn-primary" (click)="gotoHome()">Go Home</button>
         </ion-col>
       </ion-row>
     </div>
@@ -40,12 +40,12 @@
             <ion-grid style="padding: 0; padding-top: 10px;">
               <ion-row>
                 <ion-col style="padding-left: 0;">
-                  <button type="button" class="btn-medium btn-dark" style="width: 100%;"
+                  <button type="button" class="btn-small btn-medium" style="width: 100%;"
                     (click)="gotoSettings()">Settings</button>
 
                 </ion-col>
                 <ion-col style="padding-right: 10px;">
-                  <button type="button" class="btn-medium btn-orange" style="width: 100%;"
+                  <button type="button" class="btn-small btn-primary" style="width: 100%;"
                     (click)="logout()">Logout</button>
                 </ion-col>
               </ion-row>
@@ -55,12 +55,12 @@
             <ion-grid style="padding: 0; padding-top: 10px;">
               <ion-row>
                 <ion-col *ngIf="amFollowingThisProfile; else notFollowing">
-                  <button type="button" class="btn-medium btn-dark" style="width: 100%;"
+                  <button type="button" class="btn-small btn-medium" style="width: 100%;"
                     (click)="unfollow()">Unfollow</button>
                 </ion-col>
                 <ng-template #notFollowing>
                   <ion-col>
-                    <button type="button" class="btn-medium btn-orange" style="width: 100%;"
+                    <button type="button" class="btn-small btn-primary" style="width: 100%;"
                       (click)="follow()">Follow</button>
                   </ion-col>
                 </ng-template>
@@ -73,13 +73,13 @@
         <ion-col size="auto">
           <div id="myBtnContainer">
             <button [ngClass]="{'active': selectedTab === 'about'}" (click)="selectedTab = 'about'"
-              class="btn">About</button>
+              class="array-btn">About</button>
             <button [ngClass]="{'active': selectedTab === 'followers'}" (click)="selectedTab = 'followers'"
-              class="btn">{{user.numberOfFollowers}} Followers</button>
+              class="array-btn">{{user.numberOfFollowers}} Followers</button>
             <button [ngClass]="{'active': selectedTab === 'following'}" (click)="selectedTab = 'following'"
-              class="btn">{{user.numberOfFollowees}} Following</button>
+              class="array-btn">{{user.numberOfFollowees}} Following</button>
             <button *ngIf="isMyProfile" [ngClass]="{'active': selectedTab === 'saved'}" (click)="selectedTab = 'saved'"
-              class="btn">Saved Posts</button>
+              class="array-btn">Saved Posts</button>
           </div>
         </ion-col>
       </ion-row>

@@ -6,11 +6,11 @@
     <ion-col *ngIf="showSortingButtons" style="align-items: end; display: flex; flex-direction: column;flex-grow: 1; ">
       <div id="myBtnContainer" style="white-space: nowrap;">
         <button [ngClass]="{'active': sortingCriteria === 'best'}" (click)="sortingCriteria = 'best'"
-          class="btn">Best</button>
+          class="array-btn">Best</button>
         <button [ngClass]="{'active': sortingCriteria === 'newest'}" (click)="sortingCriteria = 'newest'"
-          class="btn">Newest</button>
+          class="array-btn">Newest</button>
         <button [ngClass]="{'active': sortingCriteria === 'mostliked'}" (click)="sortingCriteria = 'mostliked'"
-          class="btn">Most liked</button>
+          class="array-btn">Most liked</button>
       </div>
     </ion-col>
   </ion-row>

@@ -31,7 +31,7 @@ body {
 }
 
 ::selection {
-  color: #fff;
+  color: var(--ion-color-light);
   background: var(--ion-color-primary);
 }
 
@@ -58,11 +58,11 @@ body {
 }
 
 ion-header {
-  border-bottom: 1px solid rgb(233, 233, 233);
+  border-bottom: 1px solid var(--ion-color-medium);;
 }
 
 * {
-  color: var(--ion-color-secondary);
+  color: var(--ion-color-light);
 }
 
 p {
@@ -86,8 +86,8 @@ img:focus {
 }
 
 input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 50px var(--ion-color-light) inset;
-  -webkit-text-fill-color: black;
+  -webkit-box-shadow: 0 0 0 50px var(--ion-color-medium) inset;
+  -webkit-text-fill-color: var(--ion-color-light);
 }
 
 .container {
@@ -113,38 +113,70 @@ input:-webkit-autofill {
   }
 }
 
-.btn-medium {
-  color: white;
+.btn-small {
+  color: var(--ion-color-light);
   padding: 13px 10px 13px 10px;
   border-radius: 5px;
   font-size: 0.9em;
 }
 
 .btn-large {
-  color: white;
+  color: var(--ion-color-light);
   padding: 18px 28px 18px 28px;
   border-radius: 5px;
   font-size: 0.9em;
 }
 
-.btn-orange {
+.btn-primary {
   background-color: var(--ion-color-primary);
 }
 
-.btn-orange:hover {
+.btn-primary:hover {
   background-color: var(--ion-color-primary-shade);
 }
 
+.btn-medium {
+  background-color: var(--ion-color-medium);
+}
+
+.btn-medium:hover {
+  background-color: var(--ion-color-medium-shade);
+}
+
 .btn-dark {
-  background-color: var(--ion-color-secondary);
+  background-color: var(--ion-color-dark);
 }
 
 .btn-dark:hover {
-  background-color: var(--ion-color-secondary-shade);
+  background-color: var(--ion-color-dark-shade);
 }
 
 .btn-disabled {
-  background-color: #d1d1d1;
+  background-color: var(--ion-color-medium)
+}
+
+.array-btn {
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  padding: 10px 10px;
+  background-color: var(--ion-color-medium);
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.array-btn:hover {
+  background-color: var(--ion-color-medium-shade);
+}
+
+.array-btn.active {
+  background-color: var(--ion-color-primary);
+  color: var(--ion-color-light);
+  font-family: "poppins-bold", sans-serif !important;
+}
+
+.array-btn.active:hover {
+  background-color: var(--ion-color-primary-shade);
 }
 
 .ideaoverflow-logo:hover {
@@ -154,7 +186,7 @@ input:-webkit-autofill {
 ion-alert {
   &.custom-alert-ok {
     .alert-wrapper {
-      background-color: white;
+      background-color: var(--ion-color-light);
       border-radius: 15px;
       padding: 15px;
       display: flex;
@@ -174,7 +206,7 @@ ion-alert {
 
     .alert-button {
       background-color: var(--ion-color-primary);
-      color: white;
+      color: var(--ion-color-light);
       border-radius: 7px;
       text-transform: none;
       padding-left: 25px;
@@ -184,7 +216,7 @@ ion-alert {
 
   &.custom-alert-two {
     .alert-wrapper {
-      background-color: white;
+      background-color: var(--ion-color-light);
       border-radius: 15px;
       padding: 15px;
       display: flex;
@@ -198,7 +230,7 @@ ion-alert {
 
     .alert-button {
       // background-color: var(--ion-color-primary);
-      color: white;
+      color: var(--ion-color-light);
       border-radius: 7px;
       text-transform: none;
       padding-left: 25px;

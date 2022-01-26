@@ -7,11 +7,11 @@
         <h1 style="padding-bottom: 20px;">General</h1>
       </ion-col>
       <ion-col size="auto">
-        <button type="button" class="btn-medium btn-orange" (click)="updateUser()"
+        <button type="button" class="btn-small btn-primary" (click)="updateUser()"
           *ngIf="unsavedDataExists; else elseBlock">Save changes</button>
 
         <ng-template #elseBlock>
-          <button type="button" class="btn-medium btn-disabled" disabled>Save changes</button>
+          <button type="button" class="btn-small btn-disabled" disabled>Save changes</button>
         </ng-template>
       </ion-col>
     </ion-row>
@@ -205,7 +205,7 @@
     <ion-row>
       <ion-col>
         <div class="row d-flex justify-content-center submit-button-container">
-          <button type="button" class="btn-large btn-orange" style="margin-top: 10px;" (click)="changePassword()">Change
+          <button type="button" class="btn-large btn-primary" style="margin-top: 10px;" (click)="changePassword()">Change
             Password</button>
         </div>
       </ion-col>
