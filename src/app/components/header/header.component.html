@@ -5,7 +5,7 @@
         <ion-col style="display: flex; align-items: center;">
           <img (click)="gotoHome()" class="ideaoverflow-logo" src="./../../../assets/icon/logo.svg" height="40px" alt="">
         </ion-col>
-        <ion-col size="auto">
+        <ion-col size="auto" style="display: flex; align-items: center;">
           <div class="form-group">
             <label class="icon-label" for="password"><i>
                 <ion-icon name="search"></ion-icon>
@@ -13,14 +13,14 @@
             <input class="icon-input" type="text" name="fname" #searchvalue placeholder="Search" (keyup.enter)="search(searchvalue.value)"/>
           </div>
         </ion-col>
-        <ion-col *ngIf="loggedIn; else elseBlock" size="auto">
+        <ion-col *ngIf="loggedIn; else elseBlock" size="auto" style="display: flex; align-items: center;">
           <ion-avatar (click)="gotoProfile()" style="height: 40px; width: 40px;">
             <img [src]="user.profileimage">
           </ion-avatar>
         </ion-col>
         <ng-template #elseBlock>
-          <ion-col size="auto">
-            <button type="button" class="btn-small btn-primary" (click)="gotoLogin()">Login</button>
+          <ion-col size="auto" style="display: flex; align-items: center;">
+            <button type="button" class="btn-small btn-primary" (click)="gotoLogin()">Log in</button>
           </ion-col>
         </ng-template>
       </ion-row>

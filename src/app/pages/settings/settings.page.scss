@@ -24,7 +24,7 @@ input, textarea{
   width: 100%;
   display: block;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--border-radius-small);
   padding: 15px;
   box-sizing: border-box;
   font-size: 0.8em;
@@ -39,7 +39,7 @@ select{
   width: 100%;
   display: block;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--border-radius-small);
   padding: 15px;
   box-sizing: border-box;
   font-size: 0.8em;

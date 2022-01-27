@@ -115,16 +115,18 @@ input:-webkit-autofill {
 
 .btn-small {
   color: var(--ion-color-light);
-  padding: 13px 10px 13px 10px;
-  border-radius: 5px;
-  font-size: 0.9em;
+  padding: 10px 10px 10px 10px;
+  border-radius: var(--border-radius-small);
+  font-size: 0.8em;
+  line-height: normal;
 }
 
 .btn-large {
   color: var(--ion-color-light);
-  padding: 18px 28px 18px 28px;
-  border-radius: 5px;
+  padding: 15px 20px 15px 20px;
+  border-radius: var(--border-radius-small);
   font-size: 0.9em;
+  line-height: normal;
 }
 
 .btn-primary {
@@ -157,7 +159,7 @@ input:-webkit-autofill {
 
 .array-btn {
   border: none;
-  border-radius: 8px;
+  border-radius: var(--border-radius-small);
   outline: none;
   padding: 10px 10px;
   background-color: var(--ion-color-medium);
@@ -187,7 +189,7 @@ ion-alert {
   &.custom-alert-ok {
     .alert-wrapper {
       background-color: var(--ion-color-light);
-      border-radius: 15px;
+      border-radius: var(--border-radius-big);
       padding: 15px;
       display: flex;
       justify-content: center;
@@ -207,7 +209,7 @@ ion-alert {
     .alert-button {
       background-color: var(--ion-color-primary);
       color: var(--ion-color-light);
-      border-radius: 7px;
+      border-radius: var(--border-radius-small);
       text-transform: none;
       padding-left: 25px;
       padding-right: 25px;
@@ -217,7 +219,7 @@ ion-alert {
   &.custom-alert-two {
     .alert-wrapper {
       background-color: var(--ion-color-light);
-      border-radius: 15px;
+      border-radius: var(--border-radius-big);
       padding: 15px;
       display: flex;
       justify-content: center;
@@ -231,7 +233,7 @@ ion-alert {
     .alert-button {
       // background-color: var(--ion-color-primary);
       color: var(--ion-color-light);
-      border-radius: 7px;
+      border-radius: var(--border-radius-small);
       text-transform: none;
       padding-left: 25px;
       padding-right: 25px;
@@ -251,6 +253,6 @@ ion-alert {
   .modal-wrapper {
     height: 30%;
     width: 90%;
-    border-radius: 15px;
+    border-radius: var(--border-radius-big);
   }
 }
