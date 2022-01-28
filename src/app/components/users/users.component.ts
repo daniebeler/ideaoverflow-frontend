@@ -22,13 +22,21 @@ export class UsersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.apiService.getUsersBySearchterm(this.searchTerm).subscribe(res => {
-      this.users = res;
-    });
+    if (this.searchTerm) {
+      this.apiService.getUsersBySearchterm(this.searchTerm).subscribe(res => {
+        this.users = res;
+      });
+    }
+    else {
+      this.apiService.getUsers().subscribe(res => {
+        this.users = res;
+      });
+    }
+
   }
 
-  gotoProfile(username: string){
-    this.router.navigate(['profile/' + username]);
+  gotoProfile(username: string) {
+    this.router.navigate(['users/' + username]);
   }
 }
 

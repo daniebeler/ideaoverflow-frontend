@@ -39,7 +39,7 @@ export class FollowersComponent implements OnInit {
   }
 
   gotoFollower(username: string) {
-    this.router.navigate(['profile/' + username]);
+    this.router.navigate(['users/' + username]);
   }
 
 }

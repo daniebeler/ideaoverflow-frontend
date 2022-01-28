@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
   }
 
   gotoProfile() {
-    this.router.navigate(['profile/' + this.user.username]);
+    this.router.navigate(['users/' + this.user.username]);
   }
 
   gotoLogin() {

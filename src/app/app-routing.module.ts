@@ -15,8 +15,12 @@ const routes: Routes = [
     canActivate: [AutoLoginGuard]
   },
   {
-    path: 'profile/:username',
+    path: 'users/:username',
     loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfilePageModule)
+  },
+  {
+    path: 'users',
+    loadChildren: () => import('./pages/profiles/profiles.module').then( m => m.ProfilesPageModule)
   },
   {
     path: 'settings',
@@ -42,6 +46,14 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'about',
+    loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule)
+  },
+  {
+    path: 'privacy',
+    loadChildren: () => import('./pages/privacy/privacy.module').then( m => m.PrivacyPageModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
   },
@@ -49,7 +61,6 @@ const routes: Routes = [
     path: '**',
     loadChildren: () => import('./pages/pagenotfound/pagenotfound.module').then( m => m.PagenotfoundPageModule)
   }
-
 ];
 
 @NgModule({

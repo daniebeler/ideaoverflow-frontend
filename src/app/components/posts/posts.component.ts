@@ -81,7 +81,7 @@ export class PostsComponent implements OnInit {
   }
 
   gotoProfile(username: string) {
-    this.router.navigate(['profile/' + username]);
+    this.router.navigate(['users/' + username]);
   }
 
   editPost(post: Post) {

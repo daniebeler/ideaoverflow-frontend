@@ -34,6 +34,12 @@ export class ApiService {
     );
   }
 
+  getUsers() {
+    return this.http.get<any>(environment.api + 'user/users/').pipe(
+      map((data: any[]) => data.map((item) => this.adapter.adapt(item)))
+    );
+  }
+
   getUsersBySearchterm(searchTerm: string) {
     return this.http.get<any>(environment.api + 'user/usersbysearchterm/' + searchTerm).pipe(
       map((data: any[]) => data.map((item) => this.adapter.adapt(item)))

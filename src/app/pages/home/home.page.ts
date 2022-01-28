@@ -29,7 +29,7 @@ export class HomePage implements OnInit {
   }
 
   gotoProfile() {
-    this.router.navigate(['profile/' + this.user.username]);
+    this.router.navigate(['users/' + this.user.username]);
   }
 
   gotoRegister() {
