@@ -5,35 +5,28 @@
     <ion-row>
       <ion-col>
         <ion-grid class="contribute-grid">
-          <ion-row *ngIf="user; else notloggedin">
-            <ion-col style="display: flex; flex-direction: column; justify-content: center;">
-              <div>
-                <h4><strong *ngIf="user.firstname">Hello, {{user.firstname}}!</strong><strong *ngIf="!user.firstname">Hey!</strong></h4>
-                <p>If you have a great idea please share it with your community!</p>
+          <ion-row>
+            <ion-col style="display: flex; flex-direction: column; justify-content: center;" size-xs="12" size-sm="6"
+              size-md="6" size-lg="7" size-xl="7">
+              <div *ngIf="user">
+                <h4 *ngIf="user.firstname"><strong>Hello, {{user.firstname}}!</strong></h4>
+                <h4 *ngIf="!user.firstname"><strong>Hey!</strong></h4>
+                <p>If you have a great idea please share it with the community!</p>
                 <button type="button" class="btn-large btn-dark" style="margin-top: 10px; margin-bottom: 10px;"
                   (click)="gotoNewpost()">Create post</button>
               </div>
-            </ion-col>
-            <ion-col style="display: flex; justify-content: center; padding: 20px;" size="5">
-              <img src="./../../../assets/svgs/people.svg" alt="">
-            </ion-col>
-          </ion-row>
-          <ng-template #notloggedin>
-            <ion-row>
-              <ion-col style="display: flex; flex-direction: column; justify-content: center;">
-                <div>
-                  <h4><strong>New to Idea Overflow?</strong></h4>
+              <div *ngIf="!user">
+                <h4><strong>New to Idea Overflow?</strong></h4>
                 <p>Sign up now to post your own ideas!</p>
                 <button type="button" class="btn-large btn-dark" style="margin-top: 10px; margin-bottom: 10px;"
                   (click)="gotoRegister()">Register</button>
-                </div>
-              </ion-col>
-              <ion-col style="display: flex; justify-content: center; padding: 20px;" size="5">
-                <img src="./../../../assets/svgs/people.svg" alt="">
-              </ion-col>
-            </ion-row>
-          </ng-template>
-
+              </div>
+            </ion-col>
+            <ion-col style="display: flex; justify-content: center; padding: 20px;" size-xs="12" size-sm="6" size-md="6"
+              size-lg="5" size-xl="5">
+              <img src="./../../../assets/svgs/people.svg" alt="">
+            </ion-col>
+          </ion-row>
         </ion-grid>
       </ion-col>
     </ion-row>
