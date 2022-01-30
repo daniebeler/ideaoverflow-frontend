@@ -41,23 +41,23 @@
                   </ion-col>
 
                   <ion-col size="auto" class="like" style="display: flex; align-items: center;">
-                    <ion-icon *ngIf="post.currentUserVoteValue === 1" name="thumbs-up"
+                    <ion-icon *ngIf="post.currentUserVoteValue === 1" name="heart" color="primary"
                       style="width: 30px; height: 25px;" (click)="votePost(0, post.id)"></ion-icon>
-                    <ion-icon *ngIf="post.currentUserVoteValue !== 1" name="thumbs-up-outline"
+                    <ion-icon *ngIf="post.currentUserVoteValue !== 1" name="heart-outline"
                       style="width: 30px; height: 25px;" (click)="votePost(1, post.id)"></ion-icon>
                     <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{post.numberOfUpvotes}}</strong></p>
                   </ion-col>
 
                   <ion-col size="auto" class="like" style="display: flex; align-items: center;">
-                    <ion-icon *ngIf="post.currentUserVoteValue === -1" name="thumbs-down"
+                    <ion-icon *ngIf="post.currentUserVoteValue === -1" name="heart-dislike" color="primary"
                       style="width: 30px; height: 25px;" (click)="votePost(0, post.id)"></ion-icon>
-                    <ion-icon *ngIf="post.currentUserVoteValue !== -1" name="thumbs-down-outline"
+                    <ion-icon *ngIf="post.currentUserVoteValue !== -1" name="heart-dislike-outline"
                       style="width: 30px; height: 25px;" (click)="votePost(-1, post.id)"></ion-icon>
                     <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{post.numberOfDownvotes}}</strong></p>
                   </ion-col>
 
                   <ion-col size="auto" class="like" style="display: flex; align-items: center;">
-                    <ion-icon *ngIf="post.saved" name="bookmark" style="width: 30px; height: 25px;"
+                    <ion-icon *ngIf="post.saved" name="bookmark" color="primary" style="width: 30px; height: 25px;"
                       (click)="unsavePost(post.id)"></ion-icon>
                     <ion-icon *ngIf="!post.saved" name="bookmark-outline" style="width: 30px; height: 25px;"
                       (click)="savePost(post.id)"></ion-icon>
