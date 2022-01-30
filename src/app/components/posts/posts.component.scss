@@ -8,16 +8,20 @@ ion-avatar:hover {
 
 .owner{
   background-color: var(--ion-color-medium);
-  // border: 1px solid var(--ion-color-light);;
   border-radius: 10px;
+  margin: 5px;
   padding: 10px;
 }
 
-.owner:hover {
-  cursor: pointer;
-  background-color: var(--ion-color-medium-shade);
+.like{
+  background-color: var(--ion-color-medium);
+  border-radius: 10px;
+  margin: 5px;
+  padding: 10px;
+  width: 50px;
 }
 
-.edit-button:hover{
+.like:hover, .owner:hover {
   cursor: pointer;
+  background-color: var(--ion-color-medium-shade);
 }
