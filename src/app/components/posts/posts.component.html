@@ -49,7 +49,7 @@
                   </ion-col>
 
                   <ion-col size="auto" class="like" style="display: flex; align-items: center;">
-                    <ion-icon *ngIf="post.currentUserVoteValue === -1" name="heart-dislike" color="primary"
+                    <ion-icon *ngIf="post.currentUserVoteValue === -1" name="heart-dislike"
                       style="width: 30px; height: 25px;" (click)="votePost(0, post.id)"></ion-icon>
                     <ion-icon *ngIf="post.currentUserVoteValue !== -1" name="heart-dislike-outline"
                       style="width: 30px; height: 25px;" (click)="votePost(-1, post.id)"></ion-icon>
@@ -74,7 +74,7 @@
               </ion-grid>
             </ion-col>
           </ion-row>
-          <ion-row style="margin-top: 30px;">
+          <ion-row>
             <ion-col>
               <hr style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin: 0;">
             </ion-col>
