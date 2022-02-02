@@ -28,4 +28,8 @@ export class LoginPage implements OnInit {
     this.router.navigate(['register']);
   }
 
+  gotoResetPassword() {
+    this.router.navigate(['resetpassword']);
+  }
+
 }

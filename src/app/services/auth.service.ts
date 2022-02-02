@@ -72,7 +72,7 @@ export class AuthService {
           text: 'Okay',
           role: 'ok',
           handler: () => {
-            if(res.status === 1){
+            if (res.status === 1) {
               this.router.navigate(['login']);
             }
           }
@@ -179,5 +179,48 @@ export class AuthService {
         this.alertService.showOkayAlertWithoutAction('Error', e.error.message);
         throw new Error(e);
       });
+  }
+
+  resetPassword(email) {
+    return this.httpClient.post<any>(environment.api + 'registration/resetpassword/', { email }).subscribe(async res => {
+      this.alertService.showOkayAlertWithoutAction(res.header, res.message);
+
+    }),
+      catchError(e => {
+        this.alertService.showOkayAlertWithoutAction('Error', e.error.message);
+        throw new Error(e);
+      });
+  }
+
+  checkCode(code) {
+    return this.httpClient.get<any>(environment.api + 'registration/checkresetcode/' + code);
+  }
+
+  setPassword(vcode, pw1, pw2) {
+    const obj = {
+      vcode,
+      pw1,
+      pw2
+    };
+    this.httpClient.post<any>(environment.api + 'registration/setpassword', obj).subscribe(async res => {
+      if (res.stay) {
+        this.alertService.showOkayAlertWithoutAction(res.header, res.message);
+      }
+      else {
+        const alert = await this.alertController.create({
+          cssClass: 'custom-alert-ok',
+          backdropDismiss: false,
+          header: res.header,
+          message: res.message,
+          buttons: [{
+            text: 'Okay',
+            handler: () => {
+              this.router.navigate(['login']);
+            }
+          }]
+        });
+        await alert.present();
+      }
+    });
   }
 }
