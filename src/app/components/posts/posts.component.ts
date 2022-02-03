@@ -67,12 +67,13 @@ export class PostsComponent implements OnInit {
     }
 
     this.postService.getSelectedPosts(params).subscribe((posts: Post[]) => {
-      for (const post of posts) {
-        this.allLoadedPosts.push(post);
-      }
       if (isInitialLoad) {
         event.target.complete();
       }
+      for (const post of posts) {
+        this.allLoadedPosts.push(post);
+      }
+
     });
   }
 
