@@ -50,6 +50,7 @@ export class PostsComponent implements OnInit {
     const params: any = {
       skip: this.skipPosts,
       take: this.numberOfPosts,
+      sortingCriteria: this.sortingCriteria,
       currentUserId: this.currentUser?.id
     };
 
@@ -75,6 +76,13 @@ export class PostsComponent implements OnInit {
       }
 
     });
+  }
+
+  sortingCriteriaChanged(sortingCriteria: string) {
+    this.sortingCriteria = sortingCriteria;
+    this.allLoadedPosts = [];
+    this.skipPosts = -5;
+    this.getPosts(false, '');
   }
 
   loadData(event) {

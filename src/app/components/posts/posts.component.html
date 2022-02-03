@@ -5,11 +5,11 @@
     </ion-col>
     <ion-col *ngIf="showSortingButtons" style="align-items: end; display: flex; flex-direction: column;flex-grow: 1; ">
       <div id="myBtnContainer" style="white-space: nowrap;">
-        <button [ngClass]="{'active': sortingCriteria === 'newest'}" (click)="sortingCriteria = 'newest'"
+        <button [ngClass]="{'active': sortingCriteria === 'newest'}" (click)="sortingCriteriaChanged('newest')"
           class="array-btn">Newest</button>
-        <button [ngClass]="{'active': sortingCriteria === 'mostliked'}" (click)="sortingCriteria = 'mostliked'"
+        <button [ngClass]="{'active': sortingCriteria === 'likes'}" (click)="sortingCriteriaChanged('likes')"
           class="array-btn">Most liked</button>
-        <button [ngClass]="{'active': sortingCriteria === 'oldest'}" (click)="sortingCriteria = 'oldest'"
+        <button [ngClass]="{'active': sortingCriteria === 'oldest'}" (click)="sortingCriteriaChanged('oldest')"
           class="array-btn">Oldest</button>
       </div>
     </ion-col>
