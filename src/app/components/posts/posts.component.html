@@ -3,7 +3,7 @@
     <ion-col size="auto">
       <h2 style="margin: 0;">{{header}}</h2>
     </ion-col>
-    <ion-col *ngIf="showSortingButtons" style="align-items: end; display: flex; flex-direction: column;flex-grow: 1; ">
+    <ion-col *ngIf="showSortingButtons" style="align-items: end; display: flex; flex-direction: column;flex-grow: 1;">
       <div id="myBtnContainer" style="white-space: nowrap;">
         <button [ngClass]="{'active': sortingCriteria === 'newest'}" (click)="sortingCriteriaChanged('newest')"
           class="array-btn">Newest</button>
@@ -20,14 +20,14 @@
         <ion-grid style="padding: 0;" class="post-wrapper" *ngFor="let post of allLoadedPosts">
           <ion-row style="padding: 0;">
             <ion-col style="padding: 0;">
-              <ion-grid>
+              <ion-grid style="padding: 0;">
                 <ion-row>
-                  <ion-col>
+                  <ion-col style="padding: 0;">
                     <h1 style="margin: 0;">{{post.title}}</h1>
                   </ion-col>
                 </ion-row>
                 <ion-row>
-                  <ion-col>
+                  <ion-col style="padding: 0;">
                     <div [innerHTML]=post.body></div>
                   </ion-col>
                 </ion-row>
