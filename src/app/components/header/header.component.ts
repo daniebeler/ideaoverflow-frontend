@@ -41,6 +41,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
+  gotoNewpost() {
+    this.router.navigate(['newpost']);
+  }
+
   gotoHome() {
     this.router.navigate(['']);
   }

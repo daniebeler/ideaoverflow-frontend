@@ -1,24 +1,24 @@
-ion-avatar:hover{
+ion-avatar:hover {
   cursor: pointer;
 }
 
-.icon-label{
+.icon-label {
   position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
 }
 
-i{
+i {
   display: flex;
   justify-content: center;
 }
 
-input{
+input {
   background-color: var(--ion-color-medium);
   width: 100%;
   border: none;

@@ -115,7 +115,9 @@ input:-webkit-autofill {
 
 .btn-small {
   color: var(--ion-color-light);
-  padding: 10px 10px 10px 10px;
+  padding-left: 12px;
+  padding-right: 12px;
+  height: 42px;
   border-radius: var(--border-radius-small);
   font-size: 0.8em;
   line-height: normal;

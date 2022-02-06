@@ -1,23 +1,32 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-grid class="container">
-      <ion-row>
+    <ion-grid style="padding-left: 20px; padding-right: 20px; padding-top: 10px; padding-bottom: 10px;">
+      <ion-row style="justify-content: space;">
         <ion-col style="display: flex; align-items: center;">
-          <img (click)="gotoHome()" class="ideaoverflow-logo" src="./../../../assets/icon/logo.svg" height="40px" alt="">
+          <img (click)="gotoHome()" class="ideaoverflow-logo" src="./../../../assets/icon/logo.svg" height="42px"
+            alt="">
+          <h4 class="ion-hide-md-down" style="padding-left: 10px;"><strong>Idea Overflow</strong></h4>
         </ion-col>
-        <ion-col size="auto" style="display: flex; align-items: center;">
-          <div class="form-group">
-            <label class="icon-label" for="password"><i>
+        <ion-col size="auto" style="display: flex; align-items: center; justify-content: center;">
+          <div class="form-group" style="position: relative; width: 200px;">
+            <label class="icon-label">
+              <i>
                 <ion-icon name="search"></ion-icon>
-              </i></label>
-            <input class="icon-input" type="text" name="fname" #searchvalue placeholder="Search" (keyup.enter)="search(searchvalue.value)"/>
+              </i>
+            </label>
+            <input style="height: 42px;" class="icon-input" type="text" name="fname" #searchvalue placeholder="Search"
+              (keyup.enter)="search(searchvalue.value)" />
           </div>
         </ion-col>
         <ion-col *ngIf="loggedIn; else elseBlock" size="auto" style="display: flex; align-items: center;">
-          <ion-avatar (click)="gotoProfile()" style="height: 37px; width: 37px;">
+          <button type="button" style="margin-right: 20px" class="btn-small btn-primary ion-hide-md-down" (click)="gotoNewpost()">New Post</button>
+          <ion-avatar (click)="gotoProfile()" style="height: 42px; width: 42px;">
             <img [src]="user.profileimage">
           </ion-avatar>
         </ion-col>
+        <!-- <ion-col>
+
+        </ion-col> -->
         <ng-template #elseBlock>
           <ion-col size="auto" style="display: flex; align-items: center;">
             <button type="button" class="btn-small btn-primary" (click)="gotoLogin()">Log in</button>
