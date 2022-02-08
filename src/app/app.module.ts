@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
-import { Storage, IonicStorageModule } from '@ionic/storage';
+import { Storage, IonicStorageModule } from '@ionic/storage-angular';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 

@@ -5,12 +5,10 @@ import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { catchError } from 'rxjs/operators';
-import { Storage } from '@ionic/storage';
 import { ApiService } from './api.service';
 import { AlertService } from './alert.service';
 import { AlertController, Platform } from '@ionic/angular';
-
-const TOKEN_KEY = 'access_token_1';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,12 +21,12 @@ export class AuthService {
   constructor(
     private router: Router,
     private httpClient: HttpClient,
-    private storage: Storage,
     private helper: JwtHelperService,
     private platform: Platform,
     private apiService: ApiService,
     private alertService: AlertService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private storageService: StorageService
   ) {
     this.platform.ready().then(() => {
       this.checkToken();
@@ -36,7 +34,7 @@ export class AuthService {
   }
 
   checkToken() {
-    this.storage.get(TOKEN_KEY).then(token => {
+    this.storageService.getToken().then(token => {
       if (token) {
         const decoded = this.helper.decodeToken(token);
         const isExpired = this.helper.isTokenExpired(token);
@@ -90,7 +88,7 @@ export class AuthService {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     this.httpClient.post<any>(environment.api + 'registration/login', { email, password }).subscribe(async res => {
       if (res.token) {
-        await this.storage.set(TOKEN_KEY, res.token);
+        await this.storageService.setToken(res.token);
         this.decodedUserToken = this.helper.decodeToken(res.token);
         this.authenticationState.next(true);
         this.apiService.fetchUserFromApi(this.getUser().id);
@@ -140,7 +138,7 @@ export class AuthService {
   }
 
   logout() {
-    this.storage.remove(TOKEN_KEY).then(() => {
+    this.storageService.removeToken().then(() => {
       this.apiService.clearData();
       this.decodedUserToken = null;
       this.authenticationState.next(false);
