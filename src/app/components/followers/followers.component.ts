@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
-import { FollowerService } from 'src/app/services/follower.service';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-followers',
@@ -18,7 +18,7 @@ export class FollowersComponent implements OnInit {
   header = '';
 
   constructor(
-    private followerService: FollowerService,
+    private apiService: ApiService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
@@ -26,13 +26,13 @@ export class FollowersComponent implements OnInit {
   ngOnInit() {
     if (this.type === 'followers') {
       this.header = 'Followers';
-      this.followerService.getFollowers(this.activatedRoute.snapshot.paramMap.get('username')).subscribe(res => {
+      this.apiService.getFollowers(this.activatedRoute.snapshot.paramMap.get('username')).subscribe(res => {
         this.followers = res;
       });
     }
     else {
       this.header = 'Following';
-      this.followerService.getFollowees(this.activatedRoute.snapshot.paramMap.get('username')).subscribe(res => {
+      this.apiService.getFollowees(this.activatedRoute.snapshot.paramMap.get('username')).subscribe(res => {
         this.followers = res;
       });
     }

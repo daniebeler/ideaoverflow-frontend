@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -18,14 +19,14 @@ export class SetnewpasswordPage implements OnInit {
 
   constructor(
     private activeRoute: ActivatedRoute,
+    private apiService: ApiService,
     private authService: AuthService,
     private router: Router
   ) { }
 
   ngOnInit() {
     this.code = this.activeRoute.snapshot.paramMap.get('code');
-    this.authService.checkCode(this.code).subscribe(res => {
-      console.log(res);
+    this.apiService.checkCode(this.code).subscribe(res => {
       this.codeIsCorrect = res.exists;
       this.message = res.message;
     });

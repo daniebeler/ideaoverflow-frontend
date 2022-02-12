@@ -19,7 +19,7 @@ export class FooterComponent implements OnInit {
 
   ngOnInit() {
     this.postService.getNumberOfTotalPosts().subscribe(numberOfTotalPosts => {
-      this.numberOfTotalPosts = numberOfTotalPosts.numberoftotalposts;
+      this.numberOfTotalPosts = numberOfTotalPosts;
     });
 
     this.apiService.getNumberOfTotalUsers().subscribe(numberOfTotalUsers => {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
+import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -10,19 +11,19 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class VerifyPage implements OnInit {
 
-  verified = false;
+  isVerified = false;
   public devWidth = this.plt.width();
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private auth: AuthService,
+    private apiService: ApiService,
     private plt: Platform
   ) { }
 
    ngOnInit() {
-    this.auth.verify(this.activatedRoute.snapshot.paramMap.get('code')).subscribe(res => {
-      this.verified = res.verified;
+    this.apiService.verify(this.activatedRoute.snapshot.paramMap.get('code')).subscribe(isVerified => {
+      this.isVerified = isVerified;
     });
   }
 

@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { catchError } from 'rxjs/operators';
@@ -20,7 +18,6 @@ export class AuthService {
 
   constructor(
     private router: Router,
-    private httpClient: HttpClient,
     private helper: JwtHelperService,
     private platform: Platform,
     private apiService: ApiService,
@@ -60,7 +57,7 @@ export class AuthService {
       password2
     };
 
-    return this.httpClient.post<any>(environment.api + 'registration/register', obj).subscribe(async res => {
+    return this.apiService.register(obj).subscribe(async res => {
       const alert = this.alertController.create({
         cssClass: 'custom-alert-ok',
         backdropDismiss: false,
@@ -85,8 +82,7 @@ export class AuthService {
   }
 
   login(email, password) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    this.httpClient.post<any>(environment.api + 'registration/login', { email, password }).subscribe(async res => {
+    return this.apiService.login(email, password).subscribe(async res => {
       if (res.token) {
         await this.storageService.setToken(res.token);
         this.decodedUserToken = this.helper.decodeToken(res.token);
@@ -123,12 +119,8 @@ export class AuthService {
       });
   }
 
-  verify(code) {
-    return this.httpClient.get<any>(environment.api + 'registration/verify/' + code);
-  }
-
   sendVerificationMailAgain(email) {
-    this.httpClient.post<any>(environment.api + 'registration/sendverificationmailagain', { email }).subscribe(async res => {
+    this.apiService.sendVerificationMailAgain(email).subscribe(async res => {
       this.alertService.showOkayAlertWithoutAction(res.header, res.message);
     });
   }
@@ -147,7 +139,7 @@ export class AuthService {
   }
 
   updateUser(dataToUpdate) {
-    return this.httpClient.post<any>(environment.api + 'user/changedata', dataToUpdate).subscribe(async res => {
+    return this.apiService.updateUser(dataToUpdate).subscribe(async res => {
       if (res.status === 200) {
         this.apiService.fetchUserFromApi(this.getUser().id);
       }
@@ -169,7 +161,7 @@ export class AuthService {
       newPassword2,
       id: this.getUser().id
     };
-    return this.httpClient.post<any>(environment.api + 'user/changepw', obj).subscribe(async res => {
+    return this.apiService.changePassword(obj).subscribe(async res => {
       this.alertService.showOkayAlertWithoutAction(res.header, res.message);
 
     }),
@@ -180,7 +172,7 @@ export class AuthService {
   }
 
   resetPassword(email) {
-    return this.httpClient.post<any>(environment.api + 'registration/resetpassword/', { email }).subscribe(async res => {
+    return this.apiService.resetPassword(email).subscribe(async res => {
       this.alertService.showOkayAlertWithoutAction(res.header, res.message);
 
     }),
@@ -190,17 +182,13 @@ export class AuthService {
       });
   }
 
-  checkCode(code) {
-    return this.httpClient.get<any>(environment.api + 'registration/checkresetcode/' + code);
-  }
-
   setPassword(vcode, pw1, pw2) {
     const obj = {
       vcode,
       pw1,
       pw2
     };
-    this.httpClient.post<any>(environment.api + 'registration/setpassword', obj).subscribe(async res => {
+    this.apiService.setPassword(obj).subscribe(async res => {
       if (res.stay) {
         this.alertService.showOkayAlertWithoutAction(res.header, res.message);
       }

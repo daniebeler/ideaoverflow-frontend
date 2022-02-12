@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { UserAdapter } from '../adapter/user-adapter';
+import { User } from '../models/user';
 import { AlertService } from './alert.service';
 import { ApiService } from './api.service';
 import { AuthService } from './auth.service';
@@ -20,12 +22,12 @@ export class FollowerService {
     private alertService: AlertService
   ) { }
 
-  addFollower(followeeID) {
+  addFollower(followeeID: number) {
     const obj = {
       followerID: this.authService.getUser().id,
       followeeID
     };
-    return this.httpClient.post<any>(environment.api + 'follower/follow', obj).subscribe(async res => {
+    return this.apiService.addFollower(obj).subscribe(async res => {
       if (res.status === 200) {
         this.apiService.fetchUserFromApi(this.authService.getUser().id);
       }
@@ -40,12 +42,12 @@ export class FollowerService {
       });
   }
 
-  removeFollower(followeeID) {
+  removeFollower(followeeID: number) {
     const obj = {
       followerID: this.authService.getUser().id,
       followeeID
     };
-    return this.httpClient.post<any>(environment.api + 'follower/unfollow', obj).subscribe(async res => {
+    return this.apiService.removeFollower(obj).subscribe(async res => {
       if (res.status === 200) {
         this.apiService.fetchUserFromApi(this.authService.getUser().id);
       }
@@ -60,23 +62,13 @@ export class FollowerService {
       });
   }
 
-  getFollowees(username) {
-    return this.httpClient.get<any>(environment.api + 'follower/followeesbyusername/' + username).pipe(
-      map((data: any[]) => data.map((item) => this.adapter.adapt(item)))
-    );
-  }
-
-  getFollowers(username) {
-    return this.httpClient.get<any>(environment.api + 'follower/followersbyusername/' + username).pipe(
-      map((data: any[]) => data.map((item) => this.adapter.adapt(item)))
-    );
-  }
-
-  checkIfFollowing(followeeID) {
+  checkIfFollowing(followeeID: number): Observable<boolean> {
     const obj = {
       followerID: this.authService.getUser().id,
       followeeID
     };
-    return this.httpClient.post<any>(environment.api + 'follower/checkfollow', obj);
+    return this.httpClient.post<any>(environment.api + 'follower/checkfollow', obj).pipe(
+      map(data => data.following)
+    );
   }
 }

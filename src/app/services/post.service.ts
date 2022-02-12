@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { PostAdapter } from '../adapter/post-adapter';
@@ -15,16 +16,16 @@ export class PostService {
     private adapter: PostAdapter
   ) { }
 
-  getSelectedPosts(params: any) {
-
-    return this.http.post<Post[]>(environment.api + 'post/posts/', params)
-      .pipe(
-        map((data: any[]) => data.map((item) => this.adapter.adapt(item)))
-      );
+  getSelectedPosts(params: any): Observable<Post[]> {
+    return this.http.post<Post[]>(environment.api + 'post/posts/', params).pipe(
+      map((data: any[]) => data.map((item) => this.adapter.adapt(item)))
+    );
   }
 
-  getNumberOfTotalPosts() {
-    return this.http.get<any>(environment.api + 'post/numberoftotalposts');
+  getNumberOfTotalPosts(): Observable<number> {
+    return this.http.get<any>(environment.api + 'post/numberoftotalposts').pipe(
+      map(data => data.numberoftotalposts)
+    );
   }
 
   votePost(voteValue: number, postId: number, userId: number) {
@@ -48,7 +49,7 @@ export class PostService {
     });
   }
 
-  createPost(header, body, userID) {
+  createPost(header, body, userID): Observable<any> {
     const obj = {
       header,
       body,
@@ -57,7 +58,7 @@ export class PostService {
     return this.http.post<any>(environment.api + 'post/create/', obj);
   }
 
-  updatePost(title, body, postId) {
+  updatePost(title, body, postId): Observable<any> {
     const obj = {
       title,
       body,

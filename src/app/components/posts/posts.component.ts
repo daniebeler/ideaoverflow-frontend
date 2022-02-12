@@ -54,8 +54,6 @@ export class PostsComponent implements OnInit {
       currentUserId: this.currentUser?.id
     };
 
-    console.log(params);
-
     if (this.filterByUsername) {
       params.username = this.filterByUsername;
     }

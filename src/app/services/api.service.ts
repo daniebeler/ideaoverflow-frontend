@@ -54,6 +54,44 @@ export class ApiService {
     return this.http.get<any>(environment.api + 'post/latest');
   }
 
+  register(data: any): Observable<any> {
+    return this.http.post<any>(environment.api + 'registration/register', data);
+  }
+
+  login(email: string, password: string): Observable<any> {
+    return this.http.post<any>(environment.api + 'registration/login', { email, password });
+  }
+
+  verify(code: string): Observable<boolean> {
+    return this.http.get<any>(environment.api + 'registration/verify/' + code).pipe(
+      map(data => data.verified)
+    );
+  }
+
+  sendVerificationMailAgain(email: string): Observable<any> {
+    return this.http.post<any>(environment.api + 'registration/sendverificationmailagain', { email });
+  }
+
+  updateUser(data: any): Observable<any> {
+    return this.http.post<any>(environment.api + 'user/changedata', data);
+  }
+
+  changePassword(data: any): Observable<any> {
+    return this.http.post<any>(environment.api + 'user/changepw', data);
+  }
+
+  resetPassword(email): Observable<any> {
+    return this.http.post<any>(environment.api + 'registration/resetpassword/', { email });
+  }
+
+  setPassword(data: any): Observable<any> {
+    return this.http.post<any>(environment.api + 'registration/setpassword', data);
+  }
+
+  checkCode(code: string): Observable<any> {
+    return this.http.get<any>(environment.api + 'registration/checkresetcode/' + code);
+  }
+
   clearData() {
     this.user.next(null);
   }
@@ -63,5 +101,25 @@ export class ApiService {
     dataFile.append('image', file);
     const headers = new HttpHeaders({ authorization: 'Client-ID c0df3b4f744766f' });
     return this.http.post('https://api.imgur.com/3/image/', dataFile, { headers });
+  }
+
+  addFollower(data: any) {
+    return this.http.post<any>(environment.api + 'follower/follow', data);
+  }
+
+  removeFollower(data: any) {
+    return this.http.post<any>(environment.api + 'follower/unfollow', data);
+  }
+
+  getFollowees(username: string): Observable<User[]> {
+    return this.http.get<any>(environment.api + 'follower/followeesbyusername/' + username).pipe(
+      map((data: any[]) => data.map((item) => this.adapter.adapt(item)))
+    );
+  }
+
+  getFollowers(username: string): Observable<User[]> {
+    return this.http.get<any>(environment.api + 'follower/followersbyusername/' + username).pipe(
+      map((data: any[]) => data.map((item) => this.adapter.adapt(item)))
+    );
   }
 }

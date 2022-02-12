@@ -50,7 +50,8 @@ export class ProfilePage implements OnInit {
           }
           else {
             this.followerService.checkIfFollowing(this.user.id).subscribe(following => {
-              this.amFollowingThisProfile = following.user[0].following;
+              console.log(following);
+              this.amFollowingThisProfile = following;
               this.isMyProfile = false;
             });
           }

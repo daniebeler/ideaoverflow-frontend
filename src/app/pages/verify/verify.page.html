@@ -12,7 +12,7 @@
           style="padding-left: 50px; padding-right: 75px;">
           <h1 class="register-header"><strong>Verify</strong></h1>
 
-          <div *ngIf="verified; else elseBlock">
+          <div *ngIf="isVerified; else elseBlock">
             <p><strong>Your account has been activated.</strong></p>
             <button type="button" class="btn-large btn-primary" style="margin-top: 10px;" (click)="gotoLogin()">
               Login
