@@ -258,3 +258,7 @@ ion-alert {
     border-radius: var(--border-radius-big);
   }
 }
+
+.postcontent img {
+  max-height: 60vh !important;
+}
