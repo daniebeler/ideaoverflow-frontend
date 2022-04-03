@@ -23,8 +23,8 @@
 
     <ng-template #userExists>
       <ion-row>
-        <ion-col>
-          <ion-avatar style="height: 100px; width: 100px; --border-radius: 50%">
+        <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center">
+          <ion-avatar class="profile-image">
             <img [src]="user.profileimage">
           </ion-avatar>
           <h1 style="margin-bottom: 0;" *ngIf="user.firstname && user.lastname">{{user.firstname}}
@@ -34,7 +34,7 @@
         </ion-col>
       </ion-row>
 
-      <ion-row *ngIf="latestUser">
+      <ion-row *ngIf="latestUser" style="display: flex; justify-content: center;">
         <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="4" size-xl="4">
           <div *ngIf="isMyProfile; else isNotMyProfile">
             <ion-grid style="padding: 0; padding-top: 10px;">
