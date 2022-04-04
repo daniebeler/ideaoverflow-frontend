@@ -73,6 +73,14 @@ select{
   border-radius: 50%;
   overflow: hidden;
   border: 1px solid grey;
+  border-color: var(--ion-color-primary);
+  border-width: 2px;
+  border-style: solid;
+  padding: 5px;
+
+  img {
+    border-radius: 50%;
+  }
 }
 
 #photo{
