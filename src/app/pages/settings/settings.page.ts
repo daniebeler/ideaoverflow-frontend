@@ -5,6 +5,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-settings',
@@ -44,7 +45,8 @@ export class SettingsPage implements OnInit {
     private auth: AuthService,
     private api: ApiService,
     private httpClient: HttpClient,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -104,6 +106,18 @@ export class SettingsPage implements OnInit {
       website: this.website
     };
     this.auth.updateUser(dataToUpdate);
+
+    this.presentToast();
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Your settings have been saved.',
+      icon: 'information-circle',
+      color: 'primary',
+      duration: 3000
+    });
+    toast.present();
   }
 
   changePassword() {
