@@ -27,14 +27,14 @@
     </ion-row>
 
     <ion-row>
-      <ion-col>
+      <ion-col size-xs="12" size-sm="6">
         <div class="form-group">
           <label class="text-label" for="fname"><strong>First Name</strong></label>
           <input type="text" name="fname" id="fname" placeholder="First Name" [(ngModel)]="firstname"
             (ngModelChange)="checkForChange()" />
         </div>
       </ion-col>
-      <ion-col>
+      <ion-col size-xs="12" size-sm="6">
         <div class="form-group">
           <label class="text-label" for="email"><strong>Last Name</strong></label>
           <input type="text" name="lname" id="lname" placeholder="Last Name" [(ngModel)]="lastname"
@@ -43,7 +43,7 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col size="6">
+      <ion-col size-xs="12" size-sm="6">
         <div class="form-group">
           <label class="text-label" for="email"><strong>Account Type</strong></label>
           <select [(ngModel)]="isPrivate" (ngModelChange)="checkForChange()">
@@ -54,7 +54,7 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col>
+      <ion-col size-xs="12" size-sm="6">
         <div class="form-group" *ngIf="countries">
           <label class="text-label"><strong>Country</strong></label>
           <select [(ngModel)]="country" (ngModelChange)="checkForChange()">
@@ -63,7 +63,7 @@
           </select>
         </div>
       </ion-col>
-      <ion-col>
+      <ion-col size-xs="12" size-sm="6">
         <div class="form-group" *ngIf="country">
           <label class="text-label"><strong>State</strong></label>
           <select [(ngModel)]="state" (ngModelChange)="checkForChange()">
@@ -168,7 +168,7 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col size="6">
+      <ion-col size-xs="12" size-sm="6">
         <div class="form-group">
           <label class="icon-label" for="password"><i>
               <ion-icon name="lock-open"></ion-icon>
@@ -179,7 +179,7 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col>
+      <ion-col size-xs="12" size-sm="6">
         <div class="form-group">
           <label class="icon-label" for="password"><i>
               <ion-icon name="lock-closed"></ion-icon>
@@ -188,7 +188,7 @@
             [(ngModel)]="newPassword1" />
         </div>
       </ion-col>
-      <ion-col>
+      <ion-col size-xs="12" size-sm="6">
         <div class="form-group">
           <label class="icon-label" for="password"><i>
               <ion-icon name="lock-closed"></ion-icon>
