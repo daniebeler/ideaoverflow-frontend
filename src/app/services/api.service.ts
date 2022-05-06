@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user';
 import { UserAdapter } from '../adapter/user-adapter';
+import { tint, shade } from 'tint-shade-color';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,18 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private adapter: UserAdapter
-  ) { }
+  ) {
+    this.getLatestUser().subscribe(user => {
+      console.log(user);
+      if (user) {
+        if (user.color) {
+          document.documentElement.style.setProperty('--ion-color-primary', user.color);
+          document.documentElement.style.setProperty('--ion-color-primary-shade', shade(user.color, 0.15));
+          document.documentElement.style.setProperty('--ion-color-primary-tint', tint(user.color, 0.15));
+        }
+      }
+    });
+  }
 
   getLatestUser(): Observable<User> {
     return this.user;

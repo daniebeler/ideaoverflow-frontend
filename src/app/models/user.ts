@@ -21,6 +21,7 @@ export class User {
   public creationDate: Date;
   public numberOfFollowers: number;
   public numberOfFollowees: number;
+  public color: string;
 
   constructor(data?: any) {
     this.id = data?.id;
@@ -42,6 +43,7 @@ export class User {
     this.creationDate = data?.creationdate;
     this.numberOfFollowers = data?.followers;
     this.numberOfFollowees = data?.following;
+    this.color = data?.color;
    }
 }
 

@@ -20,6 +20,7 @@ export class SettingsPage implements OnInit {
   country: any;
   state: string;
   profilePicture: SafeResourceUrl;
+  color: string;
 
   bio: string;
   instagram: string;
@@ -75,6 +76,7 @@ export class SettingsPage implements OnInit {
     this.linkedin = this.user.linkedin;
     this.website = this.user.website;
     this.profilePicture = this.user.profileimage;
+    this.color = this.user.color;
     this.checkForChange();
   }
 
@@ -103,11 +105,17 @@ export class SettingsPage implements OnInit {
       dribbble: this.dribbble,
       github: this.github,
       linkedin: this.linkedin,
-      website: this.website
+      website: this.website,
+      color: this.color
     };
     this.auth.updateUser(dataToUpdate);
 
     this.presentToast();
+  }
+
+  updateColor(color: string) {
+    this.color = color;
+    this.checkForChange();
   }
 
   async presentToast() {
@@ -162,6 +170,7 @@ export class SettingsPage implements OnInit {
       || this.user.linkedin !== this.linkedin
       || this.user.website !== this.website
       || this.user.profileimage !== this.profilePicture
+      || this.user.color !== this.color
     ) {
       this.unsavedDataExists = true;
     }
