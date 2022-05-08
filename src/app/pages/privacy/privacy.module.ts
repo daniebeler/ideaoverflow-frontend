@@ -6,6 +6,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { PrivacyPageRoutingModule } from './privacy-routing.module';
 
+import { ComponentsModule } from 'src/app/components/components.module';
+
 import { PrivacyPage } from './privacy.page';
 
 @NgModule({
@@ -13,6 +15,7 @@ import { PrivacyPage } from './privacy.page';
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentsModule,
     PrivacyPageRoutingModule
   ],
   declarations: [PrivacyPage]

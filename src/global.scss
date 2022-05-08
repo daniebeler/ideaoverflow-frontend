@@ -30,11 +30,6 @@
   background: var(--ion-color-primary);
 }
 
-[contenteditable] {
-  -webkit-user-select: text;
-  user-select: text;
-}
-
 @font-face {
   font-family: "poppins-regular";
   src: url("/assets/fonts/Segoe.ttf") format("truetype");
@@ -50,13 +45,6 @@
 
 * {
   font-family: "poppins-regular", sans-serif;
-}
-
-ion-header {
-  border-bottom: 1px solid var(--ion-color-medium);
-}
-
-* {
   color: var(--ion-color-light);
 }
 
@@ -73,6 +61,14 @@ h1 {
 h2 {
   font-family: "poppins-bold", sans-serif !important;
   font-weight: 1000 !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline-color: var(--ion-color-primary);
+  outline-style: solid;
+  outline-width: 2px;
 }
 
 button:focus,
@@ -172,7 +168,6 @@ input:-webkit-autofill {
 }
 
 .array-btn.active {
-  // background-color: var(--ion-color-primary);
   color: var(--ion-color-light);
   font-family: "poppins-bold", sans-serif !important;
 }
@@ -195,8 +190,6 @@ ion-alert {
       justify-content: center;
       align-items: center;
     }
-
-    .alert-head {}
 
     .alert-message {
       text-align: center;
@@ -231,7 +224,6 @@ ion-alert {
     }
 
     .alert-button {
-      // background-color: var(--ion-color-primary);
       color: var(--ion-color-light);
       border-radius: var(--border-radius-small);
       text-transform: none;
