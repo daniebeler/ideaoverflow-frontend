@@ -9,6 +9,7 @@ export class Post {
   public ownerId: number;
   public ownerUsername: string;
   public ownerImage: SafeResourceUrl;
+  public ownerColor: string;
   public numberOfUpvotes: number;
   public numberOfDownvotes: number;
   public currentUserVoteValue: number;
@@ -22,6 +23,7 @@ export class Post {
     this.ownerId = data.ownerid;
     this.ownerUsername = data.username;
     this.ownerImage = data.ownerImage;
+    this.ownerColor = data.color;
     this.numberOfUpvotes = data.upvotes;
     this.numberOfDownvotes = data.downvotes;
     this.currentUserVoteValue = data.votevalue;

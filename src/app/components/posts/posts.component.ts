@@ -16,6 +16,7 @@ export class PostsComponent implements OnInit {
   @Input() filterByUsername = '';
   @Input() savedByUsername = false;
   @Input() searchTerm = '';
+  @Input() color = 'var(--ion-color-primary)';
 
   queryParams: string;
   allLoadedPosts: Post[] = [];
@@ -72,6 +73,8 @@ export class PostsComponent implements OnInit {
       for (const post of posts) {
         this.allLoadedPosts.push(post);
       }
+
+      console.log(this.allLoadedPosts);
 
     });
   }

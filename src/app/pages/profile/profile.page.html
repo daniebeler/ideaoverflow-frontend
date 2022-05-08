@@ -24,7 +24,7 @@
     <ng-template #userExists>
       <ion-row>
         <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center">
-          <ion-avatar class="profile-image">
+          <ion-avatar class="profile-image" [ngStyle]="{'border-color': user.color}">
             <img [src]="user.profileimage">
           </ion-avatar>
           <h1 style="margin-bottom: 0;" *ngIf="user.firstname && user.lastname">{{user.firstname}}
@@ -60,8 +60,8 @@
                 </ion-col>
                 <ng-template #notFollowing>
                   <ion-col>
-                    <button type="button" class="btn-small btn-primary" style="width: 100%;"
-                      (click)="follow()">Follow</button>
+                    <button type="button" class="btn-small" [ngStyle]="{'background-color':user.color}"
+                      style="width: 100%;" (click)="follow()">Follow</button>
                   </ion-col>
                 </ng-template>
               </ion-row>
@@ -72,14 +72,18 @@
       <ion-row style="margin-top: 50px;">
         <ion-col size="auto" style="padding: 0;">
           <div id="myBtnContainer">
-            <button [ngClass]="{'active': selectedTab === 'about'}" (click)="selectedTab = 'about'"
-              class="array-btn">About</button>
-            <button [ngClass]="{'active': selectedTab === 'followers'}" (click)="selectedTab = 'followers'"
-              class="array-btn">{{user.numberOfFollowers}} Followers</button>
-            <button [ngClass]="{'active': selectedTab === 'following'}" (click)="selectedTab = 'following'"
-              class="array-btn">{{user.numberOfFollowees}} Following</button>
-            <button *ngIf="isMyProfile" [ngClass]="{'active': selectedTab === 'saved'}" (click)="selectedTab = 'saved'"
-              class="array-btn">Saved Posts</button>
+            <button [ngClass]="{'active': selectedTab === 'about'}"
+              [ngStyle]="{'background-color': selectedTab === 'about' ? user.color : ''}"
+              (click)="selectedTab = 'about'" class="array-btn">About</button>
+            <button [ngClass]="{'active': selectedTab === 'followers'}"
+              [ngStyle]="{'background-color': selectedTab === 'followers' ? user.color : ''}"
+              (click)="selectedTab = 'followers'" class="array-btn">{{user.numberOfFollowers}} Followers</button>
+            <button [ngClass]="{'active': selectedTab === 'following'}"
+              [ngStyle]="{'background-color': selectedTab === 'following' ? user.color : ''}"
+              (click)="selectedTab = 'following'" class="array-btn">{{user.numberOfFollowees}} Following</button>
+            <button *ngIf="isMyProfile" [ngClass]="{'active': selectedTab === 'saved'}"
+              [ngStyle]="{'background-color': selectedTab === 'saved' ? user.color : ''}"
+              (click)="selectedTab = 'saved'" class="array-btn">Saved Posts</button>
           </div>
         </ion-col>
       </ion-row>
@@ -107,7 +111,7 @@
 
       <ng-template #about>
         <app-about></app-about>
-        <app-posts [header]="postsHeader" [filterByUsername]="postsFilter"></app-posts>
+        <app-posts [header]="postsHeader" [filterByUsername]="postsFilter" [color]="user.color"></app-posts>
       </ng-template>
     </ng-template>
   </ion-grid>

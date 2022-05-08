@@ -5,12 +5,15 @@
     </ion-col>
     <ion-col *ngIf="showSortingButtons" style="align-items: end; display: flex; flex-direction: column;flex-grow: 1;">
       <div id="myBtnContainer" style="white-space: nowrap;">
-        <button [ngClass]="{'active': sortingCriteria === 'newest'}" (click)="sortingCriteriaChanged('newest')"
-          class="array-btn">Newest</button>
-        <button [ngClass]="{'active': sortingCriteria === 'likes'}" (click)="sortingCriteriaChanged('likes')"
-          class="array-btn">Most liked</button>
-        <button [ngClass]="{'active': sortingCriteria === 'oldest'}" (click)="sortingCriteriaChanged('oldest')"
-          class="array-btn">Oldest</button>
+        <button [ngClass]="{'active': sortingCriteria === 'newest'}"
+          [ngStyle]="{'background-color': sortingCriteria === 'newest' ? color : ''}"
+          (click)="sortingCriteriaChanged('newest')" class="array-btn">Newest</button>
+        <button [ngClass]="{'active': sortingCriteria === 'likes'}"
+          [ngStyle]="{'background-color': sortingCriteria === 'likes' ? color : ''}"
+          (click)="sortingCriteriaChanged('likes')" class="array-btn">Most liked</button>
+        <button [ngClass]="{'active': sortingCriteria === 'oldest'}"
+          [ngStyle]="{'background-color': sortingCriteria === 'oldest' ? color : ''}"
+          (click)="sortingCriteriaChanged('oldest')" class="array-btn">Oldest</button>
       </div>
     </ion-col>
   </ion-row>
@@ -41,7 +44,7 @@
                   </ion-col>
 
                   <ion-col size="auto" class="like" style="display: flex; align-items: center;">
-                    <ion-icon *ngIf="post.currentUserVoteValue === 1" name="heart" color="primary"
+                    <ion-icon *ngIf="post.currentUserVoteValue === 1" name="heart" [ngStyle]="{'color':post.ownerColor}"
                       style="width: 30px; height: 25px;" (click)="votePost(0, post.id)"></ion-icon>
                     <ion-icon *ngIf="post.currentUserVoteValue !== 1" name="heart-outline"
                       style="width: 30px; height: 25px;" (click)="votePost(1, post.id)"></ion-icon>
@@ -49,16 +52,17 @@
                   </ion-col>
 
                   <ion-col size="auto" class="like" style="display: flex; align-items: center;">
-                    <ion-icon *ngIf="post.currentUserVoteValue === -1" name="heart-dislike"
-                      style="width: 30px; height: 25px;" (click)="votePost(0, post.id)"></ion-icon>
-                    <ion-icon *ngIf="post.currentUserVoteValue !== -1" name="heart-dislike-outline"
+                    <ion-icon *ngIf="post.currentUserVoteValue === -1" name="thumbs-down"
+                      [ngStyle]="{'color':post.ownerColor}" style="width: 30px; height: 25px;"
+                      (click)="votePost(0, post.id)"></ion-icon>
+                    <ion-icon *ngIf="post.currentUserVoteValue !== -1" name="thumbs-down-outline"
                       style="width: 30px; height: 25px;" (click)="votePost(-1, post.id)"></ion-icon>
                     <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{post.numberOfDownvotes}}</strong></p>
                   </ion-col>
 
                   <ion-col size="auto" class="like" style="display: flex; align-items: center;">
-                    <ion-icon *ngIf="post.saved" name="bookmark" color="primary" style="width: 30px; height: 25px;"
-                      (click)="unsavePost(post.id)"></ion-icon>
+                    <ion-icon *ngIf="post.saved" name="bookmark" [ngStyle]="{'color':post.ownerColor}"
+                      style="width: 30px; height: 25px;" (click)="unsavePost(post.id)"></ion-icon>
                     <ion-icon *ngIf="!post.saved" name="bookmark-outline" style="width: 30px; height: 25px;"
                       (click)="savePost(post.id)"></ion-icon>
                   </ion-col>
