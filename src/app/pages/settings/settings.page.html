@@ -2,6 +2,51 @@
 
 <ion-content>
   <ion-grid class="container" style="margin-top: 30px; margin-bottom: 30px;">
+
+    <ion-row>
+      <ion-col>
+        <h1>Favourite Color</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row style="padding-bottom: 30px">
+      <ion-col style="padding-bottom: 0;" size="auto">
+        <span class="dot" style="background-color: #0cc87e;" (click)="updateColor('#0cc87e')"></span>
+      </ion-col>
+
+      <ion-col style="padding-bottom: 0;" size="auto">
+        <span class="dot" style="background-color: #fb4e4e;" (click)="updateColor('#fb4e4e')"></span>
+      </ion-col>
+
+      <ion-col style="padding-bottom: 0;" size="auto">
+        <span class="dot" style="background-color: #02d9c5;" (click)="updateColor('#02d9c5')"></span>
+      </ion-col>
+
+      <ion-col style="padding-bottom: 0;" size="auto">
+        <span class="dot" style="background-color: #8851cf" (click)="updateColor('#8851cf')"></span>
+      </ion-col>
+
+      <ion-col style="padding-bottom: 0;" size="auto">
+        <span class="dot" style="background-color: #57acdc" (click)="updateColor('#57acdc')"></span>
+      </ion-col>
+
+      <ion-col style="padding-bottom: 0;" size="auto">
+        <span class="dot" style="background-color: #344448" (click)="updateColor('#344448')"></span>
+      </ion-col>
+
+      <ion-col style="padding-bottom: 0;" size="auto">
+        <span class="dot" style="background-color: #d28a23" (click)="updateColor('#d28a23')"></span>
+      </ion-col>
+
+      <ion-col style="padding-bottom: 0;" size="auto">
+        <span class="dot" style="background-color: #ff7c2e" (click)="updateColor('#ff7c2e')"></span>
+      </ion-col>
+
+      <ion-col style="padding-bottom: 0;" size="auto">
+        <span class="dot" style="background-color: #f59aba" (click)="updateColor('#f59aba')"></span>
+      </ion-col>
+    </ion-row>
+
+
     <ion-row>
       <ion-col>
         <h1 style="padding-bottom: 20px;">General</h1>
@@ -83,8 +128,8 @@
       <ion-col style="padding-bottom: 0;">
         <div class="form-group">
           <label class="text-label" for="fname"><strong>Bio</strong></label>
-          <textarea style="resize: none;" rows="5" type="text" name="fname" id="fname" placeholder="Something about myself..." [(ngModel)]="bio"
-            (ngModelChange)="checkForChange()"></textarea>
+          <textarea style="resize: none;" rows="5" type="text" name="fname" id="fname"
+            placeholder="Something about myself..." [(ngModel)]="bio" (ngModelChange)="checkForChange()"></textarea>
         </div>
       </ion-col>
     </ion-row>
@@ -201,7 +246,8 @@
     <ion-row>
       <ion-col>
         <div class="row d-flex justify-content-center submit-button-container">
-          <button type="button" class="btn-large btn-primary" style="margin-top: 10px;" (click)="changePassword()">Change
+          <button type="button" class="btn-large btn-primary" style="margin-top: 10px;"
+            (click)="changePassword()">Change
             Password</button>
         </div>
       </ion-col>

@@ -2,8 +2,11 @@
   height: 120px;
   width: 120px;
   --border-radius: 50%;
-  border-color: var(--ion-color-primary);
   border-width: 2px;
   border-style: solid;
   padding: 5px;
+}
+
+.array-btn.active {
+  // background-color: var(--ion-color-primary);
 }
