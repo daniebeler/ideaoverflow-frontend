@@ -20,10 +20,10 @@
   <ion-row>
     <ion-col>
       <ion-list>
-        <ion-grid style="padding: 0;" class="post-wrapper" *ngFor="let post of allLoadedPosts">
-          <ion-row style="padding: 0;">
-            <ion-col style="padding: 0;">
-              <ion-grid style="padding: 0;">
+        <ion-grid class="post-wrapper" *ngFor="let post of allLoadedPosts">
+          <ion-row>
+            <ion-col>
+              <ion-grid>
                 <ion-row>
                   <ion-col style="padding: 0;">
                     <h1 style="margin: 0;">{{post.title}}</h1>
@@ -76,11 +76,6 @@
                   </div>
                 </ion-row>
               </ion-grid>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <hr style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin: 0;">
             </ion-col>
           </ion-row>
         </ion-grid>
