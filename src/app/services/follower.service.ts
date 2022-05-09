@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { UserAdapter } from '../adapter/user-adapter';
-import { User } from '../models/user';
 import { AlertService } from './alert.service';
 import { ApiService } from './api.service';
 import { AuthService } from './auth.service';
@@ -19,7 +18,6 @@ export class FollowerService {
     private authService: AuthService,
     private httpClient: HttpClient,
     private apiService: ApiService,
-    private adapter: UserAdapter,
     private alertService: AlertService,
     private userService: UserService
   ) { }
