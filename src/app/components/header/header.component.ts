@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
-import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -16,21 +16,21 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private api: ApiService,
+    private userService: UserService,
     private authService: AuthService  // Is needed to check if logged in
   ) { }
 
   ngOnInit() {
-    this.api.getLatestUser()
-    .subscribe((latestUser) => {
-      this.user = latestUser;
-      if(latestUser){
-        this.loggedIn = true;
-      }
-      else{
-        this.loggedIn = false;
-      }
-    });
+    this.userService.getLatestUser()
+      .subscribe((latestUser) => {
+        this.user = latestUser;
+        if (latestUser) {
+          this.loggedIn = true;
+        }
+        else {
+          this.loggedIn = false;
+        }
+      });
   }
 
   gotoProfile() {
@@ -49,8 +49,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  search(searchTerm: string){
-    if(searchTerm){
+  search(searchTerm: string) {
+    if (searchTerm) {
       this.router.navigate(['search/' + searchTerm]);
     }
   }

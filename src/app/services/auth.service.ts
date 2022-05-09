@@ -7,6 +7,7 @@ import { ApiService } from './api.service';
 import { AlertService } from './alert.service';
 import { AlertController, Platform } from '@ionic/angular';
 import { StorageService } from './storage.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,8 @@ export class AuthService {
     private apiService: ApiService,
     private alertService: AlertService,
     private alertController: AlertController,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private userService: UserService
   ) {
     this.platform.ready().then(() => {
       this.checkToken();
@@ -39,7 +41,7 @@ export class AuthService {
         if (!isExpired) {
           this.decodedUserToken = decoded;
           this.authenticationState.next(true);
-          this.apiService.fetchUserFromApi(this.getUser().id);
+          this.userService.fetchUserFromApi(this.getUser().id);
         }
       }
       else {
@@ -87,7 +89,7 @@ export class AuthService {
         await this.storageService.setToken(res.token);
         this.decodedUserToken = this.helper.decodeToken(res.token);
         this.authenticationState.next(true);
-        this.apiService.fetchUserFromApi(this.getUser().id);
+        this.userService.fetchUserFromApi(this.getUser().id);
         this.router.navigate(['']);
       }
       else if (res.notverified === true) {
@@ -131,7 +133,7 @@ export class AuthService {
 
   logout() {
     this.storageService.removeToken().then(() => {
-      this.apiService.clearData();
+      this.userService.clearData();
       this.decodedUserToken = null;
       this.authenticationState.next(false);
       this.router.navigate(['login']);
@@ -141,7 +143,7 @@ export class AuthService {
   updateUser(dataToUpdate) {
     return this.apiService.updateUser(dataToUpdate).subscribe(async res => {
       if (res.status === 200) {
-        this.apiService.fetchUserFromApi(this.getUser().id);
+        this.userService.fetchUserFromApi(this.getUser().id);
       }
       else {
         this.alertService.showOkayAlertWithoutAction(res.header, res.message);

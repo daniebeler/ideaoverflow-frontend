@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ToastController } from '@ionic/angular';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-settings',
@@ -45,6 +46,7 @@ export class SettingsPage implements OnInit {
     private router: Router,
     private auth: AuthService,
     private api: ApiService,
+    private userService: UserService,
     private httpClient: HttpClient,
     private domSanitizer: DomSanitizer,
     private toastController: ToastController
@@ -53,7 +55,7 @@ export class SettingsPage implements OnInit {
   ngOnInit() {
     this.httpClient.get('./assets/json/countries.json').subscribe(data => {
       this.countries = data;
-      this.api.getLatestUser().subscribe((latestUser) => {
+      this.userService.getLatestUser().subscribe((latestUser) => {
         this.user = latestUser;
         if (latestUser) {
           this.setLocalUserValues();
