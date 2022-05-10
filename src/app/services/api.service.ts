@@ -5,6 +5,8 @@ import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user';
 import { UserAdapter } from '../adapter/user-adapter';
+import { Project } from '../models/project';
+import { ProjectAdapter } from '../adapter/project-adapter';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,8 @@ export class ApiService {
 
   constructor(
     private http: HttpClient,
-    private userAdapter: UserAdapter
+    private userAdapter: UserAdapter,
+    private projectAdapter: ProjectAdapter
   ) { }
 
   getUser(username): Observable<User> {
@@ -103,5 +106,21 @@ export class ApiService {
     return this.http.get<any>(environment.api + 'follower/followersbyusername/' + username).pipe(
       map((data: any[]) => data.map((item) => this.userAdapter.adapt(item)))
     );
+  }
+
+  getProject(id: number): Observable<Project> {
+    return this.http.get<any>(environment.api + 'project/byid/' + id).pipe(
+      map(data => this.projectAdapter.adapt(data))
+    );
+  }
+
+  getSelectedProjects(params: any): Observable<Project[]> {
+    return this.http.post<Project[]>(environment.api + 'project/projects/', params).pipe(
+      map((data: any[]) => data.map((item) => this.projectAdapter.adapt(item)))
+    );
+  }
+
+  createProject(data: any): Observable<any> {
+    return this.http.post<any>(environment.api + 'project/create', data);
   }
 }
