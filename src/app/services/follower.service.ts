@@ -4,10 +4,10 @@ import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { UserAdapter } from '../adapter/user-adapter';
-import { User } from '../models/user';
 import { AlertService } from './alert.service';
 import { ApiService } from './api.service';
 import { AuthService } from './auth.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,8 @@ export class FollowerService {
     private authService: AuthService,
     private httpClient: HttpClient,
     private apiService: ApiService,
-    private adapter: UserAdapter,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private userService: UserService
   ) { }
 
   addFollower(followeeID: number) {
@@ -29,7 +29,7 @@ export class FollowerService {
     };
     return this.apiService.addFollower(obj).subscribe(async res => {
       if (res.status === 200) {
-        this.apiService.fetchUserFromApi(this.authService.getUser().id);
+        this.userService.fetchUserFromApi(this.authService.getUser().id);
       }
       else {
         this.alertService.showOkayAlertWithoutAction(res.header, res.message);
@@ -49,7 +49,7 @@ export class FollowerService {
     };
     return this.apiService.removeFollower(obj).subscribe(async res => {
       if (res.status === 200) {
-        this.apiService.fetchUserFromApi(this.authService.getUser().id);
+        this.userService.fetchUserFromApi(this.authService.getUser().id);
       }
       else {
         this.alertService.showOkayAlertWithoutAction(res.header, res.message);

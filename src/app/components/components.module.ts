@@ -10,10 +10,29 @@ import { EditorComponent } from './editor/editor.component';
 import { QuillModule } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
 import { UsersComponent } from './users/users.component';
+import { ProjectsComponent } from './projects/projects.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, PostsComponent, FollowersComponent, AboutComponent, EditorComponent, UsersComponent],
-  exports: [HeaderComponent, FooterComponent, PostsComponent, FollowersComponent, AboutComponent, EditorComponent, UsersComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    PostsComponent,
+    ProjectsComponent,
+    FollowersComponent,
+    AboutComponent,
+    EditorComponent,
+    UsersComponent
+  ],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    PostsComponent,
+    ProjectsComponent,
+    FollowersComponent,
+    AboutComponent,
+    EditorComponent,
+    UsersComponent
+  ],
   imports: [
     IonicModule,
     CommonModule,
@@ -21,4 +40,4 @@ import { UsersComponent } from './users/users.component';
     FormsModule
   ]
 })
-export class ComponentsModule{}
+export class ComponentsModule { }

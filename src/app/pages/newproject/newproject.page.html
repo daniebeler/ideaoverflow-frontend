@@ -1,0 +1,63 @@
+<app-header></app-header>
+
+<ion-content>
+
+  <ion-grid class="container" style="margin-top: 30px; margin-bottom: 30px;">
+    <ion-row>
+      <ion-col>
+        <h1>New Project</h1>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-bottom: 50px;">
+      <ion-col style="display: flex;" class="ion-justify-content-center">
+        <div class="profile-pic-div">
+          <img [src]="logo" id="photo">
+          <input type="file" id="file" accept=".png,.jpg,">
+          <label for="file" id="uploadBtn">Change</label>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <div class="form-group">
+          <label class="text-label" for="fname"><strong>Title</strong></label>
+          <input type="text" name="fname" id="fname" placeholder="Title" [(ngModel)]="project.title" />
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col style="padding-bottom: 0;">
+        <div class="form-group">
+          <label class="text-label" for="fname"><strong>Short description</strong></label>
+          <textarea style="resize: none;" rows="5" type="text" name="fname" id="fname"
+            placeholder="My project in a few words" [(ngModel)]="project.shortDescription"></textarea>
+        </div>
+      </ion-col>
+    </ion-row>
+
+
+
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-grid class="container">
+    <ion-row>
+      <ion-col style="display: flex; flex-direction: column; justify-content: center;">
+        <button style="margin-top: 20px;" type="button" class="btn-small btn-primary" (click)="saveProject()"
+          *ngIf="project.title && project.shortDescription; else elseBlock">
+          <span>Release project</span>
+        </button>
+
+        <ng-template #elseBlock>
+          <button style="margin-top: 20px;" type="button" class="btn-small btn-disabled" disabled>
+            <span>Release project</span>
+          </button>
+        </ng-template>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

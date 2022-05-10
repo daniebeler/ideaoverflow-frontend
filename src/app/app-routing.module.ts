@@ -20,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: 'users',
-    loadChildren: () => import('./pages/profiles/profiles.module').then( m => m.ProfilesPageModule)
+    loadChildren: () => import('./pages/profiles/profiles.module').then(m => m.ProfilesPageModule)
   },
   {
     path: 'settings',
@@ -38,36 +38,48 @@ const routes: Routes = [
   },
   {
     path: 'search/:search',
-    loadChildren: () => import('./pages/search/search.module').then( m => m.SearchPageModule)
+    loadChildren: () => import('./pages/search/search.module').then(m => m.SearchPageModule)
   },
   {
     path: 'editpost',
-    loadChildren: () => import('./pages/editpost/editpost.module').then( m => m.EditpostPageModule),
+    loadChildren: () => import('./pages/editpost/editpost.module').then(m => m.EditpostPageModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'about',
-    loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule)
+    loadChildren: () => import('./pages/about/about.module').then(m => m.AboutPageModule)
   },
   {
     path: 'privacy',
-    loadChildren: () => import('./pages/privacy/privacy.module').then( m => m.PrivacyPageModule)
+    loadChildren: () => import('./pages/privacy/privacy.module').then(m => m.PrivacyPageModule)
   },
   {
     path: 'resetpassword',
-    loadChildren: () => import('./pages/resetpassword/resetpassword.module').then( m => m.ResetpasswordPageModule)
+    loadChildren: () => import('./pages/resetpassword/resetpassword.module').then(m => m.ResetpasswordPageModule)
   },
   {
     path: 'resetpassword/:code',
-    loadChildren: () => import('./pages/setnewpassword/setnewpassword.module').then( m => m.SetnewpasswordPageModule)
+    loadChildren: () => import('./pages/setnewpassword/setnewpassword.module').then(m => m.SetnewpasswordPageModule)
   },
   {
     path: '',
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
   },
   {
+    path: 'projects/:id',
+    loadChildren: () => import('./pages/project/project.module').then(m => m.ProjectPageModule)
+  },
+  {
+    path: 'projects',
+    loadChildren: () => import('./pages/projects/projects.module').then(m => m.ProjectsPageModule)
+  },
+  {
+    path: 'newproject',
+    loadChildren: () => import('./pages/newproject/newproject.module').then(m => m.NewprojectPageModule)
+  },
+  {
     path: '**',
-    loadChildren: () => import('./pages/pagenotfound/pagenotfound.module').then( m => m.PagenotfoundPageModule)
+    loadChildren: () => import('./pages/pagenotfound/pagenotfound.module').then(m => m.PagenotfoundPageModule)
   }
 ];
 

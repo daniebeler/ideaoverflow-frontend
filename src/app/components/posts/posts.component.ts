@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { Post } from 'src/app/models/post';
 import { User } from 'src/app/models/user';
-import { ApiService } from 'src/app/services/api.service';
 import { PostService } from 'src/app/services/post.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-posts',
@@ -33,11 +33,11 @@ export class PostsComponent implements OnInit {
   constructor(
     private postService: PostService,
     private router: Router,
-    private apiService: ApiService
+    private userService: UserService
   ) { }
 
   ngOnInit() {
-    this.apiService.getLatestUser()
+    this.userService.getLatestUser()
       .subscribe((latestUser) => {
         this.currentUser = latestUser;
         this.allLoadedPosts = [];
@@ -73,9 +73,6 @@ export class PostsComponent implements OnInit {
       for (const post of posts) {
         this.allLoadedPosts.push(post);
       }
-
-      console.log(this.allLoadedPosts);
-
     });
   }
 
@@ -104,24 +101,23 @@ export class PostsComponent implements OnInit {
   }
 
   votePost(voteValue: number, postId: number) {
-    this.apiService.getLatestUser().subscribe((latestUser) => {
+    this.userService.getLatestUser().subscribe((latestUser) => {
       this.postService.votePost(voteValue, postId, latestUser.id);
       this.allLoadedPosts.find(x => x.id === postId).currentUserVoteValue = voteValue;
     });
   }
 
   savePost(postId: number) {
-    this.apiService.getLatestUser().subscribe((latestUser) => {
+    this.userService.getLatestUser().subscribe((latestUser) => {
       this.postService.savePost(postId, latestUser.id);
       this.allLoadedPosts.find(x => x.id === postId).saved = true;
     });
   }
 
   unsavePost(postId: number) {
-    this.apiService.getLatestUser().subscribe((latestUser) => {
+    this.userService.getLatestUser().subscribe((latestUser) => {
       this.postService.unsavePost(postId, latestUser.id);
       this.allLoadedPosts.find(x => x.id === postId).saved = false;
     });
   }
-
 }

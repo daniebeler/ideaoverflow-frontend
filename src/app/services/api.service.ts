@@ -1,69 +1,46 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user';
 import { UserAdapter } from '../adapter/user-adapter';
-import { tint, shade } from 'tint-shade-color';
+import { Project } from '../models/project';
+import { ProjectAdapter } from '../adapter/project-adapter';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  private user = new BehaviorSubject<User>(null);
-
   constructor(
     private http: HttpClient,
-    private adapter: UserAdapter
-  ) {
-    this.getLatestUser().subscribe(user => {
-      console.log(user);
-      if (user) {
-        if (user.color) {
-          document.documentElement.style.setProperty('--ion-color-primary', user.color);
-          document.documentElement.style.setProperty('--ion-color-primary-shade', shade(user.color, 0.15));
-          document.documentElement.style.setProperty('--ion-color-primary-tint', tint(user.color, 0.15));
-        }
-      }
-    });
-  }
+    private userAdapter: UserAdapter,
+    private projectAdapter: ProjectAdapter
+  ) { }
 
-  getLatestUser(): Observable<User> {
-    return this.user;
-  }
-
-  fetchUserFromApi(id) {
-    this.http.get<any>(environment.api + 'user/databyuserid/' + id).subscribe(user => {
-      this.user.next(this.adapter.adapt(user));
-    });
-  }
-
-  getUser(username): any {
+  getUser(username): Observable<User> {
     return this.http.get<any>(environment.api + 'user/databyusername/' + username).pipe(
-      map(data => this.adapter.adapt(data))
+      map(data => this.userAdapter.adapt(data))
     );
   }
 
-  getUsers() {
+  getUsers(): Observable<User[]> {
     return this.http.get<any>(environment.api + 'user/users/').pipe(
-      map((data: any[]) => data.map((item) => this.adapter.adapt(item)))
+      map((data: any[]) => data.map((item) => this.userAdapter.adapt(item)))
     );
   }
 
-  getUsersBySearchterm(searchTerm: string) {
+  getUsersBySearchterm(searchTerm: string): Observable<User[]> {
     return this.http.get<any>(environment.api + 'user/usersbysearchterm/' + searchTerm).pipe(
-      map((data: any[]) => data.map((item) => this.adapter.adapt(item)))
+      map((data: any[]) => data.map((item) => this.userAdapter.adapt(item)))
     );
   }
 
-  getNumberOfTotalUsers() {
-    return this.http.get<any>(environment.api + 'user/numberoftotalusers');
-  }
-
-  getLatestPosts() {
-    return this.http.get<any>(environment.api + 'post/latest');
+  getNumberOfTotalUsers(): Observable<number> {
+    return this.http.get<any>(environment.api + 'user/numberoftotalusers').pipe(
+      map(data => data.numberoftotalusers)
+    );
   }
 
   register(data: any): Observable<any> {
@@ -104,34 +81,46 @@ export class ApiService {
     return this.http.get<any>(environment.api + 'registration/checkresetcode/' + code);
   }
 
-  clearData() {
-    this.user.next(null);
-  }
-
-  uploadImage(file: any) {
+  uploadImage(file: any): Observable<any> {
     const dataFile = new FormData();
     dataFile.append('image', file);
     const headers = new HttpHeaders({ authorization: 'Client-ID c0df3b4f744766f' });
     return this.http.post('https://api.imgur.com/3/image/', dataFile, { headers });
   }
 
-  addFollower(data: any) {
+  addFollower(data: any): Observable<any> {
     return this.http.post<any>(environment.api + 'follower/follow', data);
   }
 
-  removeFollower(data: any) {
+  removeFollower(data: any): Observable<any> {
     return this.http.post<any>(environment.api + 'follower/unfollow', data);
   }
 
   getFollowees(username: string): Observable<User[]> {
     return this.http.get<any>(environment.api + 'follower/followeesbyusername/' + username).pipe(
-      map((data: any[]) => data.map((item) => this.adapter.adapt(item)))
+      map((data: any[]) => data.map((item) => this.userAdapter.adapt(item)))
     );
   }
 
   getFollowers(username: string): Observable<User[]> {
     return this.http.get<any>(environment.api + 'follower/followersbyusername/' + username).pipe(
-      map((data: any[]) => data.map((item) => this.adapter.adapt(item)))
+      map((data: any[]) => data.map((item) => this.userAdapter.adapt(item)))
     );
+  }
+
+  getProject(id: number): Observable<Project> {
+    return this.http.get<any>(environment.api + 'project/byid/' + id).pipe(
+      map(data => this.projectAdapter.adapt(data))
+    );
+  }
+
+  getSelectedProjects(params: any): Observable<Project[]> {
+    return this.http.post<Project[]>(environment.api + 'project/projects/', params).pipe(
+      map((data: any[]) => data.map((item) => this.projectAdapter.adapt(item)))
+    );
+  }
+
+  createProject(data: any): Observable<any> {
+    return this.http.post<any>(environment.api + 'project/create', data);
   }
 }

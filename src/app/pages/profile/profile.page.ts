@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FollowerService } from 'src/app/services/follower.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -27,6 +28,7 @@ export class ProfilePage implements OnInit {
   constructor(
     private authService: AuthService,
     private apiService: ApiService,
+    private userService: UserService,
     private followerService: FollowerService,
     private router: Router,
     private activatedRoute: ActivatedRoute
@@ -42,7 +44,7 @@ export class ProfilePage implements OnInit {
 
       this.isPrivate = this.user.isPrivate;
 
-      this.apiService.getLatestUser().subscribe((latestUser) => {
+      this.userService.getLatestUser().subscribe((latestUser) => {
         this.latestUser = latestUser;
         if (latestUser) {
           if (latestUser.username === this.currentProfile) {
@@ -50,7 +52,6 @@ export class ProfilePage implements OnInit {
           }
           else {
             this.followerService.checkIfFollowing(this.user.id).subscribe(following => {
-              console.log(following);
               this.amFollowingThisProfile = following;
               this.isMyProfile = false;
             });

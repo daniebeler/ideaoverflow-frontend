@@ -1,3 +1,7 @@
+ion-header {
+  border-bottom: 1px solid var(--ion-color-medium);
+}
+
 ion-avatar:hover,
 .logo:hover {
   cursor: pointer;
@@ -28,8 +32,4 @@ input {
   padding-left: 40px;
   box-sizing: border-box;
   font-size: 0.8em;
-}
-
-*:focus {
-  outline: none;
 }

@@ -23,7 +23,7 @@ export class FooterComponent implements OnInit {
     });
 
     this.apiService.getNumberOfTotalUsers().subscribe(numberOfTotalUsers => {
-      this.numberOfTotalUsers = numberOfTotalUsers.numberoftotalusers;
+      this.numberOfTotalUsers = numberOfTotalUsers;
     });
   }
 

@@ -1,0 +1,11 @@
+.post-wrapper {
+  margin-top: 30px;
+  padding: 10px;
+  background-color: var(--ion-color-medium);
+  border-radius: var(--border-radius-big);
+}
+
+.post-wrapper:hover {
+  cursor: pointer;
+  // transform: scale(1.03);
+}
