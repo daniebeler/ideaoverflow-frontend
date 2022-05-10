@@ -43,6 +43,18 @@ export class ApiService {
     );
   }
 
+  getNumberOfIdeasByUser(userId: number): Observable<number> {
+    return this.http.get<any>(environment.api + 'user/numberofideasbyuser/' + userId).pipe(
+      map(data => data.numberofideas)
+    );
+  }
+
+  getNumberOfProjectsByUser(userId: number): Observable<number> {
+    return this.http.get<any>(environment.api + 'user/numberofprojectsbyuser/' + userId).pipe(
+      map(data => data.numberofprojects)
+    );
+  }
+
   register(data: any): Observable<any> {
     return this.http.post<any>(environment.api + 'registration/register', data);
   }

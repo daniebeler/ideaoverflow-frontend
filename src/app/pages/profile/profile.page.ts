@@ -20,10 +20,14 @@ export class ProfilePage implements OnInit {
   currentProfile = '';
   amFollowingThisProfile = false;
 
+  numberOfIdeas = 0;
+  numberOfProjects = 0;
+
   postsHeader = '';
-  postsFilter = '';
+  projectsHeader = '';
 
   selectedTab = 'about';
+  activeContentTab = 'ideas';
 
   constructor(
     private authService: AuthService,
@@ -39,10 +43,18 @@ export class ProfilePage implements OnInit {
     this.apiService.getUser(this.currentProfile).subscribe(res => {
       this.user = res;
 
-      this.postsHeader = 'Posts by ' + this.user.firstname + ' ' + this.user.lastname;
-      this.postsFilter = this.user.username;
+      this.postsHeader = 'Ideas by ' + this.user.firstname + ' ' + this.user.lastname;
+      this.projectsHeader = 'Projects by ' + this.user.firstname + ' ' + this.user.lastname;
 
       this.isPrivate = this.user.isPrivate;
+
+      this.apiService.getNumberOfIdeasByUser(this.user.id).subscribe(numberOfIdeas => {
+        this.numberOfIdeas = numberOfIdeas;
+      });
+
+      this.apiService.getNumberOfProjectsByUser(this.user.id).subscribe(numberOfProjects => {
+        this.numberOfProjects = numberOfProjects;
+      });
 
       this.userService.getLatestUser().subscribe((latestUser) => {
         this.latestUser = latestUser;

@@ -8,7 +8,6 @@ import { ProfilePageRoutingModule } from './profile-routing.module';
 import { ComponentsModule } from 'src/app/components/components.module';
 
 import { ProfilePage } from './profile.page';
-import { SuperTabsModule } from '@ionic-super-tabs/angular';
 
 @NgModule({
   imports: [
@@ -16,8 +15,7 @@ import { SuperTabsModule } from '@ionic-super-tabs/angular';
     FormsModule,
     IonicModule,
     ComponentsModule,
-    ProfilePageRoutingModule,
-    SuperTabsModule
+    ProfilePageRoutingModule
   ],
   declarations: [ProfilePage]
 })

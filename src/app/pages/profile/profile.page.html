@@ -112,29 +112,26 @@
       <ng-template #about>
         <app-about></app-about>
 
-        <super-tabs [config]="{ debug: true, sideMenu: 'left', allowElementScroll: true, nativeSmoothScroll: true }">
-          <div #myTable style="width: 100%;">
-          </div>
-          <super-tabs-toolbar slot="top">
-            <super-tab-button>
-              <ion-icon name="star"></ion-icon>
-              <ion-label>Favourites</ion-label>
-            </super-tab-button>
-            <super-tab-button>
-              <ion-icon name="contacts"></ion-icon>
-              <ion-label>Contacts</ion-label>
-            </super-tab-button>
-          </super-tabs-toolbar>
+        <ion-row class="wrapper">
+          <ion-col style="padding-left: 5px;">
+            <button type="button" class="btn-small" style="width: 100%;" (click)="activeContentTab = 'ideas'"
+              [ngClass]="activeContentTab === 'ideas' ? 'btn-primary' : 'btn-dark'">
+              <strong>{{numberOfIdeas}} Ideas</strong>
+            </button>
 
-          <super-tabs-container autoScrollTop="true">
-            <super-tab [ngStyle]="{'width.px': myTable.offsetWidth }">
-              <app-posts [header]="postsHeader" [filterByUsername]="postsFilter" [color]="user.color"></app-posts>
-            </super-tab>
-            <super-tab>
-              <app->
-            </super-tab>
-          </super-tabs-container>
-        </super-tabs>
+          </ion-col>
+          <ion-col style="padding-right: 5px;">
+            <button type="button" class="btn-small" style="width: 100%;" (click)="activeContentTab = 'projects'"
+              [ngClass]="activeContentTab === 'projects' ? 'btn-primary' : 'btn-dark'"><strong>
+                {{numberOfProjects}} Projects</strong></button>
+          </ion-col>
+        </ion-row>
+
+        <app-posts *ngIf="activeContentTab === 'ideas'" [header]="postsHeader" [filterByUsername]="user.username"
+          [color]="user.color"></app-posts>
+
+        <app-component-projects *ngIf="activeContentTab === 'projects'" [header]="projectsHeader"
+          [filterByUsername]="user.username"></app-component-projects>
 
 
       </ng-template>
