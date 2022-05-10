@@ -111,7 +111,32 @@
 
       <ng-template #about>
         <app-about></app-about>
-        <app-posts [header]="postsHeader" [filterByUsername]="postsFilter" [color]="user.color"></app-posts>
+
+        <super-tabs [config]="{ debug: true, sideMenu: 'left', allowElementScroll: true, nativeSmoothScroll: true }">
+          <div #myTable style="width: 100%;">
+          </div>
+          <super-tabs-toolbar slot="top">
+            <super-tab-button>
+              <ion-icon name="star"></ion-icon>
+              <ion-label>Favourites</ion-label>
+            </super-tab-button>
+            <super-tab-button>
+              <ion-icon name="contacts"></ion-icon>
+              <ion-label>Contacts</ion-label>
+            </super-tab-button>
+          </super-tabs-toolbar>
+
+          <super-tabs-container autoScrollTop="true">
+            <super-tab [ngStyle]="{'width.px': myTable.offsetWidth }">
+              <app-posts [header]="postsHeader" [filterByUsername]="postsFilter" [color]="user.color"></app-posts>
+            </super-tab>
+            <super-tab>
+              <app->
+            </super-tab>
+          </super-tabs-container>
+        </super-tabs>
+
+
       </ng-template>
     </ng-template>
   </ion-grid>
