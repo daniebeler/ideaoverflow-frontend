@@ -1,7 +1,3 @@
-ion-avatar:hover {
-  cursor: pointer;
-}
-
 .post-wrapper {
   margin-top: 30px;
   padding: 10px;
@@ -9,22 +5,7 @@ ion-avatar:hover {
   border-radius: var(--border-radius-big);
 }
 
-.owner{
-  background-color: var(--ion-color-dark);
-  border-radius: 10px;
-  margin: 5px;
-  padding: 10px;
-}
-
-.like{
-  background-color: var(--ion-color-dark);
-  border-radius: 10px;
-  margin: 5px;
-  padding: 10px;
-  width: 50px;
-}
-
-.like:hover, .owner:hover {
+.post-wrapper:hover {
   cursor: pointer;
-  background-color: var(--ion-color-dark-shade);
+  // transform: scale(1.03);
 }

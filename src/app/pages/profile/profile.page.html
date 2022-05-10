@@ -27,7 +27,7 @@
           <ion-avatar class="profile-image" [ngStyle]="{'border-color': user.color}">
             <img [src]="user.profileimage">
           </ion-avatar>
-          <h1 style="margin-bottom: 0;" *ngIf="user.firstname && user.lastname">{{user.firstname}}
+          <h1 style="margin-bottom: 0; text-align: center;" *ngIf="user.firstname && user.lastname">{{user.firstname}}
             {{user.lastname}}</h1>
 
           <h2 style="margin-top: 0;" *ngIf="user.username">@{{user.username}}</h2>

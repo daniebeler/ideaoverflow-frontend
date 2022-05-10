@@ -90,4 +90,8 @@ export class ProjectsComponent implements OnInit {
   gotoProfile(username: string) {
     this.router.navigate(['users/' + username]);
   }
+
+  gotoPost(id: number) {
+    this.router.navigate(['projects/' + id]);
+  }
 }

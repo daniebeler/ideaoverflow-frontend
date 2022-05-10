@@ -17,7 +17,7 @@
   <ion-row>
     <ion-col>
       <ion-list>
-        <ion-grid class="post-wrapper" *ngFor="let project of allLoadedProjects">
+        <ion-grid class="post-wrapper" *ngFor="let project of allLoadedProjects" (click)="gotoPost(project.id)">
           <ion-row>
             <ion-col size="auto" style="display: flex; flex-direction: column; justify-content: center;">
               <ion-avatar style="height: 90px; width: 90px; --border-radius: 50%">
