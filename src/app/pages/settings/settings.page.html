@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <ion-content>
-  <ion-grid class="container" style="margin-top: 30px; margin-bottom: 30px;">
+  <ion-grid class="container" style="margin-top: 30px; margin-bottom: 30px;" *ngIf="updatedUser">
 
     <ion-row>
       <ion-col>
@@ -61,10 +61,10 @@
       </ion-col>
     </ion-row>
 
-    <ion-row style="margin-bottom: 50px;" *ngIf="user">
+    <ion-row style="margin-bottom: 50px;">
       <ion-col style="display: flex;" class="ion-justify-content-center">
         <div class="profile-pic-div">
-          <img [src]="profilePicture" id="photo">
+          <img [src]="updatedUser.profileimage" id="photo">
           <input type="file" id="file" accept=".png,.jpg," (change)="onFileChange($event)">
           <label for="file" id="uploadBtn">Change</label>
         </div>
@@ -75,14 +75,14 @@
       <ion-col size-xs="12" size-sm="6">
         <div class="form-group">
           <label class="text-label" for="fname"><strong>First Name</strong></label>
-          <input type="text" name="fname" id="fname" placeholder="First Name" [(ngModel)]="firstname"
+          <input type="text" name="fname" id="fname" placeholder="First Name" [(ngModel)]="updatedUser.firstname"
             (ngModelChange)="checkForChange()" />
         </div>
       </ion-col>
       <ion-col size-xs="12" size-sm="6">
         <div class="form-group">
           <label class="text-label" for="email"><strong>Last Name</strong></label>
-          <input type="text" name="lname" id="lname" placeholder="Last Name" [(ngModel)]="lastname"
+          <input type="text" name="lname" id="lname" placeholder="Last Name" [(ngModel)]="updatedUser.lastname"
             (ngModelChange)="checkForChange()" />
         </div>
       </ion-col>
@@ -91,7 +91,7 @@
       <ion-col size-xs="12" size-sm="6">
         <div class="form-group">
           <label class="text-label" for="email"><strong>Account Type</strong></label>
-          <select [(ngModel)]="isPrivate" (ngModelChange)="checkForChange()">
+          <select [(ngModel)]="updatedUser.isPrivate" (ngModelChange)="checkForChange()">
             <option [ngValue]="true">Private</option>
             <option [ngValue]="false">Public</option>
           </select>
@@ -104,16 +104,16 @@
           <label class="text-label"><strong>Country</strong></label>
           <select [(ngModel)]="country" (ngModelChange)="checkForChange()">
             <option value="">--Leave empty--</option>
-            <option *ngFor="let country of countries.countries" [ngValue]="country">{{country.country}}</option>
+            <option *ngFor="let country of countries.countries" [ngValue]="updatedUser.country">{{updatedUser.country}}</option>
           </select>
         </div>
       </ion-col>
       <ion-col size-xs="12" size-sm="6">
         <div class="form-group" *ngIf="country">
           <label class="text-label"><strong>State</strong></label>
-          <select [(ngModel)]="state" (ngModelChange)="checkForChange()">
+          <select [(ngModel)]="updatedUser.state" (ngModelChange)="checkForChange()">
             <option value="">--Leave empty--</option>
-            <option *ngFor="let state of country.states" [ngValue]="state">{{state}}</option>
+            <option *ngFor="let state of country.states" [ngValue]="updatedUser.state">{{updatedUser.state}}</option>
           </select>
         </div>
       </ion-col>
@@ -129,7 +129,7 @@
         <div class="form-group">
           <label class="text-label" for="fname"><strong>Bio</strong></label>
           <textarea style="resize: none;" rows="5" type="text" name="fname" id="fname"
-            placeholder="Something about myself..." [(ngModel)]="bio" (ngModelChange)="checkForChange()"></textarea>
+            placeholder="Something about myself..." [(ngModel)]="updatedUser.bio" (ngModelChange)="checkForChange()"></textarea>
         </div>
       </ion-col>
     </ion-row>
@@ -144,7 +144,7 @@
                     <ion-icon name="logo-instagram"></ion-icon>
                   </i></label>
                 <input class="icon-input" type="text" name="fname" id="fname" placeholder="Instagram username"
-                  [(ngModel)]="instagram" (ngModelChange)="checkForChange()" />
+                  [(ngModel)]="updatedUser.instagram" (ngModelChange)="checkForChange()" />
               </div>
             </ion-col>
           </ion-row>
@@ -155,7 +155,7 @@
                     <ion-icon name="logo-twitter"></ion-icon>
                   </i></label>
                 <input class="icon-input" type="text" name="fname" id="fname" placeholder="Twitter username"
-                  [(ngModel)]="twitter" (ngModelChange)="checkForChange()" />
+                  [(ngModel)]="updatedUser.twitter" (ngModelChange)="checkForChange()" />
               </div>
             </ion-col>
           </ion-row>
@@ -166,7 +166,7 @@
                     <ion-icon name="logo-dribbble"></ion-icon>
                   </i></label>
                 <input class="icon-input" type="text" name="fname" id="fname" placeholder="Dribbble username"
-                  [(ngModel)]="dribbble" (ngModelChange)="checkForChange()" />
+                  [(ngModel)]="updatedUser.dribbble" (ngModelChange)="checkForChange()" />
               </div>
             </ion-col>
           </ion-row>
@@ -177,7 +177,7 @@
                     <ion-icon name="logo-github"></ion-icon>
                   </i></label>
                 <input class="icon-input" type="text" name="fname" id="fname" placeholder="Github username"
-                  [(ngModel)]="github" (ngModelChange)="checkForChange()" />
+                  [(ngModel)]="updatedUser.github" (ngModelChange)="checkForChange()" />
               </div>
             </ion-col>
           </ion-row>
@@ -188,7 +188,7 @@
                     <ion-icon name="logo-linkedin"></ion-icon>
                   </i></label>
                 <input class="icon-input" type="text" name="fname" id="fname" placeholder="LinkedIn username"
-                  [(ngModel)]="linkedin" (ngModelChange)="checkForChange()" />
+                  [(ngModel)]="updatedUser.linkedin" (ngModelChange)="checkForChange()" />
               </div>
             </ion-col>
           </ion-row>
@@ -199,7 +199,7 @@
                     <ion-icon name="globe-outline"></ion-icon>
                   </i></label>
                 <input class="icon-input" type="text" name="fname" id="fname" placeholder="https://example.com"
-                  [(ngModel)]="website" (ngModelChange)="checkForChange()" />
+                  [(ngModel)]="updatedUser.website" (ngModelChange)="checkForChange()" />
               </div>
             </ion-col>
           </ion-row>

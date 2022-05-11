@@ -15,30 +15,17 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class SettingsPage implements OnInit {
 
-  firstname: string;
-  lastname: string;
-  isPrivate: boolean;
-  country: any;
-  state: string;
-  profilePicture: SafeResourceUrl;
-  color: string;
-
-  bio: string;
-  instagram: string;
-  twitter: string;
-  github: string;
-  dribbble: string;
-  linkedin: string;
-  website: string;
-
   oldPassword: string;
   newPassword1: string;
   newPassword2: string;
 
-  user: User = null;
+  oldUser: User = null;
+  updatedUser: User = null;
 
   countries: any = null;
   states: any = null;
+
+  country: any = null;
 
   unsavedDataExists = false;
 
@@ -53,10 +40,10 @@ export class SettingsPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.httpClient.get('./assets/json/countries.json').subscribe(data => {
-      this.countries = data;
+    this.httpClient.get('./assets/json/countries.json').subscribe(countries => {
+      this.countries = countries;
       this.userService.getLatestUser().subscribe((latestUser) => {
-        this.user = latestUser;
+        this.oldUser = latestUser;
         if (latestUser) {
           this.setLocalUserValues();
         }
@@ -65,20 +52,30 @@ export class SettingsPage implements OnInit {
   }
 
   setLocalUserValues() {
-    this.firstname = this.user.firstname;
-    this.lastname = this.user.lastname;
-    this.isPrivate = !!this.user.isPrivate;
-    this.country = this.findCountry(this.user.country);
-    this.state = this.user.state;
-    this.bio = this.user.bio;
-    this.instagram = this.user.instagram;
-    this.twitter = this.user.twitter;
-    this.dribbble = this.user.dribbble;
-    this.github = this.user.github;
-    this.linkedin = this.user.linkedin;
-    this.website = this.user.website;
-    this.profilePicture = this.user.profileimage;
-    this.color = this.user.color;
+    const data = {
+      id: this.oldUser.id,
+      email: this.oldUser.email,
+      username: this.oldUser.username,
+      firstname: this.oldUser.firstname,
+      lastname: this.oldUser.lastname,
+      bio: this.oldUser.bio,
+      website: this.oldUser.website,
+      github: this.oldUser.github,
+      twitter: this.oldUser.twitter,
+      instagram: this.oldUser.instagram,
+      dribbble: this.oldUser.dribbble,
+      linkedin: this.oldUser.linkedin,
+      isPrivate: this.oldUser.isPrivate,
+      country: this.oldUser.country,
+      state: this.oldUser.state,
+      profileimage: this.oldUser.profileimage,
+      creationdate: this.oldUser.creationDate,
+      followers: this.oldUser.numberOfFollowers,
+      following: this.oldUser.numberOfFollowees,
+      color: this.oldUser.color
+    };
+
+    this.updatedUser = new User(data);
     this.checkForChange();
   }
 
@@ -87,28 +84,28 @@ export class SettingsPage implements OnInit {
   }
 
   gotoProfile() {
-    this.router.navigate(['users/' + this.user.username]);
+    this.router.navigate(['users/' + this.oldUser.username]);
   }
 
   updateUser() {
-    const url: any = this.profilePicture;
+    const url: any = this.updatedUser.profileimage;
 
     const dataToUpdate = {
       id: this.auth.getUser().id,
-      firstname: this.firstname,
-      lastname: this.lastname,
-      private: this.isPrivate,
-      country: this.country.country,
-      state: this.state,
+      firstname: this.updatedUser.firstname,
+      lastname: this.updatedUser.lastname,
+      private: this.updatedUser.isPrivate,
+      country: this.updatedUser.country,
+      state: this.updatedUser.state,
       profilepicture: url.changingThisBreaksApplicationSecurity,
-      bio: this.bio,
-      instagram: this.instagram,
-      twitter: this.twitter,
-      dribbble: this.dribbble,
-      github: this.github,
-      linkedin: this.linkedin,
-      website: this.website,
-      color: this.color
+      bio: this.updatedUser.bio,
+      instagram: this.updatedUser.instagram,
+      twitter: this.updatedUser.twitter,
+      dribbble: this.updatedUser.dribbble,
+      github: this.updatedUser.github,
+      linkedin: this.updatedUser.linkedin,
+      website: this.updatedUser.website,
+      color: this.updatedUser.color
     };
     this.auth.updateUser(dataToUpdate);
 
@@ -116,7 +113,7 @@ export class SettingsPage implements OnInit {
   }
 
   updateColor(color: string) {
-    this.color = color;
+    this.updatedUser.color = color;
     this.checkForChange();
   }
 
@@ -149,7 +146,7 @@ export class SettingsPage implements OnInit {
       if (file != null) {
         this.api.uploadImage(file).subscribe((res: any) => {
           if (res.data.link) {
-            this.profilePicture = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
+            this.updatedUser.profileimage = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
             this.checkForChange();
           }
         });
@@ -159,20 +156,20 @@ export class SettingsPage implements OnInit {
 
   checkForChange() {
     if (
-      this.user.firstname !== this.firstname
-      || this.user.lastname !== this.lastname
-      || !!this.user.isPrivate !== this.isPrivate
-      || this.user.country !== this.country.country
-      || this.user.state !== this.state
-      || this.user.bio !== this.bio
-      || this.user.instagram !== this.instagram
-      || this.user.twitter !== this.twitter
-      || this.user.dribbble !== this.dribbble
-      || this.user.github !== this.github
-      || this.user.linkedin !== this.linkedin
-      || this.user.website !== this.website
-      || this.user.profileimage !== this.profilePicture
-      || this.user.color !== this.color
+      this.oldUser.firstname !== this.updatedUser.firstname
+      || this.oldUser.lastname !== this.updatedUser.lastname
+      || !!this.oldUser.isPrivate !== this.updatedUser.isPrivate
+      || this.oldUser.country !== this.updatedUser.country
+      || this.oldUser.state !== this.updatedUser.state
+      || this.oldUser.bio !== this.updatedUser.bio
+      || this.oldUser.instagram !== this.updatedUser.instagram
+      || this.oldUser.twitter !== this.updatedUser.twitter
+      || this.oldUser.dribbble !== this.updatedUser.dribbble
+      || this.oldUser.github !== this.updatedUser.github
+      || this.oldUser.linkedin !== this.updatedUser.linkedin
+      || this.oldUser.website !== this.updatedUser.website
+      || this.oldUser.profileimage !== this.updatedUser.profileimage
+      || this.oldUser.color !== this.updatedUser.color
     ) {
       this.unsavedDataExists = true;
     }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AlertController } from '@ionic/angular';
 import { Project } from 'src/app/models/project';
+import { ApiService } from 'src/app/services/api.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class NewprojectPage implements OnInit {
 
-  logo: string;
+  logo: SafeResourceUrl;
   title: string;
   shortDescription: string;
   project: Project = new Project([]);
@@ -19,7 +21,9 @@ export class NewprojectPage implements OnInit {
   constructor(
     private alertController: AlertController,
     private projectService: ProjectService,
-    private userService: UserService
+    private userService: UserService,
+    private apiService: ApiService,
+    private domSanitizer: DomSanitizer
   ) { }
 
   ngOnInit() {
@@ -47,6 +51,20 @@ export class NewprojectPage implements OnInit {
       }]
     });
     await alert.present();
+  }
+
+  onFileChange(event) {
+    if (event.target.files != null) {
+      const file = event.target.files[0];
+      if (file != null) {
+        this.apiService.uploadImage(file).subscribe((res: any) => {
+          if (res.data.link) {
+            this.logo = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
+            // this.checkForChange();
+          }
+        });
+      }
+    }
   }
 
 }
