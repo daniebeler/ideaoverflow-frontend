@@ -1,68 +1,66 @@
 <app-header></app-header>
 
 <ion-content *ngIf="project">
-  <ion-grid *ngIf="project" class="container wrapper" style="margin-top: 30px;">
-    <ion-row>
-      <ion-col size="auto" style="display: flex; flex-direction: column; justify-content: center;">
-        <ion-avatar style="height: 90px; width: 90px; --border-radius: 50%">
-          <img [src]="project.logo">
-        </ion-avatar>
-      </ion-col>
-      <ion-col>
-        <h1>{{project.title}}</h1>
-        <p>{{project.shortDescription}}</p>
-      </ion-col>
-
-      <ion-col size="auto">
-        <div *ngIf="currentUser">
-          <div *ngIf="currentUser.id === project.ownerId" size="auto" class="like"
-            style="display: flex; align-items: center;" (click)="editProject()">
-            <ion-icon name="settings-outline" style="height: 30px; width: 30px;">
-            </ion-icon>
-          </div>
-        </div>
-        <div class="owner" style="display: flex; align-items: center;">
-          <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
-            <img [src]="project.ownerImage">
-          </ion-avatar>
-          <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{project.ownerUsername}}</strong></p>
-        </div>
-        <div *ngIf="project.releaseDate" style="display: flex; flex-direction: row; margin: 15px 5px 5px 5px;">
-          <ion-icon name="calendar-number-outline" style="height: 25px; width: 25px; padding-right: 5px;"></ion-icon>
-          <p style="width: 100%; margin-bottom: 0; display: flex; align-items: center;"><span>
-            {{project.releaseDate.toLocaleDateString("en-at",{year:"numeric",month:"short", day:"numeric"})}}</span>
-          </p>
-        </div>
-
-      </ion-col>
-
-    </ion-row>
-
-    <ion-row *ngIf="project.website" style="padding-top: 30px;">
-      <ion-col size="auto" class="website">
-        <ion-icon name="home-outline" style="height: 20px; width: 20px"></ion-icon>
-        <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{project.website}}</strong></p>
-      </ion-col>
-    </ion-row>
-
+  <ion-grid *ngIf="project" class="container" style="margin-top: 30px;">
     <ion-row>
       <ion-col>
-        <hr style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin-right: 10px;">
-      </ion-col>
-    </ion-row>
+        <ion-grid class="wrapper">
+          <ion-row>
+            <ion-col size="auto" style="display: flex; flex-direction: column; justify-content: center;">
+              <ion-avatar style="height: 90px; width: 90px; --border-radius: 50%">
+                <img [src]="project.logo">
+              </ion-avatar>
+            </ion-col>
+            <ion-col>
+              <h1>{{project.title}}</h1>
+              <p>{{project.shortDescription}}</p>
+            </ion-col>
 
-    <ion-row style="padding-top: 30px;">
-      <ion-col>
-        <div class="postcontent" [innerHTML]=project.body></div>
+            <ion-col size="auto">
+              <div *ngIf="currentUser">
+                <div *ngIf="currentUser.id === project.ownerId" size="auto" class="like"
+                  style="display: flex; align-items: center;" (click)="editProject()">
+                  <ion-icon name="settings-outline" style="height: 30px; width: 30px;">
+                  </ion-icon>
+                </div>
+              </div>
+              <div class="owner" style="display: flex; align-items: center;">
+                <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
+                  <img [src]="project.ownerImage">
+                </ion-avatar>
+                <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{project.ownerUsername}}</strong></p>
+              </div>
+              <div *ngIf="project.releaseDate" style="display: flex; flex-direction: row; margin: 15px 5px 5px 5px;">
+                <ion-icon name="calendar-number-outline" style="height: 25px; width: 25px; padding-right: 5px;">
+                </ion-icon>
+                <p style="width: 100%; margin-bottom: 0; display: flex; align-items: center;"><span>
+                    {{project.releaseDate.toLocaleDateString("en-at",{year:"numeric",month:"short",
+                    day:"numeric"})}}</span>
+                </p>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="project.website" style="padding-top: 30px;">
+            <ion-col size="auto" class="website">
+              <ion-icon name="home-outline" style="height: 20px; width: 20px"></ion-icon>
+              <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{project.website}}</strong></p>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <hr style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin-right: 10px;">
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="padding-top: 30px;">
+            <ion-col>
+              <div class="postcontent" [innerHTML]=project.body></div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-col>
     </ion-row>
   </ion-grid>
-
-  <!-- <ion-grid *ngIf="project" class="container wrapper" style="margin-top: 30px;">
-    <ion-row>
-      <ion-col style="padding: 0;">
-        <div class="postcontent" [innerHTML]=project.body></div>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
 </ion-content>

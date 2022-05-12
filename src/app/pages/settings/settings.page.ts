@@ -7,6 +7,7 @@ import { User } from 'src/app/models/user';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ToastController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
+import hash from 'object-hash';
 
 @Component({
   selector: 'app-settings',
@@ -19,8 +20,8 @@ export class SettingsPage implements OnInit {
   newPassword1: string;
   newPassword2: string;
 
-  oldUser: User = null;
-  updatedUser: User = null;
+  user: User = null;
+  userHash = '12';
 
   countries: any = null;
   states: any = null;
@@ -43,39 +44,13 @@ export class SettingsPage implements OnInit {
     this.httpClient.get('./assets/json/countries.json').subscribe(countries => {
       this.countries = countries;
       this.userService.getLatestUser().subscribe((latestUser) => {
-        this.oldUser = latestUser;
+        this.user = latestUser;
+        this.userHash = hash(latestUser);
         if (latestUser) {
-          this.setLocalUserValues();
+          this.checkForChange();
         }
       });
     });
-  }
-
-  setLocalUserValues() {
-    const data = {
-      id: this.oldUser.id,
-      email: this.oldUser.email,
-      username: this.oldUser.username,
-      firstname: this.oldUser.firstname,
-      lastname: this.oldUser.lastname,
-      bio: this.oldUser.bio,
-      website: this.oldUser.website,
-      github: this.oldUser.github,
-      twitter: this.oldUser.twitter,
-      instagram: this.oldUser.instagram,
-      dribbble: this.oldUser.dribbble,
-      linkedin: this.oldUser.linkedin,
-      country: this.oldUser.country,
-      state: this.oldUser.state,
-      profileimage: this.oldUser.profileimage,
-      creationdate: this.oldUser.creationDate,
-      followers: this.oldUser.numberOfFollowers,
-      following: this.oldUser.numberOfFollowees,
-      color: this.oldUser.color
-    };
-
-    this.updatedUser = new User(data);
-    this.checkForChange();
   }
 
   gotoHome() {
@@ -83,16 +58,16 @@ export class SettingsPage implements OnInit {
   }
 
   gotoProfile() {
-    this.router.navigate(['users/' + this.oldUser.username]);
+    this.router.navigate(['users/' + this.user.username]);
   }
 
   updateUser() {
-    this.auth.updateUser(this.updatedUser);
+    this.auth.updateUser(this.user);
     this.presentToast();
   }
 
   updateColor(color: string) {
-    this.updatedUser.color = color;
+    this.user.color = color;
     this.checkForChange();
   }
 
@@ -125,7 +100,7 @@ export class SettingsPage implements OnInit {
       if (file != null) {
         this.api.uploadImage(file).subscribe((res: any) => {
           if (res.data.link) {
-            this.updatedUser.profileimage = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
+            this.user.profileimage = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
             this.checkForChange();
           }
         });
@@ -134,24 +109,9 @@ export class SettingsPage implements OnInit {
   }
 
   checkForChange() {
-    if (
-      this.oldUser.firstname !== this.updatedUser.firstname
-      || this.oldUser.lastname !== this.updatedUser.lastname
-      || this.oldUser.country !== this.updatedUser.country
-      || this.oldUser.state !== this.updatedUser.state
-      || this.oldUser.bio !== this.updatedUser.bio
-      || this.oldUser.instagram !== this.updatedUser.instagram
-      || this.oldUser.twitter !== this.updatedUser.twitter
-      || this.oldUser.dribbble !== this.updatedUser.dribbble
-      || this.oldUser.github !== this.updatedUser.github
-      || this.oldUser.linkedin !== this.updatedUser.linkedin
-      || this.oldUser.website !== this.updatedUser.website
-      || this.oldUser.profileimage !== this.updatedUser.profileimage
-      || this.oldUser.color !== this.updatedUser.color
-    ) {
+    if (this.userHash !== hash(this.user)) {
       this.unsavedDataExists = true;
-    }
-    else {
+    } else {
       this.unsavedDataExists = false;
     }
   }

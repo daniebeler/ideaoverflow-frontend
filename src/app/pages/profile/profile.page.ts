@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -34,7 +35,8 @@ export class ProfilePage implements OnInit {
     private userService: UserService,
     private followerService: FollowerService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -74,8 +76,22 @@ export class ProfilePage implements OnInit {
     });
   }
 
-  logout() {
-    this.authService.logout();
+  async logout() {
+    const alert = await this.alertController.create({
+      cssClass: 'custom-alert-ok',
+      backdropDismiss: false,
+      header: 'Are you sure?',
+      buttons: [{
+        text: 'Cancel'
+      }, {
+        text: 'Logout',
+        role: 'ok',
+        handler: () => {
+          this.authService.logout();
+        }
+      }]
+    });
+    await alert.present();
   }
 
   gotoHome() {
