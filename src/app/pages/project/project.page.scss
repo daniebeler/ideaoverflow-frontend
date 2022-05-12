@@ -24,3 +24,16 @@
   margin: 5px;
   padding: 10px;
 }
+
+.like{
+  background-color: var(--ion-color-dark);
+  border-radius: 10px;
+  margin: 5px;
+  padding: 10px;
+  width: 50px;
+}
+
+.like:hover, .owner:hover {
+  cursor: pointer;
+  background-color: var(--ion-color-dark-shade);
+}

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from 'src/app/models/project';
+import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-project',
@@ -13,9 +15,13 @@ export class ProjectPage implements OnInit {
   projectId: number;
   project: Project = null;
 
+  currentUser: User = null;
+
   constructor(
     private activatedRoute: ActivatedRoute,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private userService: UserService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -27,6 +33,14 @@ export class ProjectPage implements OnInit {
         console.log(this.project);
       });
     }
+
+    this.userService.getLatestUser()
+      .subscribe((latestUser) => {
+        this.currentUser = latestUser;
+      });
   }
 
+  editProject() {
+    this.router.navigate(['newproject/' + this.project.id]);
+  }
 }

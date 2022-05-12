@@ -135,4 +135,8 @@ export class ApiService {
   createProject(data: any): Observable<any> {
     return this.http.post<any>(environment.api + 'project/create', data);
   }
+
+  updateProject(data: any): Observable<any> {
+    return this.http.post<any>(environment.api + 'project/update', data);
+  }
 }

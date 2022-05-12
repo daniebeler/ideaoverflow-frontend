@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Project } from '../models/project';
 import { ApiService } from './api.service';
 
@@ -25,5 +26,32 @@ export class ProjectService {
       release_date: project.releaseDate.toISOString().slice(0, 10)
     };
     return this.apiService.createProject(data);
+  }
+
+  updateProject(updatedProject: Project): Observable<any> {
+    const url: any = updatedProject.logo;
+
+    let releaseDate = null;
+    let startDate = null;
+
+    if(updatedProject.releaseDate) {
+      releaseDate = updatedProject.releaseDate.toISOString().slice(0, 10);
+    }
+
+    if(updatedProject.startDate) {
+      startDate = updatedProject.startDate.toISOString().slice(0, 10);
+    }
+
+    const dataToUpdate = {
+      id: updatedProject.id,
+      title: updatedProject.title,
+      body: updatedProject.body.changingThisBreaksApplicationSecurity,
+      start_date: startDate,
+      release_date: releaseDate,
+      logo: url.changingThisBreaksApplicationSecurity,
+      short_description: updatedProject.shortDescription,
+      website: updatedProject.website
+    };
+    return this.apiService.updateProject(dataToUpdate);
   }
 }
