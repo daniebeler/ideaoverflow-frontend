@@ -13,11 +13,12 @@ export class ProjectService {
   ) { }
 
   createProject(project: Project) {
+    const logo: any = project.logo;
     const obj = {
       title: project.title,
       short_description: project.shortDescription,
       owner_id: project.ownerId,
-      logo: project.logo
+      logo: logo.changingThisBreaksApplicationSecurity
     };
     return this.apiService.createProject(obj);
   }
