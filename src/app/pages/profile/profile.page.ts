@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
@@ -16,7 +16,6 @@ export class ProfilePage implements OnInit {
   latestUser: User = null;
   user: User = null;
   isMyProfile = false;
-  isPrivate = true;
   currentProfile = '';
   amFollowingThisProfile = false;
 
@@ -45,8 +44,6 @@ export class ProfilePage implements OnInit {
 
       this.postsHeader = 'Ideas by ' + this.user.firstname + ' ' + this.user.lastname;
       this.projectsHeader = 'Projects by ' + this.user.firstname + ' ' + this.user.lastname;
-
-      this.isPrivate = this.user.isPrivate;
 
       this.apiService.getNumberOfIdeasByUser(this.user.id).subscribe(numberOfIdeas => {
         this.numberOfIdeas = numberOfIdeas;

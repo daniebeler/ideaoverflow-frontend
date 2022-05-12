@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ToastController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
 
@@ -65,7 +65,6 @@ export class SettingsPage implements OnInit {
       instagram: this.oldUser.instagram,
       dribbble: this.oldUser.dribbble,
       linkedin: this.oldUser.linkedin,
-      isPrivate: this.oldUser.isPrivate,
       country: this.oldUser.country,
       state: this.oldUser.state,
       profileimage: this.oldUser.profileimage,
@@ -88,27 +87,7 @@ export class SettingsPage implements OnInit {
   }
 
   updateUser() {
-    const url: any = this.updatedUser.profileimage;
-
-    const dataToUpdate = {
-      id: this.auth.getUser().id,
-      firstname: this.updatedUser.firstname,
-      lastname: this.updatedUser.lastname,
-      private: this.updatedUser.isPrivate,
-      country: this.updatedUser.country,
-      state: this.updatedUser.state,
-      profilepicture: url.changingThisBreaksApplicationSecurity,
-      bio: this.updatedUser.bio,
-      instagram: this.updatedUser.instagram,
-      twitter: this.updatedUser.twitter,
-      dribbble: this.updatedUser.dribbble,
-      github: this.updatedUser.github,
-      linkedin: this.updatedUser.linkedin,
-      website: this.updatedUser.website,
-      color: this.updatedUser.color
-    };
-    this.auth.updateUser(dataToUpdate);
-
+    this.auth.updateUser(this.updatedUser);
     this.presentToast();
   }
 
@@ -158,7 +137,6 @@ export class SettingsPage implements OnInit {
     if (
       this.oldUser.firstname !== this.updatedUser.firstname
       || this.oldUser.lastname !== this.updatedUser.lastname
-      || !!this.oldUser.isPrivate !== this.updatedUser.isPrivate
       || this.oldUser.country !== this.updatedUser.country
       || this.oldUser.state !== this.updatedUser.state
       || this.oldUser.bio !== this.updatedUser.bio

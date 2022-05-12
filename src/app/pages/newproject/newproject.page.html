@@ -48,7 +48,7 @@
     <ion-row>
       <ion-col style="display: flex; flex-direction: column; justify-content: center;">
         <button style="margin-top: 20px;" type="button" class="btn-small btn-primary" (click)="saveProject()"
-          *ngIf="project.title && project.shortDescription; else elseBlock">
+          *ngIf="project.title && project.shortDescription && project.logo; else elseBlock">
           <span>Release project</span>
         </button>
 

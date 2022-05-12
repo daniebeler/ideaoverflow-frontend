@@ -89,17 +89,6 @@
     </ion-row>
     <ion-row>
       <ion-col size-xs="12" size-sm="6">
-        <div class="form-group">
-          <label class="text-label" for="email"><strong>Account Type</strong></label>
-          <select [(ngModel)]="updatedUser.isPrivate" (ngModelChange)="checkForChange()">
-            <option [ngValue]="true">Private</option>
-            <option [ngValue]="false">Public</option>
-          </select>
-        </div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size-xs="12" size-sm="6">
         <div class="form-group" *ngIf="countries">
           <label class="text-label"><strong>Country</strong></label>
           <select [(ngModel)]="country" (ngModelChange)="checkForChange()">

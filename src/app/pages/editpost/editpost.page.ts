@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/app/models/post';
 
@@ -7,9 +7,8 @@ import { Post } from 'src/app/models/post';
   templateUrl: './editpost.page.html',
   styleUrls: ['./editpost.page.scss'],
 })
-export class EditpostPage implements OnInit {
+export class EditpostPage {
 
-  postId: number;
   post: Post = null;
 
   constructor(
@@ -23,8 +22,4 @@ export class EditpostPage implements OnInit {
       }
     });
   }
-
-  ngOnInit() {
-  }
-
 }

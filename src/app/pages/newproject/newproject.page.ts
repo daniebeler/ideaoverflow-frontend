@@ -54,6 +54,8 @@ export class NewprojectPage implements OnInit {
   }
 
   onFileChange(event) {
+    console.log('fief');
+
     if (event.target.files != null) {
       const file = event.target.files[0];
       if (file != null) {

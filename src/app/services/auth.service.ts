@@ -8,6 +8,7 @@ import { AlertService } from './alert.service';
 import { AlertController, Platform } from '@ionic/angular';
 import { StorageService } from './storage.service';
 import { UserService } from './user.service';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -140,7 +141,24 @@ export class AuthService {
     });
   }
 
-  updateUser(dataToUpdate) {
+  updateUser(updatedUser: User) {
+    const url: any = updatedUser.profileimage;
+    const dataToUpdate = {
+      id: this.getUser().id,
+      firstname: updatedUser.firstname,
+      lastname: updatedUser.lastname,
+      country: updatedUser.country,
+      state: updatedUser.state,
+      profilepicture: url.changingThisBreaksApplicationSecurity,
+      bio: updatedUser.bio,
+      instagram: updatedUser.instagram,
+      twitter: updatedUser.twitter,
+      dribbble: updatedUser.dribbble,
+      github: updatedUser.github,
+      linkedin: updatedUser.linkedin,
+      website: updatedUser.website,
+      color: updatedUser.color
+    };
     return this.apiService.updateUser(dataToUpdate).subscribe(async res => {
       if (res.status === 200) {
         this.userService.fetchUserFromApi(this.getUser().id);
