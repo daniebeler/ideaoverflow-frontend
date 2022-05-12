@@ -1,53 +1,63 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Post } from 'src/app/models/post';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
 import { PostService } from 'src/app/services/post.service';
 import { UserService } from 'src/app/services/user.service';
+import hash from 'object-hash';
 
 @Component({
-  selector: 'app-editor',
-  templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.scss'],
+  selector: 'app-posteditor',
+  templateUrl: './posteditor.page.html',
+  styleUrls: ['./posteditor.page.scss'],
 })
-export class EditorComponent implements OnInit {
-
-  @Input() title = '';
-  @Input() body: any;
-  @Input() buttonText = 'Release Post';
-  @Input() postId: number;
+export class PostEditorPage implements OnInit {
 
   user: User;
+  post: Post = new Post([]);
+
+  postHash = '12';
 
   editorInstance: any = {};
 
+  showSubmitButton = false;
+
+  mode = '';
+
   constructor(
     private router: Router,
-    private api: ApiService,
+    private userService: UserService,
     private alertController: AlertController,
     private postService: PostService,
-    private userService: UserService
+    private activatedRoute: ActivatedRoute,
+    private domSanitizer: DomSanitizer,
+    private apiService: ApiService
   ) { }
 
   ngOnInit() {
-    this.userService.getLatestUser()
-      .subscribe((latestUser) => {
-        this.user = latestUser;
+    const urlslice = this.activatedRoute.snapshot.paramMap.get('id');
+    if (urlslice && urlslice === 'new') {
+      this.mode = 'new';
+      this.post.body = this.domSanitizer.bypassSecurityTrustHtml('');
+    } else if (!isNaN(+urlslice)) {
+      this.mode = 'edit';
+      this.apiService.getPost(+urlslice).subscribe(post => {
+        this.postHash = hash(post);
+        this.post = post;
       });
-  }
+    }
 
-  gotoProfile() {
-    this.router.navigate(['users/' + this.user.username]);
-  }
-
-  gotoHome() {
-    this.router.navigate(['']);
+    this.userService.getLatestUser().subscribe((latestUser) => {
+      this.post.ownerId = latestUser.id;
+    });
   }
 
   async savePost() {
     const alert = await this.alertController.create({
-      cssClass: 'custom-alert-ok',
+      cssClass: 'custom-alert-two',
       backdropDismiss: false,
       header: 'Are you sure?',
       buttons: [{
@@ -56,13 +66,12 @@ export class EditorComponent implements OnInit {
         text: 'Okay',
         role: 'ok',
         handler: () => {
-          if (this.postId) {
-            this.postService.updatePost(this.title, this.body, this.postId).subscribe(async res => {
+          if (this.mode === 'new') {
+            this.postService.createPost(this.post).subscribe(async res => {
               this.redirect(res);
             });
-          }
-          else {
-            this.postService.createPost(this.title, this.body, this.user.id).subscribe(async res => {
+          } else if (this.mode === 'edit') {
+            this.postService.updatePost(this.post).subscribe(res => {
               this.redirect(res);
             });
           }
@@ -109,7 +118,7 @@ export class EditorComponent implements OnInit {
           if (input.files != null) {
             const file = input.files[0];
             if (file != null) {
-              this.api.uploadImage(file).subscribe((res: any) => {
+              this.apiService.uploadImage(file).subscribe((res: any) => {
                 data.insertEmbed(range.index, 'image', res.data.link);
               });
             }
@@ -119,5 +128,19 @@ export class EditorComponent implements OnInit {
       }
     }
   }
-}
 
+  updateSubmitButtonState() {
+    let show = false;
+    if (this.post.title && this.post.body.changingThisBreaksApplicationSecurity) {
+      if (this.mode === 'edit') {
+        if (this.postHash !== hash(this.post)) {
+          show = true;
+        }
+      } else {
+        show = true;
+      }
+    }
+
+    this.showSubmitButton = show;
+  }
+}

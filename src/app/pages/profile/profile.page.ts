@@ -78,7 +78,7 @@ export class ProfilePage implements OnInit {
 
   async logout() {
     const alert = await this.alertController.create({
-      cssClass: 'custom-alert-ok',
+      cssClass: 'custom-alert-two',
       backdropDismiss: false,
       header: 'Are you sure?',
       buttons: [{

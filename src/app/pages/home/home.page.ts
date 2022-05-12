@@ -35,6 +35,6 @@ export class HomePage implements OnInit {
   }
 
   gotoNewpost() {
-    this.router.navigate(['newpost']);
+    this.router.navigate(['posteditor/new']);
   }
 }

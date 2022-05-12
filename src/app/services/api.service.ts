@@ -7,6 +7,8 @@ import { User } from '../models/user';
 import { UserAdapter } from '../adapter/user-adapter';
 import { Project } from '../models/project';
 import { ProjectAdapter } from '../adapter/project-adapter';
+import { Post } from '../models/post';
+import { PostAdapter } from '../adapter/post-adapter';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,8 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private userAdapter: UserAdapter,
-    private projectAdapter: ProjectAdapter
+    private projectAdapter: ProjectAdapter,
+    private postAdapter: PostAdapter
   ) { }
 
   getUser(username): Observable<User> {
@@ -138,5 +141,11 @@ export class ApiService {
 
   updateProject(data: any): Observable<any> {
     return this.http.post<any>(environment.api + 'project/update', data);
+  }
+
+  getPost(id: number): Observable<Post> {
+    return this.http.get<any>(environment.api + 'post/byid/' + id).pipe(
+      map(data => this.postAdapter.adapt(data))
+    );
   }
 }

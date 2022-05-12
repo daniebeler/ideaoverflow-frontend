@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Post } from 'src/app/models/post';
 import { User } from 'src/app/models/user';
 import { PostService } from 'src/app/services/post.service';
@@ -92,12 +92,7 @@ export class PostsComponent implements OnInit {
   }
 
   editPost(post: Post) {
-    const navigationExtras: NavigationExtras = {
-      state: {
-        post
-      }
-    };
-    this.router.navigate(['editpost/'], navigationExtras);
+    this.router.navigate(['posteditor/' + post.id]);
   }
 
   votePost(voteValue: number, postId: number) {

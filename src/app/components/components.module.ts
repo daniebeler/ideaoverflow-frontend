@@ -6,7 +6,6 @@ import { PostsComponent } from './posts/posts.component';
 import { FooterComponent } from './footer/footer.component';
 import { FollowersComponent } from './followers/followers.component';
 import { AboutComponent } from './about/about.component';
-import { EditorComponent } from './editor/editor.component';
 import { QuillModule } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
 import { UsersComponent } from './users/users.component';
@@ -20,7 +19,6 @@ import { ProjectsComponent } from './projects/projects.component';
     ProjectsComponent,
     FollowersComponent,
     AboutComponent,
-    EditorComponent,
     UsersComponent
   ],
   exports: [
@@ -30,7 +28,6 @@ import { ProjectsComponent } from './projects/projects.component';
     ProjectsComponent,
     FollowersComponent,
     AboutComponent,
-    EditorComponent,
     UsersComponent
   ],
   imports: [

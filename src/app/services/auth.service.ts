@@ -95,7 +95,7 @@ export class AuthService {
       }
       else if (res.notverified === true) {
         const alert = await this.alertController.create({
-          cssClass: 'custom-alert-ok',
+          cssClass: 'custom-alert-two',
           backdropDismiss: false,
           header: 'Ooops!',
           message: 'Your email is not verified yet. Do you want to receive another verification code?',

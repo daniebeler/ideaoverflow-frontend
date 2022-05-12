@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { NewpostPageRoutingModule } from './newpost-routing.module';
+import { PostEditorPageRoutingModule } from './posteditor-routing.module';
 import { ComponentsModule } from 'src/app/components/components.module';
 
-import { NewpostPage } from './newpost.page';
+import { PostEditorPage } from './posteditor.page';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   imports: [
@@ -15,8 +16,9 @@ import { NewpostPage } from './newpost.page';
     FormsModule,
     IonicModule,
     ComponentsModule,
-    NewpostPageRoutingModule
+    QuillModule,
+    PostEditorPageRoutingModule
   ],
-  declarations: [NewpostPage]
+  declarations: [PostEditorPage]
 })
-export class NewpostPageModule {}
+export class PostEditorPageModule {}

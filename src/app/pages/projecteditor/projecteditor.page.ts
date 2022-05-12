@@ -43,7 +43,6 @@ export class ProjectEditorPage implements OnInit {
     } else if (!isNaN(+urlslice)) {
       this.mode = 'edit';
       this.apiService.getProject(+urlslice).subscribe(project => {
-        console.log(project);
         this.projectHash = hash(project);
         this.project = project;
       });
@@ -55,10 +54,8 @@ export class ProjectEditorPage implements OnInit {
   }
 
   async saveProject() {
-    console.log(this.project);
-
     const alert = await this.alertController.create({
-      cssClass: 'custom-alert-ok',
+      cssClass: 'custom-alert-two',
       backdropDismiss: false,
       header: 'Are you sure?',
       buttons: [{
@@ -69,13 +66,13 @@ export class ProjectEditorPage implements OnInit {
         handler: () => {
           if (this.mode === 'new') {
             this.projectService.createProject(this.project).subscribe(async res => {
-              if(res.status === 200) {
+              if (res.status === 200) {
                 this.router.navigate(['']);
               }
             });
           } else if (this.mode === 'edit') {
             this.projectService.updateProject(this.project).subscribe(res => {
-              if(res.status === 200) {
+              if (res.status === 200) {
                 this.router.navigate(['']);
               }
             });
@@ -141,8 +138,6 @@ export class ProjectEditorPage implements OnInit {
   }
 
   updateSubmitButtonState() {
-    console.log(this.project);
-    console.log('change');
     let show = false;
     if (this.project.title && this.project.shortDescription && this.project.body.changingThisBreaksApplicationSecurity) {
       if (this.mode === 'edit') {

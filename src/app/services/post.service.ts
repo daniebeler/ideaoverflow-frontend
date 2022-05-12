@@ -49,20 +49,20 @@ export class PostService {
     });
   }
 
-  createPost(header, body, userID): Observable<any> {
+  createPost(post: Post): Observable<any> {
     const obj = {
-      header,
-      body,
-      userID
+      header: post.title,
+      body: post.body.changingThisBreaksApplicationSecurity,
+      userID: post.ownerId
     };
     return this.http.post<any>(environment.api + 'post/create/', obj);
   }
 
-  updatePost(title, body, postId): Observable<any> {
+  updatePost(post: Post): Observable<any> {
     const obj = {
-      title,
-      body,
-      postId
+      title: post.title,
+      body: post.body.changingThisBreaksApplicationSecurity,
+      postId: post.id
     };
     return this.http.post<any>(environment.api + 'post/update/', obj);
   }

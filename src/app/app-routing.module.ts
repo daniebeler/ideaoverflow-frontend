@@ -32,18 +32,13 @@ const routes: Routes = [
     loadChildren: () => import('./pages/verify/verify.module').then(m => m.VerifyPageModule)
   },
   {
-    path: 'newpost',
-    loadChildren: () => import('./pages/newpost/newpost.module').then(m => m.NewpostPageModule),
+    path: 'posteditor/:id',
+    loadChildren: () => import('./pages/posteditor/posteditor.module').then(m => m.PostEditorPageModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'search/:search',
     loadChildren: () => import('./pages/search/search.module').then(m => m.SearchPageModule)
-  },
-  {
-    path: 'editpost',
-    loadChildren: () => import('./pages/editpost/editpost.module').then(m => m.EditpostPageModule),
-    canActivate: [AuthGuard]
   },
   {
     path: 'about',

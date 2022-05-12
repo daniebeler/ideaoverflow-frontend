@@ -30,7 +30,6 @@ export class ProjectPage implements OnInit {
       this.projectId = +id;
       this.apiService.getProject(this.projectId).subscribe(project => {
         this.project = project;
-        console.log(this.project);
       });
     }
 
