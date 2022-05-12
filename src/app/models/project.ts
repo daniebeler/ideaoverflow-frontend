@@ -2,7 +2,7 @@ import { SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 
 export class Project {
 
-  public id: number;
+  id: number;
   public title: string;
   public body: any;
   public creationDate: Date;
@@ -26,5 +26,7 @@ export class Project {
     this.shortDescription = data.short_description;
     this.website = data.website;
     this.ownerId = data.fk_user_id;
+    this.ownerUsername = data.username;
+    this.ownerImage = data.ownerImage;
    }
 }

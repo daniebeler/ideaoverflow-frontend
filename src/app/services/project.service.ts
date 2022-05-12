@@ -14,14 +14,16 @@ export class ProjectService {
 
   createProject(project: Project) {
     const logo: any = project.logo;
-    const obj = {
+
+    const data = {
       title: project.title,
       short_description: project.shortDescription,
       body: project.body,
       owner_id: project.ownerId,
-      logo: logo.changingThisBreaksApplicationSecurity,
-      website: project.website
+      // logo: logo.changingThisBreaksApplicationSecurity,
+      website: project.website,
+      release_date: project.releaseDate.toISOString().slice(0, 10)
     };
-    return this.apiService.createProject(obj);
+    return this.apiService.createProject(data);
   }
 }

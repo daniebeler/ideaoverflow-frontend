@@ -2,7 +2,7 @@
 
 <ion-content>
 
-  <ion-grid *ngIf="project" class="container" style="margin-top: 30px; margin-bottom: 30px;">
+  <ion-grid *ngIf="project" class="container" style="margin-top: 30px; margin-bottom: 100px;">
     <ion-row>
       <ion-col>
         <h1>New Project</h1>
@@ -48,6 +48,15 @@
         <div class="form-group">
           <label class="text-label" for="fname"><strong>Website</strong></label>
           <input type="text" name="fname" id="fname" placeholder="URL" [(ngModel)]="project.website" />
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="padding-top: 20px;">
+      <ion-col size="12">
+        <div class="form-group">
+          <label class="text-label" for="fname"><strong>Release Date</strong></label>
+          <input type="date" name="fname" id="fname" placeholder="URL" (change)="releaseDateChanged($event)" />
         </div>
       </ion-col>
     </ion-row>

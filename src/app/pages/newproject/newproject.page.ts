@@ -34,6 +34,8 @@ export class NewprojectPage implements OnInit {
   }
 
   async saveProject() {
+    console.log(this.project);
+
     const alert = await this.alertController.create({
       cssClass: 'custom-alert-ok',
       backdropDismiss: false,
@@ -67,6 +69,14 @@ export class NewprojectPage implements OnInit {
           }
         });
       }
+    }
+  }
+
+  releaseDateChanged(event: any) {
+    if(event.target.value) {
+      this.project.releaseDate = new Date(event.target.value);
+    } else {
+      this.project.releaseDate = null;
     }
   }
 

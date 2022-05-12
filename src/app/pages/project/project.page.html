@@ -13,12 +13,30 @@
         <p>{{project.shortDescription}}</p>
       </ion-col>
 
+      <ion-col size="auto">
+        <div size="auto" class="owner" style="display: flex; align-items: center;">
+          <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
+            <img [src]="project.ownerImage">
+          </ion-avatar>
+          <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{project.ownerUsername}}</strong></p>
+        </div>
+        <p *ngIf="project.releaseDate">Released:
+          {{project.releaseDate.toLocaleDateString("en-at",{year:"numeric",month:"short", day:"numeric"})}}
+        </p>
+      </ion-col>
+
     </ion-row>
 
-    <ion-row *ngIf="project.website">
+    <ion-row *ngIf="project.website" style="padding-top: 30px;">
       <ion-col size="auto" class="website">
         <ion-icon name="home-outline" style="height: 20px; width: 20px"></ion-icon>
         <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{project.website}}</strong></p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <hr style="height:1px; border-width:0; background-color:rgb(180, 180, 180); margin-right: 10px;">
       </ion-col>
     </ion-row>
 
