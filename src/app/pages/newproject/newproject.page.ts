@@ -13,9 +13,6 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class NewprojectPage implements OnInit {
 
-  logo: SafeResourceUrl;
-  title: string;
-  shortDescription: string;
   project: Project = new Project([]);
 
   constructor(
@@ -61,7 +58,7 @@ export class NewprojectPage implements OnInit {
       if (file != null) {
         this.apiService.uploadImage(file).subscribe((res: any) => {
           if (res.data.link) {
-            this.logo = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
+            this.project.logo = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
             // this.checkForChange();
           }
         });

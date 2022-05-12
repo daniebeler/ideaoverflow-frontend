@@ -12,7 +12,7 @@
     <ion-row style="margin-bottom: 50px;">
       <ion-col style="display: flex;" class="ion-justify-content-center">
         <div class="profile-pic-div">
-          <img [src]="logo" id="photo">
+          <img [src]="project.logo" id="photo">
           <input type="file" id="file" accept=".png,.jpg," (change)="onFileChange($event)">
           <label for="file" id="uploadBtn">Change</label>
         </div>
@@ -37,9 +37,6 @@
         </div>
       </ion-col>
     </ion-row>
-
-
-
   </ion-grid>
 </ion-content>
 
