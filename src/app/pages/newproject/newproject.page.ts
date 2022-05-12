@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AlertController } from '@ionic/angular';
 import { Project } from 'src/app/models/project';
@@ -13,7 +13,11 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class NewprojectPage implements OnInit {
 
+  @Input() body: any = '';
+
   project: Project = new Project([]);
+
+  editorInstance: any = {};
 
   constructor(
     private alertController: AlertController,
@@ -62,6 +66,35 @@ export class NewprojectPage implements OnInit {
             // this.checkForChange();
           }
         });
+      }
+    }
+  }
+
+  editor(quill: any) {
+    this.editorInstance = quill;
+    const toolbar = quill.getModule('toolbar');
+    toolbar.addHandler('image', this.imageEditor.bind(this));
+  }
+
+  imageEditor() {
+    const data: any = this.editorInstance;
+    if (this.editorInstance != null) {
+      const range = this.editorInstance.getSelection();
+      if (range != null) {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.addEventListener('change', () => {
+          if (input.files != null) {
+            const file = input.files[0];
+            if (file != null) {
+              this.apiService.uploadImage(file).subscribe((res: any) => {
+                data.insertEmbed(range.index, 'image', res.data.link);
+              });
+            }
+          }
+        });
+        input.click();
       }
     }
   }

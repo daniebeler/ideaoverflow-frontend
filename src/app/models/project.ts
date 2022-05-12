@@ -1,4 +1,4 @@
-import { SafeResourceUrl } from '@angular/platform-browser';
+import { SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 
 export class Project {
 
@@ -10,7 +10,10 @@ export class Project {
   public releaseDate: Date;
   public logo: SafeResourceUrl;
   public shortDescription: string;
+  public website: string;
   public ownerId: number;
+  public ownerUsername: string;
+  public ownerImage: SafeResourceUrl;
 
   constructor(data: any) {
     this.id = data.id;
@@ -21,6 +24,7 @@ export class Project {
     this.releaseDate = data.releasedate;
     this.logo = data.logo;
     this.shortDescription = data.short_description;
-    this.ownerId = data.owner_id;
+    this.website = data.website;
+    this.ownerId = data.fk_user_id;
    }
 }

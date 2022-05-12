@@ -1,7 +1,7 @@
 <app-header></app-header>
 
-<ion-content>
-  <ion-grid  *ngIf="project" class="container wrapper" style="margin-top: 30px;">
+<ion-content *ngIf="project">
+  <ion-grid *ngIf="project" class="container wrapper" style="margin-top: 30px;">
     <ion-row>
       <ion-col size="auto" style="display: flex; flex-direction: column; justify-content: center;">
         <ion-avatar style="height: 90px; width: 90px; --border-radius: 50%">
@@ -14,5 +14,26 @@
       </ion-col>
 
     </ion-row>
+
+    <ion-row *ngIf="project.website">
+      <ion-col size="auto" class="website">
+        <ion-icon name="home-outline" style="height: 20px; width: 20px"></ion-icon>
+        <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{project.website}}</strong></p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="padding-top: 30px;">
+      <ion-col>
+        <div class="postcontent" [innerHTML]=project.body></div>
+      </ion-col>
+    </ion-row>
   </ion-grid>
+
+  <!-- <ion-grid *ngIf="project" class="container wrapper" style="margin-top: 30px;">
+    <ion-row>
+      <ion-col style="padding: 0;">
+        <div class="postcontent" [innerHTML]=project.body></div>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
 </ion-content>

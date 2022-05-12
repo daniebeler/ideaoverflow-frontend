@@ -8,6 +8,7 @@ import { NewprojectPageRoutingModule } from './newproject-routing.module';
 
 import { NewprojectPage } from './newproject.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { ComponentsModule } from 'src/app/components/components.module';
     FormsModule,
     IonicModule,
     ComponentsModule,
+    QuillModule,
     NewprojectPageRoutingModule
   ],
   declarations: [NewprojectPage]

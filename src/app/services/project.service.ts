@@ -17,8 +17,10 @@ export class ProjectService {
     const obj = {
       title: project.title,
       short_description: project.shortDescription,
+      body: project.body,
       owner_id: project.ownerId,
-      logo: logo.changingThisBreaksApplicationSecurity
+      logo: logo.changingThisBreaksApplicationSecurity,
+      website: project.website
     };
     return this.apiService.createProject(obj);
   }
