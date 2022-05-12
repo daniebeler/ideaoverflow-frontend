@@ -6,6 +6,7 @@ import { Project } from 'src/app/models/project';
 import { ApiService } from 'src/app/services/api.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { UserService } from 'src/app/services/user.service';
+import hash from 'object-hash';
 
 @Component({
   selector: 'app-newproject',
@@ -14,9 +15,9 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class NewprojectPage implements OnInit {
 
-  @Input() body: any = '';
-
   project: Project = new Project([]);
+
+  projectHash = '12';
 
   editorInstance: any = {};
 
@@ -41,6 +42,7 @@ export class NewprojectPage implements OnInit {
       this.mode = 'edit';
       this.apiService.getProject(+urlslice).subscribe(project => {
         console.log(project);
+        this.projectHash = hash(project);
         this.project = project;
       });
     }
@@ -98,7 +100,7 @@ export class NewprojectPage implements OnInit {
     if (event.target.value) {
       this.project.releaseDate = new Date(event.target.value);
     } else {
-      this.project.releaseDate = null;
+      this.project.releaseDate = undefined;
     }
 
     this.updateSubmitButtonState();
@@ -139,8 +141,9 @@ export class NewprojectPage implements OnInit {
     let show = false;
     if (this.project.title && this.project.shortDescription && this.project.body.changingThisBreaksApplicationSecurity) {
       if (this.mode === 'edit') {
-        // check for changes
-        show = true;
+        if (this.projectHash !== hash(this.project)) {
+          show = true;
+        }
       } else {
         show = true;
       }

@@ -30,6 +30,7 @@
     "@ionic/storage-angular": "^3.0.6",
     "ngx-quill": "^16.2.0",
     "ngx-quill-upload": "^2.0.0",
+    "object-hash": "^3.0.0",
     "quill": "^1.3.7",
     "rxjs": "~7.5.5",
     "tint-shade-color": "^1.0.0",
