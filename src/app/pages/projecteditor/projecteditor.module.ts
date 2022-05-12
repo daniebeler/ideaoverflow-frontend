@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { NewprojectPageRoutingModule } from './newproject-routing.module';
+import { ProjectEditorPageRoutingModule } from './projecteditor-routing.module';
 
-import { NewprojectPage } from './newproject.page';
+import { ProjectEditorPage } from './projecteditor.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { QuillModule } from 'ngx-quill';
 
@@ -17,8 +17,8 @@ import { QuillModule } from 'ngx-quill';
     IonicModule,
     ComponentsModule,
     QuillModule,
-    NewprojectPageRoutingModule
+    ProjectEditorPageRoutingModule
   ],
-  declarations: [NewprojectPage]
+  declarations: [ProjectEditorPage]
 })
-export class NewprojectPageModule {}
+export class ProjectEditorPageModule {}

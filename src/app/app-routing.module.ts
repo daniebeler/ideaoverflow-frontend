@@ -74,8 +74,8 @@ const routes: Routes = [
     loadChildren: () => import('./pages/projects/projects.module').then(m => m.ProjectsPageModule)
   },
   {
-    path: 'newproject/:id',
-    loadChildren: () => import('./pages/newproject/newproject.module').then(m => m.NewprojectPageModule),
+    path: 'projecteditor/:id',
+    loadChildren: () => import('./pages/projecteditor/projecteditor.module').then(m => m.ProjectEditorPageModule),
     canActivate: [AuthGuard]
   },
   {

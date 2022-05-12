@@ -9,11 +9,11 @@ import { UserService } from 'src/app/services/user.service';
 import hash from 'object-hash';
 
 @Component({
-  selector: 'app-newproject',
-  templateUrl: './newproject.page.html',
-  styleUrls: ['./newproject.page.scss'],
+  selector: 'app-projecteditor',
+  templateUrl: './projecteditor.page.html',
+  styleUrls: ['./projecteditor.page.scss'],
 })
-export class NewprojectPage implements OnInit {
+export class ProjectEditorPage implements OnInit {
 
   project: Project = new Project([]);
 

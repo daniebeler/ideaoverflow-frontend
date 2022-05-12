@@ -41,6 +41,6 @@ export class ProjectPage implements OnInit {
   }
 
   editProject() {
-    this.router.navigate(['newproject/' + this.project.id]);
+    this.router.navigate(['projecteditor/' + this.project.id]);
   }
 }
