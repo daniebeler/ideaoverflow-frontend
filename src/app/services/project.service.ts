@@ -16,14 +16,20 @@ export class ProjectService {
   createProject(project: Project) {
     const logo: any = project.logo;
 
+    let releaseDate = null;
+
+    if(project.releaseDate) {
+      releaseDate = project.releaseDate.toISOString().slice(0, 10);
+    }
+
     const data = {
       title: project.title,
       short_description: project.shortDescription,
-      body: project.body,
+      body: project.body.changingThisBreaksApplicationSecurity,
       owner_id: project.ownerId,
-      // logo: logo.changingThisBreaksApplicationSecurity,
+      logo: logo.changingThisBreaksApplicationSecurity,
       website: project.website,
-      release_date: project.releaseDate.toISOString().slice(0, 10)
+      release_date: releaseDate
     };
     return this.apiService.createProject(data);
   }

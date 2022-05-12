@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Project } from 'src/app/models/project';
 import { ApiService } from 'src/app/services/api.service';
@@ -31,13 +31,15 @@ export class ProjectEditorPage implements OnInit {
     private userService: UserService,
     private apiService: ApiService,
     private domSanitizer: DomSanitizer,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
     const urlslice = this.activatedRoute.snapshot.paramMap.get('id');
     if (urlslice && urlslice === 'new') {
       this.mode = 'new';
+      this.project.body = this.domSanitizer.bypassSecurityTrustHtml('');
     } else if (!isNaN(+urlslice)) {
       this.mode = 'edit';
       this.apiService.getProject(+urlslice).subscribe(project => {
@@ -67,12 +69,15 @@ export class ProjectEditorPage implements OnInit {
         handler: () => {
           if (this.mode === 'new') {
             this.projectService.createProject(this.project).subscribe(async res => {
-              // this.redirect(res);
-              console.log('created');
+              if(res.status === 200) {
+                this.router.navigate(['']);
+              }
             });
           } else if (this.mode === 'edit') {
             this.projectService.updateProject(this.project).subscribe(res => {
-              console.log('updated');
+              if(res.status === 200) {
+                this.router.navigate(['']);
+              }
             });
           }
 
