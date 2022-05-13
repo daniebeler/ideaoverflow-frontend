@@ -7,6 +7,8 @@ import { ApiService } from 'src/app/services/api.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { UserService } from 'src/app/services/user.service';
 import hash from 'object-hash';
+import { filter } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-projecteditor',
@@ -25,6 +27,8 @@ export class ProjectEditorPage implements OnInit {
 
   mode = '';
 
+  releaseDate: any;
+
   constructor(
     private alertController: AlertController,
     private projectService: ProjectService,
@@ -32,7 +36,8 @@ export class ProjectEditorPage implements OnInit {
     private apiService: ApiService,
     private domSanitizer: DomSanitizer,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private datePipe: DatePipe
   ) { }
 
   ngOnInit() {
@@ -40,17 +45,17 @@ export class ProjectEditorPage implements OnInit {
     if (urlslice && urlslice === 'new') {
       this.mode = 'new';
       this.project.body = this.domSanitizer.bypassSecurityTrustHtml('');
+      this.userService.getLatestUser().pipe(filter(user => Boolean(user))).subscribe((latestUser) => {
+        this.project.ownerId = latestUser.id;
+      });
     } else if (!isNaN(+urlslice)) {
       this.mode = 'edit';
-      this.apiService.getProject(+urlslice).subscribe(project => {
+      this.apiService.getProject(+urlslice).pipe(filter(project => Boolean(project))).subscribe(project => {
         this.projectHash = hash(project);
         this.project = project;
+        this.releaseDate = this.datePipe.transform(project.releaseDate, 'yyyy-MM-dd');
       });
     }
-
-    this.userService.getLatestUser().subscribe((latestUser) => {
-      this.project.ownerId = latestUser.id;
-    });
   }
 
   async saveProject() {
@@ -66,18 +71,34 @@ export class ProjectEditorPage implements OnInit {
         handler: () => {
           if (this.mode === 'new') {
             this.projectService.createProject(this.project).subscribe(async res => {
-              if (res.status === 200) {
-                this.router.navigate(['']);
-              }
+              console.log(res);
+              this.redirect(res);
             });
           } else if (this.mode === 'edit') {
             this.projectService.updateProject(this.project).subscribe(res => {
-              if (res.status === 200) {
-                this.router.navigate(['']);
-              }
+              console.log(res);
+              this.redirect(res);
             });
           }
+        }
+      }]
+    });
+    await alert.present();
+  }
 
+  async redirect(res) {
+    const alert = await this.alertController.create({
+      cssClass: 'custom-alert-ok',
+      backdropDismiss: false,
+      header: res.header,
+      message: res.message,
+      buttons: [{
+        text: 'Okay',
+        role: 'ok',
+        handler: () => {
+          if (res.status === 200) {
+            this.router.navigate(['']);
+          }
         }
       }]
     });
@@ -101,6 +122,7 @@ export class ProjectEditorPage implements OnInit {
   releaseDateChanged(event: any) {
     if (event.target.value) {
       this.project.releaseDate = new Date(event.target.value);
+      this.project.releaseDate.setHours(0, 0, 0, 0);
     } else {
       this.project.releaseDate = undefined;
     }
@@ -151,5 +173,4 @@ export class ProjectEditorPage implements OnInit {
 
     this.showSubmitButton = show;
   }
-
 }

@@ -1,12 +1,12 @@
 <app-header></app-header>
 
 <ion-content>
-
   <ion-grid *ngIf="project" class="container" style="margin-top: 30px; margin-bottom: 100px;">
     <ion-row>
       <ion-col>
         <h1 *ngIf="mode === 'new'">New Project</h1>
-        <h1 *ngIf="mode === 'edit'">Edit</h1>
+        <h1 *ngIf="mode === 'edit' && project.title">{{project.title}}</h1>
+        <h1 *ngIf="mode === 'edit' && !project.title">Edit project</h1>
       </ion-col>
     </ion-row>
 
@@ -42,8 +42,8 @@
     </ion-row>
 
     <label class="text-label" for="fname"><strong>Long description</strong></label>
-    <quill-editor *ngIf="project.body" [(ngModel)]="project.body.changingThisBreaksApplicationSecurity" (onEditorCreated)="editor($event)" trackChanges="all"
-      (ngModelChange)="updateSubmitButtonState()">
+    <quill-editor *ngIf="project.body" [(ngModel)]="project.body.changingThisBreaksApplicationSecurity"
+      (onEditorCreated)="editor($event)" trackChanges="all" (ngModelChange)="updateSubmitButtonState()">
     </quill-editor>
 
 
@@ -62,7 +62,7 @@
         <div class="form-group">
           <label class="text-label" for="fname"><strong>Release Date</strong></label>
           <input type="date" name="fname" id="fname" placeholder="URL" (change)="releaseDateChanged($event)"
-            (ngModelChange)="updateSubmitButtonState()" />
+            (ngModelChange)="updateSubmitButtonState()" [(ngModel)]="releaseDate" />
         </div>
       </ion-col>
     </ion-row>
@@ -76,12 +76,14 @@
       <ion-col style="display: flex; flex-direction: column; justify-content: center;">
         <button style="margin-top: 20px;" type="button" class="btn-small btn-primary" (click)="saveProject()"
           *ngIf="showSubmitButton; else elseBlock">
-          <span>Release project</span>
+          <span *ngIf="mode === 'new'">Release project</span>
+          <span *ngIf="mode === 'edit'">Update project</span>
         </button>
 
         <ng-template #elseBlock>
           <button style="margin-top: 20px;" type="button" class="btn-small btn-disabled" disabled>
-            <span>Release project</span>
+            <span *ngIf="mode === 'new'">Release project</span>
+            <span *ngIf="mode === 'edit'">Update project</span>
           </button>
         </ng-template>
       </ion-col>

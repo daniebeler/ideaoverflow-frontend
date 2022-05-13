@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
@@ -19,6 +19,7 @@ import { QuillModule } from 'ngx-quill';
     QuillModule,
     ProjectEditorPageRoutingModule
   ],
-  declarations: [ProjectEditorPage]
+  declarations: [ProjectEditorPage],
+  providers:[DatePipe]
 })
 export class ProjectEditorPageModule {}
