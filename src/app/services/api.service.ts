@@ -135,6 +135,12 @@ export class ApiService {
     );
   }
 
+  getNumberOfTotalProjects(): Observable<number> {
+    return this.http.get<any>(environment.api + 'project/numberoftotalprojects').pipe(
+      map(data => data.numberoftotalprojects)
+    );
+  }
+
   createProject(data: any): Observable<any> {
     return this.http.post<any>(environment.api + 'project/create', data);
   }

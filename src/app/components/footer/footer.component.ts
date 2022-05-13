@@ -11,6 +11,7 @@ export class FooterComponent implements OnInit {
 
   numberOfTotalPosts = 0;
   numberOfTotalUsers = 0;
+  numberOfTotalProjects = 0;
 
   constructor(
     private postService: PostService,
@@ -25,6 +26,9 @@ export class FooterComponent implements OnInit {
     this.apiService.getNumberOfTotalUsers().subscribe(numberOfTotalUsers => {
       this.numberOfTotalUsers = numberOfTotalUsers;
     });
-  }
 
+    this.apiService.getNumberOfTotalProjects().subscribe(numberOfTotalProjects => {
+      this.numberOfTotalProjects = numberOfTotalProjects;
+    });
+  }
 }

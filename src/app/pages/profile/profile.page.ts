@@ -117,4 +117,12 @@ export class ProfilePage implements OnInit {
   unfollow() {
     this.followerService.removeFollower(this.user.id);
   }
+
+  createIdea() {
+    this.router.navigate(['posteditor/new']);
+  }
+
+  createProject() {
+    this.router.navigate(['projecteditor/new']);
+  }
 }
