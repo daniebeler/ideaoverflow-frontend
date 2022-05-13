@@ -123,6 +123,7 @@ export class ProjectEditorPage implements OnInit {
     if (event.target.value) {
       this.project.releaseDate = new Date(event.target.value);
       this.project.releaseDate.setHours(0, 0, 0, 0);
+      console.log(this.project.releaseDate);
     } else {
       this.project.releaseDate = undefined;
     }
