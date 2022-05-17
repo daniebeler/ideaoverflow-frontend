@@ -14,6 +14,8 @@ export class HomePage implements OnInit {
 
   postsHeader = 'Popular Posts';
 
+  activeContentTab = 'ideas';
+
   constructor(
     private router: Router,
     private userService: UserService
@@ -36,5 +38,13 @@ export class HomePage implements OnInit {
 
   gotoNewpost() {
     this.router.navigate(['posteditor/new']);
+  }
+
+  createIdea() {
+    this.router.navigate(['posteditor/new']);
+  }
+
+  createProject() {
+    this.router.navigate(['projecteditor/new']);
   }
 }

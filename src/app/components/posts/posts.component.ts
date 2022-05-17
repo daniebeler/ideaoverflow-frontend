@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class PostsComponent implements OnInit {
 
-  @Input() header = '';
+  @Input() header = 'Popular Ideas';
   @Input() filterByUsername = '';
   @Input() savedByUsername = false;
   @Input() searchTerm = '';
