@@ -24,7 +24,7 @@
                   </ion-icon>
                 </div>
               </div>
-              <div class="owner" style="display: flex; align-items: center;">
+              <div class="owner" style="display: flex; align-items: center;" (click)="gotoProfile(project.ownerUsername)">
                 <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
                   <img [src]="project.ownerImage">
                 </ion-avatar>

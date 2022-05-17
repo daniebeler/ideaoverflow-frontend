@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProjectsComponent implements OnInit {
 
-  @Input() header = 'Popular Projects';
+  @Input() header = '';
   @Input() filterByUsername = '';
   @Input() savedByUsername = false;
   @Input() searchTerm = '';
@@ -29,6 +29,8 @@ export class ProjectsComponent implements OnInit {
   currentUser: User = null;
 
   sortingCriteria = 'newest';
+
+  alternativeHeader = 'Newest projects';
 
   constructor(
     private apiService: ApiService,
@@ -78,6 +80,13 @@ export class ProjectsComponent implements OnInit {
 
   sortingCriteriaChanged(sortingCriteria: string) {
     this.sortingCriteria = sortingCriteria;
+    if (!this.header) {
+      if (sortingCriteria === 'newest') {
+        this.alternativeHeader = 'Newest projects';
+      } else if (sortingCriteria === 'oldest') {
+        this.alternativeHeader = 'Oldest projects';
+      }
+    }
     this.allLoadedProjects = [];
     this.skipProjects = -5;
     this.getPosts(false, '');

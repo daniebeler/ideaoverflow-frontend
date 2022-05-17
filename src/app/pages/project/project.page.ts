@@ -42,4 +42,8 @@ export class ProjectPage implements OnInit {
   editProject() {
     this.router.navigate(['projecteditor/' + this.project.id]);
   }
+
+  gotoProfile(username: string) {
+    this.router.navigate(['users/' + username]);
+  }
 }

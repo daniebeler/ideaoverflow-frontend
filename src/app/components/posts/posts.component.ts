@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class PostsComponent implements OnInit {
 
-  @Input() header = 'Popular Ideas';
+  @Input() header = '';
   @Input() filterByUsername = '';
   @Input() savedByUsername = false;
   @Input() searchTerm = '';
@@ -29,6 +29,8 @@ export class PostsComponent implements OnInit {
   currentUser: User = null;
 
   sortingCriteria = 'newest';
+
+  alternativeHeader = 'Newest ideas';
 
   constructor(
     private postService: PostService,
@@ -78,6 +80,15 @@ export class PostsComponent implements OnInit {
 
   sortingCriteriaChanged(sortingCriteria: string) {
     this.sortingCriteria = sortingCriteria;
+    if (!this.header) {
+      if (sortingCriteria === 'newest') {
+        this.alternativeHeader = 'Newest ideas';
+      } else if (sortingCriteria === 'likes') {
+        this.alternativeHeader = 'Most liked ideas';
+      } else if (sortingCriteria === 'oldest') {
+        this.alternativeHeader = 'Oldest ideas';
+      }
+    }
     this.allLoadedPosts = [];
     this.skipPosts = -5;
     this.getPosts(false, '');
