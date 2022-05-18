@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
@@ -8,7 +9,9 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
+
+  subscriptions: Subscription[] = [];
 
   user: User;
 
@@ -22,10 +25,11 @@ export class HomePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.getLatestUser()
+    const subscription1 = this.userService.getLatestUser()
       .subscribe((latestUser) => {
         this.user = latestUser;
       });
+    this.subscriptions.push(subscription1);
   }
 
   gotoProfile() {
@@ -46,5 +50,9 @@ export class HomePage implements OnInit {
 
   createProject() {
     this.router.navigate(['projecteditor/new']);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

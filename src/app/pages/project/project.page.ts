@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Project } from 'src/app/models/project';
 import { User } from 'src/app/models/user';
 import { ExternalHrefPipe } from 'src/app/pipes/external-href.pipe';
@@ -11,7 +12,9 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './project.page.html',
   styleUrls: ['./project.page.scss'],
 })
-export class ProjectPage implements OnInit {
+export class ProjectPage implements OnInit, OnDestroy {
+
+  subscriptions: Subscription[] = [];
 
   projectId: number;
   project: Project = null;
@@ -29,15 +32,16 @@ export class ProjectPage implements OnInit {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (!isNaN(+id)) {
       this.projectId = +id;
-      this.apiService.getProject(this.projectId).subscribe(project => {
+      const subscription1 = this.apiService.getProject(this.projectId).subscribe(project => {
         this.project = project;
       });
+      this.subscriptions.push(subscription1);
     }
 
-    this.userService.getLatestUser()
-      .subscribe((latestUser) => {
-        this.currentUser = latestUser;
-      });
+    const subscription2 = this.userService.getLatestUser().subscribe((latestUser) => {
+      this.currentUser = latestUser;
+    });
+    this.subscriptions.push(subscription2);
   }
 
   editProject() {
@@ -54,4 +58,7 @@ export class ProjectPage implements OnInit {
     window.open(url, '_blank');
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
 }

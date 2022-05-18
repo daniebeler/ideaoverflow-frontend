@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
@@ -7,7 +7,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { UserService } from 'src/app/services/user.service';
 import hash from 'object-hash';
-import { filter } from 'rxjs';
+import { filter, Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -15,7 +15,9 @@ import { DatePipe } from '@angular/common';
   templateUrl: './projecteditor.page.html',
   styleUrls: ['./projecteditor.page.scss'],
 })
-export class ProjectEditorPage implements OnInit {
+export class ProjectEditorPage implements OnInit, OnDestroy {
+
+  subscriptions: Subscription[] = [];
 
   project: Project = new Project([]);
 
@@ -45,16 +47,18 @@ export class ProjectEditorPage implements OnInit {
     if (urlslice && urlslice === 'new') {
       this.mode = 'new';
       this.project.body = this.domSanitizer.bypassSecurityTrustHtml('');
-      this.userService.getLatestUser().pipe(filter(user => Boolean(user))).subscribe((latestUser) => {
+      const subscription1 = this.userService.getLatestUser().pipe(filter(user => Boolean(user))).subscribe((latestUser) => {
         this.project.ownerId = latestUser.id;
       });
+      this.subscriptions.push(subscription1);
     } else if (!isNaN(+urlslice)) {
       this.mode = 'edit';
-      this.apiService.getProject(+urlslice).pipe(filter(project => Boolean(project))).subscribe(project => {
+      const subscription2 = this.apiService.getProject(+urlslice).pipe(filter(project => Boolean(project))).subscribe(project => {
         this.projectHash = hash(project);
         this.project = project;
         this.releaseDate = this.datePipe.transform(project.releaseDate, 'yyyy-MM-dd');
       });
+      this.subscriptions.push(subscription2);
     }
   }
 
@@ -70,15 +74,17 @@ export class ProjectEditorPage implements OnInit {
         role: 'ok',
         handler: () => {
           if (this.mode === 'new') {
-            this.projectService.createProject(this.project).subscribe(async res => {
+            const subscription3 = this.projectService.createProject(this.project).subscribe(async res => {
               console.log(res);
               this.redirect(res);
             });
+            this.subscriptions.push(subscription3);
           } else if (this.mode === 'edit') {
-            this.projectService.updateProject(this.project).subscribe(res => {
+            const subscription4 = this.projectService.updateProject(this.project).subscribe(res => {
               console.log(res);
               this.redirect(res);
             });
+            this.subscriptions.push(subscription4);
           }
         }
       }]
@@ -109,12 +115,13 @@ export class ProjectEditorPage implements OnInit {
     if (event.target.files != null) {
       const file = event.target.files[0];
       if (file != null) {
-        this.apiService.uploadImage(file).subscribe((res: any) => {
+        const subscription5 = this.apiService.uploadImage(file).subscribe((res: any) => {
           if (res.data.link) {
             this.project.logo = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
             this.updateSubmitButtonState();
           }
         });
+        this.subscriptions.push(subscription5);
       }
     }
   }
@@ -149,9 +156,10 @@ export class ProjectEditorPage implements OnInit {
           if (input.files != null) {
             const file = input.files[0];
             if (file != null) {
-              this.apiService.uploadImage(file).subscribe((res: any) => {
+              const subscription6 = this.apiService.uploadImage(file).subscribe((res: any) => {
                 data.insertEmbed(range.index, 'image', res.data.link);
               });
+              this.subscriptions.push(subscription6);
             }
           }
         });
@@ -173,5 +181,9 @@ export class ProjectEditorPage implements OnInit {
     }
 
     this.showSubmitButton = show;
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

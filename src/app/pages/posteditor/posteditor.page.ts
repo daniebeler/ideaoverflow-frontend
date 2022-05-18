@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
@@ -8,13 +8,16 @@ import { ApiService } from 'src/app/services/api.service';
 import { PostService } from 'src/app/services/post.service';
 import { UserService } from 'src/app/services/user.service';
 import hash from 'object-hash';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-posteditor',
   templateUrl: './posteditor.page.html',
   styleUrls: ['./posteditor.page.scss'],
 })
-export class PostEditorPage implements OnInit {
+export class PostEditorPage implements OnInit, OnDestroy {
+
+  subscriptions: Subscription[] = [];
 
   user: User;
   post: Post = new Post([]);
@@ -44,15 +47,17 @@ export class PostEditorPage implements OnInit {
       this.post.body = this.domSanitizer.bypassSecurityTrustHtml('');
     } else if (!isNaN(+urlslice)) {
       this.mode = 'edit';
-      this.apiService.getPost(+urlslice).subscribe(post => {
+      const subscription1 = this.apiService.getPost(+urlslice).subscribe(post => {
         this.postHash = hash(post);
         this.post = post;
       });
+      this.subscriptions.push(subscription1);
     }
 
-    this.userService.getLatestUser().subscribe((latestUser) => {
+    const subscription2 = this.userService.getLatestUser().subscribe((latestUser) => {
       this.post.ownerId = latestUser.id;
     });
+    this.subscriptions.push(subscription2);
   }
 
   async savePost() {
@@ -67,13 +72,15 @@ export class PostEditorPage implements OnInit {
         role: 'ok',
         handler: () => {
           if (this.mode === 'new') {
-            this.postService.createPost(this.post).subscribe(async res => {
+            const subscription3 = this.postService.createPost(this.post).subscribe(async res => {
               this.redirect(res);
             });
+            this.subscriptions.push(subscription3);
           } else if (this.mode === 'edit') {
-            this.postService.updatePost(this.post).subscribe(res => {
+            const subscription4 = this.postService.updatePost(this.post).subscribe(res => {
               this.redirect(res);
             });
+            this.subscriptions.push(subscription4);
           }
         }
       }]
@@ -118,9 +125,10 @@ export class PostEditorPage implements OnInit {
           if (input.files != null) {
             const file = input.files[0];
             if (file != null) {
-              this.apiService.uploadImage(file).subscribe((res: any) => {
+              const subscription5 = this.apiService.uploadImage(file).subscribe((res: any) => {
                 data.insertEmbed(range.index, 'image', res.data.link);
               });
+              this.subscriptions.push(subscription5);
             }
           }
         });
@@ -142,5 +150,9 @@ export class PostEditorPage implements OnInit {
     }
 
     this.showSubmitButton = show;
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

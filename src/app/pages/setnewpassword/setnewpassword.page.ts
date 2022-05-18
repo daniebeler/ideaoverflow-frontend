@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -8,7 +9,9 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './setnewpassword.page.html',
   styleUrls: ['./setnewpassword.page.scss'],
 })
-export class SetnewpasswordPage implements OnInit {
+export class SetnewpasswordPage implements OnInit, OnDestroy {
+
+  subscriptions: Subscription[] = [];
 
   password1: string;
   password2: string;
@@ -26,10 +29,11 @@ export class SetnewpasswordPage implements OnInit {
 
   ngOnInit() {
     this.code = this.activeRoute.snapshot.paramMap.get('code');
-    this.apiService.checkCode(this.code).subscribe(res => {
+    const subscription1 = this.apiService.checkCode(this.code).subscribe(res => {
       this.codeIsCorrect = res.exists;
       this.message = res.message;
     });
+    this.subscriptions.push(subscription1);
   }
 
   setPassword() {
@@ -38,5 +42,9 @@ export class SetnewpasswordPage implements OnInit {
 
   gotoLogin() {
     this.router.navigate(['login']);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

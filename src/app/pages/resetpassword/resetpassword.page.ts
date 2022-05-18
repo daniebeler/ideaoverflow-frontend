@@ -25,5 +25,4 @@ export class ResetpasswordPage {
       this.authService.resetPassword(this.email);
     }
   }
-
 }
