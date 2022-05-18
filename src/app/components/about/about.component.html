@@ -3,32 +3,32 @@
   size-xs="12" size-sm="6" size-md="6" size-lg="6" size-xl="6">
     <h2>Social Media</h2>
     <ul>
-      <li *ngIf="user.github" (click)="openLink('https://github.com/' + user.github)">
+      <li *ngIf="user.github" (click)="gotoWebsite('https://github.com/' + user.github)">
         <ion-icon class="socialmedia-icon" style="height: 20px; width: 20px; vertical-align: middle;"
           name="logo-github"></ion-icon>
         <span style="vertical-align:middle"><strong> Github</strong></span>
       </li>
-      <li *ngIf="user.twitter" (click)="openLink('https://twitter.com/' + user.twitter)">
+      <li *ngIf="user.twitter" (click)="gotoWebsite('https://twitter.com/' + user.twitter)">
         <ion-icon class="socialmedia-icon" style="height: 20px; width: 20px; vertical-align: middle;"
           name="logo-twitter"></ion-icon>
         <span style="vertical-align:middle"><strong> Twitter</strong></span>
       </li>
-      <li *ngIf="user.instagram" (click)="openLink('https://instagram.com/' + user.instagram)">
+      <li *ngIf="user.instagram" (click)="gotoWebsite('https://instagram.com/' + user.instagram)">
         <ion-icon class="socialmedia-icon" style="height: 20px; width: 20px; vertical-align: middle;"
           name="logo-instagram"></ion-icon>
         <span style="vertical-align:middle"><strong> Instagram</strong></span>
       </li>
-      <li *ngIf="user.dribbble" (click)="openLink('https://dribbble.com/' + user.dribbble)">
+      <li *ngIf="user.dribbble" (click)="gotoWebsite('https://dribbble.com/' + user.dribbble)">
         <ion-icon class="socialmedia-icon" style="height: 20px; width: 20px; vertical-align: middle;"
           name="logo-dribbble"></ion-icon>
         <span style="vertical-align:middle"><strong> Dribbble</strong></span>
       </li>
-      <li *ngIf="user.linkedin" (click)="openLink('https://www.linkedin.com/in/' + user.linkedin)">
+      <li *ngIf="user.linkedin" (click)="gotoWebsite('https://www.linkedin.com/in/' + user.linkedin)">
         <ion-icon class="socialmedia-icon" style="height: 20px; width: 20px; vertical-align: middle;"
           name="logo-linkedin"></ion-icon>
         <span style="vertical-align:middle"><strong> Linkedin</strong></span>
       </li>
-      <li *ngIf="user.website" (click)="openLink('http://' + user.website)">
+      <li *ngIf="user.website" (click)="gotoWebsite('http://' + user.website)">
         <ion-icon class="socialmedia-icon" style="height: 20px; width: 20px; vertical-align: middle;"
           name="globe-outline"></ion-icon>
         <span style="vertical-align:middle"><strong> {{user.website}}</strong></span>

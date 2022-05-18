@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from 'src/app/models/project';
 import { User } from 'src/app/models/user';
+import { ExternalHrefPipe } from 'src/app/pipes/external-href.pipe';
 import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -46,4 +47,11 @@ export class ProjectPage implements OnInit {
   gotoProfile(username: string) {
     this.router.navigate(['users/' + username]);
   }
+
+  gotoWebsite(url: string) {
+    const pipe = new ExternalHrefPipe();
+    url = pipe.transform(url);
+    window.open(url, '_blank');
+  }
+
 }

@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { QuillModule } from 'ngx-quill';
+import { ExternalHrefPipe } from './pipes/external-href.pipe';
 
 // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 export function jwtOptionsFactory(storage) {
@@ -23,7 +24,7 @@ export function jwtOptionsFactory(storage) {
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ExternalHrefPipe],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot({ mode: 'md' }), AppRoutingModule, HttpClientModule,
     IonicStorageModule.forRoot(), QuillModule.forRoot(), JwtModule.forRoot({

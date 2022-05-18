@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { ExternalHrefPipe } from 'src/app/pipes/external-href.pipe';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -23,7 +24,9 @@ export class AboutComponent implements OnInit {
     });
   }
 
-  openLink(url) {
+  gotoWebsite(url: string) {
+    const pipe = new ExternalHrefPipe();
+    url = pipe.transform(url);
     window.open(url, '_blank');
   }
 
