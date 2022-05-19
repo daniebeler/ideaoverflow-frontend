@@ -22,6 +22,13 @@ export class ProjectService {
       releaseDate = project.releaseDate.toISOString().slice(0, 10);
     }
 
+    const screens: any = project.screenshots;
+    const screenshots = [];
+
+    screens.forEach(screenshot => {
+      screenshots.push(screenshot.changingThisBreaksApplicationSecurity);
+    });
+
     const data = {
       title: project.title,
       short_description: project.shortDescription,
@@ -29,7 +36,8 @@ export class ProjectService {
       owner_id: project.ownerId,
       logo: logo.changingThisBreaksApplicationSecurity,
       website: project.website,
-      release_date: releaseDate
+      release_date: releaseDate,
+      screenshots
     };
     return this.apiService.createProject(data);
   }

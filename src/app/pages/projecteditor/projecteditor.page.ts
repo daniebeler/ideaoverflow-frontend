@@ -60,6 +60,8 @@ export class ProjectEditorPage implements OnInit, OnDestroy {
       });
       this.subscriptions.push(subscription2);
     }
+
+    this.project.screenshots = [];
   }
 
   async saveProject() {
@@ -118,6 +120,21 @@ export class ProjectEditorPage implements OnInit, OnDestroy {
         const subscription5 = this.apiService.uploadImage(file).subscribe((res: any) => {
           if (res.data.link) {
             this.project.logo = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
+            this.updateSubmitButtonState();
+          }
+        });
+        this.subscriptions.push(subscription5);
+      }
+    }
+  }
+
+  onScreenshotChange(event) {
+    if (event.target.files != null) {
+      const file = event.target.files[0];
+      if (file != null) {
+        const subscription5 = this.apiService.uploadImage(file).subscribe((res: any) => {
+          if (res.data.link) {
+            this.project.screenshots.push(this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link));
             this.updateSubmitButtonState();
           }
         });

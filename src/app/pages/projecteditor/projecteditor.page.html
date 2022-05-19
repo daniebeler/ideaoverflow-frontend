@@ -57,13 +57,31 @@
       </ion-col>
     </ion-row>
 
-    <ion-row style="padding-top: 20px;">
+    <ion-row style="padding-top: 20px; margin-bottom: 50px;">
       <ion-col size="12">
         <div class="form-group">
           <label class="text-label" for="fname"><strong>Release Date</strong></label>
           <input type="date" name="fname" id="fname" placeholder="URL" (change)="releaseDateChanged($event)"
             (ngModelChange)="updateSubmitButtonState()" [(ngModel)]="releaseDate" />
         </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-bottom: 50px;">
+      <ion-col style="display: flex;" class="ion-justify-content-center">
+
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <input type="file" id="input-screenshot" accept=".png,.jpg," (change)="onScreenshotChange($event)">
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" *ngFor="let screenshot of project.screenshots">
+              <img [src]="screenshot" style="width: 100%;" id="photo">
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-col>
     </ion-row>
 
