@@ -14,6 +14,7 @@ export class Project {
   public ownerId: number;
   public ownerUsername: string;
   public ownerImage: SafeResourceUrl;
+  public screenshots: SafeResourceUrl[];
 
   constructor(data: any) {
     this.id = data.id;
@@ -28,5 +29,6 @@ export class Project {
     this.ownerId = data.fk_user_id;
     this.ownerUsername = data.username;
     this.ownerImage = data.ownerImage;
+    this.screenshots = data.screenshots;
    }
 }
