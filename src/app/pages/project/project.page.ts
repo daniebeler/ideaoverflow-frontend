@@ -6,6 +6,9 @@ import { User } from 'src/app/models/user';
 import { ExternalHrefPipe } from 'src/app/pipes/external-href.pipe';
 import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
+import SwiperCore, { EffectFade, EffectCards, Pagination, Swiper } from 'swiper';
+
+SwiperCore.use([EffectFade, EffectCards, Pagination]);
 
 @Component({
   selector: 'app-project',

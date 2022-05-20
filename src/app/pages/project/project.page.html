@@ -24,7 +24,8 @@
                   </ion-icon>
                 </div>
               </div>
-              <div class="owner" style="display: flex; align-items: center;" (click)="gotoProfile(project.ownerUsername)">
+              <div class="owner" style="display: flex; align-items: center;"
+                (click)="gotoProfile(project.ownerUsername)">
                 <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
                   <img [src]="project.ownerImage">
                 </ion-avatar>
@@ -45,6 +46,15 @@
             <ion-col size="auto" class="website" (click)="gotoWebsite(project.website)">
               <ion-icon name="home-outline" style="height: 20px; width: 20px"></ion-icon>
               <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{project.website}}</strong></p>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="project.screenshots">
+            <ion-col>
+              <swiper [slidesPerView]="3" [pagination]="true">
+                <ng-template swiperSlide *ngFor="let screenshot of project.screenshots"><img [src]="screenshot" style="height: 500px;" alt=""></ng-template>
+
+              </swiper>
             </ion-col>
           </ion-row>
 
