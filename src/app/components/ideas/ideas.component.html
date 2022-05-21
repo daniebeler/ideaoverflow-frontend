@@ -45,18 +45,18 @@
 
                   <ion-col size="auto" class="like" style="display: flex; align-items: center;">
                     <ion-icon *ngIf="post.currentUserVoteValue === 1" name="heart" [ngStyle]="{'color':post.ownerColor}"
-                      style="width: 30px; height: 25px;" (click)="votePost(0, post.id)"></ion-icon>
+                      style="width: 30px; height: 25px;" (click)="votePost(0, post)"></ion-icon>
                     <ion-icon *ngIf="post.currentUserVoteValue !== 1" name="heart-outline"
-                      style="width: 30px; height: 25px;" (click)="votePost(1, post.id)"></ion-icon>
+                      style="width: 30px; height: 25px;" (click)="votePost(1, post)"></ion-icon>
                     <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{post.numberOfUpvotes}}</strong></p>
                   </ion-col>
 
                   <ion-col size="auto" class="like" style="display: flex; align-items: center;">
                     <ion-icon *ngIf="post.currentUserVoteValue === -1" name="thumbs-down"
                       [ngStyle]="{'color':post.ownerColor}" style="width: 30px; height: 25px;"
-                      (click)="votePost(0, post.id)"></ion-icon>
+                      (click)="votePost(0, post)"></ion-icon>
                     <ion-icon *ngIf="post.currentUserVoteValue !== -1" name="thumbs-down-outline"
-                      style="width: 30px; height: 25px;" (click)="votePost(-1, post.id)"></ion-icon>
+                      style="width: 30px; height: 25px;" (click)="votePost(-1, post)"></ion-icon>
                     <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{post.numberOfDownvotes}}</strong></p>
                   </ion-col>
 

@@ -114,13 +114,33 @@ export class IdeasComponent implements OnInit, OnDestroy {
     this.router.navigate(['posteditor/' + post.id]);
   }
 
-  votePost(voteValue: number, postId: number) {
+  votePost(voteValue: number, idea: Idea) {
     if (this.currentUser) {
-      const subscription3 = this.userService.getLatestUser().subscribe((latestUser) => {
-      this.ideaService.voteIdea(voteValue, postId, latestUser.id);
-      this.allLoadedPosts.find(x => x.id === postId).currentUserVoteValue = voteValue;
-    });
-    this.subscriptions.push(subscription3);
+      this.ideaService.voteIdea(voteValue, idea.id, this.currentUser.id);
+      if (idea.currentUserVoteValue === -1) {
+        if (voteValue === 0) {
+          console.log('mmem');
+          idea.numberOfDownvotes--;
+        } else if (voteValue === 1) {
+          console.log('mmem');
+          idea.numberOfDownvotes--;
+          idea.numberOfUpvotes++;
+        }
+      } else if (idea.currentUserVoteValue === 0) {
+        if (voteValue === -1) {
+          idea.numberOfDownvotes++;
+        } else if (voteValue === 1) {
+          idea.numberOfUpvotes++;
+        }
+      } else if (idea.currentUserVoteValue === 1) {
+        if (voteValue === -1) {
+          idea.numberOfDownvotes++;
+          idea.numberOfUpvotes--;
+        } else if (voteValue === 0) {
+          idea.numberOfUpvotes--;
+        }
+      }
+      idea.currentUserVoteValue = voteValue;
     } else {
       this.presentToast('You have to be logged in to vote ideas');
     }
@@ -128,11 +148,8 @@ export class IdeasComponent implements OnInit, OnDestroy {
 
   savePost(postId: number) {
     if (this.currentUser) {
-      const subscription4 = this.userService.getLatestUser().subscribe((latestUser) => {
-      this.ideaService.saveIdea(postId, latestUser.id);
+      this.ideaService.saveIdea(postId, this.currentUser.id);
       this.allLoadedPosts.find(x => x.id === postId).saved = true;
-    });
-    this.subscriptions.push(subscription4);
     } else {
       this.presentToast('You have to be logged in to save Ideas');
     }
@@ -140,11 +157,8 @@ export class IdeasComponent implements OnInit, OnDestroy {
 
   unsavePost(postId: number) {
     if (this.currentUser) {
-      const subscription5 = this.userService.getLatestUser().subscribe((latestUser) => {
-      this.ideaService.unsaveIdea(postId, latestUser.id);
+      this.ideaService.unsaveIdea(postId, this.currentUser.id);
       this.allLoadedPosts.find(x => x.id === postId).saved = false;
-    });
-    this.subscriptions.push(subscription5);
     } else {
       this.presentToast('You have to be logged in to save Ideas');
     }
