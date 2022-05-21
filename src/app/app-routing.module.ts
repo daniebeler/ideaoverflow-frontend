@@ -33,7 +33,7 @@ const routes: Routes = [
   },
   {
     path: 'posteditor/:id',
-    loadChildren: () => import('./pages/posteditor/posteditor.module').then(m => m.PostEditorPageModule),
+    loadChildren: () => import('./pages/ideaeditor/ideaeditor.module').then(m => m.IdeaEditorPageModule),
     canActivate: [AuthGuard]
   },
   {

@@ -4,10 +4,10 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PostEditorPageRoutingModule } from './posteditor-routing.module';
+import { IdeaEditorPageRoutingModule } from './ideaeditor-routing.module';
 import { ComponentsModule } from 'src/app/components/components.module';
 
-import { PostEditorPage } from './posteditor.page';
+import { IdeaEditorPage } from './ideaeditor.page';
 import { QuillModule } from 'ngx-quill';
 
 @NgModule({
@@ -17,8 +17,8 @@ import { QuillModule } from 'ngx-quill';
     IonicModule,
     ComponentsModule,
     QuillModule,
-    PostEditorPageRoutingModule
+    IdeaEditorPageRoutingModule
   ],
-  declarations: [PostEditorPage]
+  declarations: [IdeaEditorPage]
 })
-export class PostEditorPageModule {}
+export class IdeaEditorPageModule {}

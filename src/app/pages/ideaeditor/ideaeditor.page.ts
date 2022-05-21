@@ -2,25 +2,25 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { Post } from 'src/app/models/post';
+import { Idea } from 'src/app/models/idea';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
-import { PostService } from 'src/app/services/post.service';
+import { IdeaService } from 'src/app/services/idea.service';
 import { UserService } from 'src/app/services/user.service';
 import hash from 'object-hash';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-posteditor',
-  templateUrl: './posteditor.page.html',
-  styleUrls: ['./posteditor.page.scss'],
+  selector: 'app-ideaeditor',
+  templateUrl: './ideaeditor.page.html',
+  styleUrls: ['./ideaeditor.page.scss'],
 })
-export class PostEditorPage implements OnInit, OnDestroy {
+export class IdeaEditorPage implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
   user: User;
-  post: Post = new Post([]);
+  post: Idea = new Idea([]);
 
   postHash = '12';
 
@@ -34,7 +34,7 @@ export class PostEditorPage implements OnInit, OnDestroy {
     private router: Router,
     private userService: UserService,
     private alertController: AlertController,
-    private postService: PostService,
+    private ideaService: IdeaService,
     private activatedRoute: ActivatedRoute,
     private domSanitizer: DomSanitizer,
     private apiService: ApiService
@@ -47,7 +47,7 @@ export class PostEditorPage implements OnInit, OnDestroy {
       this.post.body = this.domSanitizer.bypassSecurityTrustHtml('');
     } else if (!isNaN(+urlslice)) {
       this.mode = 'edit';
-      const subscription1 = this.apiService.getPost(+urlslice).subscribe(post => {
+      const subscription1 = this.apiService.getIdea(+urlslice).subscribe(post => {
         this.postHash = hash(post);
         this.post = post;
       });
@@ -72,12 +72,12 @@ export class PostEditorPage implements OnInit, OnDestroy {
         role: 'ok',
         handler: () => {
           if (this.mode === 'new') {
-            const subscription3 = this.postService.createPost(this.post).subscribe(async res => {
+            const subscription3 = this.ideaService.createIdea(this.post).subscribe(async res => {
               this.redirect(res);
             });
             this.subscriptions.push(subscription3);
           } else if (this.mode === 'edit') {
-            const subscription4 = this.postService.updatePost(this.post).subscribe(res => {
+            const subscription4 = this.ideaService.updateIdea(this.post).subscribe(res => {
               this.redirect(res);
             });
             this.subscriptions.push(subscription4);

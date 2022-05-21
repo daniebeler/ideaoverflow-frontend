@@ -1,6 +1,6 @@
 import { SafeResourceUrl } from '@angular/platform-browser';
 
-export class Post {
+export class Idea {
 
   public id: number;
   public title: string;

@@ -1,17 +1,18 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Post } from 'src/app/models/post';
+import { Idea } from 'src/app/models/idea';
 import { User } from 'src/app/models/user';
-import { PostService } from 'src/app/services/post.service';
+import { ApiService } from 'src/app/services/api.service';
+import { IdeaService } from 'src/app/services/idea.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-posts',
-  templateUrl: './posts.component.html',
-  styleUrls: ['./posts.component.scss'],
+  templateUrl: './ideas.component.html',
+  styleUrls: ['./ideas.component.scss'],
 })
-export class PostsComponent implements OnInit, OnDestroy {
+export class IdeasComponent implements OnInit, OnDestroy {
 
   @Input() header = '';
   @Input() filterByUsername = '';
@@ -22,7 +23,7 @@ export class PostsComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   queryParams: string;
-  allLoadedPosts: Post[] = [];
+  allLoadedPosts: Idea[] = [];
   numberOfPosts = 5;
   skipPosts = -5;
   loadedUser = false;
@@ -36,7 +37,8 @@ export class PostsComponent implements OnInit, OnDestroy {
   alternativeHeader = 'Newest ideas';
 
   constructor(
-    private postService: PostService,
+    private ideaService: IdeaService,
+    private apiService: ApiService,
     private router: Router,
     private userService: UserService
   ) { }
@@ -71,7 +73,7 @@ export class PostsComponent implements OnInit, OnDestroy {
       params.searchTerm = this.searchTerm;
     }
 
-    const subscription2 = this.postService.getSelectedPosts(params).subscribe((posts: Post[]) => {
+    const subscription2 = this.apiService.getSelectedIdeas(params).subscribe((posts: Idea[]) => {
       if (isInitialLoad) {
         event.target.complete();
       }
@@ -106,13 +108,13 @@ export class PostsComponent implements OnInit, OnDestroy {
     this.router.navigate(['users/' + username]);
   }
 
-  editPost(post: Post) {
+  editPost(post: Idea) {
     this.router.navigate(['posteditor/' + post.id]);
   }
 
   votePost(voteValue: number, postId: number) {
     const subscription3 = this.userService.getLatestUser().subscribe((latestUser) => {
-      this.postService.votePost(voteValue, postId, latestUser.id);
+      this.ideaService.voteIdea(voteValue, postId, latestUser.id);
       this.allLoadedPosts.find(x => x.id === postId).currentUserVoteValue = voteValue;
     });
     this.subscriptions.push(subscription3);
@@ -120,7 +122,7 @@ export class PostsComponent implements OnInit, OnDestroy {
 
   savePost(postId: number) {
     const subscription4 = this.userService.getLatestUser().subscribe((latestUser) => {
-      this.postService.savePost(postId, latestUser.id);
+      this.ideaService.saveIdea(postId, latestUser.id);
       this.allLoadedPosts.find(x => x.id === postId).saved = true;
     });
     this.subscriptions.push(subscription4);
@@ -128,7 +130,7 @@ export class PostsComponent implements OnInit, OnDestroy {
 
   unsavePost(postId: number) {
     const subscription5 = this.userService.getLatestUser().subscribe((latestUser) => {
-      this.postService.unsavePost(postId, latestUser.id);
+      this.ideaService.unsaveIdea(postId, latestUser.id);
       this.allLoadedPosts.find(x => x.id === postId).saved = false;
     });
     this.subscriptions.push(subscription5);

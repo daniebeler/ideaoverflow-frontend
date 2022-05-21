@@ -14,7 +14,6 @@ export class ProjectAdapter implements Adapter<Project> {
   ) { }
 
   adapt(item: any): Project {
-    console.log(item);
     item.creationdate = new Date(item.creation_date);
     item.startdate = new Date(item.start_date);
     if (item.release_date) {

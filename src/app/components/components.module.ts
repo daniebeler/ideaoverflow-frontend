@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { PostsComponent } from './posts/posts.component';
+import { IdeasComponent } from './ideas/ideas.component';
 import { FooterComponent } from './footer/footer.component';
 import { FollowersComponent } from './followers/followers.component';
 import { AboutComponent } from './about/about.component';
@@ -15,7 +15,7 @@ import { ProjectsComponent } from './projects/projects.component';
   declarations: [
     HeaderComponent,
     FooterComponent,
-    PostsComponent,
+    IdeasComponent,
     ProjectsComponent,
     FollowersComponent,
     AboutComponent,
@@ -24,7 +24,7 @@ import { ProjectsComponent } from './projects/projects.component';
   exports: [
     HeaderComponent,
     FooterComponent,
-    PostsComponent,
+    IdeasComponent,
     ProjectsComponent,
     FollowersComponent,
     AboutComponent,

@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
-import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-footer',
@@ -17,12 +16,11 @@ export class FooterComponent implements OnInit, OnDestroy {
   numberOfTotalProjects = 0;
 
   constructor(
-    private postService: PostService,
     private apiService: ApiService
   ) { }
 
   ngOnInit() {
-    const subscription1 = this.postService.getNumberOfTotalPosts().subscribe(numberOfTotalPosts => {
+    const subscription1 = this.apiService.getNumberOfTotalIdeas().subscribe(numberOfTotalPosts => {
       this.numberOfTotalPosts = numberOfTotalPosts;
     });
 

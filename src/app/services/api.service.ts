@@ -7,8 +7,8 @@ import { User } from '../models/user';
 import { UserAdapter } from '../adapter/user-adapter';
 import { Project } from '../models/project';
 import { ProjectAdapter } from '../adapter/project-adapter';
-import { Post } from '../models/post';
-import { PostAdapter } from '../adapter/post-adapter';
+import { Idea } from '../models/idea';
+import { IdeaAdapter } from '../adapter/idea-adapter';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +19,17 @@ export class ApiService {
     private http: HttpClient,
     private userAdapter: UserAdapter,
     private projectAdapter: ProjectAdapter,
-    private postAdapter: PostAdapter
+    private ideaAdapter: IdeaAdapter
   ) { }
 
-  getUser(username): Observable<User> {
+  getUser(username: string): Observable<User> {
     return this.http.get<any>(environment.api + 'user/databyusername/' + username).pipe(
+      map(data => this.userAdapter.adapt(data))
+    );
+  }
+
+  getUserById(id: number): Observable<User> {
+    return this.http.get<any>(environment.api + 'user/databyuserid/' + id).pipe(
       map(data => this.userAdapter.adapt(data))
     );
   }
@@ -123,6 +129,12 @@ export class ApiService {
     );
   }
 
+  checkIfFollowing(data: any): Observable<boolean> {
+    return this.http.post<any>(environment.api + 'follower/checkfollow', data).pipe(
+      map(result => result.following)
+    );
+  }
+
   getProject(id: number): Observable<Project> {
     return this.http.get<any>(environment.api + 'project/byid/' + id).pipe(
       map(data => this.projectAdapter.adapt(data))
@@ -149,9 +161,41 @@ export class ApiService {
     return this.http.post<any>(environment.api + 'project/update', data);
   }
 
-  getPost(id: number): Observable<Post> {
-    return this.http.get<any>(environment.api + 'post/byid/' + id).pipe(
-      map(data => this.postAdapter.adapt(data))
+  getIdea(id: number): Observable<Idea> {
+    return this.http.get<any>(environment.api + 'idea/byid/' + id).pipe(
+      map(data => this.ideaAdapter.adapt(data))
     );
+  }
+
+  getSelectedIdeas(params: any): Observable<Idea[]> {
+    return this.http.post<Idea[]>(environment.api + 'idea/ideas/', params).pipe(
+      map((data: any[]) => data.map((item) => this.ideaAdapter.adapt(item)))
+    );
+  }
+
+  getNumberOfTotalIdeas(): Observable<number> {
+    return this.http.get<any>(environment.api + 'idea/numberoftotalideas').pipe(
+      map(data => data.numberoftotalideas)
+    );
+  }
+
+  voteIdea(voteValue: number, ideaId: number, userId: number): Observable<any> {
+    return this.http.post<any>(environment.api + 'idea/vote/', { voteValue, ideaId, userId });
+  }
+
+  saveIdea(ideaId: number, userId: number): Observable<any> {
+    return this.http.post<any>(environment.api + 'idea/save/', { ideaId, userId });
+  }
+
+  unsaveIdea(ideaId: number, userId: number): Observable<any> {
+    return this.http.post<any>(environment.api + 'idea/unsave/', { ideaId, userId });
+  }
+
+  createIdea(data: any): Observable<any> {
+    return this.http.post<any>(environment.api + 'idea/create/', data);
+  }
+
+  updateIdea(data: any): Observable<any> {
+    return this.http.post<any>(environment.api + 'idea/update/', data);
   }
 }

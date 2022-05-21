@@ -77,13 +77,11 @@ export class ProjectEditorPage implements OnInit, OnDestroy {
         handler: () => {
           if (this.mode === 'new') {
             const subscription3 = this.projectService.createProject(this.project).subscribe(async res => {
-              console.log(res);
               this.redirect(res);
             });
             this.subscriptions.push(subscription3);
           } else if (this.mode === 'edit') {
             const subscription4 = this.projectService.updateProject(this.project).subscribe(res => {
-              console.log(res);
               this.redirect(res);
             });
             this.subscriptions.push(subscription4);
@@ -147,7 +145,6 @@ export class ProjectEditorPage implements OnInit, OnDestroy {
     if (event.target.value) {
       this.project.releaseDate = new Date(event.target.value);
       this.project.releaseDate.setHours(0, 0, 0, 0);
-      console.log(this.project.releaseDate);
     } else {
       this.project.releaseDate = undefined;
     }

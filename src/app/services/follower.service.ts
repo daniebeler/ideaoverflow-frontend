@@ -1,9 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
-import { UserAdapter } from '../adapter/user-adapter';
+import { catchError } from 'rxjs/operators';
 import { AlertService } from './alert.service';
 import { ApiService } from './api.service';
 import { AuthService } from './auth.service';
@@ -16,7 +13,6 @@ export class FollowerService {
 
   constructor(
     private authService: AuthService,
-    private httpClient: HttpClient,
     private apiService: ApiService,
     private alertService: AlertService,
     private userService: UserService
@@ -67,8 +63,6 @@ export class FollowerService {
       followerID: this.authService.getUser().id,
       followeeID
     };
-    return this.httpClient.post<any>(environment.api + 'follower/checkfollow', obj).pipe(
-      map(data => data.following)
-    );
+    return this.apiService.checkIfFollowing(obj);
   }
 }
