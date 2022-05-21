@@ -37,3 +37,20 @@
   cursor: pointer;
   background-color: var(--ion-color-dark-shade);
 }
+
+.swipe-img {
+  border-radius: var(--border-radius-big);
+  max-height: 200px;
+}
+
+// swiper{
+//   height: 400px;
+// }
+
+.swiper-slide{
+  width: 200px !important;
+}
+
+.swiper-wrapper {
+  width: 200px !important;
+}

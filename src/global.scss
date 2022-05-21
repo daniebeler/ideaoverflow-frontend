@@ -28,6 +28,9 @@
 
 @import '~swiper/scss';
 @import '~@ionic/angular/css/ionic-swiper';
+@import '~swiper/scss/pagination';
+@import '~swiper/scss/effect-cards';
+@import '~swiper/scss/free-mode';
 
 ::selection {
   color: var(--ion-color-light);
@@ -257,5 +260,22 @@ quill-editor {
     .ql-editor.ql-blank::before {
       color: var(--ion-color-light);
     }
+  }
+}
+
+.swiper-slide {
+  width: fit-content !important;
+}
+
+.swipe-img {
+  border-radius: var(--border-radius-big);
+  max-height: 60vh !important;
+  max-width: 100% !important;
+}
+
+@media (min-width: 768px) {
+  .swipe-img {
+    max-height: 500px !important;
+    max-width: 500px !important;
   }
 }
