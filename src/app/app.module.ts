@@ -14,6 +14,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { QuillModule } from 'ngx-quill';
 import { ExternalHrefPipe } from './pipes/external-href.pipe';
+import { ComponentsModule } from './components/components.module';
 
 // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 export function jwtOptionsFactory(storage) {
@@ -26,7 +27,7 @@ export function jwtOptionsFactory(storage) {
 @NgModule({
   declarations: [AppComponent, ExternalHrefPipe],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot({ mode: 'md' }), AppRoutingModule, HttpClientModule,
+  imports: [BrowserModule, ComponentsModule, IonicModule.forRoot({ mode: 'md' }), AppRoutingModule, HttpClientModule,
     IonicStorageModule.forRoot(), QuillModule.forRoot(), JwtModule.forRoot({
       jwtOptionsProvider: {
         provide: JWT_OPTIONS,
