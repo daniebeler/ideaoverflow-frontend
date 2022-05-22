@@ -119,10 +119,8 @@ export class IdeasComponent implements OnInit, OnDestroy {
       this.ideaService.voteIdea(voteValue, idea.id, this.currentUser.id);
       if (idea.currentUserVoteValue === -1) {
         if (voteValue === 0) {
-          console.log('mmem');
           idea.numberOfDownvotes--;
         } else if (voteValue === 1) {
-          console.log('mmem');
           idea.numberOfDownvotes--;
           idea.numberOfUpvotes++;
         }

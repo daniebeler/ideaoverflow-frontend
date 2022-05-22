@@ -34,7 +34,7 @@ export class ProjectService {
       short_description: project.shortDescription,
       body: project.body.changingThisBreaksApplicationSecurity,
       owner_id: project.ownerId,
-      logo: logo.changingThisBreaksApplicationSecurity,
+      // logo: logo.changingThisBreaksApplicationSecurity,
       website: project.website,
       release_date: releaseDate,
       screenshots

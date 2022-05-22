@@ -103,7 +103,11 @@ export class ProjectEditorPage implements OnInit, OnDestroy {
         role: 'ok',
         handler: () => {
           if (res.status === 200) {
-            this.router.navigate(['']);
+            if (res.id === -1) {
+              this.router.navigate(['projects/' + this.project.id]);
+            } else {
+              this.router.navigate(['projects/' + res.id]);
+            }
           }
         }
       }]
