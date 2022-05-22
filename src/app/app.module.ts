@@ -27,7 +27,7 @@ export function jwtOptionsFactory(storage) {
 @NgModule({
   declarations: [AppComponent, ExternalHrefPipe],
   entryComponents: [],
-  imports: [BrowserModule, ComponentsModule, IonicModule.forRoot({ mode: 'md' }), AppRoutingModule, HttpClientModule,
+  imports: [BrowserModule.withServerTransition({ appId: 'serverApp' }), ComponentsModule, IonicModule.forRoot({ mode: 'md' }), AppRoutingModule, HttpClientModule,
     IonicStorageModule.forRoot(), QuillModule.forRoot(), JwtModule.forRoot({
       jwtOptionsProvider: {
         provide: JWT_OPTIONS,
