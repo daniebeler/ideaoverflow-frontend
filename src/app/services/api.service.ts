@@ -211,4 +211,19 @@ export class ApiService {
   updateIdea(data: any): Observable<any> {
     return this.httpClient.post<any>(environment.api + 'idea/update/', data, { headers: this.getHeader() });
   }
+
+  checkIfIdeaBelongsToUser(ideaId: number): Observable<boolean> {
+    return this.httpClient.get<any>(environment.api + 'idea/checkifideabelongstouser/' + ideaId, { headers: this.getHeader() }).pipe(
+      map(data => data.accessgranted)
+    );
+  }
+
+  checkIfProjectBelongsToUser(projectId: number): Observable<boolean> {
+    return this.httpClient.get<any>(
+      environment.api + 'project/checkifprojectbelongstouser/' + projectId,
+      { headers: this.getHeader() }
+    ).pipe(
+      map(data => data.accessgranted)
+    );
+  }
 }

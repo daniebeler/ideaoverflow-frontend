@@ -22,6 +22,8 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
   user: User;
   post: Idea = new Idea([]);
 
+  verifiedAccess = false;
+
   postHash = '12';
 
   editorInstance: any = {};
@@ -47,11 +49,14 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
       this.post.body = this.domSanitizer.bypassSecurityTrustHtml('');
     } else if (!isNaN(+urlslice)) {
       this.mode = 'edit';
+      const subscription3 = this.apiService.checkIfIdeaBelongsToUser(+urlslice).subscribe(result => {
+        this.verifiedAccess = result;
+      });
       const subscription1 = this.apiService.getIdea(+urlslice).subscribe(post => {
         this.postHash = hash(post);
         this.post = post;
       });
-      this.subscriptions.push(subscription1);
+      this.subscriptions.push(subscription1, subscription3);
     }
 
     const subscription2 = this.userService.getLatestUser().subscribe((latestUser) => {

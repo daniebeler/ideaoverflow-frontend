@@ -125,7 +125,7 @@ export class ProfilePage implements OnInit, OnDestroy {
   }
 
   createIdea() {
-    this.router.navigate(['posteditor/new']);
+    this.router.navigate(['ideaeditor/new']);
   }
 
   createProject() {

@@ -111,7 +111,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
   }
 
   editPost(post: Idea) {
-    this.router.navigate(['posteditor/' + post.id]);
+    this.router.navigate(['ideaeditor/' + post.id]);
   }
 
   votePost(voteValue: number, idea: Idea) {

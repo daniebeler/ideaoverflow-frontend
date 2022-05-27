@@ -41,11 +41,11 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   gotoNewpost() {
-    this.router.navigate(['posteditor/new']);
+    this.router.navigate(['ideaeditor/new']);
   }
 
   createIdea() {
-    this.router.navigate(['posteditor/new']);
+    this.router.navigate(['ideaeditor/new']);
   }
 
   createProject() {

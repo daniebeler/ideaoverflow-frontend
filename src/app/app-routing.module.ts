@@ -32,7 +32,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/verify/verify.module').then(m => m.VerifyPageModule)
   },
   {
-    path: 'posteditor/:id',
+    path: 'ideaeditor/:id',
     loadChildren: () => import('./pages/ideaeditor/ideaeditor.module').then(m => m.IdeaEditorPageModule),
     canActivate: [AuthGuard]
   },

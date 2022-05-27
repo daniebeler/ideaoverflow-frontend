@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   gotoNewpost() {
-    this.router.navigate(['posteditor/new']);
+    this.router.navigate(['ideaeditor/new']);
   }
 
   gotoHome() {

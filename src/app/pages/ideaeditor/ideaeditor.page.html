@@ -1,5 +1,5 @@
 <ion-content>
-  <ion-grid *ngIf="post" class="container">
+  <ion-grid *ngIf="post && verifiedAccess" class="container">
     <ion-row style="padding: 40px 0 20px 0;">
       <ion-col>
         <div class="form-group">
@@ -17,9 +17,17 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <ion-grid *ngIf="!verifiedAccess" class="container">
+    <ion-row style="padding: 40px 0 20px 0;">
+      <ion-col>
+        <h1>Access denied</h1>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="verifiedAccess">
   <ion-grid class="container">
     <ion-row>
       <ion-col style="display: flex; flex-direction: column; justify-content: center;">

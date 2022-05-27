@@ -25,6 +25,8 @@ export class ProjectEditorPage implements OnInit, OnDestroy {
 
   editorInstance: any = {};
 
+  verifiedAccess = false;
+
   showSubmitButton = false;
 
   mode = '';
@@ -53,12 +55,15 @@ export class ProjectEditorPage implements OnInit, OnDestroy {
       this.subscriptions.push(subscription1);
     } else if (!isNaN(+urlslice)) {
       this.mode = 'edit';
+      const subscription3 = this.apiService.checkIfProjectBelongsToUser(+urlslice).subscribe(result => {
+        this.verifiedAccess = result;
+      });
       const subscription2 = this.apiService.getProject(+urlslice).pipe(filter(project => Boolean(project))).subscribe(project => {
         this.projectHash = hash(project);
         this.project = project;
         this.releaseDate = this.datePipe.transform(project.releaseDate, 'yyyy-MM-dd');
       });
-      this.subscriptions.push(subscription2);
+      this.subscriptions.push(subscription2, subscription3);
     }
 
     this.project.screenshots = [];
