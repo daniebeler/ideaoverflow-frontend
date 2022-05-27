@@ -9,6 +9,7 @@ import { Project } from '../models/project';
 import { ProjectAdapter } from '../adapter/project-adapter';
 import { Idea } from '../models/idea';
 import { IdeaAdapter } from '../adapter/idea-adapter';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,20 @@ export class ApiService {
     private http: HttpClient,
     private userAdapter: UserAdapter,
     private projectAdapter: ProjectAdapter,
-    private ideaAdapter: IdeaAdapter
+    private ideaAdapter: IdeaAdapter,
+    private storageService: StorageService
   ) { }
+
+  getHeader(): HttpHeaders {
+    const headers = new HttpHeaders({
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      'Content-Type': 'application/json; charset=utf-8',
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      // eslint-disable-next-line quote-props
+      'Authorization': 'Bearer ' + this.storageService.getTokenString()
+    });
+    return headers;
+  }
 
   getUser(username: string): Observable<User> {
     return this.http.get<any>(environment.api + 'user/databyusername/' + username).pipe(
@@ -83,11 +96,12 @@ export class ApiService {
   }
 
   updateUser(data: any): Observable<any> {
-    return this.http.post<any>(environment.api + 'user/changedata', data);
+    return this.http.post<any>(environment.api + 'user/changedata', data, { headers: this.getHeader() });
   }
 
   changePassword(data: any): Observable<any> {
-    return this.http.post<any>(environment.api + 'user/changepw', data);
+    console.log(data);
+    return this.http.post<any>(environment.api + 'user/changepw', data, { headers: this.getHeader() });
   }
 
   resetPassword(email): Observable<any> {
@@ -110,11 +124,11 @@ export class ApiService {
   }
 
   addFollower(data: any): Observable<any> {
-    return this.http.post<any>(environment.api + 'follower/follow', data);
+    return this.http.post<any>(environment.api + 'follower/follow', data, { headers: this.getHeader() });
   }
 
   removeFollower(data: any): Observable<any> {
-    return this.http.post<any>(environment.api + 'follower/unfollow', data);
+    return this.http.post<any>(environment.api + 'follower/unfollow', data, { headers: this.getHeader() });
   }
 
   getFollowees(username: string): Observable<User[]> {
@@ -154,11 +168,11 @@ export class ApiService {
   }
 
   createProject(data: any): Observable<any> {
-    return this.http.post<any>(environment.api + 'project/create', data);
+    return this.http.post<any>(environment.api + 'project/create', data, { headers: this.getHeader() });
   }
 
   updateProject(data: any): Observable<any> {
-    return this.http.post<any>(environment.api + 'project/update', data);
+    return this.http.post<any>(environment.api + 'project/update', data, { headers: this.getHeader() });
   }
 
   getIdea(id: number): Observable<Idea> {
@@ -180,22 +194,22 @@ export class ApiService {
   }
 
   voteIdea(voteValue: number, ideaId: number, userId: number): Observable<any> {
-    return this.http.post<any>(environment.api + 'idea/vote/', { voteValue, ideaId, userId });
+    return this.http.post<any>(environment.api + 'idea/vote/', { voteValue, ideaId, userId }, { headers: this.getHeader() });
   }
 
   saveIdea(ideaId: number, userId: number): Observable<any> {
-    return this.http.post<any>(environment.api + 'idea/save/', { ideaId, userId });
+    return this.http.post<any>(environment.api + 'idea/save/', { ideaId, userId }, { headers: this.getHeader() });
   }
 
   unsaveIdea(ideaId: number, userId: number): Observable<any> {
-    return this.http.post<any>(environment.api + 'idea/unsave/', { ideaId, userId });
+    return this.http.post<any>(environment.api + 'idea/unsave/', { ideaId, userId }, { headers: this.getHeader() });
   }
 
   createIdea(data: any): Observable<any> {
-    return this.http.post<any>(environment.api + 'idea/create/', data);
+    return this.http.post<any>(environment.api + 'idea/create/', data, { headers: this.getHeader() });
   }
 
   updateIdea(data: any): Observable<any> {
-    return this.http.post<any>(environment.api + 'idea/update/', data);
+    return this.http.post<any>(environment.api + 'idea/update/', data, { headers: this.getHeader() });
   }
 }

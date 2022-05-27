@@ -10,6 +10,7 @@ export class StorageService {
 
 
   private myStorage: Storage | null = null;
+  private token: string = null;
 
   constructor(private storage: Storage) {
     this.init();
@@ -18,6 +19,7 @@ export class StorageService {
   async init() {
     const storage = await this.storage.create();
     this.myStorage = storage;
+    this.token = await this.storage?.get(TOKEN_KEY);
   }
 
   setToken(value: any) {
@@ -30,5 +32,13 @@ export class StorageService {
 
   removeToken() {
     return this.storage?.remove(TOKEN_KEY);
+  }
+
+  setTokenString(value: string){
+    this.token = value;
+  }
+
+  getTokenString(){
+    return this.token;
   }
 }

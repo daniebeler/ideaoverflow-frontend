@@ -11,7 +11,7 @@ export class FooterComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  numberOfTotalPosts = 0;
+  numberOfTotalIdeas = 0;
   numberOfTotalUsers = 0;
   numberOfTotalProjects = 0;
 
@@ -20,8 +20,8 @@ export class FooterComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    const subscription1 = this.apiService.getNumberOfTotalIdeas().subscribe(numberOfTotalPosts => {
-      this.numberOfTotalPosts = numberOfTotalPosts;
+    const subscription1 = this.apiService.getNumberOfTotalIdeas().subscribe(numberOfTotalIdeas => {
+      this.numberOfTotalIdeas = numberOfTotalIdeas;
     });
 
     const subscription2 = this.apiService.getNumberOfTotalUsers().subscribe(numberOfTotalUsers => {
