@@ -9,12 +9,12 @@ import { filter, take, map } from 'rxjs/operators';
 })
 export class AutoLoginGuard implements CanActivate {
   constructor(
-    private auth: AuthService,
+    private authService: AuthService,
     private router: Router
   ) { }
 
   canActivate(): Observable<boolean> {
-    return this.auth.authenticationState.pipe(
+    return this.authService.authenticationState.pipe(
       filter(val => val !== null),
       take(1),
       map(isAuthenticated => {

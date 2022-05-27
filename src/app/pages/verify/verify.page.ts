@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -14,13 +13,11 @@ export class VerifyPage implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   isVerified = false;
-  public devWidth = this.plt.width();
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private apiService: ApiService,
-    private plt: Platform
+    private apiService: ApiService
   ) { }
 
    ngOnInit() {

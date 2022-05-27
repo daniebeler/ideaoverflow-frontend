@@ -21,14 +21,14 @@ export class SetnewpasswordPage implements OnInit, OnDestroy {
   codeIsCorrect: false;
 
   constructor(
-    private activeRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private apiService: ApiService,
     private authService: AuthService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.code = this.activeRoute.snapshot.paramMap.get('code');
+    this.code = this.activatedRoute.snapshot.paramMap.get('code');
     const subscription1 = this.apiService.checkCode(this.code).subscribe(res => {
       this.codeIsCorrect = res.exists;
       this.message = res.message;

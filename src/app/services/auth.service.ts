@@ -20,7 +20,7 @@ export class AuthService {
 
   constructor(
     private router: Router,
-    private helper: JwtHelperService,
+    private jwtHelperService: JwtHelperService,
     private platform: Platform,
     private apiService: ApiService,
     private alertService: AlertService,
@@ -36,8 +36,8 @@ export class AuthService {
   checkToken() {
     this.storageService.getToken().then(token => {
       if (token) {
-        const decoded = this.helper.decodeToken(token);
-        const isExpired = this.helper.isTokenExpired(token);
+        const decoded = this.jwtHelperService.decodeToken(token);
+        const isExpired = this.jwtHelperService.isTokenExpired(token);
 
         if (!isExpired) {
           this.decodedUserToken = decoded;
@@ -88,7 +88,7 @@ export class AuthService {
     return this.apiService.login(email, password).subscribe(async res => {
       if (res.token) {
         await this.storageService.setToken(res.token);
-        this.decodedUserToken = this.helper.decodeToken(res.token);
+        this.decodedUserToken = this.jwtHelperService.decodeToken(res.token);
         this.authenticationState.next(true);
         this.userService.fetchUserFromApi(this.getUser().id);
         this.router.navigate(['']);

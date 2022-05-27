@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Platform } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -17,9 +16,10 @@ export class RegisterPage {
 
   allschooldata: Array<any> = [];
 
-  public devWidth = this.plt.width();
-
-  constructor(private auth: AuthService, private plt: Platform, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+    ) { }
 
   ionViewWillEnter() {
     this.email = '';
@@ -29,7 +29,7 @@ export class RegisterPage {
   }
 
   register() {
-    this.auth.register(this.email, this.username, this.password1, this.password2);
+    this.authService.register(this.email, this.username, this.password1, this.password2);
   }
 
   gotoLogin() {

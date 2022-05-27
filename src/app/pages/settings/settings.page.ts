@@ -35,8 +35,8 @@ export class SettingsPage implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private auth: AuthService,
-    private api: ApiService,
+    private authService: AuthService,
+    private apiService: ApiService,
     private userService: UserService,
     private httpClient: HttpClient,
     private domSanitizer: DomSanitizer,
@@ -67,7 +67,7 @@ export class SettingsPage implements OnInit, OnDestroy {
   }
 
   updateUser() {
-    this.auth.updateUser(this.user);
+    this.authService.updateUser(this.user);
     this.presentToast();
   }
 
@@ -87,7 +87,7 @@ export class SettingsPage implements OnInit, OnDestroy {
   }
 
   changePassword() {
-    this.auth.changePassword(this.oldPassword, this.newPassword1, this.newPassword2);
+    this.authService.changePassword(this.oldPassword, this.newPassword1, this.newPassword2);
   }
 
   findCountry(valueToFind) {
@@ -103,7 +103,7 @@ export class SettingsPage implements OnInit, OnDestroy {
     if (event.target.files != null) {
       const file = event.target.files[0];
       if (file != null) {
-        const subscription3 = this.api.uploadImage(file).subscribe((res: any) => {
+        const subscription3 = this.apiService.uploadImage(file).subscribe((res: any) => {
           if (res.data.link) {
             this.user.profileimage = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
             this.checkForChange();

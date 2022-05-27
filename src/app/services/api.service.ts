@@ -17,7 +17,7 @@ import { StorageService } from './storage.service';
 export class ApiService {
 
   constructor(
-    private http: HttpClient,
+    private httpClient: HttpClient,
     private userAdapter: UserAdapter,
     private projectAdapter: ProjectAdapter,
     private ideaAdapter: IdeaAdapter,
@@ -29,187 +29,186 @@ export class ApiService {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       'Content-Type': 'application/json; charset=utf-8',
       // eslint-disable-next-line @typescript-eslint/naming-convention
-      // eslint-disable-next-line quote-props
-      'Authorization': 'Bearer ' + this.storageService.getTokenString()
+      Authorization: 'Bearer ' + this.storageService.getTokenString()
     });
     return headers;
   }
 
   getUser(username: string): Observable<User> {
-    return this.http.get<any>(environment.api + 'user/databyusername/' + username).pipe(
+    return this.httpClient.get<any>(environment.api + 'user/databyusername/' + username).pipe(
       map(data => this.userAdapter.adapt(data))
     );
   }
 
   getUserById(id: number): Observable<User> {
-    return this.http.get<any>(environment.api + 'user/databyuserid/' + id).pipe(
+    return this.httpClient.get<any>(environment.api + 'user/databyuserid/' + id).pipe(
       map(data => this.userAdapter.adapt(data))
     );
   }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<any>(environment.api + 'user/users/').pipe(
+    return this.httpClient.get<any>(environment.api + 'user/users/').pipe(
       map((data: any[]) => data.map((item) => this.userAdapter.adapt(item)))
     );
   }
 
   getUsersBySearchterm(searchTerm: string): Observable<User[]> {
-    return this.http.get<any>(environment.api + 'user/usersbysearchterm/' + searchTerm).pipe(
+    return this.httpClient.get<any>(environment.api + 'user/usersbysearchterm/' + searchTerm).pipe(
       map((data: any[]) => data.map((item) => this.userAdapter.adapt(item)))
     );
   }
 
   getNumberOfTotalUsers(): Observable<number> {
-    return this.http.get<any>(environment.api + 'user/numberoftotalusers').pipe(
+    return this.httpClient.get<any>(environment.api + 'user/numberoftotalusers').pipe(
       map(data => data.numberoftotalusers)
     );
   }
 
   getNumberOfIdeasByUser(userId: number): Observable<number> {
-    return this.http.get<any>(environment.api + 'user/numberofideasbyuser/' + userId).pipe(
+    return this.httpClient.get<any>(environment.api + 'user/numberofideasbyuser/' + userId).pipe(
       map(data => data.numberofideas)
     );
   }
 
   getNumberOfProjectsByUser(userId: number): Observable<number> {
-    return this.http.get<any>(environment.api + 'user/numberofprojectsbyuser/' + userId).pipe(
+    return this.httpClient.get<any>(environment.api + 'user/numberofprojectsbyuser/' + userId).pipe(
       map(data => data.numberofprojects)
     );
   }
 
   register(data: any): Observable<any> {
-    return this.http.post<any>(environment.api + 'registration/register', data);
+    return this.httpClient.post<any>(environment.api + 'registration/register', data);
   }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(environment.api + 'registration/login', { email, password });
+    return this.httpClient.post<any>(environment.api + 'registration/login', { email, password });
   }
 
   verify(code: string): Observable<boolean> {
-    return this.http.get<any>(environment.api + 'registration/verify/' + code).pipe(
+    return this.httpClient.get<any>(environment.api + 'registration/verify/' + code).pipe(
       map(data => data.verified)
     );
   }
 
   sendVerificationMailAgain(email: string): Observable<any> {
-    return this.http.post<any>(environment.api + 'registration/sendverificationmailagain', { email });
+    return this.httpClient.post<any>(environment.api + 'registration/sendverificationmailagain', { email });
   }
 
   updateUser(data: any): Observable<any> {
-    return this.http.post<any>(environment.api + 'user/changedata', data, { headers: this.getHeader() });
+    return this.httpClient.post<any>(environment.api + 'user/changedata', data, { headers: this.getHeader() });
   }
 
   changePassword(data: any): Observable<any> {
     console.log(data);
-    return this.http.post<any>(environment.api + 'user/changepw', data, { headers: this.getHeader() });
+    return this.httpClient.post<any>(environment.api + 'user/changepw', data, { headers: this.getHeader() });
   }
 
   resetPassword(email): Observable<any> {
-    return this.http.post<any>(environment.api + 'registration/resetpassword/', { email });
+    return this.httpClient.post<any>(environment.api + 'registration/resetpassword/', { email });
   }
 
   setPassword(data: any): Observable<any> {
-    return this.http.post<any>(environment.api + 'registration/setpassword', data);
+    return this.httpClient.post<any>(environment.api + 'registration/setpassword', data);
   }
 
   checkCode(code: string): Observable<any> {
-    return this.http.get<any>(environment.api + 'registration/checkresetcode/' + code);
+    return this.httpClient.get<any>(environment.api + 'registration/checkresetcode/' + code);
   }
 
   uploadImage(file: any): Observable<any> {
     const dataFile = new FormData();
     dataFile.append('image', file);
     const headers = new HttpHeaders({ authorization: 'Client-ID c0df3b4f744766f' });
-    return this.http.post('https://api.imgur.com/3/image/', dataFile, { headers });
+    return this.httpClient.post('https://api.imgur.com/3/image/', dataFile, { headers });
   }
 
   addFollower(data: any): Observable<any> {
-    return this.http.post<any>(environment.api + 'follower/follow', data, { headers: this.getHeader() });
+    return this.httpClient.post<any>(environment.api + 'follower/follow', data, { headers: this.getHeader() });
   }
 
   removeFollower(data: any): Observable<any> {
-    return this.http.post<any>(environment.api + 'follower/unfollow', data, { headers: this.getHeader() });
+    return this.httpClient.post<any>(environment.api + 'follower/unfollow', data, { headers: this.getHeader() });
   }
 
   getFollowees(username: string): Observable<User[]> {
-    return this.http.get<any>(environment.api + 'follower/followeesbyusername/' + username).pipe(
+    return this.httpClient.get<any>(environment.api + 'follower/followeesbyusername/' + username).pipe(
       map((data: any[]) => data.map((item) => this.userAdapter.adapt(item)))
     );
   }
 
   getFollowers(username: string): Observable<User[]> {
-    return this.http.get<any>(environment.api + 'follower/followersbyusername/' + username).pipe(
+    return this.httpClient.get<any>(environment.api + 'follower/followersbyusername/' + username).pipe(
       map((data: any[]) => data.map((item) => this.userAdapter.adapt(item)))
     );
   }
 
   checkIfFollowing(data: any): Observable<boolean> {
-    return this.http.post<any>(environment.api + 'follower/checkfollow', data).pipe(
+    return this.httpClient.post<any>(environment.api + 'follower/checkfollow', data).pipe(
       map(result => result.following)
     );
   }
 
   getProject(id: number): Observable<Project> {
-    return this.http.get<any>(environment.api + 'project/byid/' + id).pipe(
+    return this.httpClient.get<any>(environment.api + 'project/byid/' + id).pipe(
       map(data => this.projectAdapter.adapt(data))
     );
   }
 
   getSelectedProjects(params: any): Observable<Project[]> {
-    return this.http.post<Project[]>(environment.api + 'project/projects/', params).pipe(
+    return this.httpClient.post<Project[]>(environment.api + 'project/projects/', params).pipe(
       map((data: any[]) => data.map((item) => this.projectAdapter.adapt(item)))
     );
   }
 
   getNumberOfTotalProjects(): Observable<number> {
-    return this.http.get<any>(environment.api + 'project/numberoftotalprojects').pipe(
+    return this.httpClient.get<any>(environment.api + 'project/numberoftotalprojects').pipe(
       map(data => data.numberoftotalprojects)
     );
   }
 
   createProject(data: any): Observable<any> {
-    return this.http.post<any>(environment.api + 'project/create', data, { headers: this.getHeader() });
+    return this.httpClient.post<any>(environment.api + 'project/create', data, { headers: this.getHeader() });
   }
 
   updateProject(data: any): Observable<any> {
-    return this.http.post<any>(environment.api + 'project/update', data, { headers: this.getHeader() });
+    return this.httpClient.post<any>(environment.api + 'project/update', data, { headers: this.getHeader() });
   }
 
   getIdea(id: number): Observable<Idea> {
-    return this.http.get<any>(environment.api + 'idea/byid/' + id).pipe(
+    return this.httpClient.get<any>(environment.api + 'idea/byid/' + id).pipe(
       map(data => this.ideaAdapter.adapt(data))
     );
   }
 
   getSelectedIdeas(params: any): Observable<Idea[]> {
-    return this.http.post<Idea[]>(environment.api + 'idea/ideas/', params).pipe(
+    return this.httpClient.post<Idea[]>(environment.api + 'idea/ideas/', params).pipe(
       map((data: any[]) => data.map((item) => this.ideaAdapter.adapt(item)))
     );
   }
 
   getNumberOfTotalIdeas(): Observable<number> {
-    return this.http.get<any>(environment.api + 'idea/numberoftotalideas').pipe(
+    return this.httpClient.get<any>(environment.api + 'idea/numberoftotalideas').pipe(
       map(data => data.numberoftotalideas)
     );
   }
 
   voteIdea(voteValue: number, ideaId: number, userId: number): Observable<any> {
-    return this.http.post<any>(environment.api + 'idea/vote/', { voteValue, ideaId, userId }, { headers: this.getHeader() });
+    return this.httpClient.post<any>(environment.api + 'idea/vote/', { voteValue, ideaId, userId }, { headers: this.getHeader() });
   }
 
   saveIdea(ideaId: number, userId: number): Observable<any> {
-    return this.http.post<any>(environment.api + 'idea/save/', { ideaId, userId }, { headers: this.getHeader() });
+    return this.httpClient.post<any>(environment.api + 'idea/save/', { ideaId, userId }, { headers: this.getHeader() });
   }
 
   unsaveIdea(ideaId: number, userId: number): Observable<any> {
-    return this.http.post<any>(environment.api + 'idea/unsave/', { ideaId, userId }, { headers: this.getHeader() });
+    return this.httpClient.post<any>(environment.api + 'idea/unsave/', { ideaId, userId }, { headers: this.getHeader() });
   }
 
   createIdea(data: any): Observable<any> {
-    return this.http.post<any>(environment.api + 'idea/create/', data, { headers: this.getHeader() });
+    return this.httpClient.post<any>(environment.api + 'idea/create/', data, { headers: this.getHeader() });
   }
 
   updateIdea(data: any): Observable<any> {
-    return this.http.post<any>(environment.api + 'idea/update/', data, { headers: this.getHeader() });
+    return this.httpClient.post<any>(environment.api + 'idea/update/', data, { headers: this.getHeader() });
   }
 }

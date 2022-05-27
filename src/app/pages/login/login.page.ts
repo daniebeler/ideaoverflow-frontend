@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Platform } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -13,12 +12,13 @@ export class LoginPage {
   email: string;
   password: string;
 
-  public devWidth = this.plt.width();
-
-  constructor(private plt: Platform, private router: Router, private auth: AuthService) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
   login() {
-    this.auth.login(this.email, this.password);
+    this.authService.login(this.email, this.password);
   }
 
   gotoRegister() {
