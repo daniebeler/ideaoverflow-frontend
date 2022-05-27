@@ -33,6 +33,19 @@ export class SettingsPage implements OnInit, OnDestroy {
 
   unsavedDataExists = false;
 
+  colors: string[] = [
+    '#0cc87e',
+    '#1bab49',
+    '#fb4e4e',
+    '#02d9c5',
+    '#8851cf',
+    '#57acdc',
+    '#344448',
+    '#d28a23',
+    '#ff7c2e',
+    '#f59aba'
+  ];
+
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -81,7 +94,8 @@ export class SettingsPage implements OnInit, OnDestroy {
       message: 'Your settings have been saved.',
       icon: 'information-circle',
       color: 'primary',
-      duration: 3000
+      duration: 3000,
+      position: 'top'
     });
     toast.present();
   }
