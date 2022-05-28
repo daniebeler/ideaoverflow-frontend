@@ -18,9 +18,10 @@ export class AuthService {
   authenticationState = new BehaviorSubject<boolean>(null);
   private decodedUserToken = null;
 
+  private helper: JwtHelperService;
+
   constructor(
     private router: Router,
-    private jwtHelperService: JwtHelperService,
     private platform: Platform,
     private apiService: ApiService,
     private alertService: AlertService,
@@ -28,27 +29,27 @@ export class AuthService {
     private storageService: StorageService,
     private userService: UserService
   ) {
+    this.helper = new JwtHelperService();
     this.platform.ready().then(() => {
       this.checkToken();
     });
   }
 
   checkToken() {
-    this.storageService.getToken().then(token => {
-      if (token) {
-        const decoded = this.jwtHelperService.decodeToken(token);
-        const isExpired = this.jwtHelperService.isTokenExpired(token);
+    const token = this.storageService.getToken();
+    if (token) {
+      const decoded = this.helper.decodeToken(token);
+      const isExpired = this.helper.isTokenExpired(token);
 
-        if (!isExpired) {
-          this.decodedUserToken = decoded;
-          this.authenticationState.next(true);
-          this.userService.fetchUserFromApi(this.getUser().id);
-        }
+      if (!isExpired) {
+        this.decodedUserToken = decoded;
+        this.authenticationState.next(true);
+        this.userService.fetchUserFromApi(this.getUser().id);
       }
-      else {
-        this.authenticationState.next(false);
-      }
-    });
+    }
+    else {
+      this.authenticationState.next(false);
+    }
   }
 
   register(email, username, password1, password2) {
@@ -88,7 +89,7 @@ export class AuthService {
     return this.apiService.login(email, password).subscribe(async res => {
       if (res.token) {
         await this.storageService.setToken(res.token);
-        this.decodedUserToken = this.jwtHelperService.decodeToken(res.token);
+        this.decodedUserToken = this.helper.decodeToken(res.token);
         this.authenticationState.next(true);
         this.userService.fetchUserFromApi(this.getUser().id);
         this.router.navigate(['']);
@@ -133,12 +134,11 @@ export class AuthService {
   }
 
   logout() {
-    this.storageService.removeToken().then(() => {
-      this.userService.clearData();
-      this.decodedUserToken = null;
-      this.authenticationState.next(false);
-      this.router.navigate(['login']);
-    });
+    this.storageService.removeToken();
+    this.userService.clearData();
+    this.decodedUserToken = null;
+    this.authenticationState.next(false);
+    this.router.navigate(['login']);
   }
 
   updateUser(updatedUser: User) {
