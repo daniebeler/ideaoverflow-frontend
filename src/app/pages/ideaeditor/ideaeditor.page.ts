@@ -46,6 +46,7 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
     const urlslice = this.activatedRoute.snapshot.paramMap.get('id');
     if (urlslice && urlslice === 'new') {
       this.mode = 'new';
+      this.verifiedAccess = true;
       this.post.body = this.domSanitizer.bypassSecurityTrustHtml('');
     } else if (!isNaN(+urlslice)) {
       this.mode = 'edit';

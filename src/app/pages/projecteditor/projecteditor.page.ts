@@ -48,6 +48,7 @@ export class ProjectEditorPage implements OnInit, OnDestroy {
     const urlslice = this.activatedRoute.snapshot.paramMap.get('id');
     if (urlslice && urlslice === 'new') {
       this.mode = 'new';
+      this.verifiedAccess = true;
       this.project.body = this.domSanitizer.bypassSecurityTrustHtml('');
       const subscription1 = this.userService.getLatestUser().pipe(filter(user => Boolean(user))).subscribe((latestUser) => {
         this.project.ownerId = latestUser.id;
