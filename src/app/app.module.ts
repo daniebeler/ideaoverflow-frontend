@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { Storage, IonicStorageModule } from '@ionic/storage-angular';
 
@@ -15,6 +15,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { QuillModule } from 'ngx-quill';
 import { ExternalHrefPipe } from './pipes/external-href.pipe';
 import { ComponentsModule } from './components/components.module';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 export function jwtOptionsFactory(storage) {
@@ -45,7 +46,10 @@ export function jwtOptionsFactory(storage) {
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     })],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
