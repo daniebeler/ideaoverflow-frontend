@@ -19,7 +19,7 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
   declarations: [AppComponent, ExternalHrefPipe],
   entryComponents: [],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     ComponentsModule,
     IonicModule.forRoot({ mode: 'md' }),
     AppRoutingModule,
