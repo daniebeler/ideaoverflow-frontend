@@ -36,7 +36,22 @@
                 "output": "/"
               },
               {
-                "glob": "sitemap.xml",
+                "glob": "sitemaps.xml",
+                "input": "src",
+                "output": "/"
+              },
+              {
+                "glob": "sitemap_core.xml",
+                "input": "src",
+                "output": "/"
+              },
+              {
+                "glob": "sitemap_users.xml",
+                "input": "src",
+                "output": "/"
+              },
+              {
+                "glob": "sitemap_projects.xml",
                 "input": "src",
                 "output": "/"
               },
