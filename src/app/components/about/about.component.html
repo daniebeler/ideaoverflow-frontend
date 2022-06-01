@@ -1,32 +1,42 @@
 <ion-row *ngIf="user">
   <ion-col *ngIf="user.github || user.twitter || user.instagram || user.dribbble || user.linkedin || user.website"
-  size-xs="12" size-sm="6" size-md="6" size-lg="6" size-xl="6">
+    size-xs="12" size-sm="6" size-md="6" size-lg="6" size-xl="6">
     <h2>Social Media</h2>
     <ul>
-      <li *ngIf="user.github" (click)="gotoWebsite('https://github.com/' + user.github)">
-        <ion-icon class="socialmedia-icon" style="height: 20px; width: 20px; vertical-align: middle;"
-          name="logo-github"></ion-icon>
-        <span style="vertical-align:middle"><strong> Github</strong></span>
+      <li *ngIf="user.github">
+        <a [href]="'https://github.com/' + user.github" target="_blank" rel="noreferrer noopener">
+          <ion-icon class="socialmedia-icon" style="height: 20px; width: 20px; vertical-align: middle;"
+            name="logo-github"></ion-icon>
+          <span style="vertical-align:middle"><strong> Github</strong></span>
+        </a>
       </li>
-      <li *ngIf="user.twitter" (click)="gotoWebsite('https://twitter.com/' + user.twitter)">
-        <ion-icon class="socialmedia-icon" style="height: 20px; width: 20px; vertical-align: middle;"
-          name="logo-twitter"></ion-icon>
-        <span style="vertical-align:middle"><strong> Twitter</strong></span>
+      <li *ngIf="user.twitter">
+        <a [href]="'https://twitter.com/' + user.twitter" target="_blank" rel="noreferrer noopener">
+          <ion-icon class="socialmedia-icon" style="height: 20px; width: 20px; vertical-align: middle;"
+            name="logo-twitter"></ion-icon>
+          <span style="vertical-align:middle"><strong> Twitter</strong></span>
+        </a>
       </li>
-      <li *ngIf="user.instagram" (click)="gotoWebsite('https://instagram.com/' + user.instagram)">
-        <ion-icon class="socialmedia-icon" style="height: 20px; width: 20px; vertical-align: middle;"
-          name="logo-instagram"></ion-icon>
-        <span style="vertical-align:middle"><strong> Instagram</strong></span>
+      <li *ngIf="user.instagram">
+        <a [href]="'https://instagram.com/' + user.instagram" target="_blank" rel="noreferrer noopener">
+          <ion-icon class="socialmedia-icon" style="height: 20px; width: 20px; vertical-align: middle;"
+            name="logo-instagram"></ion-icon>
+          <span style="vertical-align:middle"><strong> Instagram</strong></span>
+        </a>
       </li>
-      <li *ngIf="user.dribbble" (click)="gotoWebsite('https://dribbble.com/' + user.dribbble)">
-        <ion-icon class="socialmedia-icon" style="height: 20px; width: 20px; vertical-align: middle;"
-          name="logo-dribbble"></ion-icon>
-        <span style="vertical-align:middle"><strong> Dribbble</strong></span>
+      <li *ngIf="user.dribbble">
+        <a [href]="'https://dribbble.com/' + user.dribbble" target="_blank" rel="noreferrer noopener">
+          <ion-icon class="socialmedia-icon" style="height: 20px; width: 20px; vertical-align: middle;"
+            name="logo-dribbble"></ion-icon>
+          <span style="vertical-align:middle"><strong> Dribbble</strong></span>
+        </a>
       </li>
-      <li *ngIf="user.linkedin" (click)="gotoWebsite('https://www.linkedin.com/in/' + user.linkedin)">
-        <ion-icon class="socialmedia-icon" style="height: 20px; width: 20px; vertical-align: middle;"
-          name="logo-linkedin"></ion-icon>
-        <span style="vertical-align:middle"><strong> Linkedin</strong></span>
+      <li *ngIf="user.linkedin">
+        <a [href]="'https://www.linkedin.com/in/' + user.linkedin" target="_blank" rel="noreferrer noopener">
+          <ion-icon class="socialmedia-icon" style="height: 20px; width: 20px; vertical-align: middle;"
+            name="logo-linkedin"></ion-icon>
+          <span style="vertical-align:middle"><strong> Linkedin</strong></span>
+        </a>
       </li>
       <li *ngIf="user.website" (click)="gotoWebsite('http://' + user.website)">
         <ion-icon class="socialmedia-icon" style="height: 20px; width: 20px; vertical-align: middle;"
