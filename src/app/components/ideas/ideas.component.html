@@ -35,12 +35,14 @@
                   </ion-col>
                 </ion-row>
                 <ion-row style="margin-top: 20px;">
-                  <ion-col size="auto" class="owner" style="display: flex; align-items: center;"
-                    (click)="gotoProfile(post.ownerUsername)">
-                    <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
-                      <img [src]="post.ownerImage">
-                    </ion-avatar>
-                    <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{post.ownerUsername}}</strong></p>
+                  <ion-col size="auto" class="owner">
+                    <a [routerLink]="'users/' + post.ownerUsername">
+                      <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
+                        <img [src]="post.ownerImage">
+                      </ion-avatar>
+                      <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{post.ownerUsername}}</strong></p>
+                    </a>
+
                   </ion-col>
 
                   <ion-col size="auto" *ngIf="post.currentUserVoteValue === 1" (click)="votePost(0, post)" class="like"
@@ -81,10 +83,13 @@
                   </ion-col>
 
                   <div *ngIf="currentUser">
-                    <ion-col *ngIf="currentUser.id === post.ownerId" size="auto" class="like"
-                      style="display: flex; align-items: center;" (click)="editPost(post)">
-                      <ion-icon name="settings-outline" style="height: 30px; width: 30px;">
-                      </ion-icon>
+                    <ion-col *ngIf="currentUser.id === post.ownerId" size="auto" class="editPost"
+                      style="display: flex; align-items: center;">
+                      <a [routerLink]="'ideaeditor/' + post.id">
+                        <ion-icon name="settings-outline" style="height: 30px; width: 30px;">
+                        </ion-icon>
+                      </a>
+
                     </ion-col>
                   </div>
                 </ion-row>

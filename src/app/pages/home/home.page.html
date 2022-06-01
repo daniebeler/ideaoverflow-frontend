@@ -10,18 +10,18 @@
                 <h4 style="margin-top: 0;" *ngIf="user.firstname"><strong>Hello, {{user.firstname}}!</strong></h4>
                 <h4 style="margin-top: 0;" *ngIf="!user.firstname"><strong>Hey!</strong></h4>
                 <p>If you have a great idea please share it with the community!</p>
-                <button *ngIf="user && activeContentTab === 'ideas'" type="button" class="btn-small btn-primary"
-                  style="margin-bottom: 20px" (click)="createIdea()">
-                  <strong>New idea</strong></button>
-                <button *ngIf="user && activeContentTab === 'projects'" type="button" class="btn-small btn-primary"
-                  style="margin-bottom: 20px" (click)="createProject()">
-                  <strong>New project</strong></button>
+                <a *ngIf="user && activeContentTab === 'ideas'" routerLink="ideaeditor/new"
+                  class="btn-small btn-primary" style="margin-bottom: 20px">
+                  <strong>New idea</strong></a>
+                <a *ngIf="user && activeContentTab === 'projects'" routerLink="projecteditor/new"
+                  class="btn-small btn-primary" style="margin-bottom: 20px">
+                  <strong>New project</strong></a>
               </div>
               <div *ngIf="!user">
                 <h4><strong>New to Idea Overflow?</strong></h4>
                 <p>Sign up now to post your own ideas!</p>
-                <button type="button" class="btn-large btn-primary" style="margin-top: 10px; margin-bottom: 10px;"
-                  (click)="gotoRegister()">Register</button>
+                <a routerLink="register" class="btn-large btn-primary"
+                  style="margin-top: 10px; margin-bottom: 10px;">Register</a>
               </div>
             </ion-col>
             <ion-col style="display: flex; justify-content: center; padding: 20px;" size-xs="12" size-sm="6" size-md="6"

@@ -10,6 +10,7 @@ import { QuillModule } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
 import { UsersComponent } from './users/users.component';
 import { ProjectsComponent } from './projects/projects.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ProjectsComponent } from './projects/projects.component';
     IonicModule,
     CommonModule,
     QuillModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ]
 })
 export class ComponentsModule { }

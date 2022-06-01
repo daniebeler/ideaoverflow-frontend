@@ -36,22 +36,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscriptions.push(subscription1);
   }
 
-  gotoProfile() {
-    this.router.navigate(['users/' + this.user.username]);
-  }
-
-  gotoLogin() {
-    this.router.navigate(['login']);
-  }
-
-  gotoNewpost() {
-    this.router.navigate(['ideaeditor/new']);
-  }
-
-  gotoHome() {
-    this.router.navigate(['']);
-  }
-
   search(searchTerm: string) {
     if (searchTerm) {
       this.router.navigate(['search/' + searchTerm]);

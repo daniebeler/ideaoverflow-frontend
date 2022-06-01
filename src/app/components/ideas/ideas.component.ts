@@ -1,5 +1,4 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Idea } from 'src/app/models/idea';
@@ -40,7 +39,6 @@ export class IdeasComponent implements OnInit, OnDestroy {
   constructor(
     private ideaService: IdeaService,
     private apiService: ApiService,
-    private router: Router,
     private userService: UserService,
     private toastController: ToastController
   ) { }
@@ -104,14 +102,6 @@ export class IdeasComponent implements OnInit, OnDestroy {
 
   loadData(event) {
     this.getPosts(true, event);
-  }
-
-  gotoProfile(username: string) {
-    this.router.navigate(['users/' + username]);
-  }
-
-  editPost(post: Idea) {
-    this.router.navigate(['ideaeditor/' + post.id]);
   }
 
   votePost(voteValue: number, idea: Idea) {
