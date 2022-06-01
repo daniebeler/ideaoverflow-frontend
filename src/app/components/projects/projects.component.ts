@@ -1,5 +1,4 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Project } from 'src/app/models/project';
 import { User } from 'src/app/models/user';
@@ -37,7 +36,6 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
   constructor(
     private apiService: ApiService,
-    private router: Router,
     private userService: UserService
   ) { }
 
@@ -98,14 +96,6 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
   loadData(event) {
     this.getPosts(true, event);
-  }
-
-  gotoProfile(username: string) {
-    this.router.navigate(['users/' + username]);
-  }
-
-  gotoPost(id: number) {
-    this.router.navigate(['projects/' + id]);
   }
 
   ngOnDestroy(): void {

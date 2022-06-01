@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -15,7 +15,6 @@ export class VerifyPage implements OnInit, OnDestroy {
   isVerified = false;
 
   constructor(
-    private router: Router,
     private activatedRoute: ActivatedRoute,
     private apiService: ApiService
   ) { }
@@ -25,10 +24,6 @@ export class VerifyPage implements OnInit, OnDestroy {
       this.isVerified = isVerified;
     });
     this.subscriptions.push(subscription1);
-  }
-
-  gotoLogin() {
-    this.router.navigate(['login']);
   }
 
   ngOnDestroy(): void {

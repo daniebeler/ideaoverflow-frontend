@@ -2,21 +2,23 @@
   <ion-grid style="margin-bottom: 100px;">
     <ion-row>
       <ion-col size-xs="6" size-sm="4" size-md="4" size-lg="4" size-xl="4" *ngFor="let user of users">
-        <ion-grid class="wrapper" (click)="gotoProfile(user.username)">
-          <ion-row>
-            <ion-col size="auto">
-              <ion-avatar style="height: 60px; width: 60px; --border-radius: 50%">
-                <img [src]="user.profileimage">
-              </ion-avatar>
-            </ion-col>
-            <ion-col size="auto" style="display: flex;" class="ion-align-items-center">
-              <div>
-                <p style="margin-bottom: 0;"><strong>{{user.firstname}} {{user.lastname}}</strong></p>
-                <p style="margin-bottom: 0;">@{{user.username}}</p>
-              </div>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+        <a [routerLink]="'/users/' + user.username">
+          <ion-grid class="wrapper">
+            <ion-row>
+              <ion-col size="auto">
+                <ion-avatar style="height: 60px; width: 60px; --border-radius: 50%">
+                  <img [src]="user.profileimage">
+                </ion-avatar>
+              </ion-col>
+              <ion-col size="auto" style="display: flex;" class="ion-align-items-center">
+                <div>
+                  <p style="margin-bottom: 0;"><strong>{{user.firstname}} {{user.lastname}}</strong></p>
+                  <p style="margin-bottom: 0;">@{{user.username}}</p>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </a>
       </ion-col>
     </ion-row>
   </ion-grid>

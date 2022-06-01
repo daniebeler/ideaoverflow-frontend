@@ -17,7 +17,8 @@
   <ion-row>
     <ion-col>
       <ion-list>
-        <ion-grid class="post-wrapper" *ngFor="let project of allLoadedProjects" (click)="gotoPost(project.id)">
+        <a [routerLink]="'/projects/' + project.id" *ngFor="let project of allLoadedProjects">
+          <ion-grid class="post-wrapper">
           <ion-row *ngIf="project.releaseDate">
             <ion-col>
               <p style="margin: 0;">{{project.releaseDate.toLocaleDateString("en-at",{year:"numeric",month:"short",
@@ -37,6 +38,8 @@
             </ion-col>
           </ion-row>
         </ion-grid>
+        </a>
+
       </ion-list>
 
       <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">

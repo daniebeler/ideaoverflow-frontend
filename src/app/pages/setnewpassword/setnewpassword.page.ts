@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -23,8 +23,7 @@ export class SetnewpasswordPage implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private apiService: ApiService,
-    private authService: AuthService,
-    private router: Router
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -38,10 +37,6 @@ export class SetnewpasswordPage implements OnInit, OnDestroy {
 
   setPassword() {
     this.authService.setPassword(this.code, this.password1, this.password2);
-  }
-
-  gotoLogin() {
-    this.router.navigate(['login']);
   }
 
   ngOnDestroy(): void {

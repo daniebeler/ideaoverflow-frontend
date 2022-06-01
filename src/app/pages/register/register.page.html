@@ -7,29 +7,33 @@
           <h1 class="register-header"><strong>Sign up</strong></h1>
 
           <div class="form-group">
-            <input type="email" name="email" id="email" placeholder="Email" [(ngModel)]="email"/>
+            <input type="email" name="email" id="email" placeholder="Email" [(ngModel)]="email" />
           </div>
 
           <div class="form-group">
-            <input type="name" name="name" id="username" placeholder="Username" [(ngModel)]="username"/>
+            <input type="name" name="name" id="username" placeholder="Username" [(ngModel)]="username" />
           </div>
 
           <div class="form-group">
-            <input type="password" name="passwort" placeholder="Password" [(ngModel)]="password1"/>
+            <input type="password" name="passwort" placeholder="Password" [(ngModel)]="password1" />
           </div>
 
           <div class="form-group">
-            <input type="password" name="passwort" placeholder="Repeat your password" [(ngModel)]="password2" (keyup.enter)="register()"/>
+            <input type="password" name="passwort" placeholder="Repeat your password" [(ngModel)]="password2"
+              (keyup.enter)="register()" />
           </div>
 
           <div class="row d-flex justify-content-center submit-button-container">
-            <button type="button" class="btn-large btn-primary" style="margin-top: 10px;" (click)="register()">Register</button>
+            <button type="button" class="btn-large btn-primary" style="margin-top: 10px;"
+              (click)="register()">Register</button>
           </div>
         </ion-col>
 
-        <ion-col size-xs="10" size-sm="7" size-md="5" size-lg="6" size-xl="6" style="display: flex; flex-direction: column; justify-content: center;">
+        <ion-col size-xs="10" size-sm="7" size-md="5" size-lg="6" size-xl="6"
+          style="display: flex; flex-direction: column; justify-content: center;">
           <img src="./../../../assets/3d/ideas.png" style="width: 100%; padding-bottom: 20px;" alt="">
-          <p class="ion-text-center txt-gotologin">Already have an account? <strong (click)="gotoLogin()">Login here</strong></p>
+          <p class="ion-text-center txt-gotologin">Already have an account? <a routerLink="/login">Login
+              here</a></p>
         </ion-col>
       </ion-row>
     </ion-grid>

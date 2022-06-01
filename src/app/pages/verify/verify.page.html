@@ -14,9 +14,9 @@
 
           <div *ngIf="isVerified; else elseBlock">
             <p><strong>Your account has been activated.</strong></p>
-            <button type="button" class="btn-large btn-primary" style="margin-top: 10px;" (click)="gotoLogin()">
+            <a class="btn-large btn-primary" style="margin-top: 10px;" routerLink="/login">
               Login
-            </button>
+            </a>
           </div>
           <ng-template #elseBlock>
             <p><strong>This URL is not valid.</strong></p>

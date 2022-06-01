@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
@@ -20,8 +18,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   users: User[] = [];
 
   constructor(
-    private apiService: ApiService,
-    private router: Router
+    private apiService: ApiService
   ) { }
 
   ngOnInit() {
@@ -37,10 +34,6 @@ export class UsersComponent implements OnInit, OnDestroy {
       });
       this.subscriptions.push(subscription2);
     }
-  }
-
-  gotoProfile(username: string) {
-    this.router.navigate(['users/' + username]);
   }
 
   ngOnDestroy(): void {

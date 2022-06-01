@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
@@ -37,7 +37,6 @@ export class ProfilePage implements OnInit, OnDestroy {
     private apiService: ApiService,
     private userService: UserService,
     private followerService: FollowerService,
-    private router: Router,
     private activatedRoute: ActivatedRoute,
     private alertController: AlertController
   ) { }
@@ -100,36 +99,12 @@ export class ProfilePage implements OnInit, OnDestroy {
     await alert.present();
   }
 
-  gotoHome() {
-    this.router.navigate(['']);
-  }
-
-  gotoProfile() {
-    this.router.navigate(['profile/' + this.latestUser.username]);
-  }
-
-  gotoSettings() {
-    this.router.navigate(['settings']);
-  }
-
-  gotoLogin() {
-    this.router.navigate(['login']);
-  }
-
   follow() {
     this.followerService.addFollower(this.user.id);
   }
 
   unfollow() {
     this.followerService.removeFollower(this.user.id);
-  }
-
-  createIdea() {
-    this.router.navigate(['ideaeditor/new']);
-  }
-
-  createProject() {
-    this.router.navigate(['projecteditor/new']);
   }
 
   ngOnDestroy(): void {

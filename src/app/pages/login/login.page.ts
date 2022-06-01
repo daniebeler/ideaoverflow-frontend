@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -13,19 +12,10 @@ export class LoginPage {
   password: string;
 
   constructor(
-    private router: Router,
     private authService: AuthService
   ) { }
 
   login() {
     this.authService.login(this.email, this.password);
-  }
-
-  gotoRegister() {
-    this.router.navigate(['register']);
-  }
-
-  gotoResetPassword() {
-    this.router.navigate(['resetpassword']);
   }
 }

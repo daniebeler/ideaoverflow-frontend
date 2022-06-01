@@ -13,8 +13,8 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col class="ion-text-center">
-          <button type="button" class="btn-small btn-primary" (click)="gotoHome()">Go Home</button>
+        <ion-col class="ion-text-center" style="margin-bottom: 200px;">
+          <a type="button" class="btn-small btn-primary" routerLink="/">Go Home</a>
         </ion-col>
       </ion-row>
     </div>
@@ -133,9 +133,9 @@
 
         <div *ngIf="activeContentTab === 'ideas'"
           style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-          <button *ngIf="isMyProfile" type="button" class="btn-small" style="margin-bottom: 20px" (click)="createIdea()"
+          <a *ngIf="isMyProfile" class="btn-small" style="margin-bottom: 20px" routerLink="/ideaeditor/new"
             [ngClass]="activeContentTab === 'ideas' ? 'btn-primary' : 'btn-dark'">
-            <strong>New idea</strong></button>
+            <strong>New idea</strong></a>
           <app-posts style="width: 100%;" [header]="isMyProfile ? 'My ideas' : postsHeader"
             [filterByUsername]="user.username" [color]="user.color">
           </app-posts>
@@ -143,9 +143,9 @@
 
         <div *ngIf="activeContentTab === 'projects'"
           style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-          <button *ngIf="isMyProfile" type="button" class="btn-small" style="margin-bottom: 20px"
-            (click)="createProject()" [ngClass]="activeContentTab === 'projects' ? 'btn-primary' : 'btn-dark'">
-            <strong>New Project</strong></button>
+          <a *ngIf="isMyProfile" class="btn-small" style="margin-bottom: 20px" routerLink="/projecteditor/new"
+            [ngClass]="activeContentTab === 'projects' ? 'btn-primary' : 'btn-dark'">
+            <strong>New Project</strong></a>
           <app-component-projects style="width: 100%;" [header]="isMyProfile ? 'My projects' : projectsHeader"
             [filterByUsername]="user.username">
           </app-component-projects>

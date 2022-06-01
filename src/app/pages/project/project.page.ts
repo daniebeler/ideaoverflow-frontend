@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Project } from 'src/app/models/project';
 import { User } from 'src/app/models/user';
@@ -27,8 +27,7 @@ export class ProjectPage implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private apiService: ApiService,
-    private userService: UserService,
-    private router: Router
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -45,14 +44,6 @@ export class ProjectPage implements OnInit, OnDestroy {
       this.currentUser = latestUser;
     });
     this.subscriptions.push(subscription2);
-  }
-
-  editProject() {
-    this.router.navigate(['projecteditor/' + this.project.id]);
-  }
-
-  gotoProfile(username: string) {
-    this.router.navigate(['users/' + username]);
   }
 
   gotoWebsite(url: string) {

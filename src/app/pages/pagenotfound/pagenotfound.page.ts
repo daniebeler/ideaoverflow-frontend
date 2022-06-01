@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pagenotfound',
@@ -8,9 +7,5 @@ import { Router } from '@angular/router';
 })
 export class PagenotfoundPage {
 
-  constructor(private router: Router) { }
-
-  gotoHome() {
-    this.router.navigate(['']);
-  }
+  constructor() { }
 }

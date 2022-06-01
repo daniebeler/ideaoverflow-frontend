@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -14,11 +13,8 @@ export class RegisterPage {
   password1: string;
   password2: string;
 
-  allschooldata: Array<any> = [];
-
   constructor(
-    private authService: AuthService,
-    private router: Router
+    private authService: AuthService
     ) { }
 
   ionViewWillEnter() {
@@ -30,9 +26,5 @@ export class RegisterPage {
 
   register() {
     this.authService.register(this.email, this.username, this.password1, this.password2);
-  }
-
-  gotoLogin() {
-    this.router.navigate(['login']);
   }
 }
