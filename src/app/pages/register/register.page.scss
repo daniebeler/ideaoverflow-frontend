@@ -35,11 +35,12 @@ input {
 .txt-gotologin {
   font-size: 0.9em;
 
-  strong {
+  a {
     text-decoration: underline;
+    color: white;
   }
 
-  strong:hover {
+  a:hover {
     cursor: pointer;
   }
 }

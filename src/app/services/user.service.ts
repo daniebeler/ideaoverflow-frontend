@@ -1,10 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { UserAdapter } from '../adapter/user-adapter';
 import { User } from '../models/user';
 import { tint, shade } from 'tint-shade-color';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +12,7 @@ export class UserService {
   private user = new BehaviorSubject<User>(null);
 
   constructor(
-    private userAdapter: UserAdapter,
-    private httpClient: HttpClient
+    private apiService: ApiService
   ) {
     this.getLatestUser().subscribe(user => {
       if (user) {
@@ -32,9 +29,9 @@ export class UserService {
     return this.user;
   }
 
-  fetchUserFromApi(id): void {
-    this.httpClient.get<any>(environment.api + 'user/databyuserid/' + id).subscribe(user => {
-      this.user.next(this.userAdapter.adapt(user));
+  fetchUserFromApi(id: number): void {
+    this.apiService.getUserById(id).subscribe(user => {
+      this.user.next(user);
     });
   }
 

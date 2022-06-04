@@ -13,9 +13,7 @@ export class SearchPage implements OnInit {
 
   tab = 'posts';
 
-  constructor(
-    private activatedRoute: ActivatedRoute
-  ) { }
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.searchTerm = this.activatedRoute.snapshot.paramMap.get('search');

@@ -1,0 +1,47 @@
+<ion-content>
+  <ion-grid *ngIf="post && verifiedAccess" class="container">
+    <ion-row style="padding: 40px 0 20px 0;">
+      <ion-col>
+        <div class="form-group">
+          <label class="text-label" for="fname"><strong>Title</strong></label>
+          <input type="text" name="fname" id="fname" placeholder="Title" [(ngModel)]="post.title"
+            (ngModelChange)="updateSubmitButtonState()" />
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <quill-editor *ngIf="post.body" [(ngModel)]="post.body.changingThisBreaksApplicationSecurity" [modules]=""
+          (onEditorCreated)="editor($event)" trackChanges="all" (ngModelChange)="updateSubmitButtonState()">
+        </quill-editor>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="!verifiedAccess" class="container">
+    <ion-row style="padding: 40px 0 20px 0;">
+      <ion-col>
+        <h1>Access denied</h1>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer *ngIf="verifiedAccess">
+  <ion-grid class="container">
+    <ion-row>
+      <ion-col style="display: flex; flex-direction: column; justify-content: center;">
+        <button style="margin-top: 20px;" type="button" class="btn-small btn-primary" (click)="savePost()"
+          *ngIf="showSubmitButton; else elseBlock">
+          <span>Release post</span>
+        </button>
+
+        <ng-template #elseBlock>
+          <button style="margin-top: 20px;" type="button" class="btn-small btn-disabled" disabled>
+            <span>Release post</span>
+          </button>
+        </ng-template>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

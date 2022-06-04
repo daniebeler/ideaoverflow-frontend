@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Project } from 'src/app/models/project';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
@@ -10,13 +10,15 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss'],
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent implements OnInit, OnDestroy {
 
-  @Input() header = 'Popular Projects';
+  @Input() header = '';
   @Input() filterByUsername = '';
   @Input() savedByUsername = false;
   @Input() searchTerm = '';
   @Input() color = 'var(--ion-color-primary)';
+
+  subscriptions: Subscription[] = [];
 
   queryParams: string;
   allLoadedProjects: Project[] = [];
@@ -30,20 +32,21 @@ export class ProjectsComponent implements OnInit {
 
   sortingCriteria = 'newest';
 
+  alternativeHeader = 'Newest projects';
+
   constructor(
     private apiService: ApiService,
-    private router: Router,
     private userService: UserService
   ) { }
 
   ngOnInit() {
-    this.userService.getLatestUser()
-      .subscribe((latestUser) => {
-        this.currentUser = latestUser;
-        this.allLoadedProjects = [];
-        this.skipProjects = -5;
-        this.getPosts(false, '');
-      });
+    const subscription1 = this.userService.getLatestUser().subscribe((latestUser) => {
+      this.currentUser = latestUser;
+      this.allLoadedProjects = [];
+      this.skipProjects = -5;
+      this.getPosts(false, '');
+    });
+    this.subscriptions.push(subscription1);
   }
 
   getPosts(isInitialLoad: boolean, event) {
@@ -66,7 +69,7 @@ export class ProjectsComponent implements OnInit {
       params.searchTerm = this.searchTerm;
     }
 
-    this.apiService.getSelectedProjects(params).subscribe((posts: Project[]) => {
+    const subscription2 = this.apiService.getSelectedProjects(params).subscribe((posts: Project[]) => {
       if (isInitialLoad) {
         event.target.complete();
       }
@@ -74,10 +77,18 @@ export class ProjectsComponent implements OnInit {
         this.allLoadedProjects.push(post);
       }
     });
+    this.subscriptions.push(subscription2);
   }
 
   sortingCriteriaChanged(sortingCriteria: string) {
     this.sortingCriteria = sortingCriteria;
+    if (!this.header) {
+      if (sortingCriteria === 'newest') {
+        this.alternativeHeader = 'Newest projects';
+      } else if (sortingCriteria === 'oldest') {
+        this.alternativeHeader = 'Oldest projects';
+      }
+    }
     this.allLoadedProjects = [];
     this.skipProjects = -5;
     this.getPosts(false, '');
@@ -87,11 +98,7 @@ export class ProjectsComponent implements OnInit {
     this.getPosts(true, event);
   }
 
-  gotoProfile(username: string) {
-    this.router.navigate(['users/' + username]);
-  }
-
-  gotoPost(id: number) {
-    this.router.navigate(['projects/' + id]);
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

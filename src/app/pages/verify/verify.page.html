@@ -4,7 +4,7 @@
       <ion-row>
         <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="6" size-xl="6"
           style="padding-left: 75px; padding-right: 50px;">
-          <img [hidden]="devWidth < 767" src="./../../../assets/character_13.svg"
+          <img src="./../../../assets/character_13.svg"
             style="width: 100%; padding-bottom: 10px;" alt="">
         </ion-col>
 
@@ -14,9 +14,9 @@
 
           <div *ngIf="isVerified; else elseBlock">
             <p><strong>Your account has been activated.</strong></p>
-            <button type="button" class="btn-large btn-primary" style="margin-top: 10px;" (click)="gotoLogin()">
+            <a class="btn-large btn-primary" style="margin-top: 10px;" routerLink="/login">
               Login
-            </button>
+            </a>
           </div>
           <ng-template #elseBlock>
             <p><strong>This URL is not valid.</strong></p>

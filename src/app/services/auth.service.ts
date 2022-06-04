@@ -8,6 +8,7 @@ import { AlertService } from './alert.service';
 import { AlertController, Platform } from '@ionic/angular';
 import { StorageService } from './storage.service';
 import { UserService } from './user.service';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +18,10 @@ export class AuthService {
   authenticationState = new BehaviorSubject<boolean>(null);
   private decodedUserToken = null;
 
+  private helper: JwtHelperService;
+
   constructor(
     private router: Router,
-    private helper: JwtHelperService,
     private platform: Platform,
     private apiService: ApiService,
     private alertService: AlertService,
@@ -27,27 +29,27 @@ export class AuthService {
     private storageService: StorageService,
     private userService: UserService
   ) {
+    this.helper = new JwtHelperService();
     this.platform.ready().then(() => {
       this.checkToken();
     });
   }
 
   checkToken() {
-    this.storageService.getToken().then(token => {
-      if (token) {
-        const decoded = this.helper.decodeToken(token);
-        const isExpired = this.helper.isTokenExpired(token);
+    const token = this.storageService.getToken();
+    if (token) {
+      const decoded = this.helper.decodeToken(token);
+      const isExpired = this.helper.isTokenExpired(token);
 
-        if (!isExpired) {
-          this.decodedUserToken = decoded;
-          this.authenticationState.next(true);
-          this.userService.fetchUserFromApi(this.getUser().id);
-        }
+      if (!isExpired) {
+        this.decodedUserToken = decoded;
+        this.authenticationState.next(true);
+        this.userService.fetchUserFromApi(this.getUser().id);
       }
-      else {
-        this.authenticationState.next(false);
-      }
-    });
+    }
+    else {
+      this.authenticationState.next(false);
+    }
   }
 
   register(email, username, password1, password2) {
@@ -94,7 +96,7 @@ export class AuthService {
       }
       else if (res.notverified === true) {
         const alert = await this.alertController.create({
-          cssClass: 'custom-alert-ok',
+          cssClass: 'custom-alert-two',
           backdropDismiss: false,
           header: 'Ooops!',
           message: 'Your email is not verified yet. Do you want to receive another verification code?',
@@ -132,15 +134,31 @@ export class AuthService {
   }
 
   logout() {
-    this.storageService.removeToken().then(() => {
-      this.userService.clearData();
-      this.decodedUserToken = null;
-      this.authenticationState.next(false);
-      this.router.navigate(['login']);
-    });
+    this.storageService.removeToken();
+    this.userService.clearData();
+    this.decodedUserToken = null;
+    this.authenticationState.next(false);
+    this.router.navigate(['login']);
   }
 
-  updateUser(dataToUpdate) {
+  updateUser(updatedUser: User) {
+    const url: any = updatedUser.profileimage;
+    const dataToUpdate = {
+      id: this.getUser().id,
+      firstname: updatedUser.firstname,
+      lastname: updatedUser.lastname,
+      country: updatedUser.country,
+      state: updatedUser.state,
+      profilepicture: url.changingThisBreaksApplicationSecurity,
+      bio: updatedUser.bio,
+      instagram: updatedUser.instagram,
+      twitter: updatedUser.twitter,
+      dribbble: updatedUser.dribbble,
+      github: updatedUser.github,
+      linkedin: updatedUser.linkedin,
+      website: updatedUser.website,
+      color: updatedUser.color
+    };
     return this.apiService.updateUser(dataToUpdate).subscribe(async res => {
       if (res.status === 200) {
         this.userService.fetchUserFromApi(this.getUser().id);

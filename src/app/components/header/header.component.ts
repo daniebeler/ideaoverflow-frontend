@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
@@ -9,7 +10,9 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
+
+  subscriptions: Subscription[] = [];
 
   user: User;
   loggedIn = false;
@@ -21,37 +24,25 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.getLatestUser()
-      .subscribe((latestUser) => {
-        this.user = latestUser;
-        if (latestUser) {
-          this.loggedIn = true;
-        }
-        else {
-          this.loggedIn = false;
-        }
-      });
-  }
-
-  gotoProfile() {
-    this.router.navigate(['users/' + this.user.username]);
-  }
-
-  gotoLogin() {
-    this.router.navigate(['login']);
-  }
-
-  gotoNewpost() {
-    this.router.navigate(['newpost']);
-  }
-
-  gotoHome() {
-    this.router.navigate(['']);
+    const subscription1 = this.userService.getLatestUser().subscribe((latestUser) => {
+      this.user = latestUser;
+      if (latestUser) {
+        this.loggedIn = true;
+      }
+      else {
+        this.loggedIn = false;
+      }
+    });
+    this.subscriptions.push(subscription1);
   }
 
   search(searchTerm: string) {
     if (searchTerm) {
       this.router.navigate(['search/' + searchTerm]);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

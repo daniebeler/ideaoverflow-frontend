@@ -1,0 +1,124 @@
+<div *ngIf="allLoadedPosts.length > 0; else noPosts">
+  <ion-row>
+    <ion-col size="auto">
+      <h2 style="margin: 0;">{{header ? header : alternativeHeader}}</h2>
+    </ion-col>
+    <ion-col *ngIf="showSortingButtons" style="align-items: end; display: flex; flex-direction: column;flex-grow: 1;">
+      <div id="myBtnContainer" style="white-space: nowrap;">
+        <button [ngClass]="{'active': sortingCriteria === 'newest'}"
+          [ngStyle]="{'background-color': sortingCriteria === 'newest' ? color : ''}"
+          (click)="sortingCriteriaChanged('newest')" class="array-btn">Newest</button>
+        <button [ngClass]="{'active': sortingCriteria === 'likes'}"
+          [ngStyle]="{'background-color': sortingCriteria === 'likes' ? color : ''}"
+          (click)="sortingCriteriaChanged('likes')" class="array-btn">Most liked</button>
+        <button [ngClass]="{'active': sortingCriteria === 'oldest'}"
+          [ngStyle]="{'background-color': sortingCriteria === 'oldest' ? color : ''}"
+          (click)="sortingCriteriaChanged('oldest')" class="array-btn">Oldest</button>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-list>
+        <ion-grid class="post-wrapper" *ngFor="let post of allLoadedPosts">
+          <ion-row>
+            <ion-col>
+              <ion-grid>
+                <ion-row>
+                  <ion-col style="padding: 0;">
+                    <h1 style="margin: 0;">{{post.title}}</h1>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col style="padding: 0;">
+                    <div class="postcontent" [innerHTML]=post.body></div>
+                  </ion-col>
+                </ion-row>
+                <ion-row style="margin-top: 20px;">
+                  <ion-col size="auto" class="owner">
+                    <a [routerLink]="'users/' + post.ownerUsername">
+                      <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
+                        <img [src]="post.ownerImage">
+                      </ion-avatar>
+                      <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{post.ownerUsername}}</strong></p>
+                    </a>
+
+                  </ion-col>
+
+                  <ion-col size="auto" *ngIf="post.currentUserVoteValue === 1" (click)="votePost(0, post)" class="like"
+                    style="display: flex; align-items: center;">
+                    <ion-icon name="heart" [ngStyle]="{'color':post.ownerColor}" style="width: 30px; height: 25px;">
+                    </ion-icon>
+                    <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{post.numberOfUpvotes}}</strong></p>
+                  </ion-col>
+
+                  <ion-col size="auto" *ngIf="post.currentUserVoteValue !== 1" (click)="votePost(1, post)" class="like"
+                    style="display: flex; align-items: center;">
+                    <ion-icon name="heart-outline" style="width: 30px; height: 25px;"></ion-icon>
+                    <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{post.numberOfUpvotes}}</strong></p>
+                  </ion-col>
+
+                  <ion-col size="auto" *ngIf="post.currentUserVoteValue === -1" (click)="votePost(0, post)" class="like"
+                    style="display: flex; align-items: center;">
+                    <ion-icon name="thumbs-down" [ngStyle]="{'color':post.ownerColor}"
+                      style="width: 30px; height: 25px;"></ion-icon>
+                    <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{post.numberOfDownvotes}}</strong></p>
+                  </ion-col>
+
+                  <ion-col size="auto" *ngIf="post.currentUserVoteValue !== -1" (click)="votePost(-1, post)"
+                    class="like" style="display: flex; align-items: center;">
+                    <ion-icon name="thumbs-down-outline" style="width: 30px; height: 25px;"></ion-icon>
+                    <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{post.numberOfDownvotes}}</strong></p>
+                  </ion-col>
+
+                  <ion-col size="auto" *ngIf="post.saved" (click)="unsavePost(post.id)" class="like"
+                    style="display: flex; align-items: center;">
+                    <ion-icon name="bookmark" [ngStyle]="{'color':post.ownerColor}" style="width: 30px; height: 25px;">
+                    </ion-icon>
+                  </ion-col>
+
+                  <ion-col size="auto" *ngIf="!post.saved" (click)="savePost(post.id)" class="like"
+                    style="display: flex; align-items: center;">
+                    <ion-icon name="bookmark-outline" style="width: 30px; height: 25px;"></ion-icon>
+                  </ion-col>
+
+                  <div *ngIf="currentUser">
+                    <ion-col *ngIf="currentUser.id === post.ownerId" size="auto" class="editPost"
+                      style="display: flex; align-items: center;">
+                      <a [routerLink]="'ideaeditor/' + post.id">
+                        <ion-icon name="settings-outline" style="height: 30px; width: 30px;">
+                        </ion-icon>
+                      </a>
+
+                    </ion-col>
+                  </div>
+                </ion-row>
+              </ion-grid>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-list>
+
+      <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more posts...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+
+    </ion-col>
+  </ion-row>
+</div>
+<ng-template #noPosts>
+  <ion-grid>
+    <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
+      <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="10" size-sm="10"
+        size-md="6" size-lg="5" size-xl="5">
+        <img src="./../../../assets/3d/nothing2.png" style="width: 100%; padding-bottom: 10px;" alt="">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <h2><strong>No posts yet...</strong></h2>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ng-template>

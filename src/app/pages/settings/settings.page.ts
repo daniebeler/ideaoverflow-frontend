@@ -1,26 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ToastController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
+import hash from 'object-hash';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
 })
-export class SettingsPage implements OnInit {
+export class SettingsPage implements OnInit, OnDestroy {
+
+  subscriptions: Subscription[] = [];
 
   oldPassword: string;
   newPassword1: string;
   newPassword2: string;
 
-  oldUser: User = null;
-  updatedUser: User = null;
+  user: User = null;
+  userHash = '12';
 
   countries: any = null;
   states: any = null;
@@ -29,10 +33,23 @@ export class SettingsPage implements OnInit {
 
   unsavedDataExists = false;
 
+  colors: string[] = [
+    '#0cc87e',
+    '#1bab49',
+    '#fb4e4e',
+    '#02d9c5',
+    '#8851cf',
+    '#57acdc',
+    '#344448',
+    '#d28a23',
+    '#ff7c2e',
+    '#f59aba'
+  ];
+
   constructor(
     private router: Router,
-    private auth: AuthService,
-    private api: ApiService,
+    private authService: AuthService,
+    private apiService: ApiService,
     private userService: UserService,
     private httpClient: HttpClient,
     private domSanitizer: DomSanitizer,
@@ -40,43 +57,18 @@ export class SettingsPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.httpClient.get('./assets/json/countries.json').subscribe(countries => {
+    const subscription1 = this.httpClient.get('./assets/json/countries.json').subscribe(countries => {
       this.countries = countries;
-      this.userService.getLatestUser().subscribe((latestUser) => {
-        this.oldUser = latestUser;
+      const subscription2 = this.userService.getLatestUser().subscribe((latestUser) => {
+        this.user = latestUser;
+        this.userHash = hash(latestUser);
         if (latestUser) {
-          this.setLocalUserValues();
+          this.checkForChange();
         }
       });
+      this.subscriptions.push(subscription2);
     });
-  }
-
-  setLocalUserValues() {
-    const data = {
-      id: this.oldUser.id,
-      email: this.oldUser.email,
-      username: this.oldUser.username,
-      firstname: this.oldUser.firstname,
-      lastname: this.oldUser.lastname,
-      bio: this.oldUser.bio,
-      website: this.oldUser.website,
-      github: this.oldUser.github,
-      twitter: this.oldUser.twitter,
-      instagram: this.oldUser.instagram,
-      dribbble: this.oldUser.dribbble,
-      linkedin: this.oldUser.linkedin,
-      isPrivate: this.oldUser.isPrivate,
-      country: this.oldUser.country,
-      state: this.oldUser.state,
-      profileimage: this.oldUser.profileimage,
-      creationdate: this.oldUser.creationDate,
-      followers: this.oldUser.numberOfFollowers,
-      following: this.oldUser.numberOfFollowees,
-      color: this.oldUser.color
-    };
-
-    this.updatedUser = new User(data);
-    this.checkForChange();
+    this.subscriptions.push(subscription1);
   }
 
   gotoHome() {
@@ -84,36 +76,16 @@ export class SettingsPage implements OnInit {
   }
 
   gotoProfile() {
-    this.router.navigate(['users/' + this.oldUser.username]);
+    this.router.navigate(['users/' + this.user.username]);
   }
 
   updateUser() {
-    const url: any = this.updatedUser.profileimage;
-
-    const dataToUpdate = {
-      id: this.auth.getUser().id,
-      firstname: this.updatedUser.firstname,
-      lastname: this.updatedUser.lastname,
-      private: this.updatedUser.isPrivate,
-      country: this.updatedUser.country,
-      state: this.updatedUser.state,
-      profilepicture: url.changingThisBreaksApplicationSecurity,
-      bio: this.updatedUser.bio,
-      instagram: this.updatedUser.instagram,
-      twitter: this.updatedUser.twitter,
-      dribbble: this.updatedUser.dribbble,
-      github: this.updatedUser.github,
-      linkedin: this.updatedUser.linkedin,
-      website: this.updatedUser.website,
-      color: this.updatedUser.color
-    };
-    this.auth.updateUser(dataToUpdate);
-
+    this.authService.updateUser(this.user);
     this.presentToast();
   }
 
   updateColor(color: string) {
-    this.updatedUser.color = color;
+    this.user.color = color;
     this.checkForChange();
   }
 
@@ -122,13 +94,14 @@ export class SettingsPage implements OnInit {
       message: 'Your settings have been saved.',
       icon: 'information-circle',
       color: 'primary',
-      duration: 3000
+      duration: 3000,
+      position: 'top'
     });
     toast.present();
   }
 
   changePassword() {
-    this.auth.changePassword(this.oldPassword, this.newPassword1, this.newPassword2);
+    this.authService.changePassword(this.oldPassword, this.newPassword1, this.newPassword2);
   }
 
   findCountry(valueToFind) {
@@ -144,37 +117,26 @@ export class SettingsPage implements OnInit {
     if (event.target.files != null) {
       const file = event.target.files[0];
       if (file != null) {
-        this.api.uploadImage(file).subscribe((res: any) => {
+        const subscription3 = this.apiService.uploadImage(file).subscribe((res: any) => {
           if (res.data.link) {
-            this.updatedUser.profileimage = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
+            this.user.profileimage = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
             this.checkForChange();
           }
         });
+        this.subscriptions.push(subscription3);
       }
     }
   }
 
   checkForChange() {
-    if (
-      this.oldUser.firstname !== this.updatedUser.firstname
-      || this.oldUser.lastname !== this.updatedUser.lastname
-      || !!this.oldUser.isPrivate !== this.updatedUser.isPrivate
-      || this.oldUser.country !== this.updatedUser.country
-      || this.oldUser.state !== this.updatedUser.state
-      || this.oldUser.bio !== this.updatedUser.bio
-      || this.oldUser.instagram !== this.updatedUser.instagram
-      || this.oldUser.twitter !== this.updatedUser.twitter
-      || this.oldUser.dribbble !== this.updatedUser.dribbble
-      || this.oldUser.github !== this.updatedUser.github
-      || this.oldUser.linkedin !== this.updatedUser.linkedin
-      || this.oldUser.website !== this.updatedUser.website
-      || this.oldUser.profileimage !== this.updatedUser.profileimage
-      || this.oldUser.color !== this.updatedUser.color
-    ) {
+    if (this.userHash !== hash(this.user)) {
       this.unsavedDataExists = true;
-    }
-    else {
+    } else {
       this.unsavedDataExists = false;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

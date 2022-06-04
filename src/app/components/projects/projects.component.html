@@ -1,7 +1,7 @@
 <div *ngIf="allLoadedProjects.length > 0; else noPosts">
   <ion-row>
     <ion-col size="auto">
-      <h2 style="margin: 0;">{{header}}</h2>
+      <h2 style="margin: 0;">{{header ? header : alternativeHeader}}</h2>
     </ion-col>
     <ion-col *ngIf="showSortingButtons" style="align-items: end; display: flex; flex-direction: column;flex-grow: 1;">
       <div id="myBtnContainer" style="white-space: nowrap;">
@@ -17,9 +17,17 @@
   <ion-row>
     <ion-col>
       <ion-list>
-        <ion-grid class="post-wrapper" *ngFor="let project of allLoadedProjects" (click)="gotoPost(project.id)">
+        <a [routerLink]="'/projects/' + project.id" *ngFor="let project of allLoadedProjects">
+          <ion-grid class="post-wrapper">
+          <ion-row *ngIf="project.releaseDate">
+            <ion-col>
+              <p style="margin: 0;">{{project.releaseDate.toLocaleDateString("en-at",{year:"numeric",month:"short",
+                day:"numeric"})}}</p>
+            </ion-col>
+          </ion-row>
           <ion-row>
-            <ion-col size="auto" style="display: flex; flex-direction: column; justify-content: center;">
+            <ion-col *ngIf="project.logo" size="auto"
+              style="display: flex; flex-direction: column; justify-content: center;">
               <ion-avatar style="height: 90px; width: 90px; --border-radius: 50%">
                 <img [src]="project.logo">
               </ion-avatar>
@@ -30,6 +38,8 @@
             </ion-col>
           </ion-row>
         </ion-grid>
+        </a>
+
       </ion-list>
 
       <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
@@ -50,7 +60,7 @@
     </ion-row>
     <ion-row>
       <ion-col class="ion-text-center">
-        <h2><strong>No posts yet...</strong></h2>
+        <h2><strong>No projects yet...</strong></h2>
       </ion-col>
     </ion-row>
   </ion-grid>

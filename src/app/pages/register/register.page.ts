@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Platform } from '@ionic/angular';
+import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -8,23 +6,18 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
-export class RegisterPage implements OnInit {
+export class RegisterPage {
 
   email: string;
   username: string;
   password1: string;
   password2: string;
 
-  allschooldata: Array<any> = [];
+  constructor(
+    private authService: AuthService
+    ) { }
 
-  public devWidth = this.plt.width();
-
-  constructor(private auth: AuthService, private plt: Platform, private router: Router) { }
-
-  ngOnInit() {
-  }
-
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.email = '';
     this.username = '';
     this.password1 = '';
@@ -32,11 +25,6 @@ export class RegisterPage implements OnInit {
   }
 
   register() {
-    this.auth.register(this.email, this.username, this.password1, this.password2);
+    this.authService.register(this.email, this.username, this.password1, this.password2);
   }
-
-  gotoLogin() {
-    this.router.navigate(['login']);
-  }
-
 }

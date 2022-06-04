@@ -1,30 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
-import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent implements OnInit, OnDestroy {
 
-  numberOfTotalPosts = 0;
+  subscriptions: Subscription[] = [];
+
+  numberOfTotalIdeas = 0;
   numberOfTotalUsers = 0;
+  numberOfTotalProjects = 0;
 
   constructor(
-    private postService: PostService,
     private apiService: ApiService
   ) { }
 
   ngOnInit() {
-    this.postService.getNumberOfTotalPosts().subscribe(numberOfTotalPosts => {
-      this.numberOfTotalPosts = numberOfTotalPosts;
+    const subscription1 = this.apiService.getNumberOfTotalIdeas().subscribe(numberOfTotalIdeas => {
+      this.numberOfTotalIdeas = numberOfTotalIdeas;
     });
 
-    this.apiService.getNumberOfTotalUsers().subscribe(numberOfTotalUsers => {
+    const subscription2 = this.apiService.getNumberOfTotalUsers().subscribe(numberOfTotalUsers => {
       this.numberOfTotalUsers = numberOfTotalUsers;
     });
+
+    const subscription3 = this.apiService.getNumberOfTotalProjects().subscribe(numberOfTotalProjects => {
+      this.numberOfTotalProjects = numberOfTotalProjects;
+    });
+
+    this.subscriptions.push(subscription1, subscription2, subscription3);
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
 }

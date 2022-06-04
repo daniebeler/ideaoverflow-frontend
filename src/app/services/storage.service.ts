@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage-angular';
 
 const TOKEN_KEY = 'access_token_2';
 
@@ -8,27 +7,33 @@ const TOKEN_KEY = 'access_token_2';
 })
 export class StorageService {
 
+  private token: string = null;
 
-  private myStorage: Storage | null = null;
-
-  constructor(private storage: Storage) {
+  constructor() {
     this.init();
   }
 
   async init() {
-    const storage = await this.storage.create();
-    this.myStorage = storage;
+    this.token = localStorage.getItem(TOKEN_KEY);
   }
 
   setToken(value: any) {
-    this.myStorage?.set(TOKEN_KEY, value);
+    localStorage.setItem(TOKEN_KEY, value);
   }
 
   getToken() {
-    return this.storage?.get(TOKEN_KEY);
+    return localStorage.getItem(TOKEN_KEY);
   }
 
   removeToken() {
-    return this.storage?.remove(TOKEN_KEY);
+    localStorage.removeItem(TOKEN_KEY);
+  }
+
+  setTokenString(value: string){
+    this.token = value;
+  }
+
+  getTokenString(){
+    return this.token;
   }
 }

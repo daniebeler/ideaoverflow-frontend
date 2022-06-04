@@ -32,18 +32,13 @@ const routes: Routes = [
     loadChildren: () => import('./pages/verify/verify.module').then(m => m.VerifyPageModule)
   },
   {
-    path: 'newpost',
-    loadChildren: () => import('./pages/newpost/newpost.module').then(m => m.NewpostPageModule),
+    path: 'ideaeditor/:id',
+    loadChildren: () => import('./pages/ideaeditor/ideaeditor.module').then(m => m.IdeaEditorPageModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'search/:search',
     loadChildren: () => import('./pages/search/search.module').then(m => m.SearchPageModule)
-  },
-  {
-    path: 'editpost',
-    loadChildren: () => import('./pages/editpost/editpost.module').then(m => m.EditpostPageModule),
-    canActivate: [AuthGuard]
   },
   {
     path: 'about',
@@ -74,8 +69,9 @@ const routes: Routes = [
     loadChildren: () => import('./pages/projects/projects.module').then(m => m.ProjectsPageModule)
   },
   {
-    path: 'newproject',
-    loadChildren: () => import('./pages/newproject/newproject.module').then(m => m.NewprojectPageModule)
+    path: 'projecteditor/:id',
+    loadChildren: () => import('./pages/projecteditor/projecteditor.module').then(m => m.ProjectEditorPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: '**',
@@ -85,7 +81,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, initialNavigation: 'enabledBlocking' })
   ],
   exports: [RouterModule]
 })

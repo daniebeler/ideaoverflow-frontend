@@ -3,7 +3,8 @@
   <ion-grid style="margin-bottom: 100px;">
     <ion-row>
       <ion-col size-xs="6" size-sm="4" size-md="4" size-lg="4" size-xl="4" *ngFor="let follower of followers">
-        <ion-grid class="wrapper" (click)="gotoFollower(follower.username)">
+        <a [routerLink]="'/users/' + follower.username">
+          <ion-grid class="wrapper">
           <ion-row>
             <ion-col size="auto">
               <ion-avatar style="height: 60px; width: 60px; --border-radius: 50%">
@@ -18,6 +19,8 @@
             </ion-col>
           </ion-row>
         </ion-grid>
+        </a>
+
       </ion-col>
     </ion-row>
   </ion-grid>

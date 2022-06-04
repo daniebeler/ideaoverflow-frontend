@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Platform } from '@ionic/angular';
+import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -8,28 +6,16 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
 
   email: string;
   password: string;
 
-  public devWidth = this.plt.width();
-
-  constructor(private plt: Platform, private router: Router, private auth: AuthService) { }
-
-  ngOnInit() {
-  }
+  constructor(
+    private authService: AuthService
+  ) { }
 
   login() {
-    this.auth.login(this.email, this.password);
+    this.authService.login(this.email, this.password);
   }
-
-  gotoRegister() {
-    this.router.navigate(['register']);
-  }
-
-  gotoResetPassword() {
-    this.router.navigate(['resetpassword']);
-  }
-
 }

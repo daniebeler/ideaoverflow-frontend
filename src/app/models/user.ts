@@ -14,7 +14,6 @@ export class User {
   public instagram: string;
   public dribbble: string;
   public linkedin: string;
-  public isPrivate: boolean;
   public country: string;
   public state: string;
   public profileimage: SafeResourceUrl;
@@ -36,7 +35,6 @@ export class User {
     this.instagram = data?.instagram;
     this.dribbble = data?.dribbble;
     this.linkedin = data?.linkedin;
-    this.isPrivate = true;
     this.country = data?.country;
     this.state = data?.state;
     this.profileimage = data?.profileimage;
@@ -44,6 +42,5 @@ export class User {
     this.numberOfFollowers = data?.followers;
     this.numberOfFollowees = data?.following;
     this.color = data?.color;
-   }
+  }
 }
-
