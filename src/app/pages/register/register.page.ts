@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -8,23 +9,38 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class RegisterPage {
 
-  email: string;
-  username: string;
-  password1: string;
-  password2: string;
+  registerForm: FormGroup;
 
   constructor(
     private authService: AuthService
-    ) { }
-
-  ionViewWillEnter() {
-    this.email = '';
-    this.username = '';
-    this.password1 = '';
-    this.password2 = '';
+  ) {
+    this.registerForm = new FormGroup({
+      email: new FormControl<string | null>('', [Validators.required, Validators.email]),
+      username: new FormControl<string | null>('', [Validators.required, Validators.minLength(3)]),
+      password: new FormControl<string | null>('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[\S]{6,}$/)]),
+      password2: new FormControl<string | null>('', Validators.required)
+    });
   }
 
-  register() {
-    this.authService.register(this.email, this.username, this.password1, this.password2);
+  get email() {
+    return this.registerForm.get('email');
+  }
+
+  get username() {
+    return this.registerForm.get('username');
+  }
+
+  get password() {
+    return this.registerForm.get('password');
+  }
+
+  get password2() {
+    return this.registerForm.get('password2');
+  }
+
+  onSubmit() {
+    if (this.registerForm.valid) {
+      this.authService.register(this.email.value, this.username.value, this.password.value, this.password2.value);
+    }
   }
 }

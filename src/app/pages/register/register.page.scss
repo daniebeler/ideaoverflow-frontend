@@ -25,6 +25,15 @@ input {
   padding: 15px;
   box-sizing: border-box;
   font-size: 0.8em;
+  margin: 5px 0 5px 0;
+}
+
+.field-box {
+  margin: 5px 0 15px 0;
+
+  span {
+    color: red;
+  }
 }
 
 .form-group {
@@ -43,4 +52,8 @@ input {
   a:hover {
     cursor: pointer;
   }
+}
+
+button:disabled {
+  background-color: #9b9b9b;
 }

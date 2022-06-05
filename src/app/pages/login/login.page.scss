@@ -24,12 +24,20 @@ input {
   padding: 15px;
   box-sizing: border-box;
   font-size: 0.8em;
-  margin: 5px 0 15px 0;
+  margin: 5px 0 5px 0;
 }
 
 .form-group {
   position: relative;
   margin-bottom: 25px;
+}
+
+.field-box {
+  margin: 5px 0 15px 0;
+
+  span {
+    color: red;
+  }
 }
 
 .txt-gotologin {
@@ -55,4 +63,8 @@ input {
   a:hover {
     cursor: pointer;
   }
+}
+
+button:disabled {
+  background-color: #9b9b9b;
 }
