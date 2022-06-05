@@ -10,15 +10,18 @@
 
         <ion-col size-xs="10" size-sm="8" size-md="5" size-lg="4" size-xl="4">
           <h1 class="register-header"><strong>Login</strong></h1>
-          <input style="margin-bottom: 25px;" type="email" name="email" placeholder="Email" [(ngModel)]="email" />
-          <input style="margin-bottom: 10px;" type="password" name="password" placeholder="Password"
-            [(ngModel)]="password" (keyup.enter)="login()" />
-          <p class="txt-resetpw"><a routerLink="/resetpassword">Forgot password</a></p>
-
-          <div class="row d-flex justify-content-center submit-button-container">
-            <button type="button" class="btn-large btn-primary" style="margin-top: 10px;" (click)="login()">Log
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div>
+              <label for="email">Email</label>
+              <input type="email" id="email" minlength="4" formControlName="email" placeholder="Email">
+            </div>
+            <div>
+              <label for="password">Password</label>
+              <input type="password" id="password" formControlName="password" placeholder="Password">
+            </div>
+            <button type="submit" class="btn-large btn-primary" style="margin-top: 10px;">Log
               in</button>
-          </div>
+          </form>
         </ion-col>
       </ion-row>
     </ion-grid>

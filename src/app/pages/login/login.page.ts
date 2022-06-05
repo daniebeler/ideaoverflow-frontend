@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -7,15 +8,20 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-
-  email: string;
-  password: string;
+  loginForm: FormGroup;
 
   constructor(
     private authService: AuthService
-  ) { }
+  ) {
+    this.loginForm = new FormGroup({
+      email: new FormControl<string | null>('', Validators.email),
+      password: new FormControl<string | null>('', Validators.required)
+    });
+   }
 
-  login() {
-    this.authService.login(this.email, this.password);
-  }
+   onSubmit() {
+     if (this.loginForm.value.email && this.loginForm.value.password) {
+       this.authService.login(this.loginForm.value.email, this.loginForm.value.password);
+     }
+   }
 }
