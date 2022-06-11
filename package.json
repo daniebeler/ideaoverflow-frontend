@@ -26,7 +26,7 @@
     "@angular/router": "^14.0.0",
     "@angular/service-worker": "^14.0.0",
     "@auth0/angular-jwt": "^5.0.2",
-    "@ionic/angular": "6.1.9-dev.11654275237.1b595be3",
+    "@ionic/angular": "6.1.9",
     "@nguniversal/express-engine": "^14.0.0",
     "express": "^4.18.1",
     "localstorage-polyfill": "^1.0.1",
