@@ -21,7 +21,7 @@
     <ion-row>
       <ion-col size="12">
         <div class="form-group">
-          <label class="text-label" for="fname"><strong>Title</strong></label>
+          <label class="text-label" for="fname">Title</label>
           <input type="text" name="fname" id="fname" placeholder="Title" [(ngModel)]="project.title"
             (ngModelChange)="updateSubmitButtonState()" />
         </div>
@@ -31,7 +31,7 @@
     <ion-row style="padding-bottom: 20px;">
       <ion-col style="padding-bottom: 0;">
         <div class="form-group">
-          <label class="text-label" for="fname"><strong>Short description</strong></label>
+          <label class="text-label" for="fname">Short description</label>
           <textarea style="resize: none;" rows="5" type="text" name="fname" id="fname"
             placeholder="My project in a few words" [(ngModel)]="project.shortDescription"
             (ngModelChange)="updateSubmitButtonState()"></textarea>
@@ -39,7 +39,7 @@
       </ion-col>
     </ion-row>
 
-    <label class="text-label" for="fname"><strong>Long description</strong></label>
+    <label class="text-label" for="fname">Long description</label>
     <quill-editor *ngIf="project.body" [(ngModel)]="project.body.changingThisBreaksApplicationSecurity"
       (onEditorCreated)="editor($event)" trackChanges="all" (ngModelChange)="updateSubmitButtonState()">
     </quill-editor>
@@ -48,7 +48,7 @@
     <ion-row style="padding-top: 20px;">
       <ion-col size="12">
         <div class="form-group">
-          <label class="text-label" for="fname"><strong>Website</strong></label>
+          <label class="text-label" for="fname">Website</label>
           <input type="text" name="fname" id="fname" placeholder="URL" [(ngModel)]="project.website"
             (ngModelChange)="updateSubmitButtonState()" />
         </div>
@@ -58,7 +58,7 @@
     <ion-row style="padding-top: 20px; margin-bottom: 50px;">
       <ion-col size="12">
         <div class="form-group">
-          <label class="text-label" for="fname"><strong>Release Date</strong></label>
+          <label class="text-label" for="fname">Release Date</label>
           <input type="date" name="fname" id="fname" placeholder="URL" (change)="releaseDateChanged($event)"
             (ngModelChange)="updateSubmitButtonState()" [(ngModel)]="releaseDate" />
         </div>

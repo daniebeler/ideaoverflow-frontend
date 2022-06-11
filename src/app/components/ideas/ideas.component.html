@@ -40,7 +40,7 @@
                       <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
                         <img [src]="post.ownerImage">
                       </ion-avatar>
-                      <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{post.ownerUsername}}</strong></p>
+                      <p style="margin-bottom: 0; padding-left: 8px;">{{post.ownerUsername}}</p>
                     </a>
 
                   </ion-col>
@@ -49,26 +49,26 @@
                     style="display: flex; align-items: center;">
                     <ion-icon name="heart" [ngStyle]="{'color':post.ownerColor}" style="width: 30px; height: 25px;">
                     </ion-icon>
-                    <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{post.numberOfUpvotes}}</strong></p>
+                    <p style="margin-bottom: 0; padding-left: 8px;">{{post.numberOfUpvotes}}</p>
                   </ion-col>
 
                   <ion-col size="auto" *ngIf="post.currentUserVoteValue !== 1" (click)="votePost(1, post)" class="like"
                     style="display: flex; align-items: center;">
                     <ion-icon name="heart-outline" style="width: 30px; height: 25px;"></ion-icon>
-                    <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{post.numberOfUpvotes}}</strong></p>
+                    <p style="margin-bottom: 0; padding-left: 8px;">{{post.numberOfUpvotes}}</p>
                   </ion-col>
 
                   <ion-col size="auto" *ngIf="post.currentUserVoteValue === -1" (click)="votePost(0, post)" class="like"
                     style="display: flex; align-items: center;">
                     <ion-icon name="thumbs-down" [ngStyle]="{'color':post.ownerColor}"
                       style="width: 30px; height: 25px;"></ion-icon>
-                    <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{post.numberOfDownvotes}}</strong></p>
+                    <p style="margin-bottom: 0; padding-left: 8px;">{{post.numberOfDownvotes}}</p>
                   </ion-col>
 
                   <ion-col size="auto" *ngIf="post.currentUserVoteValue !== -1" (click)="votePost(-1, post)"
                     class="like" style="display: flex; align-items: center;">
                     <ion-icon name="thumbs-down-outline" style="width: 30px; height: 25px;"></ion-icon>
-                    <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{post.numberOfDownvotes}}</strong></p>
+                    <p style="margin-bottom: 0; padding-left: 8px;">{{post.numberOfDownvotes}}</p>
                   </ion-col>
 
                   <ion-col size="auto" *ngIf="post.saved" (click)="unsavePost(post.id)" class="like"
@@ -117,7 +117,7 @@
     </ion-row>
     <ion-row>
       <ion-col class="ion-text-center">
-        <h2><strong>No posts yet...</strong></h2>
+        <h2>No posts yet...</h2>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -10,16 +10,16 @@
 
         <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="6" size-xl="6"
           style="padding-left: 50px; padding-right: 75px;">
-          <h1 class="register-header"><strong>Verify</strong></h1>
+          <h1 class="register-header">Verify</h1>
 
           <div *ngIf="isVerified; else elseBlock">
-            <p><strong>Your account has been activated.</strong></p>
+            <p>Your account has been activated.</p>
             <a class="btn-large btn-primary" style="margin-top: 10px;" routerLink="/login">
               Login
             </a>
           </div>
           <ng-template #elseBlock>
-            <p><strong>This URL is not valid.</strong></p>
+            <p>This URL is not valid.</p>
           </ng-template>
         </ion-col>
       </ion-row>

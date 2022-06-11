@@ -7,18 +7,18 @@
             <ion-col style="display: flex; flex-direction: column; justify-content: center;" size-xs="12" size-sm="6"
               size-md="6" size-lg="7" size-xl="7">
               <div *ngIf="user">
-                <h4 style="margin-top: 0;" *ngIf="user.firstname"><strong>Hello, {{user.firstname}}!</strong></h4>
-                <h4 style="margin-top: 0;" *ngIf="!user.firstname"><strong>Hey!</strong></h4>
+                <h2 style="margin-top: 0;" *ngIf="user.firstname">Hello, {{user.firstname}}!</h2>
+                <h2 style="margin-top: 0;" *ngIf="!user.firstname">Hey!</h2>
                 <p>If you have a great idea please share it with the community!</p>
                 <a *ngIf="user && activeContentTab === 'ideas'" routerLink="ideaeditor/new"
-                  class="btn-small btn-primary" style="margin-bottom: 20px">
-                  <strong>New idea</strong></a>
+                  class="btn-small btn-primary semibold" style="margin-bottom: 20px">
+                  New idea</a>
                 <a *ngIf="user && activeContentTab === 'projects'" routerLink="projecteditor/new"
-                  class="btn-small btn-primary" style="margin-bottom: 20px">
-                  <strong>New project</strong></a>
+                  class="btn-small btn-primary semibold" style="margin-bottom: 20px">
+                  New project</a>
               </div>
               <div *ngIf="!user">
-                <h4><strong>New to Idea Overflow?</strong></h4>
+                <h2>New to Idea Overflow?</h2>
                 <p>Sign up now to post your own ideas!</p>
                 <a routerLink="register" class="btn-large btn-primary"
                   style="margin-top: 10px; margin-bottom: 10px;">Register</a>
@@ -32,16 +32,14 @@
 
           <ion-row class="wrapper-switch">
             <ion-col style="padding-left: 5px;">
-              <button type="button" class="btn-small" style="width: 100%;" (click)="activeContentTab = 'ideas'"
-                [ngClass]="activeContentTab === 'ideas' ? 'btn-primary' : 'btn-dark'">
-                <strong>Ideas</strong>
+              <button type="button" class="btn-small semibold" style="width: 100%;" (click)="activeContentTab = 'ideas'"
+                [ngClass]="activeContentTab === 'ideas' ? 'btn-primary' : 'btn-dark'">Ideas
               </button>
 
             </ion-col>
             <ion-col style="padding-right: 5px;">
-              <button type="button" class="btn-small" style="width: 100%;" (click)="activeContentTab = 'projects'"
-                [ngClass]="activeContentTab === 'projects' ? 'btn-primary' : 'btn-dark'"><strong>
-                  Projects</strong></button>
+              <button type="button" class="btn-small semibold" style="width: 100%;" (click)="activeContentTab = 'projects'"
+                [ngClass]="activeContentTab === 'projects' ? 'btn-primary' : 'btn-dark'">Projects</button>
             </ion-col>
           </ion-row>
         </ion-grid>
