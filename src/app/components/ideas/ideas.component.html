@@ -26,7 +26,10 @@
               <ion-grid>
                 <ion-row>
                   <ion-col style="padding: 0;">
-                    <h1 style="margin: 0;">{{post.title}}</h1>
+                    <a [routerLink]="'/ideas/' + post.id">
+                      <h1 style="margin: 0;">{{post.title}}</h1>
+                    </a>
+
                   </ion-col>
                 </ion-row>
                 <ion-row>

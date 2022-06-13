@@ -95,6 +95,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
         this.alternativeHeader = 'Oldest ideas';
       }
     }
+    console.log(this.allLoadedPosts);
     this.allLoadedPosts = [];
     this.skipPosts = -5;
     this.getPosts(false, '');
