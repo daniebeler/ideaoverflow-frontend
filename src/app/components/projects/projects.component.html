@@ -18,7 +18,7 @@
     <ion-col>
       <ion-list>
         <a [routerLink]="'/projects/' + project.id" *ngFor="let project of allLoadedProjects">
-          <ion-grid class="post-wrapper">
+          <ion-grid class="project-wrapper">
           <ion-row *ngIf="project.releaseDate">
             <ion-col>
               <p style="margin: 0;">{{project.releaseDate.toLocaleDateString("en-at",{year:"numeric",month:"short",

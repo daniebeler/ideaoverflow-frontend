@@ -90,6 +90,14 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'ideas/:id',
+    loadChildren: () => import('./pages/idea/idea.module').then( m => m.IdeaPageModule)
+  },
+  {
+    path: 'ideas',
+    loadChildren: () => import('./pages/ideas/ideas.module').then( m => m.IdeasPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/pagenotfound/pagenotfound.module').then(m => m.PagenotfoundPageModule),
     title: '404 • Idea Overflow'
