@@ -91,11 +91,13 @@ const routes: Routes = [
   },
   {
     path: 'ideas/:id',
-    loadChildren: () => import('./pages/idea/idea.module').then( m => m.IdeaPageModule)
+    loadChildren: () => import('./pages/idea/idea.module').then( m => m.IdeaPageModule),
+    title: 'Ideas • Idea Overflow'
   },
   {
     path: 'ideas',
-    loadChildren: () => import('./pages/ideas/ideas.module').then( m => m.IdeasPageModule)
+    loadChildren: () => import('./pages/ideas/ideas.module').then( m => m.IdeasPageModule),
+    title: 'Ideas • Idea Overflow'
   },
   {
     path: '**',
