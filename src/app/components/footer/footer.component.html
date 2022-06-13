@@ -3,18 +3,18 @@
     <ion-row style="justify-content: space-between;">
       <ion-col size="auto">
         <p class="bold" style="text-decoration: underline;">Developed by:</p>
-        <a href="http://ideaoverflow.xyz/users/daniebeler">@daniebeler</a>
+        <a routerLink="/users/daniebeler">@daniebeler</a>
       </ion-col>
       <ion-col size="auto">
         <p class="bold" style="text-decoration: underline;">General</p>
-        <a href="http://ideaoverflow.xyz/about">About</a>
-        <a href="http://ideaoverflow.xyz/privacy">Privacy policy</a>
+        <a routerLink="/about">About</a>
+        <a routerLink="/privacy">Privacy policy</a>
       </ion-col>
       <ion-col size="auto">
         <p class="bold" style="text-decoration: underline;">Stats</p>
-        <a href="http://ideaoverflow.xyz">Total Ideas: {{numberOfTotalIdeas}}</a>
-        <a href="http://ideaoverflow.xyz/projects">Total Projects: {{numberOfTotalProjects}}</a>
-        <a href="http://ideaoverflow.xyz/users">Total Users: {{numberOfTotalUsers}}</a>
+        <a routerLink="/">Total Ideas: {{numberOfTotalIdeas}}</a>
+        <a routerLink="/projects">Total Projects: {{numberOfTotalProjects}}</a>
+        <a routerLink="/users">Total Users: {{numberOfTotalUsers}}</a>
       </ion-col>
 
     </ion-row>
