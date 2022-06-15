@@ -24,27 +24,27 @@
 
               </ion-col>
 
-              <ion-col size="auto" *ngIf="idea.currentUserVoteValue === 1" (click)="votePost(0, post)" class="like"
+              <ion-col size="auto" *ngIf="idea.currentUserVoteValue === 1" (click)="votePost(0, idea)" class="like"
                 style="display: flex; align-items: center;">
                 <ion-icon name="heart" [ngStyle]="{'color':idea.ownerColor}" style="width: 30px; height: 25px;">
                 </ion-icon>
                 <p style="margin-bottom: 0; padding-left: 8px;">{{idea.numberOfUpvotes}}</p>
               </ion-col>
 
-              <ion-col size="auto" *ngIf="idea.currentUserVoteValue !== 1" (click)="votePost(1, post)" class="like"
+              <ion-col size="auto" *ngIf="idea.currentUserVoteValue !== 1" (click)="votePost(1, idea)" class="like"
                 style="display: flex; align-items: center;">
                 <ion-icon name="heart-outline" style="width: 30px; height: 25px;"></ion-icon>
                 <p style="margin-bottom: 0; padding-left: 8px;">{{idea.numberOfUpvotes}}</p>
               </ion-col>
 
-              <ion-col size="auto" *ngIf="idea.currentUserVoteValue === -1" (click)="votePost(0, post)" class="like"
+              <ion-col size="auto" *ngIf="idea.currentUserVoteValue === -1" (click)="votePost(0, idea)" class="like"
                 style="display: flex; align-items: center;">
                 <ion-icon name="thumbs-down" [ngStyle]="{'color':idea.ownerColor}"
                   style="width: 30px; height: 25px;"></ion-icon>
                 <p style="margin-bottom: 0; padding-left: 8px;">{{idea.numberOfDownvotes}}</p>
               </ion-col>
 
-              <ion-col size="auto" *ngIf="idea.currentUserVoteValue !== -1" (click)="votePost(-1, post)"
+              <ion-col size="auto" *ngIf="idea.currentUserVoteValue !== -1" (click)="votePost(-1, idea)"
                 class="like" style="display: flex; align-items: center;">
                 <ion-icon name="thumbs-down-outline" style="width: 30px; height: 25px;"></ion-icon>
                 <p style="margin-bottom: 0; padding-left: 8px;">{{idea.numberOfDownvotes}}</p>
