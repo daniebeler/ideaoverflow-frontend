@@ -4,17 +4,19 @@
       <ion-col>
         <ion-grid class="contribute-grid">
           <ion-row>
-            <ion-col style="display: flex; flex-direction: column; justify-content: center;" size-xs="12" size-sm="6"
-              size-md="6" size-lg="7" size-xl="7">
+            <ion-col style="display: flex; flex-direction: column;" size-xs="12" size-sm="6" size-md="6" size-lg="6"
+              size-xl="6">
               <div *ngIf="user">
-                <h2 style="margin-top: 0;" *ngIf="user.firstname">Hello, {{user.firstname}}!</h2>
+                <h2 class="intro" style="margin-top: 0; color: var(--ion-color-dark);" *ngIf="user.firstname">Hello,
+                  {{user.firstname}}!</h2>
                 <h2 style="margin-top: 0;" *ngIf="!user.firstname">Hey!</h2>
-                <p>If you have a great idea please share it with the community!</p>
+                <h2 style="color: var(--ion-color-dark); margin-top: 0; padding-bottom: 10px;">If you have a great idea
+                  please share it with the community!</h2>
                 <a *ngIf="user && activeContentTab === 'ideas'" routerLink="ideaeditor/new"
-                  class="btn-small btn-primary semibold" style="margin-bottom: 20px">
+                  class="btn-small btn-dark semibold" style="margin-bottom: 20px">
                   New idea</a>
                 <a *ngIf="user && activeContentTab === 'projects'" routerLink="projecteditor/new"
-                  class="btn-small btn-primary semibold" style="margin-bottom: 20px">
+                  class="btn-small btn-dark semibold" style="margin-bottom: 20px">
                   New project</a>
               </div>
               <div *ngIf="!user">
@@ -24,25 +26,31 @@
                   style="margin-top: 10px; margin-bottom: 10px;">Register</a>
               </div>
             </ion-col>
-            <ion-col style="display: flex; justify-content: center; padding: 20px;" size-xs="12" size-sm="6" size-md="6"
-              size-lg="5" size-xl="5">
-              <img src="./../../../assets/3d/ideas2.png" alt="">
-            </ion-col>
-          </ion-row>
-
-          <ion-row class="wrapper-switch">
-            <ion-col style="padding-left: 5px;">
-              <button type="button" class="btn-small semibold" style="width: 100%;" (click)="activeContentTab = 'ideas'"
-                [ngClass]="activeContentTab === 'ideas' ? 'btn-primary' : 'btn-dark'">Ideas
-              </button>
-
-            </ion-col>
-            <ion-col style="padding-right: 5px;">
-              <button type="button" class="btn-small semibold" style="width: 100%;" (click)="activeContentTab = 'projects'"
-                [ngClass]="activeContentTab === 'projects' ? 'btn-primary' : 'btn-dark'">Projects</button>
+            <ion-col class="ion-hide-sm-down" style="display: flex; justify-content: center; padding: 20px;"
+              size-xs="12" size-sm="6" size-md="6" size-lg="5" size-xl="5">
+              <div style="height: 100%; width: 100%">
+                <img src="./../../../assets/3d/ideas2.png" alt="">
+              </div>
             </ion-col>
           </ion-row>
         </ion-grid>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row class="wrapper">
+      <ion-col style="padding-left: 5px;">
+        <button type="button" class="btn-small" style="width: 100%;" (click)="activeContentTab = 'ideas'"
+          [ngClass]="activeContentTab === 'ideas' ? 'btn-primary' : 'btn-dark'">
+          Ideas
+        </button>
+
+      </ion-col>
+      <ion-col style="padding-right: 5px;">
+        <button type="button" class="btn-small" style="width: 100%;" (click)="activeContentTab = 'projects'"
+          [ngClass]="activeContentTab === 'projects' ? 'btn-primary' : 'btn-dark'">
+          Projects
+        </button>
       </ion-col>
     </ion-row>
 
