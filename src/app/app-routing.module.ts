@@ -100,6 +100,10 @@ const routes: Routes = [
     title: 'Ideas • Idea Overflow'
   },
   {
+    path: 'error',
+    loadChildren: () => import('./pages/error/error.module').then( m => m.ErrorPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/pagenotfound/pagenotfound.module').then(m => m.PagenotfoundPageModule),
     title: '404 • Idea Overflow'
