@@ -101,7 +101,8 @@ const routes: Routes = [
   },
   {
     path: 'error',
-    loadChildren: () => import('./pages/error/error.module').then( m => m.ErrorPageModule)
+    loadChildren: () => import('./pages/error/error.module').then( m => m.ErrorPageModule),
+    title: 'Error • Idea Overflow'
   },
   {
     path: '**',
