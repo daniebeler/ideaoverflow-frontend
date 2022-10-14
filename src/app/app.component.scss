@@ -1,3 +1,11 @@
 ion-router-outlet {
   margin-top: 5rem !important;
+  margin-left: 0 !important;
+}
+
+@media (min-width: 768px) {
+  ion-router-outlet {
+    margin-top: 0 !important;
+    margin-left: 200px !important;
+  }
 }

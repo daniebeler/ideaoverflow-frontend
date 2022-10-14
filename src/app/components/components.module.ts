@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { UsersComponent } from './users/users.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { RouterModule } from '@angular/router';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { RouterModule } from '@angular/router';
     ProjectsComponent,
     FollowersComponent,
     AboutComponent,
+    SidebarComponent,
     UsersComponent
   ],
   exports: [
@@ -29,6 +31,7 @@ import { RouterModule } from '@angular/router';
     ProjectsComponent,
     FollowersComponent,
     AboutComponent,
+    SidebarComponent,
     UsersComponent
   ],
   imports: [

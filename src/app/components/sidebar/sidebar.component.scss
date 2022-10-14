@@ -1,0 +1,23 @@
+.wrapper {
+  height: 100vh;
+  width: 200px;
+  border-right: 1px solid var(--ion-color-medium);
+  padding: 20px;
+}
+
+.owner {
+  background-color: var(--ion-color-dark);
+  border-radius: 10px;
+  margin: 5px;
+  padding: 0;
+
+  a {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+a {
+  display: block;
+}

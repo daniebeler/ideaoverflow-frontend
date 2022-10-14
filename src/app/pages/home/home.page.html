@@ -1,5 +1,20 @@
 <ion-content>
   <ion-grid class="container">
+
+    <ion-row style="padding-top: 50px">
+      <ion-col>
+        <div *ngIf="user">
+          <h2 class="welcome-text" style="margin-top: 0; color: var(--ion-color-light);" *ngIf="user.firstname">Hi
+            {{user.firstname}},</h2>
+          <h2 style="margin-top: 0;" *ngIf="!user.firstname">Hey,</h2>
+          <h1>Welcome Back 👋</h1>
+        </div>
+        <div *ngIf="!user">
+
+        </div>
+      </ion-col>
+    </ion-row>
+
     <ion-row>
       <ion-col>
         <ion-grid class="contribute-grid">
