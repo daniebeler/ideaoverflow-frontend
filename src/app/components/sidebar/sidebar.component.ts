@@ -18,7 +18,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   loggedIn = false;
 
   constructor(
-    private router: Router,
+    public router: Router,
     private userService: UserService,
     private authService: AuthService  // Is needed to check if logged in
   ) { }

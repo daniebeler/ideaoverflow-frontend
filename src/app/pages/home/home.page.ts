@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
@@ -19,7 +20,8 @@ export class HomePage implements OnInit, OnDestroy {
   activeContentTab = 'ideas';
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    public router: Router
   ) { }
 
   ngOnInit() {
@@ -32,5 +34,9 @@ export class HomePage implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
+  goto(route: string) {
+    this.router.navigate([route]);
   }
 }

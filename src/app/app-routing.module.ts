@@ -80,7 +80,7 @@ const routes: Routes = [
   },
   {
     path: 'projects',
-    loadChildren: () => import('./pages/projects/projects.module').then(m => m.ProjectsPageModule),
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule),
     title: 'Projects • Idea Overflow'
   },
   {
@@ -96,8 +96,7 @@ const routes: Routes = [
   },
   {
     path: 'ideas',
-    loadChildren: () => import('./pages/ideas/ideas.module').then( m => m.IdeasPageModule),
-    title: 'Ideas • Idea Overflow'
+    redirectTo: '/'
   },
   {
     path: 'error',

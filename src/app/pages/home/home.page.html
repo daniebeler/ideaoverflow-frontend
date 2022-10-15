@@ -55,15 +55,15 @@
 
     <ion-row class="wrapper">
       <ion-col style="padding-left: 5px;">
-        <button type="button" class="btn-small" style="width: 100%;" (click)="activeContentTab = 'ideas'"
-          [ngClass]="activeContentTab === 'ideas' ? 'btn-primary' : 'btn-dark'">
+        <button type="button" class="btn-small" style="width: 100%;" (click)="goto('/')"
+          [ngClass]="router.url === '/' ? 'btn-primary' : 'btn-dark'">
           Ideas
         </button>
 
       </ion-col>
       <ion-col style="padding-right: 5px;">
-        <button type="button" class="btn-small" style="width: 100%;" (click)="activeContentTab = 'projects'"
-          [ngClass]="activeContentTab === 'projects' ? 'btn-primary' : 'btn-dark'">
+        <button type="button" class="btn-small" style="width: 100%;" (click)="goto('/projects')"
+          [ngClass]="router.url === '/projects' ? 'btn-primary' : 'btn-dark'">
           Projects
         </button>
       </ion-col>
@@ -71,13 +71,12 @@
 
 
 
-    <div *ngIf="activeContentTab === 'ideas'"
-      style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+    <div *ngIf="router.url === '/'" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
       <app-posts style="width: 100%;">
       </app-posts>
     </div>
 
-    <div *ngIf="activeContentTab === 'projects'"
+    <div *ngIf="router.url === '/projects'"
       style="display: flex; flex-direction: column; align-items: center; width: 100%;">
       <app-component-projects style="width: 100%;">
       </app-component-projects>
