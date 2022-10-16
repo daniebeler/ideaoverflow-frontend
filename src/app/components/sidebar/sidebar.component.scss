@@ -5,6 +5,17 @@
   padding: 20px;
 }
 
+.wrapper-grid {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.filler-row {
+  flex-grow: 1;
+  display: flex;
+}
+
 .owner {
   background-color: var(--ion-color-dark);
   border-radius: 10px;
@@ -39,10 +50,17 @@ a {
 }
 
 .subheadline {
-  margin-bottom: 0;
+  margin-bottom: 10px;
+  padding-left: 17px;
   font-size: 14px;
 }
 
 hr {
   background-color: var(--ion-color-medium);
+  height: 1px;
+  margin: 10px;
+}
+
+a {
+  display: flex;
 }

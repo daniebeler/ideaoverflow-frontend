@@ -6,6 +6,7 @@ import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FollowerService } from 'src/app/services/follower.service';
+import { ManagerService } from 'src/app/services/manager.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -38,7 +39,8 @@ export class ProfilePage implements OnInit, OnDestroy {
     private userService: UserService,
     private followerService: FollowerService,
     private activatedRoute: ActivatedRoute,
-    private alertController: AlertController
+    private alertController: AlertController,
+    public managerService: ManagerService
   ) { }
 
   ngOnInit() {

@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <ion-grid>
+  <ion-grid class="wrapper-grid">
     <ion-row>
       <ion-col>
         <a routerLink="/" style="display: flex; flex-direction:column; align-items: center">
@@ -28,28 +28,31 @@
       </ion-col>
     </ion-row>
 
-    <ion-row style="margin-top: 50px;">
-      <ion-col>
-        <a routerLink="/" class="btn-a btn-small" [ngClass]="{'btn-active': router.url === '/'}">
-          <ion-icon name="flame-outline"></ion-icon>Ideas
-        </a>
-      </ion-col>
-    </ion-row>
+    <div style="padding-top: 50px;">
+      <p class="subheadline">Explore</p>
 
-    <ion-row>
-      <ion-col>
-        <a routerLink="/projects" class="btn-a btn-small" [ngClass]="{'btn-active': router.url === '/projects'}">
-          <ion-icon name="hardware-chip-outline"></ion-icon>Projects
-        </a>
-      </ion-col>
-    </ion-row>
+      <ion-row>
+        <ion-col>
+          <a routerLink="/" class="btn-a btn-small" [ngClass]="{'btn-active': router.url === '/'}">
+            <ion-icon name="flame-outline"></ion-icon>Ideas
+          </a>
+        </ion-col>
+      </ion-row>
 
-    <hr>
+      <ion-row>
+        <ion-col>
+          <a routerLink="/projects" class="btn-a btn-small" [ngClass]="{'btn-active': router.url === '/projects'}">
+            <ion-icon name="hardware-chip-outline"></ion-icon>Projects
+          </a>
+        </ion-col>
+      </ion-row>
+    </div>
 
-    <div *ngIf="user" style="margin-top: 25px;">
+    <div *ngIf="user">
+
+      <hr style="margin-bottom: 25px;">
 
       <p class="subheadline">Contribute</p>
-
       <ion-row>
         <ion-col>
           <a routerLink="/ideaeditor/new" class="btn-a btn-small"
@@ -69,13 +72,54 @@
       </ion-row>
     </div>
 
+    <div *ngIf="!user">
 
+      <hr style="margin-bottom: 25px;">
 
-    <ion-row *ngIf="user" style="margin-top: 50px">
+      <p class="subheadline">Login/Register</p>
+      <ion-row>
+        <ion-col>
+          <a routerLink="/register" class="btn-a btn-small"
+            [ngClass]="{'btn-active': router.url === '/register'}">
+            <ion-icon name="person-add-outline"></ion-icon>Register
+          </a>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <a routerLink="/login" class="btn-a btn-small"
+            [ngClass]="{'btn-active': router.url === '/login'}">
+            <ion-icon name="log-in-outline"></ion-icon>Login
+          </a>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <hr>
+
+    <div style="padding-top: 25px;">
+      <p class="subheadline">More</p>
+
+      <ion-row *ngIf="user">
+        <ion-col>
+          <a routerLink="settings" class="btn-a btn-small" [ngClass]="{'btn-active': router.url === '/settings'}">
+            <ion-icon name="settings-outline"></ion-icon>Settings
+          </a>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <a routerLink="about" class="btn-a btn-small" [ngClass]="{'btn-active': router.url === '/about'}">
+            <ion-icon name="information-circle-outline"></ion-icon>About
+          </a>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <ion-row class="filler-row">
       <ion-col>
-        <a routerLink="settings" class="btn-a btn-small" [ngClass]="{'btn-active': router.url === '/settings'}">
-          <ion-icon name="settings-outline"></ion-icon>Settings
-        </a>
       </ion-col>
     </ion-row>
 
