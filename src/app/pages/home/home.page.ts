@@ -18,8 +18,6 @@ export class HomePage implements OnInit, OnDestroy {
 
   postsHeader = 'Popular Posts';
 
-  activeContentTab = 'ideas';
-
   constructor(
     private userService: UserService,
     public router: Router,

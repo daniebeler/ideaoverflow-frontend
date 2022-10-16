@@ -16,7 +16,5 @@ export class ManagerService {
 
   checkScreenWidth(width) {
     this.showSidebar = width > 800;
-    console.log(width);
   }
-
 }
