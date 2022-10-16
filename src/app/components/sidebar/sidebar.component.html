@@ -31,7 +31,7 @@
     <ion-row style="margin-top: 50px;">
       <ion-col>
         <a routerLink="/" class="btn-a btn-small" [ngClass]="{'btn-active': router.url === '/'}">
-          <ion-icon name="settings-outline"></ion-icon>Ideas
+          <ion-icon name="flame-outline"></ion-icon>Ideas
         </a>
       </ion-col>
     </ion-row>
@@ -39,16 +39,14 @@
     <ion-row>
       <ion-col>
         <a routerLink="/projects" class="btn-a btn-small" [ngClass]="{'btn-active': router.url === '/projects'}">
-          <ion-icon name="settings-outline"></ion-icon>Projects
+          <ion-icon name="hardware-chip-outline"></ion-icon>Projects
         </a>
       </ion-col>
     </ion-row>
 
     <hr>
 
-    <div *ngIf="user" style="margin-top: 50px;">
-
-      <hr>
+    <div *ngIf="user" style="margin-top: 25px;">
 
       <p class="subheadline">Contribute</p>
 
@@ -56,7 +54,7 @@
         <ion-col>
           <a routerLink="/ideaeditor/new" class="btn-a btn-small"
             [ngClass]="{'btn-active': router.url === '/ideaeditor/new'}">
-            <ion-icon name="settings-outline"></ion-icon>New Idea
+            <ion-icon name="flame-outline"></ion-icon>New Idea
           </a>
         </ion-col>
       </ion-row>
@@ -65,7 +63,7 @@
         <ion-col>
           <a routerLink="/projecteditor/new" class="btn-a btn-small"
             [ngClass]="{'btn-active': router.url === '/projecteditor/new'}">
-            <ion-icon name="settings-outline"></ion-icon>New Project
+            <ion-icon name="hardware-chip-outline"></ion-icon>New Project
           </a>
         </ion-col>
       </ion-row>

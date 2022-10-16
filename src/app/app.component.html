@@ -1,4 +1,4 @@
-<app-header class="ion-hide-sm-up"></app-header>
+<app-header [ngClass]="{'ion-hide': managerService.showSidebar}"></app-header>
 
-<app-sidebar class="ion-hide-sm-down"></app-sidebar>
-<ion-router-outlet></ion-router-outlet>
+<app-sidebar [ngClass]="{'ion-hide': !managerService.showSidebar}"></app-sidebar>
+<ion-router-outlet [ngClass]="managerService.showSidebar ? 'router-outlet-sidebar' : 'router-outlet-header'"></ion-router-outlet>
