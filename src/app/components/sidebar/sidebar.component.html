@@ -117,22 +117,21 @@
         </ion-col>
       </ion-row>
     </div>
-
-    <ion-row class="filler-row">
-      <ion-col>
-      </ion-col>
-    </ion-row>
-
-    <ion-row *ngIf="user">
-      <ion-col size="auto" class="owner">
-        <a [routerLink]="'/users/' + user.username">
-          <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
-            <img [src]="user.profileimage">
-          </ion-avatar>
-          <p style="margin-bottom: 0; padding-left: 8px;">{{user.username}}</p>
-        </a>
-
-      </ion-col>
-    </ion-row>
   </ion-grid>
+
+  <div class="bottom-item" *ngIf="user">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <a [routerLink]="'/users/' + user.username">
+            <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
+              <img [src]="user.profileimage">
+            </ion-avatar>
+            <p style="margin-bottom: 0; padding-left: 8px;">{{user.username}}</p>
+          </a>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </div>

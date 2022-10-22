@@ -2,31 +2,16 @@
   height: 100vh;
   width: 200px;
   border-right: 1px solid var(--ion-color-medium);
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .wrapper-grid {
   display: flex;
   flex-direction: column;
-  height: 100%;
-}
-
-.filler-row {
   flex-grow: 1;
-  display: flex;
-}
-
-.owner {
-  background-color: var(--ion-color-dark);
-  border-radius: 10px;
-  margin: 5px;
-  padding: 0;
-
-  a {
-    padding: 10px;
-    display: flex;
-    align-items: center;
-  }
+  width: 100%;
+  padding: 20px;
 }
 
 a {
@@ -63,4 +48,22 @@ hr {
 
 a {
   display: flex;
+}
+
+.bottom-item {
+  width: 100%;
+  background-color: var(--ion-color-medium);
+
+  ion-col {
+    margin: 5px;
+    padding: 0;
+    justify-content: center;
+    display: flex;
+
+    a {
+      padding: 10px;
+      display: flex;
+      align-items: center;
+    }
+  }
 }
