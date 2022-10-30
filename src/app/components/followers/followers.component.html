@@ -27,10 +27,11 @@
 </div>
 
 <ng-template #noFollowers>
-  <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
+  <ion-grid class="nofollowers-grid">
+    <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
     <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="10" size-sm="10"
       size-md="6" size-lg="5" size-xl="5">
-      <img src="./../../../assets/3d/nothing3.png" style="width: 100%; padding-top: 10px;" alt="">
+      <img src="./../../../assets/svgs/frankenstein.svg" style="height: 400px; padding-top: 10px;" alt="">
     </ion-col>
   </ion-row>
   <ion-row>
@@ -38,4 +39,6 @@
       <h2 style="margin-top: 0;">{{textIfNoFollowers}}</h2>
     </ion-col>
   </ion-row>
+  </ion-grid>
+
 </ng-template>
