@@ -38,6 +38,7 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
             registrationStrategy: 'registerWhenStable:30000'
         })
     ],
+    exports: [NgOptimizedImage],
     providers: [
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }

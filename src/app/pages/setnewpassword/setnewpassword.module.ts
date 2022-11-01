@@ -7,12 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { SetnewpasswordPageRoutingModule } from './setnewpassword-routing.module';
 
 import { SetnewpasswordPage } from './setnewpassword.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentsModule,
     SetnewpasswordPageRoutingModule
   ],
   declarations: [SetnewpasswordPage]
