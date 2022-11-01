@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { IonicModule } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { IdeasComponent } from './ideas/ideas.component';
 import { FooterComponent } from './footer/footer.component';
 import { FollowersComponent } from './followers/followers.component';
@@ -32,14 +32,16 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     FollowersComponent,
     AboutComponent,
     SidebarComponent,
-    UsersComponent
+    UsersComponent,
+    NgOptimizedImage
   ],
   imports: [
     IonicModule,
     CommonModule,
     QuillModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    NgOptimizedImage
   ]
 })
 export class ComponentsModule { }

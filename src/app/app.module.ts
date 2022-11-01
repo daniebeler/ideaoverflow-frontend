@@ -5,6 +5,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
+import { NgOptimizedImage } from '@angular/common';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'src/environments/environment';
@@ -23,6 +25,7 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
         IonicModule.forRoot({ mode: 'md' }),
         AppRoutingModule,
         HttpClientModule,
+        NgOptimizedImage,
         QuillModule.forRoot(),
         ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: environment.production,

@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { IdeaPageRoutingModule } from './idea-routing.module';
 
 import { IdeaPage } from './idea.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    IdeaPageRoutingModule
+    IdeaPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [IdeaPage]
 })
