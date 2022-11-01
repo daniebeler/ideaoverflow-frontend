@@ -126,7 +126,7 @@ a:hover {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
-  max-width: 900px;
+  max-width: 100%;
 }
 
 @media (min-width: 768px) {
@@ -137,13 +137,13 @@ a:hover {
 
 @media (min-width: 992px) {
   .container {
-    width: 970px;
+    width: 900px;
   }
 }
 
 @media (min-width: 1200px) {
   .container {
-    width: 1170px;
+    width: 900px;
   }
 }
 

@@ -1,9 +1,13 @@
 .router-outlet-sidebar {
   margin-top: 0 !important;
-    margin-left: 200px !important;
 }
 
 .router-outlet-header {
   margin-top: 5rem !important;
-  margin-left: 0 !important;
 }
+
+ion-split-pane ion-menu {
+  max-width: 200px!important;
+}
+
+
