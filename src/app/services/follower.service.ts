@@ -28,12 +28,12 @@ export class FollowerService {
         this.userService.fetchUserFromApi(this.authService.getUser().id);
       }
       else {
-        this.alertService.showOkayAlertWithoutAction('Error', 'That did not work');
+        this.alertService.showAlert('Error', 'That did not work');
       }
 
     }),
       catchError(e => {
-        this.alertService.showOkayAlertWithoutAction('Error', e.error.message);
+        this.alertService.showAlert('Error', e.error.message);
         throw new Error(e);
       });
   }
@@ -48,12 +48,12 @@ export class FollowerService {
         this.userService.fetchUserFromApi(this.authService.getUser().id);
       }
       else {
-        this.alertService.showOkayAlertWithoutAction(res.header, res.message);
+        this.alertService.showAlert(res.header, res.message);
       }
 
     }),
       catchError(e => {
-        this.alertService.showOkayAlertWithoutAction('Error', e.error.message);
+        this.alertService.showAlert('Error', e.error.message);
         throw new Error(e);
       });
   }
