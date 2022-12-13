@@ -4,12 +4,12 @@
       <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
         <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="10" size-sm="10"
           size-md="6" size-lg="4" size-xl="4">
-          <img src="./../../../assets/noprofile.svg" style="width: 100%; padding-bottom: 10px;" alt="">
+          <img ngSrc="./../../../assets/noprofile.svg" style="width: 100%; padding-bottom: 10px;" alt="" height="200" width="200">
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col class="ion-text-center">
-          <h2><strong>This user does not exist.</strong></h2>
+          <h2>This user does not exist.</h2>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -39,15 +39,15 @@
               <ion-row>
                 <ion-col style="padding-left: 0;">
                   <a routerLink="/settings">
-                    <button type="button" class="btn-small btn-medium" style="width: 100%;"><strong>Edit
-                        Profile</strong></button>
+                    <button type="button" class="btn-small btn-medium" style="width: 100%;">
+                      Edit Profile</button>
                   </a>
 
 
                 </ion-col>
                 <ion-col style="padding-right: 10px;">
                   <button type="button" class="btn-small btn-primary" style="width: 100%;"
-                    (click)="logout()"><strong>Logout</strong></button>
+                    (click)="logout()">Logout</button>
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -118,7 +118,7 @@
             <button type="button" class="btn-small" style="width: 100%;" (click)="activeContentTab = 'ideas'"
               [ngClass]="activeContentTab === 'ideas' ? 'btn-primary' : 'btn-dark'"
               [ngStyle]="{'background-color': activeContentTab === 'ideas' && user.color ? user.color : ''}">
-              <strong>{{numberOfIdeas}} Ideas</strong>
+              {{numberOfIdeas}} Ideas
             </button>
 
           </ion-col>
@@ -126,16 +126,16 @@
             <button type="button" class="btn-small" style="width: 100%;" (click)="activeContentTab = 'projects'"
               [ngClass]="activeContentTab === 'projects' ? 'btn-primary' : 'btn-dark'"
               [ngStyle]="{'background-color': activeContentTab === 'projects' && user.color ? user.color : ''}">
-              <strong>{{numberOfProjects}} Projects</strong>
+              {{numberOfProjects}} Projects
             </button>
           </ion-col>
         </ion-row>
 
         <div *ngIf="activeContentTab === 'ideas'"
           style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-          <a *ngIf="isMyProfile" class="btn-small" style="margin-bottom: 20px" routerLink="/ideaeditor/new"
+          <a *ngIf="isMyProfile && !managerService.showSidebar" class="btn-small" style="margin-bottom: 20px" routerLink="/ideaeditor/new"
             [ngClass]="activeContentTab === 'ideas' ? 'btn-primary' : 'btn-dark'">
-            <strong>New idea</strong></a>
+            New idea</a>
           <app-posts style="width: 100%;" [header]="isMyProfile ? 'My ideas' : postsHeader"
             [filterByUsername]="user.username" [color]="user.color">
           </app-posts>
@@ -143,16 +143,13 @@
 
         <div *ngIf="activeContentTab === 'projects'"
           style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-          <a *ngIf="isMyProfile" class="btn-small" style="margin-bottom: 20px" routerLink="/projecteditor/new"
+          <a *ngIf="isMyProfile && !managerService.showSidebar" class="btn-small" style="margin-bottom: 20px" routerLink="/projecteditor/new"
             [ngClass]="activeContentTab === 'projects' ? 'btn-primary' : 'btn-dark'">
-            <strong>New Project</strong></a>
+            New Project</a>
           <app-component-projects style="width: 100%;" [header]="isMyProfile ? 'My projects' : projectsHeader"
             [filterByUsername]="user.username">
           </app-component-projects>
         </div>
-
-
-
       </ng-template>
     </ng-template>
   </ion-grid>

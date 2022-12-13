@@ -1,4 +1,4 @@
-<div *ngIf="allLoadedProjects.length > 0; else noPosts">
+<div *ngIf="allLoadedProjects.length > 0; else noProjects">
   <ion-row>
     <ion-col size="auto">
       <h2 style="margin: 0;">{{header ? header : alternativeHeader}}</h2>
@@ -18,7 +18,7 @@
     <ion-col>
       <ion-list>
         <a [routerLink]="'/projects/' + project.id" *ngFor="let project of allLoadedProjects">
-          <ion-grid class="post-wrapper">
+          <ion-grid class="project-wrapper">
           <ion-row *ngIf="project.releaseDate">
             <ion-col>
               <p style="margin: 0;">{{project.releaseDate.toLocaleDateString("en-at",{year:"numeric",month:"short",
@@ -50,17 +50,17 @@
     </ion-col>
   </ion-row>
 </div>
-<ng-template #noPosts>
-  <ion-grid>
+<ng-template #noProjects>
+  <ion-grid class="noprojects-grid">
     <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
-      <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="10" size-sm="10"
-        size-md="6" size-lg="5" size-xl="5">
-        <img src="./../../../assets/3d/nothing2.png" style="width: 100%; padding-bottom: 10px;" alt="">
+      <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="6" size-sm="6"
+        size-md="5" size-lg="4" size-xl="4">
+        <img ngSrc="./../../../assets/svgs/open-vault.svg" style="width: 100%; padding-bottom: 10px;" alt="" height="150" width="300">
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col class="ion-text-center">
-        <h2><strong>No projects yet...</strong></h2>
+        <h2>No projects yet...</h2>
       </ion-col>
     </ion-row>
   </ion-grid>

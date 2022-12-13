@@ -38,20 +38,47 @@
 }
 
 @font-face {
-  font-family: "poppins-regular";
-  src: url("/assets/fonts/ReadexPro-Regular.ttf") format("truetype");
+  font-family: "custom-regular";
+  src: url("/assets/fonts/Jost-Regular.ttf") format("truetype");
   font-display: swap;
 }
 
 @font-face {
-  font-family: "poppins-bold";
-  src: url("/assets/fonts/ReadexPro-Bold.ttf") format("truetype");
+  font-family: "custom-medium";
+  src: url("/assets/fonts/Jost-Medium.ttf") format("truetype");
   font-display: swap;
-  font-weight: 500;
+}
+
+@font-face {
+  font-family: "custom-semibold";
+  src: url("/assets/fonts/Jost-SemiBold.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "custom-bold";
+  src: url("/assets/fonts/Jost-Bold.ttf") format("truetype");
+  font-display: swap;
+}
+
+.regular {
+  font-family: "custom-regular";
+}
+
+.medium {
+  font-family: "custom-medium";
+}
+
+.semibold {
+  font-family: "custom-semibold";
+}
+
+.bold {
+  font-family: "custom-bold";
 }
 
 * {
-  font-family: "poppins-regular", sans-serif;
+  font-family: "custom-medium", sans-serif;
   color: var(--ion-color-light);
 }
 
@@ -60,14 +87,12 @@ p {
 }
 
 h1 {
-  font-family: "poppins-bold", sans-serif !important;
-  font-weight: 1000 !important;
+  font-family: "custom-bold", sans-serif;
   font-size: 2.2rem;
 }
 
 h2 {
-  font-family: "poppins-bold", sans-serif !important;
-  font-weight: 1000 !important;
+  font-family: "custom-bold", sans-serif;
 }
 
 input:focus,
@@ -101,7 +126,7 @@ a:hover {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
-  max-width: 900px;
+  max-width: 100%;
 }
 
 @media (min-width: 768px) {
@@ -112,13 +137,13 @@ a:hover {
 
 @media (min-width: 992px) {
   .container {
-    width: 970px;
+    width: 900px;
   }
 }
 
 @media (min-width: 1200px) {
   .container {
-    width: 1170px;
+    width: 900px;
   }
 }
 
@@ -182,7 +207,7 @@ a:hover {
 
 .array-btn.active {
   color: var(--ion-color-light);
-  font-family: "poppins-bold", sans-serif !important;
+  font-family: "custom-bold", sans-serif !important;
 }
 
 .array-btn.active:hover {

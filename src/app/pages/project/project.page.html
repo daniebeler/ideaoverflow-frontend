@@ -27,7 +27,7 @@
                 <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
                   <img [src]="project.ownerImage">
                 </ion-avatar>
-                <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{project.ownerUsername}}</strong></p>
+                <p style="margin-bottom: 0; padding-left: 8px;">{{project.ownerUsername}}</p>
               </a>
               <div *ngIf="project.releaseDate" style="display: flex; flex-direction: row; margin: 15px 5px 5px 5px;">
                 <ion-icon name="calendar-number-outline" style="height: 25px; width: 25px; padding-right: 5px;">
@@ -43,7 +43,7 @@
           <ion-row *ngIf="project.website" style="padding-top: 30px;">
             <ion-col size="auto" class="website" (click)="gotoWebsite(project.website)">
               <ion-icon name="home-outline" style="height: 20px; width: 20px"></ion-icon>
-              <p style="margin-bottom: 0; padding-left: 8px;"><strong>{{project.website}}</strong></p>
+              <p style="margin-bottom: 0; padding-left: 8px;">{{project.website}}</p>
             </ion-col>
           </ion-row>
 

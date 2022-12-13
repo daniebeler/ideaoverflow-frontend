@@ -52,3 +52,13 @@ ion-avatar:hover {
   cursor: pointer;
   background-color: var(--ion-color-dark-shade);
 }
+
+.noideas-grid{
+  background-color: var(--ion-color-primary);
+  color: var(--ion-color-dark);
+  border-radius: var(--border-radius-big);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 15px;
+  padding-bottom: 30px;
+}

@@ -28,7 +28,7 @@ export class FollowerService {
         this.userService.fetchUserFromApi(this.authService.getUser().id);
       }
       else {
-        this.alertService.showOkayAlertWithoutAction(res.header, res.message);
+        this.alertService.showOkayAlertWithoutAction('Error', 'That did not work');
       }
 
     }),

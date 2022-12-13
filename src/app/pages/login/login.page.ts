@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -14,14 +14,22 @@ export class LoginPage {
     private authService: AuthService
   ) {
     this.loginForm = new FormGroup({
-      email: new FormControl<string | null>('', Validators.email),
+      email: new FormControl<string | null>('', Validators.required),
       password: new FormControl<string | null>('', Validators.required)
     });
-   }
+  }
 
-   onSubmit() {
-     if (this.loginForm.value.email && this.loginForm.value.password) {
-       this.authService.login(this.loginForm.value.email, this.loginForm.value.password);
-     }
-   }
+  get email() {
+    return this.loginForm.get('email');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
+  }
+
+  onSubmit() {
+    if (this.loginForm.valid) {
+      this.authService.login(this.email.value, this.password.value);
+    }
+  }
 }

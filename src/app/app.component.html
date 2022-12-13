@@ -1,4 +1,17 @@
-<app-header></app-header>
-<main>
-  <ion-router-outlet></ion-router-outlet>
-</main>
+<ion-app>
+  <app-header [ngClass]="{'ion-hide': managerService.showSidebar}"></app-header>
+
+  <ion-split-pane contentId="main-content" [disabled]="!managerService.showSidebar">
+    <ion-menu contentId="main-content">
+      <ion-content>
+        <app-sidebar></app-sidebar>
+      </ion-content>
+    </ion-menu>
+
+    <ion-router-outlet id="main-content" [ngClass]="managerService.showSidebar ? 'router-outlet-sidebar' : 'router-outlet-header'">
+    </ion-router-outlet>
+
+  </ion-split-pane>
+
+
+</ion-app>

@@ -35,14 +35,14 @@
     <ion-row>
       <ion-col size-xs="12" size-sm="6">
         <div class="form-group">
-          <label class="text-label" for="fname"><strong>First Name</strong></label>
+          <label class="text-label" for="fname">First Name</label>
           <input type="text" name="fname" id="fname" placeholder="First Name" [(ngModel)]="user.firstname"
             (ngModelChange)="checkForChange()" />
         </div>
       </ion-col>
       <ion-col size-xs="12" size-sm="6">
         <div class="form-group">
-          <label class="text-label" for="email"><strong>Last Name</strong></label>
+          <label class="text-label" for="email">Last Name</label>
           <input type="text" name="lname" id="lname" placeholder="Last Name" [(ngModel)]="user.lastname"
             (ngModelChange)="checkForChange()" />
         </div>
@@ -51,7 +51,7 @@
     <ion-row>
       <ion-col size-xs="12" size-sm="6">
         <div class="form-group" *ngIf="countries">
-          <label class="text-label"><strong>Country</strong></label>
+          <label class="text-label">Country</label>
           <select [(ngModel)]="country" (ngModelChange)="checkForChange()">
             <option value="">--Leave empty--</option>
             <option *ngFor="let country of countries.countries" [ngValue]="user.country">{{user.country}}</option>
@@ -60,7 +60,7 @@
       </ion-col>
       <ion-col size-xs="12" size-sm="6">
         <div class="form-group" *ngIf="country">
-          <label class="text-label"><strong>State</strong></label>
+          <label class="text-label">State</label>
           <select [(ngModel)]="user.state" (ngModelChange)="checkForChange()">
             <option value="">--Leave empty--</option>
             <option *ngFor="let state of country.states" [ngValue]="user.state">{{user.state}}</option>
@@ -77,7 +77,7 @@
     <ion-row>
       <ion-col style="padding-bottom: 0;">
         <div class="form-group">
-          <label class="text-label" for="fname"><strong>Bio</strong></label>
+          <label class="text-label" for="fname">Bio</label>
           <textarea style="resize: none;" rows="5" type="text" name="fname" id="fname"
             placeholder="Something about myself..." [(ngModel)]="user.bio"
             (ngModelChange)="checkForChange()"></textarea>

@@ -1,47 +1,59 @@
 <ion-content>
   <ion-grid class="container">
+
+    <ion-row style="padding-top: 50px">
+      <ion-col>
+        <div *ngIf="user">
+          <h2 class="welcome-text" style="margin-top: 0; color: var(--ion-color-light);" *ngIf="user.firstname">Hi
+            {{user.firstname}},</h2>
+          <h2 style="margin-top: 0;" *ngIf="!user.firstname">Hey,</h2>
+          <h1>Welcome Back 👋</h1>
+        </div>
+        <div *ngIf="!user">
+
+        </div>
+      </ion-col>
+    </ion-row>
+
     <ion-row>
       <ion-col>
         <ion-grid class="contribute-grid">
           <ion-row>
             <ion-col style="display: flex; flex-direction: column; justify-content: center;" size-xs="12" size-sm="6"
-              size-md="6" size-lg="7" size-xl="7">
-              <div *ngIf="user">
-                <h4 style="margin-top: 0;" *ngIf="user.firstname"><strong>Hello, {{user.firstname}}!</strong></h4>
-                <h4 style="margin-top: 0;" *ngIf="!user.firstname"><strong>Hey!</strong></h4>
-                <p>If you have a great idea please share it with the community!</p>
-                <a *ngIf="user && activeContentTab === 'ideas'" routerLink="ideaeditor/new"
-                  class="btn-small btn-primary" style="margin-bottom: 20px">
-                  <strong>New idea</strong></a>
-                <a *ngIf="user && activeContentTab === 'projects'" routerLink="projecteditor/new"
-                  class="btn-small btn-primary" style="margin-bottom: 20px">
-                  <strong>New project</strong></a>
+              size-md="6" size-lg="6" size-xl="6">
+
+              <div *ngIf="user && router.url === '/'">
+                <h2 class="intro" style="margin-top: 0;">Hello</h2>
+                <p style="margin-top: 0; margin-bottom: 20px;">If you have a great idea please share it with the
+                  community!</p>
+                <a routerLink="/ideaeditor/new" class="btn-small btn-dark semibold" style="margin-bottom: 20px">
+                  Submit new Idea</a>
               </div>
+
+              <div *ngIf="user && router.url === '/projects'">
+                <h2 class="intro" style="margin-top: 0;">Hello</h2>
+                <p style="margin-top: 0; margin-bottom: 20px;">If you have a great idea please share it with the
+                  community!</p>
+                <a routerLink="/projecteditor/new" class="btn-small btn-dark semibold" style="margin-bottom: 20px">
+                  Submit new Project</a>
+              </div>
+
               <div *ngIf="!user">
-                <h4><strong>New to Idea Overflow?</strong></h4>
-                <p>Sign up now to post your own ideas!</p>
-                <a routerLink="register" class="btn-large btn-primary"
-                  style="margin-top: 10px; margin-bottom: 10px;">Register</a>
+                <h2 class="intro" style="margin-top: 0;">New to Idea Overflow?</h2>
+                <p style="margin-top: 0; margin-bottom: 20px;">Sign up now to post your own ideas!</p>
+                <a routerLink="register" class="btn-small btn-dark semibold" style="margin-bottom: 20px">
+                  Register</a>
               </div>
             </ion-col>
-            <ion-col style="display: flex; justify-content: center; padding: 20px;" size-xs="12" size-sm="6" size-md="6"
-              size-lg="5" size-xl="5">
-              <img src="./../../../assets/3d/ideas2.png" alt="">
-            </ion-col>
-          </ion-row>
-
-          <ion-row class="wrapper-switch">
-            <ion-col style="padding-left: 5px;">
-              <button type="button" class="btn-small" style="width: 100%;" (click)="activeContentTab = 'ideas'"
-                [ngClass]="activeContentTab === 'ideas' ? 'btn-primary' : 'btn-dark'">
-                <strong>Ideas</strong>
-              </button>
-
-            </ion-col>
-            <ion-col style="padding-right: 5px;">
-              <button type="button" class="btn-small" style="width: 100%;" (click)="activeContentTab = 'projects'"
-                [ngClass]="activeContentTab === 'projects' ? 'btn-primary' : 'btn-dark'"><strong>
-                  Projects</strong></button>
+            <ion-col class="ion-hide-sm-down" style="display: flex; justify-content: center; padding: 20px;"
+              size-xs="12" size-sm="6" size-md="6" size-lg="5" size-xl="5">
+              <div style="height: 100%; width: 100%">
+                <img *ngIf="user && router.url === '/'" ngSrc="./../../../assets/svgs/wacom.svg" alt="" width="300"
+                  height="250">
+                <img *ngIf="user && router.url === '/projects'" ngSrc="./../../../assets/svgs/macintosh.svg" alt=""
+                  width="300" height="250">
+                <img *ngIf="!user" ngSrc="./../../../assets/svgs/coding.svg" alt="" width="300" height="250">
+              </div>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -49,14 +61,30 @@
     </ion-row>
 
 
+    <ion-row class="wrapper" *ngIf="!managerService.showSidebar">
+      <ion-col style="padding-left: 5px;">
+        <button type="button" class="btn-small" style="width: 100%;" (click)="goto('/')"
+          [ngClass]="router.url === '/' ? 'btn-primary' : 'btn-dark'">
+          Ideas
+        </button>
 
-    <div *ngIf="activeContentTab === 'ideas'"
-      style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+      </ion-col>
+      <ion-col style="padding-right: 5px;">
+        <button type="button" class="btn-small" style="width: 100%;" (click)="goto('/projects')"
+          [ngClass]="router.url === '/projects' ? 'btn-primary' : 'btn-dark'">
+          Projects
+        </button>
+      </ion-col>
+    </ion-row>
+
+
+
+    <div *ngIf="router.url === '/'" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
       <app-posts style="width: 100%;">
       </app-posts>
     </div>
 
-    <div *ngIf="activeContentTab === 'projects'"
+    <div *ngIf="router.url === '/projects'"
       style="display: flex; flex-direction: column; align-items: center; width: 100%;">
       <app-component-projects style="width: 100%;">
       </app-component-projects>

@@ -3,23 +3,24 @@
     <ion-grid class="ion-padding register-grid container">
       <ion-row style="justify-content: space-evenly; flex-wrap: wrap-reverse;">
 
-        <ion-col size-xs="8" size-sm="5" size-md="4" size-lg="5" size-xl="5">
-          <img src="./../../../assets/3d/desk.png" style="width: 100%; padding-bottom: 20px;" alt="">
+        <ion-col size-xs="8" size-sm="5" size-md="5" size-lg="4" size-xl="4">
+          <img ngSrc="./../../../assets/svgs/angler-fish.svg" width="300" height="250" style="height: 300px; padding-bottom: 20px;" alt="">
           <p class="ion-text-center txt-gotologin"><a routerLink="/register">Create an account</a></p>
         </ion-col>
 
         <ion-col size-xs="10" size-sm="8" size-md="5" size-lg="4" size-xl="4">
-          <h1 class="register-header"><strong>Login</strong></h1>
+          <h1 class="register-header">Login</h1>
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <div>
+            <div class="field-box">
               <label for="email">Email</label>
-              <input type="email" id="email" minlength="4" formControlName="email" placeholder="Email">
+              <input type="email" id="email" formControlName="email" placeholder="Email">
+              <span *ngIf="email.invalid && email.touched">Invalid email</span>
             </div>
-            <div>
+            <div class="field-box">
               <label for="password">Password</label>
               <input type="password" id="password" formControlName="password" placeholder="Password">
             </div>
-            <button type="submit" class="btn-large btn-primary" style="margin-top: 10px;">Log
+            <button [disabled]="loginForm.invalid" type="submit" class="btn-large btn-primary">Log
               in</button>
           </form>
         </ion-col>

@@ -20,7 +20,7 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   user: User;
-  post: Idea = new Idea([]);
+  idea: Idea = new Idea([]);
 
   verifiedAccess = false;
 
@@ -47,7 +47,7 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
     if (urlslice && urlslice === 'new') {
       this.mode = 'new';
       this.verifiedAccess = true;
-      this.post.body = this.domSanitizer.bypassSecurityTrustHtml('');
+      this.idea.body = this.domSanitizer.bypassSecurityTrustHtml('');
     } else if (!isNaN(+urlslice)) {
       this.mode = 'edit';
       const subscription3 = this.apiService.checkIfIdeaBelongsToUser(+urlslice).subscribe(result => {
@@ -55,13 +55,13 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
       });
       const subscription1 = this.apiService.getIdea(+urlslice).subscribe(post => {
         this.postHash = hash(post);
-        this.post = post;
+        this.idea = post;
       });
       this.subscriptions.push(subscription1, subscription3);
     }
 
     const subscription2 = this.userService.getLatestUser().subscribe((latestUser) => {
-      this.post.ownerId = latestUser.id;
+      this.idea.ownerId = latestUser.id;
     });
     this.subscriptions.push(subscription2);
   }
@@ -78,12 +78,12 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
         role: 'ok',
         handler: () => {
           if (this.mode === 'new') {
-            const subscription3 = this.ideaService.createIdea(this.post).subscribe(async res => {
+            const subscription3 = this.ideaService.createIdea(this.idea).subscribe(async res => {
               this.redirect(res);
             });
             this.subscriptions.push(subscription3);
           } else if (this.mode === 'edit') {
-            const subscription4 = this.ideaService.updateIdea(this.post).subscribe(res => {
+            const subscription4 = this.ideaService.updateIdea(this.idea).subscribe(res => {
               this.redirect(res);
             });
             this.subscriptions.push(subscription4);
@@ -145,9 +145,9 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
 
   updateSubmitButtonState() {
     let show = false;
-    if (this.post.title && this.post.body.changingThisBreaksApplicationSecurity) {
+    if (this.idea.title && this.idea.body.changingThisBreaksApplicationSecurity) {
       if (this.mode === 'edit') {
-        if (this.postHash !== hash(this.post)) {
+        if (this.postHash !== hash(this.idea)) {
           show = true;
         }
       } else {

@@ -80,7 +80,7 @@ const routes: Routes = [
   },
   {
     path: 'projects',
-    loadChildren: () => import('./pages/projects/projects.module').then(m => m.ProjectsPageModule),
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule),
     title: 'Projects • Idea Overflow'
   },
   {
@@ -88,6 +88,20 @@ const routes: Routes = [
     loadChildren: () => import('./pages/projecteditor/projecteditor.module').then(m => m.ProjectEditorPageModule),
     title: 'Projecteditor• Idea Overflow',
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'ideas/:id',
+    loadChildren: () => import('./pages/idea/idea.module').then( m => m.IdeaPageModule),
+    title: 'Ideas • Idea Overflow'
+  },
+  {
+    path: 'ideas',
+    redirectTo: '/'
+  },
+  {
+    path: 'error',
+    loadChildren: () => import('./pages/error/error.module').then( m => m.ErrorPageModule),
+    title: 'Error • Idea Overflow'
   },
   {
     path: '**',

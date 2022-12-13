@@ -13,7 +13,7 @@
             </ion-col>
             <ion-col size="auto" style="display: flex;" class="ion-align-items-center">
               <div>
-                <p style="margin-bottom: 0;"><strong>{{follower.firstname}} {{follower.lastname}}</strong></p>
+                <p style="margin-bottom: 0;">{{follower.firstname}} {{follower.lastname}}</p>
                 <p style="margin-bottom: 0;">@{{follower.username}}</p>
               </div>
             </ion-col>
@@ -27,15 +27,18 @@
 </div>
 
 <ng-template #noFollowers>
-  <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
+  <ion-grid class="nofollowers-grid">
+    <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
     <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="10" size-sm="10"
       size-md="6" size-lg="5" size-xl="5">
-      <img src="./../../../assets/3d/nothing3.png" style="width: 100%; padding-top: 10px;" alt="">
+      <img ngSrc="./../../../assets/svgs/frankenstein.svg" style="height: 400px; padding-top: 10px;" alt="" height="400" width="200" >
     </ion-col>
   </ion-row>
   <ion-row>
     <ion-col class="ion-text-center">
-      <h2 style="margin-top: 0;"><strong>{{textIfNoFollowers}}</strong></h2>
+      <h2 style="margin-top: 0;">{{textIfNoFollowers}}</h2>
     </ion-col>
   </ion-row>
+  </ion-grid>
+
 </ng-template>

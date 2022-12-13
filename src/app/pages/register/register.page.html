@@ -4,34 +4,37 @@
       <ion-row style="justify-content: space-evenly;">
         <ion-col size-xs="10" size-sm="8" size-md="5" size-lg="4" size-xl="4">
 
-          <h1 class="register-header"><strong>Sign up</strong></h1>
+          <h1 class="register-header">Register</h1>
 
-          <div class="form-group">
-            <input type="email" name="email" id="email" placeholder="Email" [(ngModel)]="email" />
-          </div>
-
-          <div class="form-group">
-            <input type="name" name="name" id="username" placeholder="Username" [(ngModel)]="username" />
-          </div>
-
-          <div class="form-group">
-            <input type="password" name="passwort" placeholder="Password" [(ngModel)]="password1" />
-          </div>
-
-          <div class="form-group">
-            <input type="password" name="passwort" placeholder="Repeat your password" [(ngModel)]="password2"
-              (keyup.enter)="register()" />
-          </div>
-
-          <div class="row d-flex justify-content-center submit-button-container">
-            <button type="button" class="btn-large btn-primary" style="margin-top: 10px;"
-              (click)="register()">Register</button>
-          </div>
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="field-box">
+              <label for="email">Email</label>
+              <input type="email" id="email" formControlName="email" placeholder="Email">
+              <span *ngIf="email.invalid && email.touched">Invalid email</span>
+            </div>
+            <div class="field-box">
+              <label for="username">Username</label>
+              <input type="text" id="username" formControlName="username" placeholder="Username">
+              <span *ngIf="username.invalid && username.touched">Username has to be at least 3 characters</span>
+            </div>
+            <div class="field-box">
+              <label for="password">Password</label>
+              <input type="password" id="password" formControlName="password" placeholder="Password">
+              <span *ngIf="password.invalid && password.touched">Too weak</span>
+            </div>
+            <div class="field-box">
+              <label for="password2">Repeat your password</label>
+              <input type="password" id="password2" formControlName="password2" placeholder="Repeat your password">
+              <span *ngIf="password2.touched && password.value !== password2.value">Passwords don't match</span>
+            </div>
+            <button [disabled]="registerForm.invalid" type="submit"
+              class="btn-large btn-primary">Register</button>
+          </form>
         </ion-col>
 
-        <ion-col size-xs="10" size-sm="7" size-md="5" size-lg="6" size-xl="6"
+        <ion-col size-xs="10" size-sm="8" size-md="5" size-lg="4" size-xl="4"
           style="display: flex; flex-direction: column; justify-content: center;">
-          <img src="./../../../assets/3d/ideas.png" style="width: 100%; padding-bottom: 20px;" alt="">
+          <img ngSrc="./../../../assets/svgs/piranha.svg" style="width: 100%; padding-bottom: 20px;" alt="" width="300" height="250">
           <p class="ion-text-center txt-gotologin">Already have an account? <a routerLink="/login">Login
               here</a></p>
         </ion-col>

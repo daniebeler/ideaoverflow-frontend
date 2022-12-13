@@ -1,17 +1,26 @@
 <ion-content>
-  <ion-grid *ngIf="post && verifiedAccess" class="container">
+  <ion-grid *ngIf="idea && verifiedAccess" class="container">
+    <ion-row style="padding: 40px 0 20px 0;">
+      <ion-col>
+        <h1 *ngIf="mode === 'new'">New Idea</h1>
+        <h1 *ngIf="mode === 'edit' && idea.title">{{idea.title}}</h1>
+        <h1 *ngIf="mode === 'edit' && !idea.title">Edit idea</h1>
+      </ion-col>
+    </ion-row>
+
     <ion-row style="padding: 40px 0 20px 0;">
       <ion-col>
         <div class="form-group">
-          <label class="text-label" for="fname"><strong>Title</strong></label>
-          <input type="text" name="fname" id="fname" placeholder="Title" [(ngModel)]="post.title"
+          <label class="text-label semibold" for="fname">Title</label>
+          <input type="text" name="fname" id="fname" placeholder="Title" [(ngModel)]="idea.title"
             (ngModelChange)="updateSubmitButtonState()" />
         </div>
       </ion-col>
     </ion-row>
+
     <ion-row>
       <ion-col>
-        <quill-editor *ngIf="post.body" [(ngModel)]="post.body.changingThisBreaksApplicationSecurity" [modules]=""
+        <quill-editor *ngIf="idea.body" [(ngModel)]="idea.body.changingThisBreaksApplicationSecurity" [modules]=""
           (onEditorCreated)="editor($event)" trackChanges="all" (ngModelChange)="updateSubmitButtonState()">
         </quill-editor>
       </ion-col>

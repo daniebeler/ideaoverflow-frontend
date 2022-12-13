@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { IonicModule } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { IdeasComponent } from './ideas/ideas.component';
 import { FooterComponent } from './footer/footer.component';
 import { FollowersComponent } from './followers/followers.component';
@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { UsersComponent } from './users/users.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { RouterModule } from '@angular/router';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { RouterModule } from '@angular/router';
     ProjectsComponent,
     FollowersComponent,
     AboutComponent,
+    SidebarComponent,
     UsersComponent
   ],
   exports: [
@@ -29,14 +31,17 @@ import { RouterModule } from '@angular/router';
     ProjectsComponent,
     FollowersComponent,
     AboutComponent,
-    UsersComponent
+    SidebarComponent,
+    UsersComponent,
+    NgOptimizedImage
   ],
   imports: [
     IonicModule,
     CommonModule,
     QuillModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    NgOptimizedImage
   ]
 })
 export class ComponentsModule { }
