@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
+import { AlertService } from 'src/app/services/alert.service';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FollowerService } from 'src/app/services/follower.service';
@@ -39,7 +39,7 @@ export class ProfilePage implements OnInit, OnDestroy {
     private userService: UserService,
     private followerService: FollowerService,
     private activatedRoute: ActivatedRoute,
-    private alertController: AlertController,
+    private alertService: AlertService,
     public managerService: ManagerService
   ) { }
 
@@ -84,21 +84,7 @@ export class ProfilePage implements OnInit, OnDestroy {
   }
 
   async logout() {
-    const alert = await this.alertController.create({
-      cssClass: 'custom-alert-two',
-      backdropDismiss: false,
-      header: 'Are you sure?',
-      buttons: [{
-        text: 'Cancel'
-      }, {
-        text: 'Logout',
-        role: 'ok',
-        handler: () => {
-          this.authService.logout();
-        }
-      }]
-    });
-    await alert.present();
+    this.alertService.showAlert('Are you sure?', '', 'Logout', this.authService.logout.bind(this.authService), 'Cancel');
   }
 
   follow() {

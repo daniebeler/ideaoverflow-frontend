@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
 import { Project } from 'src/app/models/project';
 import { ApiService } from 'src/app/services/api.service';
 import { ProjectService } from 'src/app/services/project.service';
@@ -9,6 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 import hash from 'object-hash';
 import { filter, Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-projecteditor',
@@ -34,7 +34,7 @@ export class ProjectEditorPage implements OnInit, OnDestroy {
   releaseDate: any;
 
   constructor(
-    private alertController: AlertController,
+    private alertService: AlertService,
     private projectService: ProjectService,
     private userService: UserService,
     private apiService: ApiService,
@@ -71,54 +71,42 @@ export class ProjectEditorPage implements OnInit, OnDestroy {
   }
 
   async saveProject() {
-    const alert = await this.alertController.create({
-      cssClass: 'custom-alert-two',
-      backdropDismiss: false,
-      header: 'Are you sure?',
-      buttons: [{
-        text: 'Back'
-      }, {
-        text: 'Okay',
-        role: 'ok',
-        handler: () => {
-          if (this.mode === 'new') {
-            const subscription3 = this.projectService.createProject(this.project).subscribe(async res => {
-              this.redirect(res);
-            });
-            this.subscriptions.push(subscription3);
-          } else if (this.mode === 'edit') {
-            const subscription4 = this.projectService.updateProject(this.project).subscribe(res => {
-              this.redirect(res);
-            });
-            this.subscriptions.push(subscription4);
-          }
+    this.alertService.showAlert(
+      'Are you sure?',
+      '',
+      'Okay',
+      () => {
+        if (this.mode === 'new') {
+          const subscription3 = this.projectService.createProject(this.project).subscribe(async res => {
+            this.redirect(res);
+          });
+          this.subscriptions.push(subscription3);
+        } else if (this.mode === 'edit') {
+          const subscription4 = this.projectService.updateProject(this.project).subscribe(res => {
+            this.redirect(res);
+          });
+          this.subscriptions.push(subscription4);
         }
-      }]
-    });
-    await alert.present();
+      },
+      'Back'
+    );
   }
 
   async redirect(res) {
-    const alert = await this.alertController.create({
-      cssClass: 'custom-alert-ok',
-      backdropDismiss: false,
-      header: res.header,
-      message: res.message,
-      buttons: [{
-        text: 'Okay',
-        role: 'ok',
-        handler: () => {
-          if (res.status === 200) {
-            if (res.id === -1) {
-              this.router.navigate(['projects/' + this.project.id]);
-            } else {
-              this.router.navigate(['projects/' + res.id]);
-            }
+    this.alertService.showAlert(
+      res.header,
+      res.message,
+      'Okay',
+      () => {
+        if (res.status === 200) {
+          if (res.id === -1) {
+            this.router.navigate(['projects/' + this.project.id]);
+          } else {
+            this.router.navigate(['projects/' + res.id]);
           }
         }
-      }]
-    });
-    await alert.present();
+      }
+    );
   }
 
   onFileChange(event) {

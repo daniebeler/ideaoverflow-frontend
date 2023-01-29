@@ -5,7 +5,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { catchError } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { AlertService } from './alert.service';
-import { AlertController, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { StorageService } from './storage.service';
 import { UserService } from './user.service';
 import { User } from '../models/user';
@@ -25,7 +25,6 @@ export class AuthService {
     private platform: Platform,
     private apiService: ApiService,
     private alertService: AlertService,
-    private alertController: AlertController,
     private storageService: StorageService,
     private userService: UserService
   ) {
@@ -62,25 +61,18 @@ export class AuthService {
     };
 
     return this.apiService.register(obj).subscribe(async res => {
-      const alert = this.alertController.create({
-        cssClass: 'custom-alert-ok',
-        backdropDismiss: false,
-        header: res.header,
-        message: res.message,
-        buttons: [{
-          text: 'Okay',
-          role: 'ok',
-          handler: () => {
-            if (res.status === 1) {
-              this.router.navigate(['login']);
-            }
+      this.alertService.showAlert(
+        res.header,
+        res.message,
+        'Okay', () => {
+          if (res.status === 1) {
+            this.router.navigate(['login']);
           }
-        }]
-      });
-      alert.then(createdAlert => createdAlert.present());
+        }
+      );
     }),
       catchError(e => {
-        this.alertService.showOkayAlertWithoutAction('Error', e.error.message);
+        this.alertService.showAlert('Error', e.error.message);
         throw new Error(e);
       });
   }
@@ -95,37 +87,27 @@ export class AuthService {
         this.router.navigate(['']);
       }
       else if (res.notverified === true) {
-        const alert = await this.alertController.create({
-          cssClass: 'custom-alert-two',
-          backdropDismiss: false,
-          header: 'Ooops!',
-          message: 'Your email is not verified yet. Do you want to receive another verification code?',
-          buttons: [{
-            text: 'Cancel'
-          }, {
-            text: 'Send again',
-            role: 'ok',
-            handler: () => {
-              this.sendVerificationMailAgain(email);
-            }
-          }]
-        });
-        await alert.present();
+        this.alertService.showAlert('Ooops!',
+        'Your email is not verified yet. Do you want to receive another verification code?',
+        'Send again',
+        this.sendVerificationMailAgain.bind(this, email),
+        'Cancel'
+        );
       }
       else {
-        this.alertService.showOkayAlertWithoutAction('Ooops', res.message);
+        this.alertService.showAlert('Ooops', res.message);
       }
 
     }),
       catchError(e => {
-        this.alertService.showOkayAlertWithoutAction('Error', e.error.message);
+        this.alertService.showAlert('Error', e.error.message);
         throw new Error(e);
       });
   }
 
   sendVerificationMailAgain(email) {
     this.apiService.sendVerificationMailAgain(email).subscribe(async res => {
-      this.alertService.showOkayAlertWithoutAction(res.header, res.message);
+      this.alertService.showAlert(res.header, res.message);
     });
   }
 
@@ -164,12 +146,12 @@ export class AuthService {
         this.userService.fetchUserFromApi(this.getUser().id);
       }
       else {
-        this.alertService.showOkayAlertWithoutAction(res.header, res.message);
+        this.alertService.showAlert(res.header, res.message);
       }
 
     }),
       catchError(e => {
-        this.alertService.showOkayAlertWithoutAction('Error', e.error.message);
+        this.alertService.showAlert('Error', e.error.message);
         throw new Error(e);
       });
   }
@@ -182,22 +164,22 @@ export class AuthService {
       id: this.getUser().id
     };
     return this.apiService.changePassword(obj).subscribe(async res => {
-      this.alertService.showOkayAlertWithoutAction(res.header, res.message);
+      this.alertService.showAlert(res.header, res.message);
 
     }),
       catchError(e => {
-        this.alertService.showOkayAlertWithoutAction('Error', e.error.message);
+        this.alertService.showAlert('Error', e.error.message);
         throw new Error(e);
       });
   }
 
   resetPassword(email) {
     return this.apiService.resetPassword(email).subscribe(async res => {
-      this.alertService.showOkayAlertWithoutAction(res.header, res.message);
+      this.alertService.showAlert(res.header, res.message);
 
     }),
       catchError(e => {
-        this.alertService.showOkayAlertWithoutAction('Error', e.error.message);
+        this.alertService.showAlert('Error', e.error.message);
         throw new Error(e);
       });
   }
@@ -210,22 +192,15 @@ export class AuthService {
     };
     this.apiService.setPassword(obj).subscribe(async res => {
       if (res.stay) {
-        this.alertService.showOkayAlertWithoutAction(res.header, res.message);
+        this.alertService.showAlert(res.header, res.message);
       }
       else {
-        const alert = await this.alertController.create({
-          cssClass: 'custom-alert-ok',
-          backdropDismiss: false,
-          header: res.header,
-          message: res.message,
-          buttons: [{
-            text: 'Okay',
-            handler: () => {
-              this.router.navigate(['login']);
-            }
-          }]
-        });
-        await alert.present();
+        this.alertService.showAlert(
+          res.header,
+          res.message,
+          'Okay',
+          this.router.navigate.bind(this.router, ['login'])
+        );
       }
     });
   }
