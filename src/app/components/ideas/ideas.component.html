@@ -22,7 +22,7 @@
       <ion-list>
         <div style="margin-top: 30px;" *ngFor="let post of allLoadedPosts">
           <app-idea [post]="post" [loggedIn]="currentUser !== null"
-            [isOwnPost]="currentUser?.id === post.ownerId"></app-idea>
+            [isOwnPost]="currentUser?.id === post.user.id"></app-idea>
         </div>
       </ion-list>
 

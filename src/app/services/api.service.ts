@@ -180,10 +180,16 @@ export class ApiService {
     );
   }
 
+  getIdeas(parameter: string): Observable<Idea[]> {
+    return this.httpClient.get<Idea[]>(environment.api + 'idea/all' + parameter);
+  }
+
+  getIdeasByUsername(parameter: string): Observable<Idea[]> {
+    return this.httpClient.get<Idea[]>(environment.api + 'idea/byusername/' + parameter);
+  }
+
   getSelectedIdeas(params: any): Observable<Idea[]> {
-    return this.httpClient.post<Idea[]>(environment.api + 'idea/ideas/', params).pipe(
-      map((data: any[]) => data.map((item) => this.ideaAdapter.adapt(item)))
-    );
+    return this.httpClient.post<Idea[]>(environment.api + 'idea/ideas/', params);
   }
 
   getNumberOfTotalIdeas(): Observable<number> {
