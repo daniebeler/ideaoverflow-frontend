@@ -12,18 +12,18 @@ export class IdeaService {
     private apiService: ApiService
   ) { }
 
-  voteIdea(voteValue: number, ideaId: number, userId: number) {
-    this.apiService.voteIdea(voteValue, ideaId, userId).subscribe(() => {
+  voteIdea(voteValue: number, ideaId: number) {
+    this.apiService.voteIdea(voteValue, ideaId).subscribe(() => {
     });
   }
 
-  saveIdea(ideaId: number, userId: number) {
-    this.apiService.saveIdea(ideaId, userId).subscribe(() => {
+  saveIdea(ideaId: number) {
+    this.apiService.saveIdea(ideaId).subscribe(() => {
     });
   }
 
-  unsaveIdea(ideaId: number, userId: number) {
-    this.apiService.unsaveIdea(ideaId, userId).subscribe(() => {
+  unsaveIdea(ideaId: number) {
+    this.apiService.unsaveIdea(ideaId).subscribe(() => {
     });
   }
 

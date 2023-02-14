@@ -192,16 +192,16 @@ export class ApiService {
     );
   }
 
-  voteIdea(voteValue: number, ideaId: number, userId: number): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'idea/vote/', { voteValue, ideaId, userId }, { headers: this.getHeader() });
+  voteIdea(voteValue: number, ideaId: number): Observable<any> {
+    return this.httpClient.post<any>(environment.api + 'idea/vote/', { voteValue, ideaId }, { headers: this.getHeader() });
   }
 
-  saveIdea(ideaId: number, userId: number): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'idea/save/', { ideaId, userId }, { headers: this.getHeader() });
+  saveIdea(ideaId: number): Observable<any> {
+    return this.httpClient.post<any>(environment.api + 'idea/save/', { ideaId }, { headers: this.getHeader() });
   }
 
-  unsaveIdea(ideaId: number, userId: number): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'idea/unsave/', { ideaId, userId }, { headers: this.getHeader() });
+  unsaveIdea(ideaId: number): Observable<any> {
+    return this.httpClient.post<any>(environment.api + 'idea/unsave/', { ideaId }, { headers: this.getHeader() });
   }
 
   createIdea(data: any): Observable<any> {

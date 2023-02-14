@@ -12,6 +12,7 @@ import { UsersComponent } from './users/users.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { RouterModule } from '@angular/router';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { IdeaComponent } from './idea/idea.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     ProjectsComponent,
     FollowersComponent,
     AboutComponent,
+    IdeaComponent,
     SidebarComponent,
     UsersComponent
   ],
@@ -31,6 +33,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     ProjectsComponent,
     FollowersComponent,
     AboutComponent,
+    IdeaComponent,
     SidebarComponent,
     UsersComponent,
     NgOptimizedImage

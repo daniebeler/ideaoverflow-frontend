@@ -1,54 +1,28 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
-import { Subscription } from 'rxjs';
 import { Idea } from 'src/app/models/idea';
-import { User } from 'src/app/models/user';
-import { ApiService } from 'src/app/services/api.service';
 import { IdeaService } from 'src/app/services/idea.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-idea',
-  templateUrl: './idea.page.html',
-  styleUrls: ['./idea.page.scss'],
+  templateUrl: './idea.component.html',
+  styleUrls: ['./idea.component.scss'],
 })
-export class IdeaPage implements OnInit, OnDestroy {
+export class IdeaComponent implements OnInit {
 
-  subscriptions: Subscription[] = [];
-
-  ideaId: number;
-  idea: Idea = null;
-
-  currentUser: User = null;
+  @Input() post: Idea = null;
+  @Input() loggedIn = false;
+  @Input() isOwnPost = false;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private apiService: ApiService,
-    private userService: UserService,
-    private ideaService: IdeaService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private ideaService: IdeaService
   ) { }
 
-  ngOnInit() {
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
-    if (!isNaN(+id)) {
-      this.ideaId = +id;
-      const subscription1 = this.apiService.getIdea(this.ideaId).subscribe(idea => {
-        this.idea = idea;
-        console.log(idea);
-      });
-      this.subscriptions.push(subscription1);
-    }
-
-    const subscription2 = this.userService.getLatestUser().subscribe((latestUser) => {
-      this.currentUser = latestUser;
-    });
-    this.subscriptions.push(subscription2);
-  }
+  ngOnInit() {}
 
   votePost(voteValue: number, idea: Idea) {
-    if (this.currentUser) {
+    if (this.loggedIn) {
       this.ideaService.voteIdea(voteValue, idea.id);
       if (idea.currentUserVoteValue === -1) {
         if (voteValue === 0) {
@@ -78,18 +52,18 @@ export class IdeaPage implements OnInit, OnDestroy {
   }
 
   savePost(postId: number) {
-    if (this.currentUser) {
+    if (this.loggedIn) {
       this.ideaService.saveIdea(postId);
-      this.idea.saved = true;
+      this.post.saved = true;
     } else {
       this.presentToast('You have to be logged in to save Ideas');
     }
   }
 
   unsavePost(postId: number) {
-    if (this.currentUser) {
+    if (this.loggedIn) {
       this.ideaService.unsaveIdea(postId);
-      this.idea.saved = false;
+      this.post.saved = false;
     } else {
       this.presentToast('You have to be logged in to save Ideas');
     }
@@ -105,7 +79,4 @@ export class IdeaPage implements OnInit, OnDestroy {
     toast.present();
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
 }
