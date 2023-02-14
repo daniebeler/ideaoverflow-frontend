@@ -61,7 +61,7 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
     }
 
     const subscription2 = this.userService.getLatestUser().subscribe((latestUser) => {
-      this.idea.ownerId = latestUser.id;
+      this.idea.user.id = latestUser.id;
     });
     this.subscriptions.push(subscription2);
   }

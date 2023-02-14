@@ -180,10 +180,16 @@ export class ApiService {
     );
   }
 
+  getIdeas(parameter: string): Observable<Idea[]> {
+    return this.httpClient.get<Idea[]>(environment.api + 'idea/all' + parameter);
+  }
+
+  getIdeasByUsername(parameter: string): Observable<Idea[]> {
+    return this.httpClient.get<Idea[]>(environment.api + 'idea/byusername/' + parameter);
+  }
+
   getSelectedIdeas(params: any): Observable<Idea[]> {
-    return this.httpClient.post<Idea[]>(environment.api + 'idea/ideas/', params).pipe(
-      map((data: any[]) => data.map((item) => this.ideaAdapter.adapt(item)))
-    );
+    return this.httpClient.post<Idea[]>(environment.api + 'idea/ideas/', params);
   }
 
   getNumberOfTotalIdeas(): Observable<number> {
@@ -192,16 +198,16 @@ export class ApiService {
     );
   }
 
-  voteIdea(voteValue: number, ideaId: number, userId: number): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'idea/vote/', { voteValue, ideaId, userId }, { headers: this.getHeader() });
+  voteIdea(voteValue: number, ideaId: number): Observable<any> {
+    return this.httpClient.post<any>(environment.api + 'idea/vote/', { voteValue, ideaId }, { headers: this.getHeader() });
   }
 
-  saveIdea(ideaId: number, userId: number): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'idea/save/', { ideaId, userId }, { headers: this.getHeader() });
+  saveIdea(ideaId: number): Observable<any> {
+    return this.httpClient.post<any>(environment.api + 'idea/save/', { ideaId }, { headers: this.getHeader() });
   }
 
-  unsaveIdea(ideaId: number, userId: number): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'idea/unsave/', { ideaId, userId }, { headers: this.getHeader() });
+  unsaveIdea(ideaId: number): Observable<any> {
+    return this.httpClient.post<any>(environment.api + 'idea/unsave/', { ideaId }, { headers: this.getHeader() });
   }
 
   createIdea(data: any): Observable<any> {

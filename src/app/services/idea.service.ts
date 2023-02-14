@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { IdeaAdapter } from '../adapter/idea-adapter';
 import { Idea } from '../models/idea';
 import { ApiService } from './api.service';
 
@@ -9,21 +10,22 @@ import { ApiService } from './api.service';
 export class IdeaService {
 
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    private ideaAdapter: IdeaAdapter
   ) { }
 
-  voteIdea(voteValue: number, ideaId: number, userId: number) {
-    this.apiService.voteIdea(voteValue, ideaId, userId).subscribe(() => {
+  voteIdea(voteValue: number, ideaId: number) {
+    this.apiService.voteIdea(voteValue, ideaId).subscribe(() => {
     });
   }
 
-  saveIdea(ideaId: number, userId: number) {
-    this.apiService.saveIdea(ideaId, userId).subscribe(() => {
+  saveIdea(ideaId: number) {
+    this.apiService.saveIdea(ideaId).subscribe(() => {
     });
   }
 
-  unsaveIdea(ideaId: number, userId: number) {
-    this.apiService.unsaveIdea(ideaId, userId).subscribe(() => {
+  unsaveIdea(ideaId: number) {
+    this.apiService.unsaveIdea(ideaId).subscribe(() => {
     });
   }
 
@@ -31,7 +33,7 @@ export class IdeaService {
     const obj = {
       header: idea.title,
       body: idea.body.changingThisBreaksApplicationSecurity,
-      userID: idea.ownerId
+      userID: idea.user.id
     };
     return this.apiService.createIdea(obj);
   }
@@ -43,6 +45,39 @@ export class IdeaService {
       ideaId: idea.id
     };
     return this.apiService.updateIdea(obj);
+  }
+
+  getIdeas(data: any): Observable<Idea[]> {
+    if (data.username) {
+      const param = this.concatQueries(data.username, data);
+      return this.apiService.getIdeasByUsername(param).pipe(
+        map((res: any[]) => res.map((item) => this.ideaAdapter.adapt(item)))
+      );
+    } else {
+      const param = this.concatQueries('', data);
+      return this.apiService.getIdeas(param).pipe(
+        map((res: any[]) => res.map((item) => this.ideaAdapter.adapt(item)))
+      );
+    }
+  }
+
+  concatQueries(base: string, data: any): string {
+    if (data.take) {
+      base = this.concatQuery(base, 'take', data.take);
+    }
+
+    if (data.skip) {
+      base = this.concatQuery(base, 'skip', data.skip);
+    }
+
+    return base;
+  }
+
+  concatQuery(param: string, query: string, value: string): string {
+    const questionmark = param.includes('?') ? '&' : '?';
+    param = param.concat(questionmark, query, '=', value);
+    console.log(param);
+    return param;
   }
 }
 

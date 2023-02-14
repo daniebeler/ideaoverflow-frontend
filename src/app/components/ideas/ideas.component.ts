@@ -1,9 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Idea } from 'src/app/models/idea';
 import { User } from 'src/app/models/user';
-import { ApiService } from 'src/app/services/api.service';
 import { IdeaService } from 'src/app/services/idea.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -38,9 +36,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
 
   constructor(
     private ideaService: IdeaService,
-    private apiService: ApiService,
-    private userService: UserService,
-    private toastController: ToastController
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -73,13 +69,15 @@ export class IdeasComponent implements OnInit, OnDestroy {
       params.searchTerm = this.searchTerm;
     }
 
-    const subscription2 = this.apiService.getSelectedIdeas(params).subscribe((posts: Idea[]) => {
+    const subscription2 = this.ideaService.getIdeas(params).subscribe((posts: Idea[]) => {
       if (isInitialLoad) {
         event.target.complete();
       }
       for (const post of posts) {
         this.allLoadedPosts.push(post);
       }
+
+      console.log(posts);
     });
     this.subscriptions.push(subscription2);
   }
@@ -103,64 +101,6 @@ export class IdeasComponent implements OnInit, OnDestroy {
 
   loadData(event) {
     this.getPosts(true, event);
-  }
-
-  votePost(voteValue: number, idea: Idea) {
-    if (this.currentUser) {
-      this.ideaService.voteIdea(voteValue, idea.id, this.currentUser.id);
-      if (idea.currentUserVoteValue === -1) {
-        if (voteValue === 0) {
-          idea.numberOfDownvotes--;
-        } else if (voteValue === 1) {
-          idea.numberOfDownvotes--;
-          idea.numberOfUpvotes++;
-        }
-      } else if (idea.currentUserVoteValue === 0) {
-        if (voteValue === -1) {
-          idea.numberOfDownvotes++;
-        } else if (voteValue === 1) {
-          idea.numberOfUpvotes++;
-        }
-      } else if (idea.currentUserVoteValue === 1) {
-        if (voteValue === -1) {
-          idea.numberOfDownvotes++;
-          idea.numberOfUpvotes--;
-        } else if (voteValue === 0) {
-          idea.numberOfUpvotes--;
-        }
-      }
-      idea.currentUserVoteValue = voteValue;
-    } else {
-      this.presentToast('You have to be logged in to vote ideas');
-    }
-  }
-
-  savePost(postId: number) {
-    if (this.currentUser) {
-      this.ideaService.saveIdea(postId, this.currentUser.id);
-      this.allLoadedPosts.find(x => x.id === postId).saved = true;
-    } else {
-      this.presentToast('You have to be logged in to save Ideas');
-    }
-  }
-
-  unsavePost(postId: number) {
-    if (this.currentUser) {
-      this.ideaService.unsaveIdea(postId, this.currentUser.id);
-      this.allLoadedPosts.find(x => x.id === postId).saved = false;
-    } else {
-      this.presentToast('You have to be logged in to save Ideas');
-    }
-  }
-
-  async presentToast(message: string) {
-    const toast = await this.toastController.create({
-      message,
-      icon: 'information-circle',
-      color: 'primary',
-      duration: 2500
-    });
-    toast.present();
   }
 
   ngOnDestroy(): void {
