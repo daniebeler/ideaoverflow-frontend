@@ -40,7 +40,7 @@ export class RegisterPage {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      this.authService.register(this.email.value, this.username.value, this.password.value, this.password2.value);
+      this.authService.register(this.email.value, this.username.value, this.password.value);
     }
   }
 }

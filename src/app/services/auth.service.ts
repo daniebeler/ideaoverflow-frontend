@@ -51,13 +51,12 @@ export class AuthService {
     }
   }
 
-  register(email, username, password1, password2) {
+  register(email, username, password) {
 
     const obj = {
       email,
       username,
-      password1,
-      password2
+      password
     };
 
     return this.apiService.register(obj).subscribe(async res => {

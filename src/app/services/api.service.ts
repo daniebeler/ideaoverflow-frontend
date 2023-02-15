@@ -188,10 +188,6 @@ export class ApiService {
     return this.httpClient.get<Idea[]>(environment.api + 'idea/byusername/' + parameter);
   }
 
-  getSelectedIdeas(params: any): Observable<Idea[]> {
-    return this.httpClient.post<Idea[]>(environment.api + 'idea/ideas/', params);
-  }
-
   getNumberOfTotalIdeas(): Observable<number> {
     return this.httpClient.get<any>(environment.api + 'idea/numberoftotalideas').pipe(
       map(data => data.numberoftotalideas)
