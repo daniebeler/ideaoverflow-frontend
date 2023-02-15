@@ -20,11 +20,7 @@ export class IdeaAdapter implements Adapter<Idea> {
     item.body = this.domSanitizer.bypassSecurityTrustHtml(item.body);
     item.votevalue = item.votevalue ? item.votevalue : 0;
     item.saved = item.saved ? true : false;
-
-    console.log(item.user);
     item.user = this.userAdapter.adapt(item.user);
-
-    console.log(item.user);
     return new Idea(item);
   }
 }

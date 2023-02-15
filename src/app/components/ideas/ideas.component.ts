@@ -51,10 +51,19 @@ export class IdeasComponent implements OnInit, OnDestroy {
 
   getPosts(isInitialLoad: boolean, event) {
     this.skipPosts = this.skipPosts + 5;
+
+    let reverse = false;
+    const sort = 'date';
+
+    if (this.sortingCriteria === 'oldest') {
+      reverse = true;
+    }
+
     const params: any = {
       skip: this.skipPosts,
       take: this.numberOfPosts,
-      sortingCriteria: this.sortingCriteria,
+      sort,
+      reverse,
       currentUserId: this.currentUser?.id
     };
 
@@ -76,8 +85,6 @@ export class IdeasComponent implements OnInit, OnDestroy {
       for (const post of posts) {
         this.allLoadedPosts.push(post);
       }
-
-      console.log(posts);
     });
     this.subscriptions.push(subscription2);
   }
@@ -93,7 +100,6 @@ export class IdeasComponent implements OnInit, OnDestroy {
         this.alternativeHeader = 'Oldest ideas';
       }
     }
-    console.log(this.allLoadedPosts);
     this.allLoadedPosts = [];
     this.skipPosts = -5;
     this.getPosts(false, '');

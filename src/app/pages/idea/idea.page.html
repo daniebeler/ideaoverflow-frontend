@@ -15,18 +15,18 @@
             </ion-row>
             <ion-row style="margin-top: 20px;">
               <ion-col size="auto" class="owner">
-                <a [routerLink]="'/users/' + idea.ownerUsername">
+                <a [routerLink]="'/users/' + idea.user.username">
                   <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
-                    <img [src]="idea.ownerImage">
+                    <img [src]="idea.user.profileimage">
                   </ion-avatar>
-                  <p style="margin-bottom: 0; padding-left: 8px;">{{idea.ownerUsername}}</p>
+                  <p style="margin-bottom: 0; padding-left: 8px;">{{idea.user.username}}</p>
                 </a>
 
               </ion-col>
 
               <ion-col size="auto" *ngIf="idea.currentUserVoteValue === 1" (click)="votePost(0, idea)" class="like"
                 style="display: flex; align-items: center;">
-                <ion-icon name="heart" [ngStyle]="{'color':idea.ownerColor}" style="width: 30px; height: 25px;">
+                <ion-icon name="heart" [ngStyle]="{'color':idea.user.color}" style="width: 30px; height: 25px;">
                 </ion-icon>
                 <p style="margin-bottom: 0; padding-left: 8px;">{{idea.numberOfUpvotes}}</p>
               </ion-col>
@@ -39,7 +39,7 @@
 
               <ion-col size="auto" *ngIf="idea.currentUserVoteValue === -1" (click)="votePost(0, idea)" class="like"
                 style="display: flex; align-items: center;">
-                <ion-icon name="thumbs-down" [ngStyle]="{'color':idea.ownerColor}"
+                <ion-icon name="thumbs-down" [ngStyle]="{'color':idea.user.color}"
                   style="width: 30px; height: 25px;"></ion-icon>
                 <p style="margin-bottom: 0; padding-left: 8px;">{{idea.numberOfDownvotes}}</p>
               </ion-col>
@@ -52,7 +52,7 @@
 
               <ion-col size="auto" *ngIf="idea.saved" (click)="unsavePost(idea.id)" class="like"
                 style="display: flex; align-items: center;">
-                <ion-icon name="bookmark" [ngStyle]="{'color':idea.ownerColor}" style="width: 30px; height: 25px;">
+                <ion-icon name="bookmark" [ngStyle]="{'color':idea.user.color}" style="width: 30px; height: 25px;">
                 </ion-icon>
               </ion-col>
 
@@ -62,7 +62,7 @@
               </ion-col>
 
               <div *ngIf="currentUser">
-                <ion-col *ngIf="currentUser.id === idea.ownerId" size="auto" class="editPost"
+                <ion-col *ngIf="currentUser.id === idea.user.id" size="auto" class="editPost"
                   style="display: flex; align-items: center;">
                   <a [routerLink]="'ideaeditor/' + idea.id">
                     <ion-icon name="settings-outline" style="height: 30px; width: 30px;">

@@ -47,6 +47,10 @@ export class IdeaService {
     return this.apiService.updateIdea(obj);
   }
 
+  getIdea(id: any): Observable<Idea> {
+    return this.apiService.getIdea(id);
+  }
+
   getIdeas(data: any): Observable<Idea[]> {
     if (data.username) {
       const param = this.concatQueries(data.username, data);
@@ -70,13 +74,20 @@ export class IdeaService {
       base = this.concatQuery(base, 'skip', data.skip);
     }
 
+    if (data.reverse) {
+      base = this.concatQuery(base, 'reverse', data.reverse);
+    }
+
+    if (data.sort) {
+      base = this.concatQuery(base, 'sort', data.sort);
+    }
+
     return base;
   }
 
   concatQuery(param: string, query: string, value: string): string {
     const questionmark = param.includes('?') ? '&' : '?';
     param = param.concat(questionmark, query, '=', value);
-    console.log(param);
     return param;
   }
 }
