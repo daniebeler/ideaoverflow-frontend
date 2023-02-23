@@ -47,8 +47,13 @@ export class IdeaService {
     return this.apiService.updateIdea(obj);
   }
 
-  getIdea(id: any): Observable<Idea> {
-    return this.apiService.getIdea(id);
+  getIdea(id: number, userId?: number): Observable<Idea> {
+    const data = {
+      id,
+      currentUserId: userId?.toString()
+    };
+    const param = this.concatQueries('', data);
+    return this.apiService.getIdea(id, param);
   }
 
   getIdeas(data: any): Observable<Idea[]> {
@@ -80,6 +85,10 @@ export class IdeaService {
 
     if (data.sort) {
       base = this.concatQuery(base, 'sort', data.sort);
+    }
+
+    if (data.currentUserId) {
+      base = this.concatQuery(base, 'user_id', data.currentUserId.toString());
     }
 
     return base;

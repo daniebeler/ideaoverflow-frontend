@@ -174,8 +174,8 @@ export class ApiService {
     return this.httpClient.post<any>(environment.api + 'project/update', data, { headers: this.getHeader() });
   }
 
-  getIdea(id: number): Observable<Idea> {
-    return this.httpClient.get<any>(environment.api + 'idea/byid/' + id).pipe(
+  getIdea(id: number, query: string): Observable<Idea> {
+    return this.httpClient.get<any>(environment.api + 'idea/byid/' + id + query).pipe(
       map(data => this.ideaAdapter.adapt(data))
     );
   }

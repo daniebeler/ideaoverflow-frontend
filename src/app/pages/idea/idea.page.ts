@@ -34,7 +34,7 @@ export class IdeaPage implements OnInit, OnDestroy {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (!isNaN(+id)) {
       this.ideaId = +id;
-      const subscription1 = this.ideaService.getIdea(this.ideaId).subscribe(idea => {
+      const subscription1 = this.ideaService.getIdea(this.ideaId, this.currentUser?.id).subscribe(idea => {
         this.idea = idea;
         console.log(idea);
       });
