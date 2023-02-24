@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { concatMap, map, Observable, of } from 'rxjs';
 import { IdeaAdapter } from '../adapter/idea-adapter';
 import { Idea } from '../models/idea';
 import { ApiService } from './api.service';
@@ -47,26 +47,17 @@ export class IdeaService {
     return this.apiService.updateIdea(obj);
   }
 
-  getIdea(id: number, userId?: number): Observable<Idea> {
-    const data = {
-      id,
-      currentUserId: userId?.toString()
-    };
-    const param = this.concatQueries('', data);
-    return this.apiService.getIdea(id, param);
+  getIdea(id: number): Observable<Idea> {
+    return this.apiService.getIdea(id);
   }
 
   getIdeas(data: any): Observable<Idea[]> {
     if (data.username) {
       const param = this.concatQueries(data.username, data);
-      return this.apiService.getIdeasByUsername(param).pipe(
-        map((res: any[]) => res.map((item) => this.ideaAdapter.adapt(item)))
-      );
+      return this.apiService.getIdeasByUsername(param);
     } else {
       const param = this.concatQueries('', data);
-      return this.apiService.getIdeas(param).pipe(
-        map((res: any[]) => res.map((item) => this.ideaAdapter.adapt(item)))
-      );
+      return this.apiService.getIdeas(param);
     }
   }
 
@@ -85,10 +76,6 @@ export class IdeaService {
 
     if (data.sort) {
       base = this.concatQuery(base, 'sort', data.sort);
-    }
-
-    if (data.currentUserId) {
-      base = this.concatQuery(base, 'user_id', data.currentUserId.toString());
     }
 
     return base;

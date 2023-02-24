@@ -79,6 +79,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
     }
 
     const subscription2 = this.ideaService.getIdeas(params).subscribe((posts: Idea[]) => {
+      console.log(posts);
       if (isInitialLoad) {
         event.target.complete();
       }

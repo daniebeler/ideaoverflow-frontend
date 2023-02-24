@@ -101,7 +101,7 @@ export class SettingsPage implements OnInit, OnDestroy {
   }
 
   changePassword() {
-    this.authService.changePassword(this.oldPassword, this.newPassword1, this.newPassword2);
+    this.authService.changePassword(this.oldPassword, this.newPassword1);
   }
 
   findCountry(valueToFind) {

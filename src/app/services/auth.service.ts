@@ -78,30 +78,16 @@ export class AuthService {
 
   login(email, password) {
     return this.apiService.login(email, password).subscribe(async res => {
-      if (res.token) {
-        await this.storageService.setToken(res.token);
-        this.decodedUserToken = this.helper.decodeToken(res.token);
+      if (res.status === 'Error') {
+        this.alertService.showAlert('Ooops', res.error);
+      } else {
+        await this.storageService.setToken(res.data.token);
+        this.decodedUserToken = this.helper.decodeToken(res.data.token);
         this.authenticationState.next(true);
         this.userService.fetchUserFromApi(this.getUser().id);
         this.router.navigate(['']);
       }
-      else if (res.notverified === true) {
-        this.alertService.showAlert('Ooops!',
-        'Your email is not verified yet. Do you want to receive another verification code?',
-        'Send again',
-        this.sendVerificationMailAgain.bind(this, email),
-        'Cancel'
-        );
-      }
-      else {
-        this.alertService.showAlert('Ooops', res.message);
-      }
-
-    }),
-      catchError(e => {
-        this.alertService.showAlert('Error', e.error.message);
-        throw new Error(e);
-      });
+    });
   }
 
   sendVerificationMailAgain(email) {
@@ -141,35 +127,30 @@ export class AuthService {
       color: updatedUser.color
     };
     return this.apiService.updateUser(dataToUpdate).subscribe(async res => {
-      if (res.status === 200) {
+      if (res.status === 'OK') {
         this.userService.fetchUserFromApi(this.getUser().id);
       }
       else {
-        this.alertService.showAlert(res.header, res.message);
+        this.alertService.showAlert('Ooops', res.error);
       }
 
-    }),
-      catchError(e => {
-        this.alertService.showAlert('Error', e.error.message);
-        throw new Error(e);
-      });
+    });
   }
 
-  changePassword(oldPassword, newPassword1, newPassword2) {
+  changePassword(oldPassword, newPassword) {
     const obj = {
       oldPassword,
-      newPassword1,
-      newPassword2,
+      newPassword,
       id: this.getUser().id
     };
     return this.apiService.changePassword(obj).subscribe(async res => {
-      this.alertService.showAlert(res.header, res.message);
-
-    }),
-      catchError(e => {
-        this.alertService.showAlert('Error', e.error.message);
-        throw new Error(e);
-      });
+      if (res.status === 'OK') {
+        this.alertService.showAlert('Done', 'Password changed');
+      }
+      else {
+        this.alertService.showAlert('Ooops', res.error);
+      }
+    });
   }
 
   resetPassword(email) {
