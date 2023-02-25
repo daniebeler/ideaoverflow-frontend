@@ -30,6 +30,8 @@ export class IdeasComponent implements OnInit, OnDestroy {
 
   currentUser: User = null;
 
+  loading = true;
+
   sortingCriteria = 'newest';
 
   alternativeHeader = 'Newest ideas';
@@ -50,6 +52,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
   }
 
   getPosts(isInitialLoad: boolean, event) {
+    this.loading = true;
     this.skipPosts = this.skipPosts + 5;
 
     let reverse = false;
@@ -86,6 +89,8 @@ export class IdeasComponent implements OnInit, OnDestroy {
       for (const post of posts) {
         this.allLoadedPosts.push(post);
       }
+
+      this.loading = false;
     });
     this.subscriptions.push(subscription2);
   }

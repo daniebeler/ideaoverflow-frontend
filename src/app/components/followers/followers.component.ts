@@ -1,5 +1,4 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
@@ -14,6 +13,7 @@ export class FollowersComponent implements OnInit, OnDestroy {
 
   @Input() type = '';
   @Input() textIfNoFollowers = '';
+  @Input() userId = 1;
 
   subscriptions: Subscription[] = [];
 
@@ -22,21 +22,20 @@ export class FollowersComponent implements OnInit, OnDestroy {
   header = '';
 
   constructor(
-    private apiService: ApiService,
-    private activatedRoute: ActivatedRoute
+    private apiService: ApiService
   ) { }
 
   ngOnInit() {
     if (this.type === 'followers') {
       this.header = 'Followers';
-      const subscription1 = this.apiService.getFollowers(this.activatedRoute.snapshot.paramMap.get('username')).subscribe(res => {
+      const subscription1 = this.apiService.getFollowers(this.userId).subscribe(res => {
         this.followers = res;
       });
       this.subscriptions.push(subscription1);
     }
     else {
       this.header = 'Following';
-      const subscription2 = this.apiService.getFollowees(this.activatedRoute.snapshot.paramMap.get('username')).subscribe(res => {
+      const subscription2 = this.apiService.getFollowees(this.userId).subscribe(res => {
         this.followers = res;
       });
       this.subscriptions.push(subscription2);

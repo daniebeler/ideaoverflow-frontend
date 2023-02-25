@@ -1,4 +1,4 @@
-<div *ngIf="allLoadedPosts.length > 0; else noIdeas">
+<div *ngIf="allLoadedPosts.length > 0 || loading; else noIdeas">
   <ion-row>
     <ion-col size="auto">
       <h2 style="margin: 0;">{{header ? header : alternativeHeader}}</h2>

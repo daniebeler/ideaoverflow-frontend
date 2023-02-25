@@ -24,7 +24,7 @@ export class FollowerService {
       followeeID
     };
     return this.apiService.addFollower(obj).subscribe(async res => {
-      if (res.status === 200) {
+      if (res.status === 'OK') {
         this.userService.fetchUserFromApi(this.authService.getUser().id);
       }
       else {
@@ -44,18 +44,14 @@ export class FollowerService {
       followeeID
     };
     return this.apiService.removeFollower(obj).subscribe(async res => {
-      if (res.status === 200) {
+      if (res.status === 'OK') {
         this.userService.fetchUserFromApi(this.authService.getUser().id);
       }
       else {
-        this.alertService.showAlert(res.header, res.message);
+        this.alertService.showAlert('Ooops', res.error);
       }
 
-    }),
-      catchError(e => {
-        this.alertService.showAlert('Error', e.error.message);
-        throw new Error(e);
-      });
+    });
   }
 
   checkIfFollowing(followeeID: number): Observable<boolean> {

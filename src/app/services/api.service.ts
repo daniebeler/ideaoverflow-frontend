@@ -109,6 +109,9 @@ export class ApiService {
   }
 
 
+  // -----------------------------------
+  // User
+  // -----------------------------------
 
 
   getUser(username: string): Observable<User> {
@@ -159,6 +162,16 @@ export class ApiService {
     );
   }
 
+  updateUser(data: any): Observable<ApiResponse> {
+    return this.apiPost('user/changedata', data, 'Required');
+  }
+
+
+  // -----------------------------------
+  // Auth
+  // -----------------------------------
+
+
   register(data: any): Observable<any> {
     return this.httpClient.post<any>(environment.api + 'registration/register', data);
   }
@@ -177,10 +190,6 @@ export class ApiService {
     return this.httpClient.post<any>(environment.api + 'registration/sendverificationmailagain', { email });
   }
 
-  updateUser(data: any): Observable<ApiResponse> {
-    return this.apiPost('user/changedata', data, 'Required');
-  }
-
   changePassword(data: any): Observable<ApiResponse> {
     return this.apiPost('user/changepw', data, 'Required');
   }
@@ -197,38 +206,42 @@ export class ApiService {
     return this.httpClient.get<any>(environment.api + 'registration/checkresetcode/' + code);
   }
 
-  uploadImage(file: any): Observable<any> {
-    const dataFile = new FormData();
-    dataFile.append('image', file);
-    const headers = new HttpHeaders({ authorization: 'Client-ID c0df3b4f744766f' });
-    return this.httpClient.post('https://api.imgur.com/3/image/', dataFile, { headers });
+
+  // -----------------------------------
+  // Follower
+  // -----------------------------------
+
+
+  addFollower(data: any): Observable<ApiResponse> {
+    return this.apiPost('follower/follow', data, 'Required');
   }
 
-  addFollower(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'follower/follow', data, { headers: this.getHeader() });
+  removeFollower(data: any): Observable<ApiResponse> {
+    return this.apiPost('follower/unfollow', data, 'Required');
   }
 
-  removeFollower(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'follower/unfollow', data, { headers: this.getHeader() });
-  }
-
-  getFollowees(username: string): Observable<User[]> {
-    return this.httpClient.get<any>(environment.api + 'follower/followeesbyusername/' + username).pipe(
-      map((data: any[]) => data.map((item) => this.userAdapter.adapt(item)))
+  getFollowees(userId: number): Observable<User[]> {
+    return this.apiGet('follower/followeesbyuserid/' + userId).pipe(
+      map((data: any) => data.data.map((item) => this.userAdapter.adapt(item.user)))
     );
   }
 
-  getFollowers(username: string): Observable<User[]> {
-    return this.httpClient.get<any>(environment.api + 'follower/followersbyusername/' + username).pipe(
-      map((data: any[]) => data.map((item) => this.userAdapter.adapt(item)))
+  getFollowers(userId: number): Observable<User[]> {
+    return this.apiGet('follower/followersbyuserid/' + userId).pipe(
+      map((data: any) => data.data.map((item) => this.userAdapter.adapt(item.user)))
     );
   }
 
   checkIfFollowing(data: any): Observable<boolean> {
-    return this.httpClient.post<any>(environment.api + 'follower/checkfollow', data).pipe(
-      map(result => result.following)
+    return this.apiPost('follower/checkfollow', data).pipe(
+      map(result => result.data.following)
     );
   }
+
+
+  // -----------------------------------
+  // Projects
+  // -----------------------------------
 
   getProject(id: number): Observable<Project> {
     return this.httpClient.get<any>(environment.api + 'project/byid/' + id).pipe(
@@ -256,7 +269,19 @@ export class ApiService {
     return this.httpClient.post<any>(environment.api + 'project/update', data, { headers: this.getHeader() });
   }
 
+  checkIfProjectBelongsToUser(projectId: number): Observable<boolean> {
+    return this.httpClient.get<any>(
+      environment.api + 'project/checkifprojectbelongstouser/' + projectId,
+      { headers: this.getHeader() }
+    ).pipe(
+      map(data => data.accessgranted)
+    );
+  }
 
+
+  // -----------------------------------
+  // Ideas
+  // -----------------------------------
 
   getIdea(id: number): Observable<Idea> {
     return this.apiGet('idea/byid/' + id, 'Optional').pipe(
@@ -289,43 +314,47 @@ export class ApiService {
   }
 
   getNumberOfTotalIdeas(): Observable<number> {
-    return this.httpClient.get<any>(environment.api + 'idea/numberoftotalideas').pipe(
-      map(data => data.numberoftotalideas)
+    return this.apiGet('idea/numberoftotalideas').pipe(
+      map(data => data.data.numberoftotalideas)
     );
   }
 
-  voteIdea(voteValue: number, ideaId: number): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'idea/vote/', { voteValue, ideaId }, { headers: this.getHeader() });
+  voteIdea(voteValue: number, ideaId: number): Observable<ApiResponse> {
+    return this.apiPost('idea/vote/', { voteValue, ideaId }, 'Required');
   }
 
-  saveIdea(ideaId: number): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'idea/save/', { ideaId }, { headers: this.getHeader() });
+  saveIdea(ideaId: number): Observable<ApiResponse> {
+    return this.apiPost('idea/save/', { ideaId }, 'Required');
   }
 
-  unsaveIdea(ideaId: number): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'idea/unsave/', { ideaId }, { headers: this.getHeader() });
+  unsaveIdea(ideaId: number): Observable<ApiResponse> {
+    return this.apiPost('idea/unsave/', { ideaId }, 'Required');
   }
 
-  createIdea(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'idea/create/', data, { headers: this.getHeader() });
+  createIdea(data: any): Observable<ApiResponse> {
+    return this.apiPost('idea/create/', data, 'Required');
   }
 
-  updateIdea(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'idea/update/', data, { headers: this.getHeader() });
+  updateIdea(data: any): Observable<ApiResponse> {
+    return this.apiPost('idea/update/', data, 'Required');
   }
 
   checkIfIdeaBelongsToUser(ideaId: number): Observable<boolean> {
-    return this.httpClient.get<any>(environment.api + 'idea/checkifideabelongstouser/' + ideaId, { headers: this.getHeader() }).pipe(
-      map(data => data.accessgranted)
+    return this.apiGet(environment.api + 'idea/checkifideabelongstouser/' + ideaId, 'Required').pipe(
+      map(data => data.data.accessgranted)
     );
   }
 
-  checkIfProjectBelongsToUser(projectId: number): Observable<boolean> {
-    return this.httpClient.get<any>(
-      environment.api + 'project/checkifprojectbelongstouser/' + projectId,
-      { headers: this.getHeader() }
-    ).pipe(
-      map(data => data.accessgranted)
-    );
+
+  // -----------------------------------
+  // Other
+  // -----------------------------------
+
+
+  uploadImage(file: any): Observable<any> {
+    const dataFile = new FormData();
+    dataFile.append('image', file);
+    const headers = new HttpHeaders({ authorization: 'Client-ID c0df3b4f744766f' });
+    return this.httpClient.post('https://api.imgur.com/3/image/', dataFile, { headers });
   }
 }
