@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/operators';
+import { concatMap, map } from 'rxjs/operators';
 import { User } from '../models/user';
 import { UserAdapter } from '../adapter/user-adapter';
 import { Project } from '../models/project';
@@ -10,6 +10,11 @@ import { ProjectAdapter } from '../adapter/project-adapter';
 import { Idea } from '../models/idea';
 import { IdeaAdapter } from '../adapter/idea-adapter';
 import { StorageService } from './storage.service';
+import { ApiResponseAdapter } from '../adapter/api-response-adapter';
+import { ApiResponse } from '../models/api-response';
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+type authStatus = 'Required' | 'Optional';
 
 @Injectable({
   providedIn: 'root'
@@ -21,58 +26,136 @@ export class ApiService {
     private userAdapter: UserAdapter,
     private projectAdapter: ProjectAdapter,
     private ideaAdapter: IdeaAdapter,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private apiResponseAdapter: ApiResponseAdapter
   ) { }
 
   getHeader(): HttpHeaders {
-    const headers = new HttpHeaders({
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      'Content-Type': 'application/json; charset=utf-8',
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      Authorization: 'Bearer ' + this.storageService.getTokenString()
-    });
-    return headers;
+
+    const token = this.storageService.getTokenString();
+    if (token) {
+      return new HttpHeaders({
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        'Content-Type': 'application/json; charset=utf-8',
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        Authorization: 'Bearer ' + this.storageService.getTokenString()
+      });
+    }
+
+    return null;
   }
 
+
+  apiGet(url: string, auth?: authStatus): Observable<ApiResponse> {
+    if (auth === 'Required' || auth === 'Optional') {
+      const token = this.getHeader();
+      if (token) {
+        return this.getWithHeader(url, token);
+      }
+
+      if (auth === 'Optional') {
+        return this.getWithoutHeader(url);
+      }
+
+      return new Observable((observer) => {
+        observer.next(this.apiResponseAdapter.adapt({ status: 'Error', error: 'Missing JWT' }));
+      });
+    }
+
+    return this.getWithoutHeader(url);
+  }
+
+  apiPost(url: string, body: any, auth?: authStatus): Observable<ApiResponse> {
+    if (auth === 'Required' || auth === 'Optional') {
+      const token = this.getHeader();
+      if (token) {
+        return this.postWithHeader(url, body, token);
+      }
+
+      if (auth === 'Optional') {
+        return this.postWithoutHeader(url, body);
+      }
+
+      return new Observable((observer) => {
+        observer.next(this.apiResponseAdapter.adapt({ status: 'Error', error: 'Missing JWT' }));
+      });
+    }
+
+    return this.postWithoutHeader(url, body);
+  }
+
+  getWithHeader(url: string, headers: HttpHeaders): Observable<ApiResponse> {
+    return this.httpClient.get<any>(environment.api + url, { headers }).pipe(
+      map(data => this.apiResponseAdapter.adapt(data))
+    );
+  }
+
+  getWithoutHeader(url: string): Observable<ApiResponse> {
+    return this.httpClient.get<any>(environment.api + url).pipe(
+      map(data => this.apiResponseAdapter.adapt(data))
+    );
+  }
+
+  postWithHeader(url: string, body: any, headers: HttpHeaders): Observable<ApiResponse> {
+    return this.httpClient.post<any>(environment.api + url, body, { headers }).pipe(
+      map(data => this.apiResponseAdapter.adapt(data))
+    );
+  }
+
+  postWithoutHeader(url: string, body: any): Observable<ApiResponse> {
+    return this.httpClient.post<any>(environment.api + url, body).pipe(
+      map(data => this.apiResponseAdapter.adapt(data))
+    );
+  }
+
+
+
+
   getUser(username: string): Observable<User> {
-    return this.httpClient.get<any>(environment.api + 'user/databyusername/' + username).pipe(
-      map(data => this.userAdapter.adapt(data))
+    return this.apiGet('user/byusername/' + username).pipe(
+      map(data => this.userAdapter.adapt(data.data))
     );
   }
 
   getUserById(id: number): Observable<User> {
-    return this.httpClient.get<any>(environment.api + 'user/databyuserid/' + id).pipe(
-      map(data => this.userAdapter.adapt(data))
+    return this.apiGet('user/byid/' + id).pipe(
+      map(data => this.userAdapter.adapt(data.data))
     );
   }
 
   getUsers(): Observable<User[]> {
-    return this.httpClient.get<any>(environment.api + 'user/users/').pipe(
-      map((data: any[]) => data.map((item) => this.userAdapter.adapt(item)))
+    return this.apiGet('user/all/').pipe(
+      concatMap(res => {
+        if (res.status !== 'OK') {
+          return [];
+        } else {
+          return of(res);
+        }
+      }), map((res: any) => res.data.map((item) => this.userAdapter.adapt(item)))
     );
   }
 
   getUsersBySearchterm(searchTerm: string): Observable<User[]> {
-    return this.httpClient.get<any>(environment.api + 'user/usersbysearchterm/' + searchTerm).pipe(
-      map((data: any[]) => data.map((item) => this.userAdapter.adapt(item)))
+    return this.apiGet('user/usersbysearchterm/' + searchTerm).pipe(
+      map((data: any) => data.data.map((item) => this.userAdapter.adapt(item)))
     );
   }
 
   getNumberOfTotalUsers(): Observable<number> {
-    return this.httpClient.get<any>(environment.api + 'user/numberoftotalusers').pipe(
-      map(data => data.numberoftotalusers)
+    return this.apiGet('user/numberoftotalusers').pipe(
+      map(data => data.data.numberoftotalusers)
     );
   }
 
   getNumberOfIdeasByUser(userId: number): Observable<number> {
-    return this.httpClient.get<any>(environment.api + 'user/numberofideasbyuser/' + userId).pipe(
-      map(data => data.numberofideas)
+    return this.apiGet('user/numberofideasbyuser/' + userId).pipe(
+      map(data => data.data.numberofideas ?? 0)
     );
   }
 
   getNumberOfProjectsByUser(userId: number): Observable<number> {
-    return this.httpClient.get<any>(environment.api + 'user/numberofprojectsbyuser/' + userId).pipe(
-      map(data => data.numberofprojects)
+    return this.apiGet('user/numberofprojectsbyuser/' + userId).pipe(
+      map(data => data.data.numberofprojects ?? 0)
     );
   }
 
@@ -80,8 +163,8 @@ export class ApiService {
     return this.httpClient.post<any>(environment.api + 'registration/register', data);
   }
 
-  login(email: string, password: string): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'registration/login', { email, password });
+  login(email: string, password: string): Observable<ApiResponse> {
+    return this.apiPost('registration/login', { email, password });
   }
 
   verify(code: string): Observable<boolean> {
@@ -94,13 +177,12 @@ export class ApiService {
     return this.httpClient.post<any>(environment.api + 'registration/sendverificationmailagain', { email });
   }
 
-  updateUser(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'user/changedata', data, { headers: this.getHeader() });
+  updateUser(data: any): Observable<ApiResponse> {
+    return this.apiPost('user/changedata', data, 'Required');
   }
 
-  changePassword(data: any): Observable<any> {
-    console.log(data);
-    return this.httpClient.post<any>(environment.api + 'user/changepw', data, { headers: this.getHeader() });
+  changePassword(data: any): Observable<ApiResponse> {
+    return this.apiPost('user/changepw', data, 'Required');
   }
 
   resetPassword(email): Observable<any> {
@@ -130,15 +212,15 @@ export class ApiService {
     return this.httpClient.post<any>(environment.api + 'follower/unfollow', data, { headers: this.getHeader() });
   }
 
-  getFollowees(username: string): Observable<User[]> {
-    return this.httpClient.get<any>(environment.api + 'follower/followeesbyusername/' + username).pipe(
-      map((data: any[]) => data.map((item) => this.userAdapter.adapt(item)))
+  getFollowees(userid: number): Observable<User[]> {
+    return this.apiGet('follower/followeesbyusername/' + userid).pipe(
+      map((data: any) => data.data.map((item) => this.userAdapter.adapt(item)))
     );
   }
 
   getFollowers(username: string): Observable<User[]> {
-    return this.httpClient.get<any>(environment.api + 'follower/followersbyusername/' + username).pipe(
-      map((data: any[]) => data.map((item) => this.userAdapter.adapt(item)))
+    return this.apiGet('follower/followersbyusername/' + username).pipe(
+      map((data: any) => data.data.map((item) => this.userAdapter.adapt(item)))
     );
   }
 
@@ -149,8 +231,8 @@ export class ApiService {
   }
 
   getProject(id: number): Observable<Project> {
-    return this.httpClient.get<any>(environment.api + 'project/byid/' + id).pipe(
-      map(data => this.projectAdapter.adapt(data))
+    return this.apiGet('project/byid/' + id).pipe(
+      map(data => this.projectAdapter.adapt(data.data))
     );
   }
 
@@ -161,8 +243,8 @@ export class ApiService {
   }
 
   getNumberOfTotalProjects(): Observable<number> {
-    return this.httpClient.get<any>(environment.api + 'project/numberoftotalprojects').pipe(
-      map(data => data.numberoftotalprojects)
+    return this.apiGet('project/numberoftotalprojects').pipe(
+      map(data => data.data?.numberoftotalprojects ?? 0)
     );
   }
 
@@ -174,22 +256,36 @@ export class ApiService {
     return this.httpClient.post<any>(environment.api + 'project/update', data, { headers: this.getHeader() });
   }
 
+
+
   getIdea(id: number): Observable<Idea> {
-    return this.httpClient.get<any>(environment.api + 'idea/byid/' + id).pipe(
-      map(data => this.ideaAdapter.adapt(data))
+    return this.apiGet('idea/byid/' + id, 'Optional').pipe(
+      map(data => this.ideaAdapter.adapt(data.data))
     );
   }
 
   getIdeas(parameter: string): Observable<Idea[]> {
-    return this.httpClient.get<Idea[]>(environment.api + 'idea/all' + parameter);
+    return this.apiGet('idea/all' + parameter).pipe(
+      concatMap(res => {
+        if (res.status !== 'OK') {
+          return [];
+        } else {
+          return of(res);
+        }
+      }), map((res: any) => res.data.map((item) => this.ideaAdapter.adapt(item)))
+    );
   }
 
   getIdeasByUsername(parameter: string): Observable<Idea[]> {
-    return this.httpClient.get<Idea[]>(environment.api + 'idea/byusername/' + parameter);
-  }
-
-  getSelectedIdeas(params: any): Observable<Idea[]> {
-    return this.httpClient.post<Idea[]>(environment.api + 'idea/ideas/', params);
+    return this.apiGet('idea/byusername/' + parameter).pipe(
+      concatMap(res => {
+        if (res.status !== 'OK') {
+          return [];
+        } else {
+          return of(res);
+        }
+      }), map((res: any) => res.data.map((item) => this.ideaAdapter.adapt(item)))
+    );
   }
 
   getNumberOfTotalIdeas(): Observable<number> {

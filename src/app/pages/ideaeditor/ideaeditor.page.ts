@@ -53,7 +53,7 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
       const subscription3 = this.apiService.checkIfIdeaBelongsToUser(+urlslice).subscribe(result => {
         this.verifiedAccess = result;
       });
-      const subscription1 = this.apiService.getIdea(+urlslice).subscribe(post => {
+      const subscription1 = this.ideaService.getIdea(+urlslice).subscribe(post => {
         this.postHash = hash(post);
         this.idea = post;
       });

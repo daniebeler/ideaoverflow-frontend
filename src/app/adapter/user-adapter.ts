@@ -12,6 +12,7 @@ export class UserAdapter implements Adapter<User> {
   constructor(private domSanitizer: DomSanitizer) { }
 
   adapt(item: any): User {
+    console.log('adapter', item);
     item.creationdate = new Date(item.creationdate);
     item.profileimage = this.domSanitizer.bypassSecurityTrustResourceUrl(item.profileimage);
     return new User(item);

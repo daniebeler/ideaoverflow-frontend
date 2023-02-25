@@ -26,6 +26,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const subscription1 = this.userService.getLatestUser().subscribe((latestUser) => {
       this.user = latestUser;
+      console.log(latestUser);
       if (latestUser) {
         this.loggedIn = true;
       }
