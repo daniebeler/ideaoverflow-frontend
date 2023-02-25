@@ -212,15 +212,15 @@ export class ApiService {
     return this.httpClient.post<any>(environment.api + 'follower/unfollow', data, { headers: this.getHeader() });
   }
 
-  getFollowees(username: string): Observable<User[]> {
-    return this.httpClient.get<any>(environment.api + 'follower/followeesbyusername/' + username).pipe(
-      map((data: any[]) => data.map((item) => this.userAdapter.adapt(item)))
+  getFollowees(userid: number): Observable<User[]> {
+    return this.apiGet('follower/followeesbyusername/' + userid).pipe(
+      map((data: any) => data.data.map((item) => this.userAdapter.adapt(item)))
     );
   }
 
   getFollowers(username: string): Observable<User[]> {
-    return this.httpClient.get<any>(environment.api + 'follower/followersbyusername/' + username).pipe(
-      map((data: any[]) => data.map((item) => this.userAdapter.adapt(item)))
+    return this.apiGet('follower/followersbyusername/' + username).pipe(
+      map((data: any) => data.data.map((item) => this.userAdapter.adapt(item)))
     );
   }
 
@@ -231,8 +231,8 @@ export class ApiService {
   }
 
   getProject(id: number): Observable<Project> {
-    return this.httpClient.get<any>(environment.api + 'project/byid/' + id).pipe(
-      map(data => this.projectAdapter.adapt(data))
+    return this.apiGet('project/byid/' + id).pipe(
+      map(data => this.projectAdapter.adapt(data.data))
     );
   }
 

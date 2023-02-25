@@ -36,6 +36,7 @@ export class ProjectPage implements OnInit, OnDestroy {
       this.projectId = +id;
       const subscription1 = this.apiService.getProject(this.projectId).subscribe(project => {
         this.project = project;
+        console.log('Project: ', this.project);
       });
       this.subscriptions.push(subscription1);
     }

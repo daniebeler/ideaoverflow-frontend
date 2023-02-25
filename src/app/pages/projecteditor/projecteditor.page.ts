@@ -51,7 +51,7 @@ export class ProjectEditorPage implements OnInit, OnDestroy {
       this.verifiedAccess = true;
       this.project.body = this.domSanitizer.bypassSecurityTrustHtml('');
       const subscription1 = this.userService.getLatestUser().pipe(filter(user => Boolean(user))).subscribe((latestUser) => {
-        this.project.ownerId = latestUser.id;
+        this.project.owner.id = latestUser.id;
       });
       this.subscriptions.push(subscription1);
     } else if (!isNaN(+urlslice)) {
