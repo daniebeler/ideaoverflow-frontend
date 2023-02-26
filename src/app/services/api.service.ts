@@ -340,7 +340,7 @@ export class ApiService {
   }
 
   checkIfIdeaBelongsToUser(ideaId: number): Observable<boolean> {
-    return this.apiGet(environment.api + 'idea/checkifideabelongstouser/' + ideaId, 'Required').pipe(
+    return this.apiGet('idea/checkifideabelongstouser/' + ideaId, 'Required').pipe(
       map(data => data.data.accessgranted)
     );
   }

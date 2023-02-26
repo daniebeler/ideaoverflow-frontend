@@ -20,7 +20,7 @@ export class FollowersComponent implements OnInit, OnDestroy {
 
   followers: User[] = [];
 
-  gridMode: 'list' | 'grid' = 'grid';
+  gridMode: 'list' | 'grid' = 'list';
 
   header = '';
 

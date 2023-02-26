@@ -147,6 +147,18 @@ a:hover {
   }
 }
 
+button {
+  ion-icon {
+    display: flex;
+    font-size: 1.2rem;
+  }
+}
+
+ion-icon {
+  display: flex;
+  font-size: 1.2rem;
+}
+
 .btn-small {
   color: var(--ion-color-light);
   padding: 12px 12px 12px 12px;
@@ -187,7 +199,8 @@ a:hover {
   background-color: var(--ion-color-dark-shade);
 }
 
-button:disabled, button:disabled:hover {
+button:disabled,
+button:disabled:hover {
   background-color: #9b9b9b;
   color: #454545;
 }
