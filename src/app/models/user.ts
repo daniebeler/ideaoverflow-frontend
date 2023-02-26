@@ -20,6 +20,8 @@ export class User {
   public creationDate: Date;
   public numberOfFollowers: number;
   public numberOfFollowees: number;
+  public numberOfPosts: number;
+  public numberOfLikes: number;
   public color: string;
 
   constructor(data?: any) {
@@ -39,8 +41,10 @@ export class User {
     this.state = data?.state;
     this.profileimage = data?.profileimage;
     this.creationDate = data?.creationdate;
-    this.numberOfFollowers = data?.followers;
-    this.numberOfFollowees = data?.following;
+    this.numberOfFollowers = data?.numberOfFollowers ?? 0;
+    this.numberOfFollowees = data?.numberOfFollowees ?? 0;
+    this.numberOfPosts = data?.numberOfPosts ?? 0;
+    this.numberOfLikes = data?.numberOfLikes ?? 0;
     this.color = data?.color;
   }
 }
