@@ -32,8 +32,7 @@ export class IdeaService {
   createIdea(idea: Idea): Observable<any> {
     const obj = {
       header: idea.title,
-      body: idea.body.changingThisBreaksApplicationSecurity,
-      userID: idea.user.id
+      body: idea.body.changingThisBreaksApplicationSecurity
     };
     return this.apiService.createIdea(obj);
   }

@@ -9,6 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 import hash from 'object-hash';
 import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/services/alert.service';
+import { ApiResponse } from 'src/app/models/api-response';
 
 @Component({
   selector: 'app-ideaeditor',
@@ -19,7 +20,6 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  user: User;
   idea: Idea = new Idea([]);
 
   verifiedAccess = false;
@@ -50,20 +50,14 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
       this.idea.body = this.domSanitizer.bypassSecurityTrustHtml('');
     } else if (!isNaN(+urlslice)) {
       this.mode = 'edit';
-      const subscription3 = this.apiService.checkIfIdeaBelongsToUser(+urlslice).subscribe(result => {
+      this.subscriptions.push(this.apiService.checkIfIdeaBelongsToUser(+urlslice).subscribe(result => {
         this.verifiedAccess = result;
-      });
-      const subscription1 = this.ideaService.getIdea(+urlslice).subscribe(post => {
+      }));
+      this.subscriptions.push(this.ideaService.getIdea(+urlslice).subscribe(post => {
         this.postHash = hash(post);
         this.idea = post;
-      });
-      this.subscriptions.push(subscription1, subscription3);
+      }));
     }
-
-    const subscription2 = this.userService.getLatestUser().subscribe((latestUser) => {
-      this.idea.user.id = latestUser.id;
-    });
-    this.subscriptions.push(subscription2);
   }
 
   async savePost() {
@@ -72,32 +66,37 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
       'Okay',
       () => {
         if (this.mode === 'new') {
-          const subscription3 = this.ideaService.createIdea(this.idea).subscribe(async res => {
+          this.subscriptions.push(this.ideaService.createIdea(this.idea).subscribe(async res => {
             this.redirect(res);
-          });
-          this.subscriptions.push(subscription3);
+          }));
         } else if (this.mode === 'edit') {
-          const subscription4 = this.ideaService.updateIdea(this.idea).subscribe(res => {
+          this.subscriptions.push(this.ideaService.updateIdea(this.idea).subscribe(res => {
             this.redirect(res);
-          });
-          this.subscriptions.push(subscription4);
+          }));
         }
       },
       'Back'
     );
   }
 
-  async redirect(res) {
-    this.alertService.showAlert(
-      res.header,
-      res.message,
-      'Okay',
-      () => {
-        if (res.status === 200) {
-          this.router.navigate(['']);
+  async redirect(res: boolean) {
+    if (res) {
+      this.alertService.showAlert(
+        '👌🏻',
+        'Your idea is online',
+        'Okay',
+        () => {
+            this.router.navigate(['']);
         }
-      }
-    );
+      );
+    } else {
+      this.alertService.showAlert(
+        'Ooops',
+        'Something went wrong',
+        'Okay'
+      );
+    }
+
   }
 
   editor(quill: any) {

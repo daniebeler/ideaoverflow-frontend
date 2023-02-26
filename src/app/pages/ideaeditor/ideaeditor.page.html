@@ -1,12 +1,24 @@
-<ion-content>
+<ion-header>
   <ion-grid *ngIf="idea && verifiedAccess" class="container">
-    <ion-row style="padding: 40px 0 20px 0;">
+    <ion-row>
       <ion-col>
-        <h1 *ngIf="mode === 'new'">New Idea</h1>
-        <h1 *ngIf="mode === 'edit' && idea.title">{{idea.title}}</h1>
-        <h1 *ngIf="mode === 'edit' && !idea.title">Edit idea</h1>
+        <h2 *ngIf="mode === 'new'">New Idea</h2>
+        <h2 *ngIf="mode === 'edit' && idea.title">{{idea.title}}</h2>
+        <h2 *ngIf="mode === 'edit' && !idea.title">Edit idea</h2>
+      </ion-col>
+
+      <ion-col size="auto">
+        <button type="button" class="btn-small btn-primary" (click)="savePost()"
+         [disabled]="!showSubmitButton">
+        <span>Release post</span>
+      </button>
       </ion-col>
     </ion-row>
+  </ion-grid>
+</ion-header>
+
+<ion-content>
+  <ion-grid *ngIf="idea && verifiedAccess" class="container">
 
     <ion-row style="padding: 40px 0 20px 0;">
       <ion-col>
@@ -35,22 +47,3 @@
     </ion-row>
   </ion-grid>
 </ion-content>
-
-<ion-footer *ngIf="verifiedAccess">
-  <ion-grid class="container">
-    <ion-row>
-      <ion-col style="display: flex; flex-direction: column; justify-content: center;">
-        <button style="margin-top: 20px;" type="button" class="btn-small btn-primary" (click)="savePost()"
-          *ngIf="showSubmitButton; else elseBlock">
-          <span>Release post</span>
-        </button>
-
-        <ng-template #elseBlock>
-          <button style="margin-top: 20px;" type="button" class="btn-small btn-disabled" disabled>
-            <span>Release post</span>
-          </button>
-        </ng-template>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-footer>

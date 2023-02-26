@@ -1,10 +1,11 @@
 <ion-content>
   <ion-grid *ngIf="user" class="container" style="margin-top: 30px;">
-    <div *ngIf="!user.email; else userExists">
+    <div *ngIf="!user.email">
       <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
         <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="10" size-sm="10"
           size-md="6" size-lg="4" size-xl="4">
-          <img ngSrc="./../../../assets/noprofile.svg" style="width: 100%; padding-bottom: 10px;" alt="" height="200" width="200">
+          <img ngSrc="./../../../assets/noprofile.svg" style="width: 100%; padding-bottom: 10px;" alt="" height="200"
+            width="200">
         </ion-col>
       </ion-row>
       <ion-row>
@@ -19,7 +20,7 @@
       </ion-row>
     </div>
 
-    <ng-template #userExists>
+    <div *ngIf="user.email">
       <ion-row>
         <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center">
           <ion-avatar class="profile-image" [ngStyle]="{'border-color': user.color}">
@@ -94,23 +95,19 @@
         </ion-col>
       </ion-row>
 
-      <div *ngIf="selectedTab === 'followers'; else following">
-        <app-followers [type]="selectedTab" textIfNoFollowers="No followers"></app-followers>
+      <div *ngIf="selectedTab === 'followers'">
+        <app-followers [type]="selectedTab" [userId]="user.id"></app-followers>
       </div>
 
-      <ng-template #following>
-        <ng-container *ngIf="selectedTab === 'following'; else saved">
-          <app-followers [type]="selectedTab" textIfNoFollowers="Following nobody"></app-followers>
-        </ng-container>
-      </ng-template>
+      <div *ngIf="selectedTab === 'following'">
+        <app-followers [type]="selectedTab" [userId]="user.id"></app-followers>
+      </div>
 
-      <ng-template #saved>
-        <ng-container *ngIf="selectedTab === 'saved'; else about">
-          <app-posts header="Saved Posts" [savedByUsername]="true"></app-posts>
-        </ng-container>
-      </ng-template>
+      <div *ngIf="selectedTab === 'saved'">
+        <app-posts header="Saved Posts" [savedByUsername]="true"></app-posts>
+      </div>
 
-      <ng-template #about>
+      <div *ngIf="selectedTab === 'about'">
         <app-about></app-about>
 
         <ion-row class="wrapper">
@@ -133,8 +130,8 @@
 
         <div *ngIf="activeContentTab === 'ideas'"
           style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-          <a *ngIf="isMyProfile && !managerService.showSidebar" class="btn-small" style="margin-bottom: 20px" routerLink="/ideaeditor/new"
-            [ngClass]="activeContentTab === 'ideas' ? 'btn-primary' : 'btn-dark'">
+          <a *ngIf="isMyProfile && !managerService.showSidebar" class="btn-small" style="margin-bottom: 20px"
+            routerLink="/ideaeditor/new" [ngClass]="activeContentTab === 'ideas' ? 'btn-primary' : 'btn-dark'">
             New idea</a>
           <app-posts style="width: 100%;" [header]="isMyProfile ? 'My ideas' : postsHeader"
             [filterByUsername]="user.username" [color]="user.color">
@@ -143,15 +140,15 @@
 
         <div *ngIf="activeContentTab === 'projects'"
           style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-          <a *ngIf="isMyProfile && !managerService.showSidebar" class="btn-small" style="margin-bottom: 20px" routerLink="/projecteditor/new"
-            [ngClass]="activeContentTab === 'projects' ? 'btn-primary' : 'btn-dark'">
+          <a *ngIf="isMyProfile && !managerService.showSidebar" class="btn-small" style="margin-bottom: 20px"
+            routerLink="/projecteditor/new" [ngClass]="activeContentTab === 'projects' ? 'btn-primary' : 'btn-dark'">
             New Project</a>
           <app-component-projects style="width: 100%;" [header]="isMyProfile ? 'My projects' : projectsHeader"
             [filterByUsername]="user.username">
           </app-component-projects>
         </div>
-      </ng-template>
-    </ng-template>
+      </div>
+    </div>
   </ion-grid>
 
   <app-footer></app-footer>

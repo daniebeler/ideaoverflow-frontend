@@ -1,4 +1,4 @@
-<div *ngIf="followers.length > 0; else noFollowers">
+<div *ngIf="followers.length > 0 || loading; else noFollowers">
   <h2>{{followers.length}} {{header}}</h2>
   <ion-grid style="margin-bottom: 100px;">
     <ion-row>

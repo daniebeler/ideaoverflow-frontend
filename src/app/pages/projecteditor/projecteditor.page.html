@@ -1,12 +1,24 @@
-<ion-content>
-  <ion-grid *ngIf="project && verifiedAccess" class="container" style="margin-top: 30px; margin-bottom: 100px;">
+<ion-header>
+  <ion-grid *ngIf="project && verifiedAccess" class="container">
     <ion-row>
       <ion-col>
-        <h1 *ngIf="mode === 'new'">New Project</h1>
-        <h1 *ngIf="mode === 'edit' && project.title">{{project.title}}</h1>
-        <h1 *ngIf="mode === 'edit' && !project.title">Edit project</h1>
+        <h2 *ngIf="mode === 'new'">New Project</h2>
+        <h2 *ngIf="mode === 'edit' && project.title">{{project.title}}</h2>
+        <h2 *ngIf="mode === 'edit' && !project.title">Edit project</h2>
+      </ion-col>
+
+      <ion-col size="auto">
+        <button type="button" class="btn-small btn-primary" (click)="saveProject()"
+         [disabled]="!showSubmitButton">
+        <span>Release project</span>
+      </button>
       </ion-col>
     </ion-row>
+  </ion-grid>
+</ion-header>
+
+<ion-content>
+  <ion-grid *ngIf="project && verifiedAccess" class="container" style="margin-top: 30px; margin-bottom: 100px;">
 
     <ion-row style="margin-bottom: 50px;">
       <ion-col style="display: flex;" class="ion-justify-content-center">
@@ -93,24 +105,3 @@
     </ion-row>
   </ion-grid>
 </ion-content>
-
-<ion-footer>
-  <ion-grid class="container">
-    <ion-row>
-      <ion-col style="display: flex; flex-direction: column; justify-content: center;">
-        <button style="margin-top: 20px;" type="button" class="btn-small btn-primary" (click)="saveProject()"
-          *ngIf="showSubmitButton; else elseBlock">
-          <span *ngIf="mode === 'new'">Release project</span>
-          <span *ngIf="mode === 'edit'">Update project</span>
-        </button>
-
-        <ng-template #elseBlock>
-          <button style="margin-top: 20px;" type="button" class="btn-small btn-disabled" disabled>
-            <span *ngIf="mode === 'new'">Release project</span>
-            <span *ngIf="mode === 'edit'">Update project</span>
-          </button>
-        </ng-template>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-footer>
