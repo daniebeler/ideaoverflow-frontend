@@ -221,13 +221,13 @@ export class ApiService {
   }
 
   getFollowees(userId: number): Observable<User[]> {
-    return this.apiGet('follower/followeesbyuserid/' + userId).pipe(
+    return this.apiGet('follower/followeesbyuserid/' + userId, 'Optional').pipe(
       map((data: any) => data.data.map((item) => this.userAdapter.adapt(item.user)))
     );
   }
 
   getFollowers(userId: number): Observable<User[]> {
-    return this.apiGet('follower/followersbyuserid/' + userId).pipe(
+    return this.apiGet('follower/followersbyuserid/' + userId, 'Optional').pipe(
       map((data: any) => data.data.map((item) => this.userAdapter.adapt(item.user)))
     );
   }

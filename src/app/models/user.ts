@@ -22,6 +22,7 @@ export class User {
   public numberOfFollowees: number;
   public numberOfPosts: number;
   public numberOfLikes: number;
+  public following: boolean;
   public color: string;
 
   constructor(data?: any) {
@@ -45,6 +46,7 @@ export class User {
     this.numberOfFollowees = data?.numberOfFollowees ?? 0;
     this.numberOfPosts = data?.numberOfPosts ?? 0;
     this.numberOfLikes = data?.numberOfLikes ?? 0;
+    this.following = data?.following ?? false;
     this.color = data?.color;
   }
 }
