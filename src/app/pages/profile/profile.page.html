@@ -1,3 +1,36 @@
+<ion-header>
+  <ion-grid *ngIf="user" class="container">
+    <ion-row *ngIf="isMyProfile">
+      <ion-col>
+        <h2>My profile</h2>
+      </ion-col>
+
+      <ion-col size="auto">
+        <a routerLink="/settings">
+          <button type="button" class="btn-small btn-medium">
+            Edit Profile</button>
+        </a>
+      </ion-col>
+      <ion-col size="auto">
+        <button type="button" class="btn-small btn-primary" (click)="logout()">Logout</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="!isMyProfile">
+      <ion-col>
+        <h2>@{{user.username}}</h2>
+      </ion-col>
+      <ion-col size="auto" *ngIf="amFollowingThisProfile">
+        <button type="button" class="btn-small btn-medium" style="width: 100%;" (click)="unfollow()">Unfollow</button>
+      </ion-col>
+      <ion-col size="auto" *ngIf="!amFollowingThisProfile">
+        <button type="button" class="btn-small" [ngStyle]="{'background-color':user.color}" style="width: 100%;"
+          (click)="follow()">Follow</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
 <ion-content>
   <ion-grid *ngIf="user" class="container" style="margin-top: 30px;">
     <div *ngIf="!user.email">
@@ -33,44 +66,7 @@
         </ion-col>
       </ion-row>
 
-      <ion-row *ngIf="latestUser" style="display: flex; justify-content: center;">
-        <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="4" size-xl="4">
-          <div *ngIf="isMyProfile; else isNotMyProfile">
-            <ion-grid style="padding: 0; padding-top: 10px;">
-              <ion-row>
-                <ion-col style="padding-left: 0;">
-                  <a routerLink="/settings">
-                    <button type="button" class="btn-small btn-medium" style="width: 100%;">
-                      Edit Profile</button>
-                  </a>
 
-
-                </ion-col>
-                <ion-col style="padding-right: 10px;">
-                  <button type="button" class="btn-small btn-primary" style="width: 100%;"
-                    (click)="logout()">Logout</button>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </div>
-          <ng-template #isNotMyProfile>
-            <ion-grid style="padding: 0; padding-top: 10px;">
-              <ion-row>
-                <ion-col *ngIf="amFollowingThisProfile; else notFollowing">
-                  <button type="button" class="btn-small btn-medium" style="width: 100%;"
-                    (click)="unfollow()">Unfollow</button>
-                </ion-col>
-                <ng-template #notFollowing>
-                  <ion-col>
-                    <button type="button" class="btn-small" [ngStyle]="{'background-color':user.color}"
-                      style="width: 100%;" (click)="follow()">Follow</button>
-                  </ion-col>
-                </ng-template>
-              </ion-row>
-            </ion-grid>
-          </ng-template>
-        </ion-col>
-      </ion-row>
       <ion-row style="margin-top: 50px;">
         <ion-col size="auto" style="padding: 0;">
           <div id="myBtnContainer">

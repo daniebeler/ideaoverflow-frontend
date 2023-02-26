@@ -20,6 +20,8 @@ export class FollowersComponent implements OnInit, OnDestroy {
 
   followers: User[] = [];
 
+  gridMode: 'list' | 'grid' = 'grid';
+
   header = '';
 
   loading = true;
@@ -47,6 +49,10 @@ export class FollowersComponent implements OnInit, OnDestroy {
       });
       this.subscriptions.push(subscription2);
     }
+  }
+
+  changeGridMode(newMode: 'grid' | 'list') {
+    this.gridMode = newMode;
   }
 
   ngOnDestroy(): void {

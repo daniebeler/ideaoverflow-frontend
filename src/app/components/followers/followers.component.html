@@ -1,24 +1,97 @@
 <div *ngIf="followers.length > 0 || loading; else noFollowers">
-  <h2>{{followers.length}} {{header}}</h2>
   <ion-grid style="margin-bottom: 100px;">
-    <ion-row>
-      <ion-col size-xs="6" size-sm="4" size-md="4" size-lg="4" size-xl="4" *ngFor="let follower of followers">
+    <ion-row class="header-wrapper">
+      <ion-col>
+        <h2>{{followers.length}} {{header}}</h2>
+      </ion-col>
+      <ion-col size="auto">
+        <button type="button" class="btn-small btn-primary" [disabled]="gridMode === 'list'" (click)="changeGridMode('list')">
+          <ion-icon name="grid-outline"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col size="auto">
+        <button type="button" class="btn-small btn-primary" [disabled]="gridMode === 'grid'" (click)="changeGridMode('grid')">
+          <ion-icon name="list-outline"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="gridMode === 'list'">
+      <ion-col size="12" *ngFor="let follower of followers">
         <a [routerLink]="'/users/' + follower.username">
-          <ion-grid class="wrapper">
-          <ion-row>
-            <ion-col size="auto">
-              <ion-avatar style="height: 60px; width: 60px; --border-radius: 50%">
-                <img [src]="follower.profileimage">
-              </ion-avatar>
-            </ion-col>
-            <ion-col size="auto" style="display: flex;" class="ion-align-items-center">
-              <div>
-                <p style="margin-bottom: 0;">{{follower.firstname}} {{follower.lastname}}</p>
-                <p style="margin-bottom: 0;">@{{follower.username}}</p>
-              </div>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+          <ion-grid class="list-wrapper">
+            <ion-row>
+              <ion-col size="auto">
+                <ion-avatar style="height: 60px; width: 60px; --border-radius: 50%">
+                  <img [src]="follower.profileimage">
+                </ion-avatar>
+              </ion-col>
+              <ion-col style="display: flex;" class="ion-align-items-center">
+                <div>
+                  <p style="margin-bottom: 0;">{{follower.firstname}} {{follower.lastname}}</p>
+                  <p style="margin-bottom: 0;">@{{follower.username}}</p>
+                </div>
+              </ion-col>
+
+              <ion-col size="auto">
+                <button type="button" class="btn-small btn-primary">
+                  FOLLOW
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </a>
+
+        <hr>
+
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row *ngIf="gridMode === 'grid'">
+      <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4" size-xl="4" *ngFor="let follower of followers">
+        <a [routerLink]="'/users/' + follower.username">
+          <ion-grid class="grid-wrapper">
+            <ion-row>
+              <ion-col>
+                <ion-avatar style="height: 60px; width: 60px; --border-radius: 50%">
+                  <img [src]="follower.profileimage">
+                </ion-avatar>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col style="display: flex;" class="ion-align-items-center">
+                <div>
+                  <p class="fullname bold">{{follower.firstname}} {{follower.lastname}}</p>
+                  <p class="username">@{{follower.username}}</p>
+                </div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="stats-row">
+              <ion-col size="auto">
+                <p class="value bold">12</p>
+                <p class="desc">Ideas</p>
+              </ion-col>
+              <ion-col size="auto">
+                <p class="value bold">12</p>
+                <p class="desc">Followers</p>
+              </ion-col>
+              <ion-col size="auto">
+                <p class="value bold">12</p>
+                <p class="desc">Likes</p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <button type="button" class="btn-small btn-primary">
+                  FOLLOW
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </a>
 
       </ion-col>
@@ -29,16 +102,17 @@
 <ng-template #noFollowers>
   <ion-grid class="nofollowers-grid">
     <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
-    <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="10" size-sm="10"
-      size-md="6" size-lg="5" size-xl="5">
-      <img ngSrc="./../../../assets/svgs/frankenstein.svg" style="height: 400px; padding-top: 10px;" alt="" height="400" width="200" >
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col class="ion-text-center">
-      <h2 style="margin-top: 0;">{{textIfNoFollowers}}</h2>
-    </ion-col>
-  </ion-row>
+      <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="10" size-sm="10"
+        size-md="6" size-lg="5" size-xl="5">
+        <img ngSrc="./../../../assets/svgs/frankenstein.svg" style="height: 400px; padding-top: 10px;" alt=""
+          height="400" width="200">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <h2 style="margin-top: 0;">{{textIfNoFollowers}}</h2>
+      </ion-col>
+    </ion-row>
   </ion-grid>
 
 </ng-template>
