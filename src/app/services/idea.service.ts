@@ -54,10 +54,18 @@ export class IdeaService {
     if (data.username) {
       const param = this.concatQueries(data.username, data);
       return this.apiService.getIdeasByUsername(param);
+    } else if (data.savedByUsername) {
+      const param = this.concatQueries('', data);
+      return this.apiService.getIdeasSavedByUser(param);
     } else {
       const param = this.concatQueries('', data);
       return this.apiService.getIdeas(param);
     }
+  }
+
+  getSavedIdeas(data: any): Observable<Idea[]> {
+    const param = this.concatQueries(data.userId, data);
+      return this.apiService.getIdeasByUsername(param);
   }
 
   concatQueries(base: string, data: any): string {

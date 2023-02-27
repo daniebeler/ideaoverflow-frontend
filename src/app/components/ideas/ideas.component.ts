@@ -81,7 +81,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
       params.searchTerm = this.searchTerm;
     }
 
-    const subscription2 = this.ideaService.getIdeas(params).subscribe((posts: Idea[]) => {
+    this.subscriptions.push(this.ideaService.getIdeas(params).subscribe((posts: Idea[]) => {
       console.log(posts);
       if (isInitialLoad) {
         event.target.complete();
@@ -91,8 +91,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
       }
 
       this.loading = false;
-    });
-    this.subscriptions.push(subscription2);
+    }));
   }
 
   sortingCriteriaChanged(sortingCriteria: string) {

@@ -307,6 +307,18 @@ export class ApiService {
     );
   }
 
+  getIdeasSavedByUser(parameter: string): Observable<Idea[]> {
+    return this.apiGet('idea/saved/' + parameter, 'Required').pipe(
+      concatMap(res => {
+        if (res.status !== 'OK') {
+          return [];
+        } else {
+          return of(res);
+        }
+      }), map((res: any) => res.data.map((item) => this.ideaAdapter.adapt(item)))
+    );
+  }
+
   getNumberOfTotalIdeas(): Observable<number> {
     return this.apiGet('idea/numberoftotalideas').pipe(
       map(data => data.data.numberoftotalideas)
