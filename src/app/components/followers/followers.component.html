@@ -23,7 +23,7 @@
         <a [routerLink]="'/users/' + follower.username">
           <ion-grid class="list-wrapper">
             <ion-row>
-              <ion-col size="auto">
+              <ion-col size="auto" style="padding-left: 0">
                 <ion-avatar style="height: 60px; width: 60px; --border-radius: 50%">
                   <img [src]="follower.profileimage">
                 </ion-avatar>
@@ -35,7 +35,7 @@
                 </div>
               </ion-col>
 
-              <ion-col size="auto">
+              <ion-col size="auto" style="padding-right: 0">
                 <button type="button" class="btn-small btn-primary" *ngIf="!follower.following">
                   FOLLOW
                 </button>
@@ -91,8 +91,11 @@
 
             <ion-row>
               <ion-col>
-                <button type="button" class="btn-small btn-primary">
-                  FOLLOW
+                <button type="button" class="btn-small btn-primary" *ngIf="!follower.following">
+                  Follow
+                </button>
+                <button type="button" class="btn-small btn-dark" *ngIf="follower.following">
+                  FOLLOWING
                 </button>
               </ion-col>
             </ion-row>
