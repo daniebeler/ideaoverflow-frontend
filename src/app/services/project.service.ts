@@ -33,7 +33,7 @@ export class ProjectService {
       title: project.title,
       short_description: project.shortDescription,
       body: project.body.changingThisBreaksApplicationSecurity,
-      owner_id: project.ownerId,
+      owner_id: project.user.id,
       logo: logo.changingThisBreaksApplicationSecurity,
       website: project.website,
       release_date: releaseDate,

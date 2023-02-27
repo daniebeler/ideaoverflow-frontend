@@ -27,7 +27,6 @@ export class ProjectAdapter implements Adapter<Project> {
     }
 
     item.logo = this.domSanitizer.bypassSecurityTrustResourceUrl(item.logo);
-    item.ownerImage = this.domSanitizer.bypassSecurityTrustResourceUrl(item.profileimage);
     item.body = this.domSanitizer.bypassSecurityTrustHtml(item.body);
     return new Project(item);
   }

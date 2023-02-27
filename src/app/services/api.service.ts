@@ -232,26 +232,20 @@ export class ApiService {
     );
   }
 
-  checkIfFollowing(data: any): Observable<boolean> {
-    return this.apiPost('follower/checkfollow', data).pipe(
-      map(result => result.data.following)
-    );
-  }
-
 
   // -----------------------------------
   // Projects
   // -----------------------------------
 
   getProject(id: number): Observable<Project> {
-    return this.httpClient.get<any>(environment.api + 'project/byid/' + id).pipe(
-      map(data => this.projectAdapter.adapt(data))
+    return this.apiGet('project/byid/' + id).pipe(
+      map(data => this.projectAdapter.adapt(data.data))
     );
   }
 
   getSelectedProjects(params: any): Observable<Project[]> {
-    return this.httpClient.post<Project[]>(environment.api + 'project/projects/', params).pipe(
-      map((data: any[]) => data.map((item) => this.projectAdapter.adapt(item)))
+    return this.apiGet('project/all/', params).pipe(
+      map((data: any) => data.data.map((item) => this.projectAdapter.adapt(item)))
     );
   }
 

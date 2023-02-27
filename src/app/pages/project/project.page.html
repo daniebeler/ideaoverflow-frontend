@@ -16,18 +16,18 @@
 
             <ion-col size="auto">
               <div *ngIf="currentUser">
-                <a *ngIf="currentUser.id === project.ownerId" size="auto" class="like"
+                <a *ngIf="currentUser.id === project.user.id" size="auto" class="like"
                   style="display: flex; align-items: center;" [routerLink]="'/projecteditor/' + project.id">
                   <ion-icon name="settings-outline" style="height: 30px; width: 30px;">
                   </ion-icon>
                 </a>
               </div>
               <a class="owner" style="display: flex; align-items: center;"
-                [routerLink]="'/users/' + project.ownerUsername">
+                [routerLink]="'/users/' + project.user.username">
                 <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
-                  <img [src]="project.ownerImage">
+                  <img [src]="project.user.profileimage">
                 </ion-avatar>
-                <p style="margin-bottom: 0; padding-left: 8px;">{{project.ownerUsername}}</p>
+                <p style="margin-bottom: 0; padding-left: 8px;">{{project.user.username}}</p>
               </a>
               <div *ngIf="project.releaseDate" style="display: flex; flex-direction: row; margin: 15px 5px 5px 5px;">
                 <ion-icon name="calendar-number-outline" style="height: 25px; width: 25px; padding-right: 5px;">

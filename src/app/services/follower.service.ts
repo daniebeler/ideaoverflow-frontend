@@ -53,12 +53,4 @@ export class FollowerService {
 
     });
   }
-
-  checkIfFollowing(followeeID: number): Observable<boolean> {
-    const obj = {
-      followerID: this.authService.getUser().id,
-      followeeID
-    };
-    return this.apiService.checkIfFollowing(obj);
-  }
 }

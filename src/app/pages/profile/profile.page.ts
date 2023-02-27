@@ -66,11 +66,8 @@ export class ProfilePage implements OnInit, OnDestroy {
             this.isMyProfile = true;
           }
           else {
-            const subscription5 = this.followerService.checkIfFollowing(this.user.id).subscribe(following => {
-              this.amFollowingThisProfile = following;
-              this.isMyProfile = false;
-            });
-            this.subscriptions.push(subscription5);
+            // check if following
+            this.isMyProfile = false;
           }
         }
         else {
