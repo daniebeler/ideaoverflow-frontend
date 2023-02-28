@@ -45,7 +45,7 @@ export class ProjectService {
   getProjects(data: any): Observable<Project[]> {
     if (data.username) {
       const param = this.concatQueries(data.username, data);
-      return this.apiService.getProjects(param);
+      return this.apiService.getProjectsByUsername(param);
     } else if (data.savedByUsername) {
       const param = this.concatQueries('', data);
       return this.apiService.getProjects(param);

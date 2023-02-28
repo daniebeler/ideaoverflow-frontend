@@ -249,6 +249,18 @@ export class ApiService {
     );
   }
 
+  getProjectsByUsername(parameter: string): Observable<Project[]> {
+    return this.apiGet('project/byusername/' + parameter).pipe(
+      concatMap(res => {
+        if (res.status !== 'OK') {
+          return [];
+        } else {
+          return of(res);
+        }
+      }), map((res: any) => res.data.map((item) => this.projectAdapter.adapt(item)))
+    );
+  }
+
   getNumberOfTotalProjects(): Observable<number> {
     return this.apiGet('project/numberoftotalprojects').pipe(
       map(data => data.data?.numberoftotalprojects ?? 0)
