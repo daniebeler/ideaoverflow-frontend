@@ -4,6 +4,10 @@ This is the fronted of Idea Overflow. The Backend in following Repository: [idea
 
 Idea Overflow is a web app where users can post their project ideas and also their finished projects, and get inspired by other users posts. It is built with [Ionic](https://ionicframework.com) in combination with [Angular](https://angular.io).
 
+The frontend is hostet and automatically deployed with [Netlify](https://www.netlify.com/)
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/84a2cc70-f4a0-49eb-8888-cca878cb1616/deploy-status)](https://app.netlify.com/sites/idea-overflow/deploys)
+
 ## Setup
 
 Clone the repository
