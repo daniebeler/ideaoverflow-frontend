@@ -26,12 +26,6 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 
-@import '~swiper/scss';
-@import '~@ionic/angular/css/ionic-swiper';
-@import '~swiper/scss/pagination';
-@import '~swiper/scss/effect-cards';
-@import '~swiper/scss/free-mode';
-
 ::selection {
   color: var(--ion-color-light);
   background: var(--ion-color-primary);
