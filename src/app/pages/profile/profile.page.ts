@@ -9,6 +9,9 @@ import { FollowerService } from 'src/app/services/follower.service';
 import { ManagerService } from 'src/app/services/manager.service';
 import { UserService } from 'src/app/services/user.service';
 
+import { findFlagUrlByIso2Code } from 'country-flags-svg';
+import { countries } from 'country-flags-svg';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -29,6 +32,8 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   selectedTab = 'about';
   activeContentTab = 'ideas';
+
+  flagUrl = '';
 
   constructor(
     private authService: AuthService,
@@ -64,9 +69,15 @@ export class ProfilePage implements OnInit, OnDestroy {
           this.amFollowingThisProfile = false;
         }
       });
+
+      this.flagUrl = findFlagUrlByIso2Code(this.user.country);
       this.subscriptions.push(subscription4);
     });
     this.subscriptions.push(subscription1);
+
+    console.log(findFlagUrlByIso2Code('at'));
+
+    console.log(countries[0]);
   }
 
   async logout() {

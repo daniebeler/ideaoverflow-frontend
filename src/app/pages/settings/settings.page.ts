@@ -27,9 +27,8 @@ export class SettingsPage implements OnInit, OnDestroy {
   userHash = '12';
 
   countries: any = null;
-  states: any = null;
 
-  country: any = null;
+  country = '';
 
   unsavedDataExists = false;
 
@@ -63,6 +62,7 @@ export class SettingsPage implements OnInit, OnDestroy {
         this.user = latestUser;
         this.userHash = hash(latestUser);
         if (latestUser) {
+          this.country = latestUser.country;
           this.checkForChange();
         }
       });
@@ -104,15 +104,6 @@ export class SettingsPage implements OnInit, OnDestroy {
     this.authService.changePassword(this.oldPassword, this.newPassword1);
   }
 
-  findCountry(valueToFind) {
-    for (const country of this.countries.countries) {
-      if (country.country === valueToFind) {
-        return country;
-      }
-    }
-    return null;
-  }
-
   onFileChange(event) {
     if (event.target.files != null) {
       const file = event.target.files[0];
@@ -129,6 +120,7 @@ export class SettingsPage implements OnInit, OnDestroy {
   }
 
   checkForChange() {
+    this.user.country = this.country;
     if (this.userHash !== hash(this.user)) {
       this.unsavedDataExists = true;
     } else {

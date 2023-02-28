@@ -70,16 +70,7 @@
           <label class="text-label">Country</label>
           <select [(ngModel)]="country" (ngModelChange)="checkForChange()">
             <option value="">--Leave empty--</option>
-            <option *ngFor="let country of countries.countries" [ngValue]="user.country">{{user.country}}</option>
-          </select>
-        </div>
-      </ion-col>
-      <ion-col size-xs="12" size-sm="6">
-        <div class="form-group" *ngIf="country">
-          <label class="text-label">State</label>
-          <select [(ngModel)]="user.state" (ngModelChange)="checkForChange()">
-            <option value="">--Leave empty--</option>
-            <option *ngFor="let state of country.states" [ngValue]="user.state">{{user.state}}</option>
+            <option *ngFor="let country of countries.countries" [ngValue]="country.code">{{country.name}}</option>
           </select>
         </div>
       </ion-col>
