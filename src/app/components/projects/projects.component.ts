@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { Project } from 'src/app/models/project';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
+import { ProjectService } from 'src/app/services/project.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -26,6 +27,8 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   skipProjects = -5;
   loadedUser = false;
 
+  loading = true;
+
   showSortingButtons = true;
 
   currentUser: User = null;
@@ -35,7 +38,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   alternativeHeader = 'Newest projects';
 
   constructor(
-    private apiService: ApiService,
+    private projectService: ProjectService,
     private userService: UserService
   ) { }
 
@@ -50,12 +53,21 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   }
 
   getPosts(isInitialLoad: boolean, event) {
+    this.loading = true;
     this.skipProjects = this.skipProjects + 5;
+
+    let reverse = false;
+    const sort = 'date';
+
+    if (this.sortingCriteria === 'oldest') {
+      reverse = true;
+    }
+
     const params: any = {
       skip: this.skipProjects,
       take: this.numberOfProjects,
-      sortingCriteria: this.sortingCriteria,
-      currentUserId: this.currentUser?.id
+      sort,
+      reverse
     };
 
     if (this.filterByUsername) {
@@ -69,15 +81,16 @@ export class ProjectsComponent implements OnInit, OnDestroy {
       params.searchTerm = this.searchTerm;
     }
 
-    const subscription2 = this.apiService.getSelectedProjects(params).subscribe((posts: Project[]) => {
+    this.subscriptions.push(this.projectService.getProjects(params).subscribe((posts: Project[]) => {
       if (isInitialLoad) {
         event.target.complete();
       }
       for (const post of posts) {
         this.allLoadedProjects.push(post);
       }
-    });
-    this.subscriptions.push(subscription2);
+
+      this.loading = false;
+    }));
   }
 
   sortingCriteriaChanged(sortingCriteria: string) {

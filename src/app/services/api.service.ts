@@ -243,8 +243,9 @@ export class ApiService {
     );
   }
 
-  getSelectedProjects(params: any): Observable<Project[]> {
-    return this.apiGet('project/all/', params).pipe(
+  getProjects(params: any): Observable<Project[]> {
+    console.log(params);
+    return this.apiGet('project/all' + params).pipe(
       map((data: any) => data.data.map((item) => this.projectAdapter.adapt(item)))
     );
   }

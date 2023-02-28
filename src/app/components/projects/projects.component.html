@@ -1,4 +1,4 @@
-<div *ngIf="allLoadedProjects.length > 0; else noProjects">
+<div *ngIf="allLoadedProjects.length > 0 || loading; else noProjects">
   <ion-row>
     <ion-col size="auto">
       <h2 style="margin: 0;">{{header ? header : alternativeHeader}}</h2>

@@ -66,8 +66,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
       skip: this.skipPosts,
       take: this.numberOfPosts,
       sort,
-      reverse,
-      currentUserId: this.currentUser?.id
+      reverse
     };
 
     if (this.filterByUsername) {

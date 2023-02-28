@@ -42,6 +42,45 @@ export class ProjectService {
     return this.apiService.createProject(data);
   }
 
+  getProjects(data: any): Observable<Project[]> {
+    if (data.username) {
+      const param = this.concatQueries(data.username, data);
+      return this.apiService.getProjects(param);
+    } else if (data.savedByUsername) {
+      const param = this.concatQueries('', data);
+      return this.apiService.getProjects(param);
+    } else {
+      const param = this.concatQueries('', data);
+      return this.apiService.getProjects(param);
+    }
+  }
+
+  concatQueries(base: string, data: any): string {
+    if (data.take) {
+      base = this.concatQuery(base, 'take', data.take);
+    }
+
+    if (data.skip) {
+      base = this.concatQuery(base, 'skip', data.skip);
+    }
+
+    if (data.reverse) {
+      base = this.concatQuery(base, 'reverse', data.reverse);
+    }
+
+    if (data.sort) {
+      base = this.concatQuery(base, 'sort', data.sort);
+    }
+
+    return base;
+  }
+
+  concatQuery(param: string, query: string, value: string): string {
+    const questionmark = param.includes('?') ? '&' : '?';
+    param = param.concat(questionmark, query, '=', value);
+    return param;
+  }
+
   updateProject(updatedProject: Project): Observable<any> {
     const url: any = updatedProject.logo;
 

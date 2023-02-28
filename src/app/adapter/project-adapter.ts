@@ -20,9 +20,11 @@ export class ProjectAdapter implements Adapter<Project> {
       item.releasedate = new Date(item.release_date);
     }
 
-    if (item.screenshots) {
-      item.screenshots.forEach(screenshot => {
-        screenshot = this.domSanitizer.bypassSecurityTrustResourceUrl(screenshot);
+    item.screenshots = [];
+
+    if (item.screenshot) {
+      item.screenshot.forEach(screenshot => {
+        item.screenshots.push(this.domSanitizer.bypassSecurityTrustResourceUrl(screenshot.url));
       });
     }
 
