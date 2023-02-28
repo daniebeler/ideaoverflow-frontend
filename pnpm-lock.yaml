@@ -28,6 +28,7 @@ specifiers:
   '@types/node': ^18.14.2
   '@typescript-eslint/eslint-plugin': 5.54.0
   '@typescript-eslint/parser': 5.54.0
+  country-flags-svg: ^1.1.8
   eslint: ^8.35.0
   eslint-plugin-import: 2.27.5
   eslint-plugin-jsdoc: 40.0.0
@@ -67,6 +68,7 @@ dependencies:
   '@angular/service-worker': 15.2.0_gvdsznzulkezfm6w67hlhkynfe
   '@auth0/angular-jwt': 5.1.2_@angular+common@15.2.0
   '@ionic/angular': 6.5.6_6myapi73b3je3ofzqfhh4j4b3i
+  country-flags-svg: 1.1.8
   express: 4.18.2
   localstorage-polyfill: 1.0.1
   ngx-quill: 20.0.1_dzu27mwtdok6vsbnpz32cgcu5y
@@ -3794,6 +3796,11 @@ packages:
       path-type: 4.0.0
       yaml: 1.10.2
     dev: true
+
+  /country-flags-svg/1.1.8:
+    resolution: {integrity: sha512-ck/KoglQ1tU1d4nDN/8PEuGPeXmbCuWYu97MaHr5+p9VVYJZHgG/DYWAaOAnrYWkPn1GsAER/YlJvQGAnenJdg==}
+    engines: {node: ^12.17.0 || 13.x || 14.x || 15.x || 16.x || 17.x || 18.x}
+    dev: false
 
   /create-require/1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
