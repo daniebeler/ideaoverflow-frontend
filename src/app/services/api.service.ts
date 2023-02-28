@@ -238,14 +238,13 @@ export class ApiService {
   // -----------------------------------
 
   getProject(id: number): Observable<Project> {
-    return this.apiGet('project/byid/' + id).pipe(
+    return this.apiGet('project/byid/' + id, 'Optional').pipe(
       map(data => this.projectAdapter.adapt(data.data))
     );
   }
 
   getProjects(params: any): Observable<Project[]> {
-    console.log(params);
-    return this.apiGet('project/all' + params).pipe(
+    return this.apiGet('project/all' + params, 'Optional').pipe(
       map((data: any) => data.data.map((item) => this.projectAdapter.adapt(item)))
     );
   }
@@ -257,20 +256,11 @@ export class ApiService {
   }
 
   createProject(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'project/create', data, { headers: this.getHeader() });
+    return this.apiPost('project/create', data, 'Required');
   }
 
   updateProject(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'project/update', data, { headers: this.getHeader() });
-  }
-
-  checkIfProjectBelongsToUser(projectId: number): Observable<boolean> {
-    return this.httpClient.get<any>(
-      environment.api + 'project/checkifprojectbelongstouser/' + projectId,
-      { headers: this.getHeader() }
-    ).pipe(
-      map(data => data.accessgranted)
-    );
+    return this.apiPost('project/update', data, 'Required');
   }
 
 
@@ -285,7 +275,7 @@ export class ApiService {
   }
 
   getIdeas(parameter: string): Observable<Idea[]> {
-    return this.apiGet('idea/all' + parameter).pipe(
+    return this.apiGet('idea/all' + parameter, 'Optional').pipe(
       concatMap(res => {
         if (res.status !== 'OK') {
           return [];
@@ -344,12 +334,6 @@ export class ApiService {
 
   updateIdea(data: any): Observable<ApiResponse> {
     return this.apiPost('idea/update/', data, 'Required');
-  }
-
-  checkIfIdeaBelongsToUser(ideaId: number): Observable<boolean> {
-    return this.apiGet('idea/checkifideabelongstouser/' + ideaId, 'Required').pipe(
-      map(data => data.data.accessgranted)
-    );
   }
 
 

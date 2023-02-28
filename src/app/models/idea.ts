@@ -12,6 +12,7 @@ export class Idea {
   public numberOfDownvotes: number;
   public currentUserVoteValue: number;
   public saved: boolean;
+  public mine: boolean;
 
   constructor(data: any) {
     this.id = data.id;
@@ -23,5 +24,6 @@ export class Idea {
     this.numberOfDownvotes = data.downvotes;
     this.currentUserVoteValue = data.votevalue;
     this.saved = data.saved;
+    this.mine = data.mine ?? false;
    }
 }

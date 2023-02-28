@@ -24,9 +24,6 @@ export class ProfilePage implements OnInit, OnDestroy {
   currentProfile = '';
   amFollowingThisProfile = false;
 
-  numberOfIdeas = 0;
-  numberOfProjects = 0;
-
   postsHeader = '';
   projectsHeader = '';
 
@@ -51,14 +48,6 @@ export class ProfilePage implements OnInit, OnDestroy {
       this.postsHeader = 'Ideas by ' + this.user.firstname + ' ' + this.user.lastname;
       this.projectsHeader = 'Projects by ' + this.user.firstname + ' ' + this.user.lastname;
 
-      const subscription2 = this.apiService.getNumberOfIdeasByUser(this.user.id).subscribe(numberOfIdeas => {
-        this.numberOfIdeas = numberOfIdeas;
-      });
-
-      const subscription3 = this.apiService.getNumberOfProjectsByUser(this.user.id).subscribe(numberOfProjects => {
-        this.numberOfProjects = numberOfProjects;
-      });
-
       const subscription4 = this.userService.getLatestUser().subscribe((latestUser) => {
         this.latestUser = latestUser;
         if (latestUser) {
@@ -75,7 +64,7 @@ export class ProfilePage implements OnInit, OnDestroy {
           this.amFollowingThisProfile = false;
         }
       });
-      this.subscriptions.push(subscription2, subscription3, subscription4);
+      this.subscriptions.push(subscription4);
     });
     this.subscriptions.push(subscription1);
   }

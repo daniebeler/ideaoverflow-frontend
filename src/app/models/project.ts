@@ -14,6 +14,7 @@ export class Project {
   public website: string;
   public user: User;
   public screenshots: SafeResourceUrl[];
+  public mine: boolean;
 
   constructor(data: any) {
     this.id = data.id;
@@ -27,5 +28,6 @@ export class Project {
     this.website = data.website;
     this.user = data.user;
     this.screenshots = data.screenshots;
+    this.mine = data.mine ?? false;
    }
 }

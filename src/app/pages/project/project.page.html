@@ -15,9 +15,9 @@
             </ion-col>
 
             <ion-col size="auto">
-              <div *ngIf="currentUser">
-                <a *ngIf="currentUser.id === project.user.id" size="auto" class="like"
-                  style="display: flex; align-items: center;" [routerLink]="'/projecteditor/' + project.id">
+              <div *ngIf="project.mine">
+                <a size="auto" class="like" style="display: flex; align-items: center;"
+                  [routerLink]="'/projecteditor/' + project.id">
                   <ion-icon name="settings-outline" style="height: 30px; width: 30px;">
                   </ion-icon>
                 </a>

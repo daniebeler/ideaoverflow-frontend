@@ -114,7 +114,7 @@
             <button type="button" class="btn-small" style="width: 100%;" (click)="activeContentTab = 'ideas'"
               [ngClass]="activeContentTab === 'ideas' ? 'btn-primary' : 'btn-dark'"
               [ngStyle]="{'background-color': activeContentTab === 'ideas' && user.color ? user.color : ''}">
-              {{numberOfIdeas}} Ideas
+              {{user.numberOfPosts}} Ideas
             </button>
 
           </ion-col>
@@ -122,7 +122,7 @@
             <button type="button" class="btn-small" style="width: 100%;" (click)="activeContentTab = 'projects'"
               [ngClass]="activeContentTab === 'projects' ? 'btn-primary' : 'btn-dark'"
               [ngStyle]="{'background-color': activeContentTab === 'projects' && user.color ? user.color : ''}">
-              {{numberOfProjects}} Projects
+              {{user.numberOfProjects}} Projects
             </button>
           </ion-col>
         </ion-row>
