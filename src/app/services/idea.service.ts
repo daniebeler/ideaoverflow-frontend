@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { concatMap, map, Observable, of } from 'rxjs';
-import { IdeaAdapter } from '../adapter/idea-adapter';
+import { Observable } from 'rxjs';
 import { Idea } from '../models/idea';
 import { ApiService } from './api.service';
 
@@ -10,8 +9,7 @@ import { ApiService } from './api.service';
 export class IdeaService {
 
   constructor(
-    private apiService: ApiService,
-    private ideaAdapter: IdeaAdapter
+    private apiService: ApiService
   ) { }
 
   voteIdea(voteValue: number, ideaId: number) {
@@ -52,46 +50,20 @@ export class IdeaService {
 
   getIdeas(data: any): Observable<Idea[]> {
     if (data.username) {
-      const param = this.concatQueries(data.username, data);
+      const param = this.apiService.concatQueries(data.username, data);
       return this.apiService.getIdeasByUsername(param);
     } else if (data.savedByUsername) {
-      const param = this.concatQueries('', data);
+      const param = this.apiService.concatQueries('', data);
       return this.apiService.getIdeasSavedByUser(param);
     } else {
-      const param = this.concatQueries('', data);
+      const param = this.apiService.concatQueries('', data);
       return this.apiService.getIdeas(param);
     }
   }
 
   getSavedIdeas(data: any): Observable<Idea[]> {
-    const param = this.concatQueries(data.userId, data);
+    const param = this.apiService.concatQueries(data.userId, data);
       return this.apiService.getIdeasByUsername(param);
-  }
-
-  concatQueries(base: string, data: any): string {
-    if (data.take) {
-      base = this.concatQuery(base, 'take', data.take);
-    }
-
-    if (data.skip) {
-      base = this.concatQuery(base, 'skip', data.skip);
-    }
-
-    if (data.reverse) {
-      base = this.concatQuery(base, 'reverse', data.reverse);
-    }
-
-    if (data.sort) {
-      base = this.concatQuery(base, 'sort', data.sort);
-    }
-
-    return base;
-  }
-
-  concatQuery(param: string, query: string, value: string): string {
-    const questionmark = param.includes('?') ? '&' : '?';
-    param = param.concat(questionmark, query, '=', value);
-    return param;
   }
 }
 

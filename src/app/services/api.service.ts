@@ -108,6 +108,32 @@ export class ApiService {
     );
   }
 
+  concatQueries(base: string, data: any): string {
+    if (data.take) {
+      base = this.concatQuery(base, 'take', data.take);
+    }
+
+    if (data.skip) {
+      base = this.concatQuery(base, 'skip', data.skip);
+    }
+
+    if (data.reverse) {
+      base = this.concatQuery(base, 'reverse', data.reverse);
+    }
+
+    if (data.sort) {
+      base = this.concatQuery(base, 'sort', data.sort);
+    }
+
+    return base;
+  }
+
+  concatQuery(param: string, query: string, value: string): string {
+    const questionmark = param.includes('?') ? '&' : '?';
+    param = param.concat(questionmark, query, '=', value);
+    return param;
+  }
+
 
   // -----------------------------------
   // User
