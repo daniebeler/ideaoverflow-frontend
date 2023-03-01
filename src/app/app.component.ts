@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
-import { ManagerService } from './services/manager.service';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +8,7 @@ import { ManagerService } from './services/manager.service';
 })
 export class AppComponent {
   constructor(
-    private update: SwUpdate,
-    public managerService: ManagerService
+    private update: SwUpdate
   ) { }
 
   updateClient() {
