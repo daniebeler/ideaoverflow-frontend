@@ -22,7 +22,7 @@
             <ion-col style="display: flex; flex-direction: column; justify-content: center;" size-xs="12" size-sm="6"
               size-md="6" size-lg="6" size-xl="6">
 
-              <div *ngIf="user && router.url === '/'">
+              <div *ngIf="user && router.url === '/ideas'">
                 <h2 class="intro" style="margin-top: 0;">Hello</h2>
                 <p style="margin-top: 0; margin-bottom: 20px;">If you have a great idea please share it with the
                   community!</p>
@@ -48,7 +48,7 @@
             <ion-col class="ion-hide-sm-down" style="display: flex; justify-content: center; padding: 20px;"
               size-xs="12" size-sm="6" size-md="6" size-lg="5" size-xl="5">
               <div style="height: 100%; width: 100%">
-                <img *ngIf="user && router.url === '/'" ngSrc="./../../../assets/svgs/wacom.svg" alt="" width="300"
+                <img *ngIf="user && router.url === '/ideas'" ngSrc="./../../../assets/svgs/wacom.svg" alt="" width="300"
                   height="250">
                 <img *ngIf="user && router.url === '/projects'" ngSrc="./../../../assets/svgs/macintosh.svg" alt=""
                   width="300" height="250">
@@ -64,7 +64,7 @@
     <ion-row class="wrapper" *ngIf="!managerService.showSidebar">
       <ion-col style="padding-left: 5px;">
         <button type="button" class="btn-small" style="width: 100%;" (click)="goto('/')"
-          [ngClass]="router.url === '/' ? 'btn-primary' : 'btn-dark'">
+          [ngClass]="router.url === '/ideas' ? 'btn-primary' : 'btn-dark'">
           Ideas
         </button>
 
@@ -79,7 +79,7 @@
 
 
 
-    <div *ngIf="router.url === '/'" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+    <div *ngIf="router.url === '/ideas'" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
       <app-posts style="width: 100%;">
       </app-posts>
     </div>

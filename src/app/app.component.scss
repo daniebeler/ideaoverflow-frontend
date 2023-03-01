@@ -1,15 +1,6 @@
-.router-outlet-sidebar {
-  margin-top: 0 !important;
-}
-
-.router-outlet-header {
-  margin-top: 5rem !important;
-}
-
 ion-split-pane {
   --side-max-width: 200px;
 }
-
 
 .split-pane-visible >.split-pane-side {
   min-width: 200px;
