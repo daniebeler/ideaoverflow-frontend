@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -16,33 +15,34 @@ import { QuillModule } from 'ngx-quill';
 import { ExternalHrefPipe } from './pipes/external-href.pipe';
 import { ComponentsModule } from './components/components.module';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
-    declarations: [AppComponent, ExternalHrefPipe],
-    imports: [
-        BrowserModule.withServerTransition({ appId: 'serverApp' }),
-        ComponentsModule,
-        IonicModule.forRoot({ mode: 'md' }),
-        AppRoutingModule,
-        HttpClientModule,
-        NgOptimizedImage,
-        QuillModule.forRoot(),
-        ServiceWorkerModule.register('ngsw-worker.js', {
-            enabled: environment.production,
-            registrationStrategy: 'registerImmediately'
-        }),
-        ServiceWorkerModule.register('ngsw-worker.js', {
-            enabled: environment.production,
-            // Register the ServiceWorker as soon as the app is stable
-            // or after 30 seconds (whichever comes first).
-            registrationStrategy: 'registerWhenStable:30000'
-        })
-    ],
-    exports: [NgOptimizedImage],
-    providers: [
-        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
-    ],
-    bootstrap: [AppComponent]
+  declarations: [AppComponent, ExternalHrefPipe],
+  imports: [
+    BrowserModule,
+    ComponentsModule,
+    IonicModule.forRoot({ mode: 'md' }),
+    AppRoutingModule,
+    HttpClientModule,
+    NgOptimizedImage,
+    QuillModule.forRoot(),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      registrationStrategy: 'registerImmediately'
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
+  ],
+  exports: [NgOptimizedImage],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

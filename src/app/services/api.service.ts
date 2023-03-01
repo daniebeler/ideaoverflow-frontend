@@ -176,18 +176,6 @@ export class ApiService {
     );
   }
 
-  getNumberOfIdeasByUser(userId: number): Observable<number> {
-    return this.apiGet('user/numberofideasbyuser/' + userId).pipe(
-      map(data => data.data.numberofideas ?? 0)
-    );
-  }
-
-  getNumberOfProjectsByUser(userId: number): Observable<number> {
-    return this.apiGet('user/numberofprojectsbyuser/' + userId).pipe(
-      map(data => data.data.numberofprojects ?? 0)
-    );
-  }
-
   updateUser(data: any): Observable<ApiResponse> {
     return this.apiPost('user/changedata', data, 'Required');
   }
