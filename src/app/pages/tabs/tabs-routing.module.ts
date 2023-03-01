@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/guards/auth.guard';
+import { AutoLoginGuard } from 'src/app/guards/auto-login.guard';
 
 import { TabsPage } from './tabs.page';
 
@@ -12,10 +13,6 @@ const routes: Routes = [
       {
         path: 'profile',
         loadChildren: () => import('../profile/profile.module').then( m => m.ProfilePageModule)
-      },
-      {
-        path: 'projects',
-        loadChildren: () => import('../projects/projects.module').then( m => m.ProjectsPageModule)
       },
       {
         path: 'users/:username',
@@ -94,6 +91,23 @@ const routes: Routes = [
         path: 'ideas/:id',
         loadChildren: () => import('../idea/idea.module').then(m => m.IdeaPageModule),
         title: 'Ideas • Idea Overflow'
+      },
+      {
+        path: 'register',
+        loadChildren: () => import('../register/register.module').then(m => m.RegisterPageModule),
+        title: 'Register • Idea Overflow',
+        canActivate: [AutoLoginGuard]
+      },
+      {
+        path: 'login',
+        loadChildren: () => import('../login/login.module').then(m => m.LoginPageModule),
+        title: 'Login • Idea Overflow',
+        canActivate: [AutoLoginGuard]
+      },
+      {
+        path: 'error',
+        loadChildren: () => import('../error/error.module').then(m => m.ErrorPageModule),
+        title: 'Error • Idea Overflow'
       },
       {
         path: '**',

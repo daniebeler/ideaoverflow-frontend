@@ -5,23 +5,6 @@ import { AutoLoginGuard } from './guards/auto-login.guard';
 
 const routes: Routes = [
   {
-    path: 'register',
-    loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterPageModule),
-    title: 'Register • Idea Overflow',
-    canActivate: [AutoLoginGuard]
-  },
-  {
-    path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule),
-    title: 'Login • Idea Overflow',
-    canActivate: [AutoLoginGuard]
-  },
-  {
-    path: 'error',
-    loadChildren: () => import('./pages/error/error.module').then(m => m.ErrorPageModule),
-    title: 'Error • Idea Overflow'
-  },
-  {
     path: '',
     loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
   },

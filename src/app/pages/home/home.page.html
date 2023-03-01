@@ -9,9 +9,6 @@
           <h2 style="margin-top: 0;" *ngIf="!user.firstname">Hey,</h2>
           <h1>Welcome Back 👋</h1>
         </div>
-        <div *ngIf="!user">
-
-        </div>
       </ion-col>
     </ion-row>
 
@@ -59,25 +56,6 @@
         </ion-grid>
       </ion-col>
     </ion-row>
-
-
-    <ion-row class="wrapper" *ngIf="!managerService.showSidebar">
-      <ion-col style="padding-left: 5px;">
-        <button type="button" class="btn-small" style="width: 100%;" (click)="goto('/')"
-          [ngClass]="router.url === '/ideas' ? 'btn-primary' : 'btn-dark'">
-          Ideas
-        </button>
-
-      </ion-col>
-      <ion-col style="padding-right: 5px;">
-        <button type="button" class="btn-small" style="width: 100%;" (click)="goto('/projects')"
-          [ngClass]="router.url === '/projects' ? 'btn-primary' : 'btn-dark'">
-          Projects
-        </button>
-      </ion-col>
-    </ion-row>
-
-
 
     <div *ngIf="router.url === '/ideas'" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
       <app-posts style="width: 100%;">
