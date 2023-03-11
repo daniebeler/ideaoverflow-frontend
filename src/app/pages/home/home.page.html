@@ -9,6 +9,11 @@
           <h2 style="margin-top: 0;" *ngIf="!user.firstname">Hey,</h2>
           <h1>Welcome Back 👋</h1>
         </div>
+
+        <div *ngIf="!user">
+          <h2 style="margin-top: 0;">Hello Friend,</h2>
+          <h1>Welcome to Idea Overflow👋</h1>
+        </div>
       </ion-col>
     </ion-row>
 
