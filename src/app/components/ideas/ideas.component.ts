@@ -56,7 +56,11 @@ export class IdeasComponent implements OnInit, OnDestroy {
     this.skipPosts = this.skipPosts + 5;
 
     let reverse = false;
-    const sort = 'date';
+    let sort = 'date';
+
+    if (this.sortingCriteria === 'likes') {
+      sort = 'likes';
+    }
 
     if (this.sortingCriteria === 'oldest') {
       reverse = true;
