@@ -3,7 +3,10 @@
     <ion-row *ngIf="isMyProfile">
       <ion-col>
         <h2>My profile</h2>
-        <img *ngIf="flagUrl" [src]="flagUrl" class="flag" alt="">
+        <div class="tooltip">
+          <img *ngIf="flagUrl" [src]="flagUrl" class="flag" alt="">
+          <span class="tooltiptext">{{countryName}}</span>
+        </div>
       </ion-col>
 
       <ion-col size="auto">
@@ -23,7 +26,10 @@
     <ion-row *ngIf="!isMyProfile">
       <ion-col>
         <h2>@{{user.username}}</h2>
-        <img *ngIf="flagUrl" [src]="flagUrl" class="flag" alt="">
+        <div class="tooltip">
+          <img *ngIf="flagUrl" [src]="flagUrl" class="flag" alt="">
+          <span class="tooltiptext">{{countryName}}</span>
+        </div>
       </ion-col>
       <ion-col size="auto" *ngIf="amFollowingThisProfile">
         <button type="button" class="btn-small btn-medium" style="width: 100%;" (click)="unfollow()">Unfollow</button>

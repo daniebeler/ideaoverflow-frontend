@@ -33,6 +33,7 @@ export class ProfilePage implements OnInit, OnDestroy {
   activeContentTab = 'ideas';
 
   flagUrl = '';
+  countryName = '';
 
   constructor(
     private authService: AuthService,
@@ -69,6 +70,7 @@ export class ProfilePage implements OnInit, OnDestroy {
       });
 
       this.flagUrl = findFlagUrlByIso2Code(this.user.country);
+      this.countryName = this.user.country;
       this.subscriptions.push(subscription4);
     });
     this.subscriptions.push(subscription1);
