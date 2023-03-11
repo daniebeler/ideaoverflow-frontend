@@ -1,17 +1,29 @@
-.footer {
-  // background-color: var(--ion-color-medium);
+.wrapper {
   border-top: 1px solid var(--ion-color-medium);
-  padding-top: 20px;
-  padding-bottom: 20px;
-  strong,
-  p {
-    color: var(--ion-color-light);
-  }
+  padding: 20px 0;
 }
 
 a {
-  color: var(--ion-color-light);
   display: flex;
-  padding-bottom: 5px;
-  text-decoration: none;
+  margin-bottom: 5px;
+}
+
+.social-div {
+  display: flex;
+
+  a {
+    margin-right: 5px;
+
+    .mastodon {
+      color: #595AFF;
+    }
+
+    .website {
+      color: #ECB847;
+    }
+
+    .github {
+      color: #F0F6FC;
+    }
+  }
 }
