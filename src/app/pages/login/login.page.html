@@ -3,7 +3,7 @@
     <ion-grid class="ion-padding register-grid container">
       <ion-row style="justify-content: space-evenly; flex-wrap: wrap-reverse;">
 
-        <ion-col size-xs="8" size-sm="5" size-md="5" size-lg="4" size-xl="4">
+        <ion-col size-md="5" size-lg="4" size-xl="4" class="ion-hide-md-down">
           <img ngSrc="./../../../assets/svgs/angler-fish.svg" width="300" height="250" style="height: 300px; padding-bottom: 20px;" alt="">
           <p class="ion-text-center txt-gotologin"><a routerLink="/register">Create an account</a></p>
         </ion-col>
@@ -14,7 +14,6 @@
             <div class="field-box">
               <label for="email">Email</label>
               <input type="email" id="email" formControlName="email" placeholder="Email">
-              <span *ngIf="email.invalid && email.touched">Invalid email</span>
             </div>
             <div class="field-box">
               <label for="password">Password</label>
@@ -22,7 +21,8 @@
             </div>
             <button [disabled]="loginForm.invalid" type="submit" class="btn-large btn-primary">Log
               in</button>
-          </form>
+            </form>
+            <p class="ion-text-center txt-gotologin ion-hide-md-up"><a routerLink="/register">Create an account</a></p>
         </ion-col>
       </ion-row>
     </ion-grid>
