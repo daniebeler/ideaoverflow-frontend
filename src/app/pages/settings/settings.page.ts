@@ -39,7 +39,7 @@ export class SettingsPage implements OnInit, OnDestroy {
     '#02d9c5',
     '#8851cf',
     '#57acdc',
-    '#344448',
+    '#D790DE',
     '#d28a23',
     '#ff7c2e',
     '#f59aba',
@@ -50,10 +50,15 @@ export class SettingsPage implements OnInit, OnDestroy {
     '#44ABBF',
     '#A6CBF7',
     '#E8E7E6',
-    '',
-    '',
-    '',
-    ''
+    '#1E6ECE',
+    '#C061CB',
+    '#EC415C',
+    '#FFC24D',
+    '#FAB5AE',
+    '#E4A40A',
+    '#8865F7',
+    '#BDCEE0',
+    '#8F7CD1'
   ];
 
   constructor(
