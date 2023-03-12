@@ -4,6 +4,10 @@
   }
 }
 
+ion-tab-bar {
+  border-top: 1px solid var(--ion-color-medium);
+}
+
 ion-tab-button.tab-selected * {
   color: var(--ion-color-primary);
 }
