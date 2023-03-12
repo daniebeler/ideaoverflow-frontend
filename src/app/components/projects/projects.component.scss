@@ -10,7 +10,7 @@
   background-color: var(--ion-color-medium-shade);
 }
 
-.noprojects-grid{
+.noprojects-grid {
   background-color: var(--ion-color-primary);
   color: var(--ion-color-dark);
   border-radius: var(--border-radius-big);
@@ -22,4 +22,20 @@
 
 .active {
   color: var(--ion-color-dark);
+}
+
+.header-col {
+  display: flex;
+  align-items: center;
+}
+
+.right-col {
+  h2 {
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
+
+  p {
+    margin: 0;
+  }
 }
