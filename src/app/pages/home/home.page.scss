@@ -6,6 +6,10 @@
   margin-bottom: 20px;
   padding: 15px;
   padding-bottom: 30px;
+
+  h2, p {
+    color: var(--ion-color-dark);
+  }
 }
 
 .wrapper-switch {

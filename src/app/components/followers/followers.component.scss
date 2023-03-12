@@ -9,7 +9,9 @@
 
     .btn-active {
       background-color: var(--ion-color-primary);
-
+      ion-icon {
+        color: var(--ion-color-dark);
+      }
     }
 
     .btn-inactive {

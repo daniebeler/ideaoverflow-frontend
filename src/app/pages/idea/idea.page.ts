@@ -36,7 +36,6 @@ export class IdeaPage implements OnInit, OnDestroy {
       this.ideaId = +id;
       const subscription1 = this.ideaService.getIdea(this.ideaId).subscribe(idea => {
         this.idea = idea;
-        console.log(idea);
       });
       this.subscriptions.push(subscription1);
     }

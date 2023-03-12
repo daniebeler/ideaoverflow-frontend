@@ -15,8 +15,6 @@ export class ApiResponseAdapter implements Adapter<ApiResponse> {
     item.error = item?.error ?? (item.status === 'Error' ? 'Unknown Error' : '');
     item.data = item?.data ?? {};
 
-    console.log('Response Adapter', item);
-
     return new ApiResponse(item.status, item.error, item.data);
   }
 }

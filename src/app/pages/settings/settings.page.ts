@@ -42,7 +42,18 @@ export class SettingsPage implements OnInit, OnDestroy {
     '#344448',
     '#d28a23',
     '#ff7c2e',
-    '#f59aba'
+    '#f59aba',
+    '#F3DE4B',
+    '#3785E4',
+    '#E0CCBC',
+    '#32CE79',
+    '#44ABBF',
+    '#A6CBF7',
+    '#E8E7E6',
+    '',
+    '',
+    '',
+    ''
   ];
 
   constructor(

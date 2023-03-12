@@ -74,10 +74,6 @@ export class ProfilePage implements OnInit, OnDestroy {
       this.subscriptions.push(subscription4);
     });
     this.subscriptions.push(subscription1);
-
-    console.log(findFlagUrlByIso2Code('at'));
-
-    console.log(countries[0]);
   }
 
   async logout() {

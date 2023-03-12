@@ -9,6 +9,10 @@ ion-header {
   }
 }
 
+.active {
+  color: var(--ion-color-dark);
+}
+
 .profile-image {
   height: 120px;
   width: 120px;
