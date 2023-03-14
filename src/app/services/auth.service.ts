@@ -115,7 +115,6 @@ export class AuthService {
       firstname: updatedUser.firstname,
       lastname: updatedUser.lastname,
       country: updatedUser.country,
-      state: updatedUser.state,
       profilepicture: url.changingThisBreaksApplicationSecurity,
       bio: updatedUser.bio,
       instagram: updatedUser.instagram,

@@ -51,8 +51,7 @@
     <p>{{user.bio}}</p>
 
     <div style="margin-top: 30px;" *ngIf="user.country">
-      <ion-icon name="location"></ion-icon><span *ngIf="user.state"> {{user.state}},
-      </span>{{user.country}}
+      <ion-icon name="location"></ion-icon>{{user.country}}
     </div>
 
     <div *ngIf="user.creationDate">

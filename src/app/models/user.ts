@@ -15,7 +15,6 @@ export class User {
   public dribbble: string;
   public linkedin: string;
   public country: string;
-  public state: string;
   public profileimage: SafeResourceUrl;
   public creationDate: Date;
   public numberOfFollowers: number;
@@ -40,7 +39,6 @@ export class User {
     this.dribbble = data?.dribbble;
     this.linkedin = data?.linkedin;
     this.country = data?.country;
-    this.state = data?.state;
     this.profileimage = data?.profileimage;
     this.creationDate = data?.creationdate;
     this.numberOfFollowers = data?.numberOfFollowers ?? 0;
