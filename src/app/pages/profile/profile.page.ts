@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 
 import { findFlagUrlByIso2Code } from 'country-flags-svg';
 import { countries } from 'country-flags-svg';
+import { ExternalHrefPipe } from 'src/app/pipes/external-href.pipe';
 
 @Component({
   selector: 'app-profile',
@@ -29,8 +30,7 @@ export class ProfilePage implements OnInit, OnDestroy {
   postsHeader = '';
   projectsHeader = '';
 
-  selectedTab = 'about';
-  activeContentTab = 'ideas';
+  selectedTab = 'ideas';
 
   flagUrl = '';
   countryName = '';
@@ -90,5 +90,11 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
+  gotoWebsite(url: string) {
+    const pipe = new ExternalHrefPipe();
+    url = pipe.transform(url);
+    window.open(url, '_blank');
   }
 }

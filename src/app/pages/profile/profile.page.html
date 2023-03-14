@@ -32,11 +32,12 @@
         </div>
       </ion-col>
       <ion-col size="auto" *ngIf="amFollowingThisProfile">
-        <button type="button" class="btn-small btn-medium" style="width: 100%;" (click)="unfollow()">Unfollow</button>
+        <button type="button" class="btn-small btn-medium follow-btn" style="width: 100%;"
+          (click)="unfollow()">Unfollow</button>
       </ion-col>
       <ion-col size="auto" *ngIf="!amFollowingThisProfile">
-        <button type="button" class="btn-small" [ngStyle]="{'background-color':user.color}" style="width: 100%;"
-          (click)="follow()">Follow</button>
+        <button type="button" class="btn-small follow-btn" [ngStyle]="{'background-color':user.color}"
+          style="width: 100%;" (click)="follow()">Follow</button>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -65,15 +66,85 @@
     </div>
 
     <div *ngIf="user.email">
-      <ion-row>
-        <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center">
-          <ion-avatar class="profile-image" [ngStyle]="{'border-color': user.color}">
-            <img [src]="user.profileimage">
-          </ion-avatar>
-          <h1 style="margin-bottom: 0; text-align: center;" *ngIf="user.firstname && user.lastname">{{user.firstname}}
-            {{user.lastname}}</h1>
+      <ion-row class="top-section" [ngStyle]="{'background-color':user.color}">
+        <ion-col>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="auto">
+                <ion-avatar class="profile-image" [ngStyle]="{'border-color': user.color}">
+                  <img [src]="user.profileimage">
+                </ion-avatar>
+              </ion-col>
 
-          <h2 style="margin-top: 0;" *ngIf="user.username">@{{user.username}}</h2>
+              <ion-col>
+                <h2 style="margin-bottom: 0;" *ngIf="user.firstname && user.lastname">
+                  {{user.firstname}}
+                  {{user.lastname}}</h2>
+
+                <p style="margin-top: 0;" *ngIf="user.username">@{{user.username}}</p>
+
+                <div>
+                  <ul>
+                    <li *ngIf="user.github">
+                      <a [href]="'https://github.com/' + user.github" target="_blank" rel="noreferrer noopener">
+                        <ion-icon class="socialmedia-icon" name="logo-github"></ion-icon>
+                      </a>
+                    </li>
+                    <li *ngIf="user.twitter">
+                      <a [href]="'https://twitter.com/' + user.twitter" target="_blank" rel="noreferrer noopener">
+                        <ion-icon class="socialmedia-icon" name="logo-twitter"></ion-icon>
+                      </a>
+                    </li>
+                    <li *ngIf="user.instagram">
+                      <a [href]="'https://instagram.com/' + user.instagram" target="_blank" rel="noreferrer noopener">
+                        <ion-icon class="socialmedia-icon" name="logo-instagram"></ion-icon>
+                      </a>
+                    </li>
+                    <li *ngIf="user.dribbble">
+                      <a [href]="'https://dribbble.com/' + user.dribbble" target="_blank" rel="noreferrer noopener">
+                        <ion-icon class="socialmedia-icon" name="logo-dribbble"></ion-icon>
+                      </a>
+                    </li>
+                    <li *ngIf="user.linkedin">
+                      <a [href]="'https://www.linkedin.com/in/' + user.linkedin" target="_blank"
+                        rel="noreferrer noopener">
+                        <ion-icon class="socialmedia-icon" name="logo-linkedin"></ion-icon>
+                      </a>
+                    </li>
+                    <li *ngIf="user.website" (click)="gotoWebsite('http://' + user.website)">
+                      <ion-icon class="socialmedia-icon" name="globe-outline"></ion-icon>
+                      <!-- <span style="vertical-align:middle"> {{user.website}}</span> -->
+                    </li>
+                  </ul>
+                </div>
+
+
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <p style="margin-top: 0;" *ngIf="user.bio">{{user.bio}}</p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="fief">
+              <ion-col size="auto">
+                <p>Followers</p>
+                <h2>5</h2>
+              </ion-col>
+              <ion-col size="auto">
+                <p>Followers</p>
+                <h2>5</h2>
+              </ion-col>
+              <ion-col size="auto">
+                <p>Followers</p>
+                <h2>5</h2>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+
         </ion-col>
       </ion-row>
 
@@ -81,9 +152,12 @@
       <ion-row style="margin-top: 50px;">
         <ion-col size="auto" style="padding: 0;">
           <div id="myBtnContainer">
-            <button [ngClass]="{'active': selectedTab === 'about'}"
-              [ngStyle]="{'background-color': selectedTab === 'about' ? user.color : ''}"
-              (click)="selectedTab = 'about'" class="array-btn">About</button>
+            <button [ngClass]="{'active': selectedTab === 'ideas'}"
+              [ngStyle]="{'background-color': selectedTab === 'ideas' ? user.color : ''}"
+              (click)="selectedTab = 'ideas'" class="array-btn">Ideas</button>
+            <button [ngClass]="{'active': selectedTab === 'projects'}"
+              [ngStyle]="{'background-color': selectedTab === 'projects' ? user.color : ''}"
+              (click)="selectedTab = 'projects'" class="array-btn">Projects</button>
             <button [ngClass]="{'active': selectedTab === 'followers'}"
               [ngStyle]="{'background-color': selectedTab === 'followers' ? user.color : ''}"
               (click)="selectedTab = 'followers'" class="array-btn">{{user.numberOfFollowers}} Followers</button>
@@ -92,7 +166,7 @@
               (click)="selectedTab = 'following'" class="array-btn">{{user.numberOfFollowees}} Following</button>
             <button *ngIf="isMyProfile" [ngClass]="{'active': selectedTab === 'saved'}"
               [ngStyle]="{'background-color': selectedTab === 'saved' ? user.color : ''}"
-              (click)="selectedTab = 'saved'" class="array-btn">Saved Posts</button>
+              (click)="selectedTab = 'saved'" class="array-btn">Saved Ideas</button>
           </div>
         </ion-col>
       </ion-row>
@@ -111,43 +185,16 @@
       </div>
 
       <div *ngIf="selectedTab === 'saved'">
-        <app-posts header="Saved Posts" [savedByUsername]="true"></app-posts>
+        <app-posts header="Saved Ideas" [savedByUsername]="true"></app-posts>
       </div>
 
-      <div *ngIf="selectedTab === 'about'">
-        <app-about></app-about>
+      <div *ngIf="selectedTab === 'ideas'">
+        <app-posts header="Ideas" [filterByUsername]="user.username"></app-posts>
+      </div>
 
-        <ion-row class="wrapper">
-          <ion-col style="padding-left: 5px;">
-            <button type="button" class="btn-small" style="width: 100%;" (click)="activeContentTab = 'ideas'"
-              [ngClass]="activeContentTab === 'ideas' ? 'btn-primary' : 'btn-dark'"
-              [ngStyle]="{'background-color': activeContentTab === 'ideas' && user.color ? user.color : ''}">
-              {{user.numberOfPosts}} Ideas
-            </button>
-
-          </ion-col>
-          <ion-col style="padding-right: 5px;">
-            <button type="button" class="btn-small" style="width: 100%;" (click)="activeContentTab = 'projects'"
-              [ngClass]="activeContentTab === 'projects' ? 'btn-primary' : 'btn-dark'"
-              [ngStyle]="{'background-color': activeContentTab === 'projects' && user.color ? user.color : ''}">
-              {{user.numberOfProjects}} Projects
-            </button>
-          </ion-col>
-        </ion-row>
-
-        <div *ngIf="activeContentTab === 'ideas'"
-          style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-          <app-posts style="width: 100%;" [header]="isMyProfile ? 'My ideas' : postsHeader"
-            [filterByUsername]="user.username" [color]="user.color">
-          </app-posts>
-        </div>
-
-        <div *ngIf="activeContentTab === 'projects'"
-          style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-          <app-component-projects style="width: 100%;" [header]="isMyProfile ? 'My projects' : projectsHeader"
-            [filterByUsername]="user.username">
-          </app-component-projects>
-        </div>
+      <div *ngIf="selectedTab === 'projects'">
+        <app-component-projects header="Projects" [filterByUsername]="user.username">
+        </app-component-projects>
       </div>
     </div>
   </ion-grid>

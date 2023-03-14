@@ -63,13 +63,13 @@
     </ion-row>
 
     <div *ngIf="router.url === '/ideas'" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-      <app-posts style="width: 100%;">
+      <app-posts header="Ideas" style="width: 100%;">
       </app-posts>
     </div>
 
     <div *ngIf="router.url === '/projects'"
       style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-      <app-component-projects style="width: 100%;">
+      <app-component-projects header="Projects" style="width: 100%;">
       </app-component-projects>
     </div>
   </ion-grid>
