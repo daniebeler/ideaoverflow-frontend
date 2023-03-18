@@ -21,7 +21,7 @@
           <ion-grid class="project-wrapper">
           <ion-row *ngIf="project.releaseDate">
             <ion-col>
-              <p style="margin: 0;">{{project.releaseDate.toLocaleDateString("en-at",{year:"numeric",month:"short",
+              <p class="release-date">{{project.releaseDate.toLocaleDateString("en-at",{year:"numeric",month:"short",
                 day:"numeric"})}}</p>
             </ion-col>
           </ion-row>
