@@ -195,13 +195,13 @@ export class ApiService {
   }
 
   verify(code: string): Observable<boolean> {
-    return this.httpClient.get<any>(environment.api + 'registration/verify/' + code).pipe(
-      map(data => data.verified)
+    return this.apiGet('registration/verify/' + code).pipe(
+      map(data => data.data.verified)
     );
   }
 
   sendVerificationMailAgain(email: string): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'registration/sendverificationmailagain', { email });
+    return this.apiPost('registration/sendverificationmailagain', { email });
   }
 
   changePassword(data: any): Observable<ApiResponse> {
@@ -209,15 +209,15 @@ export class ApiService {
   }
 
   resetPassword(email): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'registration/resetpassword/', { email });
+    return this.apiPost('registration/resetpassword/', { email });
   }
 
   setPassword(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'registration/setpassword', data);
+    return this.apiPost('registration/setpassword', data);
   }
 
   checkCode(code: string): Observable<any> {
-    return this.httpClient.get<any>(environment.api + 'registration/checkresetcode/' + code);
+    return this.apiGet('registration/checkresetcode/' + code);
   }
 
 
