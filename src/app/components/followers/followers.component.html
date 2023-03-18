@@ -5,13 +5,15 @@
         <h2>{{followers.length}} {{header}}</h2>
       </ion-col>
       <ion-col size="auto">
-        <button type="button" class="btn-small"
-          [ngClass]="gridMode === 'list' ? 'btn-active' : 'btn-inactive'" (click)="changeGridMode('list')">
+        <button type="button" class="btn-small" [ngClass]="gridMode === 'list' ? 'btn-active' : 'btn-inactive'"
+          [ngStyle]="{'background-color': gridMode === 'list' ? color : 'var(--ion-color-medium)'}"
+          (click)="changeGridMode('list')">
           <ion-icon name="list-outline"></ion-icon>
         </button>
       </ion-col>
       <ion-col size="auto">
         <button type="button" class="btn-small" [ngClass]="gridMode === 'grid' ? 'btn-active' : 'btn-inactive'"
+          [ngStyle]="{'background-color': gridMode === 'grid' ? color : 'var(--ion-color-medium)'}"
           (click)="changeGridMode('grid')">
           <ion-icon name="grid-outline"></ion-icon>
         </button>
@@ -36,7 +38,8 @@
               </ion-col>
 
               <ion-col size="auto" style="padding-right: 0">
-                <button type="button" class="btn-small btn-primary" *ngIf="!follower.following">
+                <button type="button" class="btn-small btn-primary" [ngStyle]="{'background-color': color}"
+                  *ngIf="!follower.following">
                   FOLLOW
                 </button>
                 <button type="button" class="btn-small btn-disabled" *ngIf="follower.following">
@@ -108,7 +111,7 @@
 </div>
 
 <ng-template #noFollowers>
-  <ion-grid class="nofollowers-grid">
+  <ion-grid class="nofollowers-grid" [ngStyle]="{'background-color': color}">
     <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
       <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="10" size-sm="10"
         size-md="6" size-lg="5" size-xl="5">

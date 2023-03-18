@@ -13,6 +13,7 @@ export class FollowersComponent implements OnInit, OnDestroy {
 
   @Input() type = '';
   @Input() userId = -1;
+  @Input() color = 'var(--ion-color-primary)';
 
   subscriptions: Subscription[] = [];
 

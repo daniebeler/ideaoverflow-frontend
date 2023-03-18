@@ -20,7 +20,7 @@
   <ion-row>
     <ion-col>
       <ion-list>
-        <div style="margin-top: 30px;" *ngFor="let post of allLoadedPosts">
+        <div style="margin-bottom: 30px;" *ngFor="let post of allLoadedPosts">
           <app-idea [post]="post" [loggedIn]="currentUser !== null"
             [isOwnPost]="post.mine"></app-idea>
         </div>
@@ -35,7 +35,7 @@
   </ion-row>
 </div>
 <ng-template #noIdeas>
-  <ion-grid class="noideas-grid">
+  <ion-grid class="noideas-grid" [ngStyle]="{'background-color': color}">
     <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
       <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="6" size-sm="6"
         size-md="5" size-lg="4" size-xl="4">

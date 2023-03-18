@@ -131,15 +131,15 @@
             <ion-row class="fief">
               <ion-col size="auto">
                 <p>Followers</p>
-                <h2>5</h2>
+                <h2>{{user.numberOfFollowers}}</h2>
               </ion-col>
               <ion-col size="auto">
-                <p>Followers</p>
-                <h2>5</h2>
+                <p>Ideas</p>
+                <h2>{{user.numberOfPosts}}</h2>
               </ion-col>
               <ion-col size="auto">
-                <p>Followers</p>
-                <h2>5</h2>
+                <p>Projects</p>
+                <h2>{{user.numberOfProjects}}</h2>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -177,23 +177,23 @@
       </ion-row>
 
       <div *ngIf="selectedTab === 'followers'">
-        <app-followers [type]="selectedTab" [userId]="user.id"></app-followers>
+        <app-followers [type]="selectedTab" [userId]="user.id" [color]="user.color"></app-followers>
       </div>
 
       <div *ngIf="selectedTab === 'following'">
-        <app-followers [type]="selectedTab" [userId]="user.id"></app-followers>
+        <app-followers [type]="selectedTab" [userId]="user.id" [color]="user.color"></app-followers>
       </div>
 
       <div *ngIf="selectedTab === 'saved'">
-        <app-posts header="Saved Ideas" [savedByUsername]="true"></app-posts>
+        <app-posts header="Saved Ideas" [savedByUsername]="true" [color]="user.color"></app-posts>
       </div>
 
       <div *ngIf="selectedTab === 'ideas'">
-        <app-posts header="Ideas" [filterByUsername]="user.username"></app-posts>
+        <app-posts header="Ideas" [filterByUsername]="user.username" [color]="user.color"></app-posts>
       </div>
 
       <div *ngIf="selectedTab === 'projects'">
-        <app-component-projects header="Projects" [filterByUsername]="user.username">
+        <app-component-projects header="Projects" [filterByUsername]="user.username" [color]="user.color">
         </app-component-projects>
       </div>
     </div>
