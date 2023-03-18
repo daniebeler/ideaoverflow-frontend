@@ -71,7 +71,7 @@ export class AuthService {
       );
     }),
       catchError(e => {
-        this.alertService.showAlert('Error', e.error.message);
+        this.alertService.showAlert('(ಠ︹ಠ)', e.error.message);
         throw new Error(e);
       });
   }
@@ -79,7 +79,7 @@ export class AuthService {
   login(email, password) {
     return this.apiService.login(email, password).subscribe(async res => {
       if (res.status === 'Error') {
-        this.alertService.showAlert('Ooops', res.error);
+        this.alertService.showAlert('(ಠ︹ಠ)', res.error);
       } else {
         await this.storageService.setToken(res.data.token);
         this.decodedUserToken = this.helper.decodeToken(res.data.token);
@@ -130,7 +130,7 @@ export class AuthService {
         this.userService.fetchUserFromApi(this.getUser().id);
       }
       else {
-        this.alertService.showAlert('Ooops', res.error);
+        this.alertService.showAlert('(ಠ︹ಠ)', res.error);
       }
 
     });
@@ -147,7 +147,7 @@ export class AuthService {
         this.alertService.showAlert('Done', 'Password changed');
       }
       else {
-        this.alertService.showAlert('Ooops', res.error);
+        this.alertService.showAlert('(ಠ︹ಠ)', res.error);
       }
     });
   }
@@ -158,7 +158,7 @@ export class AuthService {
 
     }),
       catchError(e => {
-        this.alertService.showAlert('Error', e.error.message);
+        this.alertService.showAlert('(ಠ︹ಠ)', e.error.message);
         throw new Error(e);
       });
   }

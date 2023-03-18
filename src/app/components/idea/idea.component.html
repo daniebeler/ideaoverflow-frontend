@@ -62,7 +62,7 @@
 
     <div *ngIf="isOwnPost">
       <ion-col size="auto" class="editPost" style="display: flex; align-items: center;">
-        <a [routerLink]="'/ideaeditor/' + post.id">
+        <a [routerLink]="['ideaeditor/' + post.id]">
           <ion-icon name="settings-outline" style="height: 30px; width: 30px;">
           </ion-icon>
         </a>

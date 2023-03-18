@@ -85,7 +85,7 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
       );
     } else {
       this.alertService.showAlert(
-        'Ooops',
+        '(ಠ︹ಠ)',
         'Something went wrong',
         'Okay'
       );

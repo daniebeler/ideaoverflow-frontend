@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AlertService } from './alert.service';
 import { ApiService } from './api.service';
@@ -28,12 +27,12 @@ export class FollowerService {
         this.userService.fetchUserFromApi(this.authService.getUser().id);
       }
       else {
-        this.alertService.showAlert('Error', 'That did not work');
+        this.alertService.showAlert('(ಠ︹ಠ)', 'That did not work');
       }
 
     }),
       catchError(e => {
-        this.alertService.showAlert('Error', e.error.message);
+        this.alertService.showAlert('(ಠ︹ಠ)', e.error.message);
         throw new Error(e);
       });
   }
@@ -48,9 +47,8 @@ export class FollowerService {
         this.userService.fetchUserFromApi(this.authService.getUser().id);
       }
       else {
-        this.alertService.showAlert('Ooops', res.error);
+        this.alertService.showAlert('(ಠ︹ಠ)', res.error);
       }
-
     });
   }
 }
