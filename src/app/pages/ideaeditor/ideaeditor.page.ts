@@ -137,6 +137,10 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
     this.showSubmitButton = show;
   }
 
+  goBack() {
+    this.router.navigate(['ideas']);
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }

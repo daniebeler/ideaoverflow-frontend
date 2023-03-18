@@ -1,6 +1,12 @@
 <ion-header class="ion-no-border">
   <ion-grid *ngIf="idea && verifiedAccess" class="container">
     <ion-row>
+      <ion-col size="auto">
+        <button type="button" class="btn-small btn-medium" (click)="goBack()">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
+      </ion-col>
+
       <ion-col>
         <h2 *ngIf="mode === 'new'">New Idea</h2>
         <h2 *ngIf="mode === 'edit' && idea.title">{{idea.title}}</h2>

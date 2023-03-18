@@ -190,6 +190,10 @@ export class ProjectEditorPage implements OnInit, OnDestroy {
     this.showSubmitButton = show;
   }
 
+  goBack() {
+    this.router.navigate(['projects']);
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
