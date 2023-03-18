@@ -64,7 +64,7 @@
               <div *ngIf="currentUser">
                 <ion-col *ngIf="currentUser.id === idea.user.id" size="auto" class="editPost"
                   style="display: flex; align-items: center;">
-                  <a [routerLink]="'ideaeditor/' + idea.id">
+                  <a [routerLink]="'/ideaeditor/' + idea.id">
                     <ion-icon name="settings-outline" style="height: 30px; width: 30px;">
                     </ion-icon>
                   </a>

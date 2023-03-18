@@ -313,7 +313,7 @@ export class ApiService {
   }
 
   getIdeasByUsername(parameter: string): Observable<Idea[]> {
-    return this.apiGet('idea/byusername/' + parameter).pipe(
+    return this.apiGet('idea/byusername/' + parameter, 'Optional').pipe(
       concatMap(res => {
         if (res.status !== 'OK') {
           return [];

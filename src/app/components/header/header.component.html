@@ -39,7 +39,7 @@
           </div>
         </ion-col>
         <ion-col *ngIf="loggedIn; else elseBlock" size="auto" style="display: flex; align-items: center;">
-          <a routerLink="ideaeditor/new" style="margin-right: 20px" class="btn-small btn-primary ion-hide-md-down">New
+          <a routerLink="/ideaeditor/new" style="margin-right: 20px" class="btn-small btn-primary ion-hide-md-down">New
             Idea</a>
             <a [routerLink]="'users/' + user.username">
               <ion-avatar style="height: 42px; width: 42px;">
