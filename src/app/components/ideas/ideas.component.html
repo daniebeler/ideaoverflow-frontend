@@ -21,8 +21,7 @@
     <ion-col>
       <ion-list>
         <div style="margin-bottom: 30px;" *ngFor="let post of allLoadedPosts">
-          <app-idea [post]="post" [loggedIn]="currentUser !== null"
-            [isOwnPost]="post.mine"></app-idea>
+          <app-idea [post]="post" [loggedIn]="currentUser !== null"></app-idea>
         </div>
       </ion-list>
 

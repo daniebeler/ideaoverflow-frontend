@@ -9,7 +9,6 @@ import { FollowerService } from 'src/app/services/follower.service';
 import { UserService } from 'src/app/services/user.service';
 
 import { findFlagUrlByIso2Code } from 'country-flags-svg';
-import { countries } from 'country-flags-svg';
 import { ExternalHrefPipe } from 'src/app/pipes/external-href.pipe';
 
 @Component({

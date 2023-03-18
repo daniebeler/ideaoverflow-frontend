@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { HeaderComponent } from './header/header.component';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { IdeasComponent } from './ideas/ideas.component';
@@ -15,7 +14,6 @@ import { IdeaComponent } from './idea/idea.component';
 
 @NgModule({
   declarations: [
-    HeaderComponent,
     FooterComponent,
     IdeasComponent,
     ProjectsComponent,
@@ -25,7 +23,6 @@ import { IdeaComponent } from './idea/idea.component';
     UsersComponent
   ],
   exports: [
-    HeaderComponent,
     FooterComponent,
     IdeasComponent,
     ProjectsComponent,

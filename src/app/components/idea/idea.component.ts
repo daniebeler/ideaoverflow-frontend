@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { Component, Input } from '@angular/core';
 import { Idea } from 'src/app/models/idea';
+import { AlertService } from 'src/app/services/alert.service';
 import { IdeaService } from 'src/app/services/idea.service';
 
 @Component({
@@ -8,18 +8,15 @@ import { IdeaService } from 'src/app/services/idea.service';
   templateUrl: './idea.component.html',
   styleUrls: ['./idea.component.scss'],
 })
-export class IdeaComponent implements OnInit {
+export class IdeaComponent {
 
   @Input() post: Idea = null;
   @Input() loggedIn = false;
-  @Input() isOwnPost = false;
 
   constructor(
-    private toastController: ToastController,
+    private alertService: AlertService,
     private ideaService: IdeaService
   ) { }
-
-  ngOnInit() {}
 
   votePost(voteValue: number, idea: Idea) {
     if (this.loggedIn) {
@@ -47,7 +44,7 @@ export class IdeaComponent implements OnInit {
       }
       idea.currentUserVoteValue = voteValue;
     } else {
-      this.presentToast('You have to be logged in to vote ideas');
+      this.alertService.showToast('You have to be logged in to vote ideas');
     }
   }
 
@@ -56,7 +53,7 @@ export class IdeaComponent implements OnInit {
       this.ideaService.saveIdea(postId);
       this.post.saved = true;
     } else {
-      this.presentToast('You have to be logged in to save Ideas');
+      this.alertService.showToast('You have to be logged in to save Ideas');
     }
   }
 
@@ -65,18 +62,7 @@ export class IdeaComponent implements OnInit {
       this.ideaService.unsaveIdea(postId);
       this.post.saved = false;
     } else {
-      this.presentToast('You have to be logged in to save Ideas');
+      this.alertService.showToast('You have to be logged in to save Ideas');
     }
   }
-
-  async presentToast(message: string) {
-    const toast = await this.toastController.create({
-      message,
-      icon: 'information-circle',
-      color: 'primary',
-      duration: 2500
-    });
-    toast.present();
-  }
-
 }

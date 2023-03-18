@@ -15,8 +15,6 @@ export class HomePage implements OnInit, OnDestroy {
 
   user: User;
 
-  postsHeader = 'Popular Posts';
-
   constructor(
     private userService: UserService,
     public router: Router
@@ -31,9 +29,5 @@ export class HomePage implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
-
-  goto(route: string) {
-    this.router.navigate([route]);
   }
 }

@@ -6,11 +6,11 @@ import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ToastController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
 import hash from 'object-hash';
 import { Subscription } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-settings',
@@ -74,7 +74,7 @@ export class SettingsPage implements OnInit, OnDestroy {
     private userService: UserService,
     private httpClient: HttpClient,
     private domSanitizer: DomSanitizer,
-    private toastController: ToastController
+    private alertService: AlertService
   ) {
     this.socialsForm = new FormGroup({
       instagram: new FormControl<string | null>('', Validators.pattern(/^([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)$/)),
@@ -131,22 +131,12 @@ export class SettingsPage implements OnInit, OnDestroy {
 
   updateUser() {
     this.authService.updateUser(this.user);
-    this.presentToast();
+    this.alertService.showToast('Your settings have been saved', 'cloud-done-outline');
   }
 
   updateColor(color: string) {
     this.user.color = color;
     this.checkForChange();
-  }
-
-  async presentToast() {
-    const toast = await this.toastController.create({
-      message: 'Your settings have been saved.',
-      icon: 'cloud-done-outline',
-      cssClass: 'custom-toast',
-      duration: 3000
-    });
-    toast.present();
   }
 
   changePassword() {

@@ -9,6 +9,7 @@ import { Platform } from '@ionic/angular';
 import { StorageService } from './storage.service';
 import { UserService } from './user.service';
 import { User } from '../models/user';
+import { tint, shade } from 'tint-shade-color';
 
 @Injectable({
   providedIn: 'root'
@@ -119,6 +120,11 @@ export class AuthService {
     this.userService.clearData();
     this.decodedUserToken = null;
     this.authenticationState.next(false);
+
+    document.documentElement.style.setProperty('--ion-color-primary', '#1bab49');
+          document.documentElement.style.setProperty('--ion-color-primary-shade', shade('#1bab49', 0.15));
+          document.documentElement.style.setProperty('--ion-color-primary-tint', tint('#1bab49', 0.15));
+
     this.router.navigate(['login']);
   }
 

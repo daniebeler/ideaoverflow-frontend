@@ -1,10 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Project } from 'src/app/models/project';
-import { User } from 'src/app/models/user';
-import { ApiService } from 'src/app/services/api.service';
 import { ProjectService } from 'src/app/services/project.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-component-projects',
@@ -31,24 +28,18 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
   showSortingButtons = true;
 
-  currentUser: User = null;
-
   sortingCriteria = 'newest';
 
   alternativeHeader = 'Newest projects';
 
   constructor(
-    private projectService: ProjectService,
-    private userService: UserService
+    private projectService: ProjectService
   ) { }
 
   ngOnInit() {
-    this.subscriptions.push(this.userService.getLatestUser().subscribe((latestUser) => {
-      this.currentUser = latestUser;
-      this.allLoadedProjects = [];
-      this.skipProjects = -5;
-      this.getPosts(false, '');
-    }));
+    this.allLoadedProjects = [];
+    this.skipProjects = -5;
+    this.getPosts(false, '');
   }
 
   getPosts(isInitialLoad: boolean, event) {

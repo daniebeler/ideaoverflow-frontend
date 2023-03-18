@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,8 @@ import { SwUpdate } from '@angular/service-worker';
 })
 export class AppComponent {
   constructor(
-    private update: SwUpdate
+    private update: SwUpdate,
+    private authService: AuthService  // Is needed to check if logged in
   ) { }
 
   updateClient() {

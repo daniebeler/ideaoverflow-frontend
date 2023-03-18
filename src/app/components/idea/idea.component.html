@@ -60,7 +60,7 @@
       <ion-icon name="bookmark-outline" style="width: 30px; height: 25px;"></ion-icon>
     </ion-col>
 
-    <div *ngIf="isOwnPost">
+    <div *ngIf="post.mine">
       <ion-col size="auto" class="editPost" style="display: flex; align-items: center;">
         <a [routerLink]="['/ideaeditor/' + post.id]">
           <ion-icon name="settings-outline" style="height: 30px; width: 30px;">
