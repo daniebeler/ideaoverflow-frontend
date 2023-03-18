@@ -1,16 +1,31 @@
+<ion-header class="ion-no-border">
+  <ion-grid class="container">
+    <ion-row>
+      <ion-col size="auto">
+        <button type="button" class="btn-small btn-medium" (click)="goBack()">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col>
+        <h2 *ngIf="project">{{project.title}}</h2>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
 <ion-content *ngIf="project">
-  <ion-grid *ngIf="project" class="container" style="margin-top: 30px;">
+  <ion-grid *ngIf="project" class="container">
     <ion-row>
       <ion-col>
         <ion-grid class="wrapper">
           <ion-row>
             <ion-col size="auto" style="display: flex; flex-direction: column; justify-content: center;">
-              <ion-avatar style="height: 90px; width: 90px; --border-radius: 50%">
+              <ion-avatar class="logo">
                 <img [src]="project.logo">
               </ion-avatar>
             </ion-col>
             <ion-col>
-              <h1>{{project.title}}</h1>
+              <h2>{{project.title}}</h2>
               <p>{{project.shortDescription}}</p>
             </ion-col>
 

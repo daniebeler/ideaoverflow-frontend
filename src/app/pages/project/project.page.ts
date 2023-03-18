@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Project } from 'src/app/models/project';
 import { ExternalHrefPipe } from 'src/app/pipes/external-href.pipe';
@@ -22,7 +22,8 @@ export class ProjectPage implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -41,6 +42,10 @@ export class ProjectPage implements OnInit, OnDestroy {
     const pipe = new ExternalHrefPipe();
     url = pipe.transform(url);
     window.open(url, '_blank');
+  }
+
+  goBack() {
+    this.router.navigate(['/projects']);
   }
 
   ngOnDestroy(): void {

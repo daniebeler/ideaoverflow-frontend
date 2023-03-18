@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Idea } from 'src/app/models/idea';
@@ -27,7 +27,8 @@ export class IdeaPage implements OnInit, OnDestroy {
     private apiService: ApiService,
     private userService: UserService,
     private ideaService: IdeaService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -100,6 +101,10 @@ export class IdeaPage implements OnInit, OnDestroy {
       duration: 2500
     });
     toast.present();
+  }
+
+  goBack() {
+    this.router.navigate(['/projects']);
   }
 
   ngOnDestroy(): void {

@@ -54,3 +54,9 @@
 .swiper-wrapper {
   width: 200px !important;
 }
+
+.logo {
+  height: 90px;
+  width: 90px;
+  --border-radius: var(--border-radius-small);
+}

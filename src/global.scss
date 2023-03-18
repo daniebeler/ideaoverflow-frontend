@@ -367,3 +367,14 @@ ion-toast.custom-toast {
   --background: var(--ion-color-dark);
   --border-radius: var(--border-radius-big);
 }
+
+ion-header {
+  ion-col {
+    display: flex;
+    align-items: center;
+
+    h2 {
+      margin: 0;
+    }
+  }
+}
