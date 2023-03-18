@@ -25,6 +25,7 @@ export class SettingsPage implements OnInit, OnDestroy {
   newPassword1: string;
   newPassword2: string;
 
+  personalForm: FormGroup;
   socialsForm: FormGroup;
 
   user: User = null;
@@ -82,6 +83,13 @@ export class SettingsPage implements OnInit, OnDestroy {
       linkedin: new FormControl<string | null>(''),
       website: new FormControl<string | null>('', Validators.pattern(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/)),
     });
+
+    this.personalForm = new FormGroup({
+      firstname: new FormControl<string | null>(''),
+      lastname: new FormControl<string | null>(''),
+      country: new FormControl<string | null>(''),
+      bio: new FormControl<string | null>(''),
+    });
   }
 
   ngOnInit() {
@@ -97,7 +105,11 @@ export class SettingsPage implements OnInit, OnDestroy {
       }));
     }));
 
-    this.socialsForm.valueChanges.subscribe(x => {
+    this.socialsForm.valueChanges.subscribe(() => {
+      this.checkForChange();
+    });
+
+    this.personalForm.valueChanges.subscribe(() => {
       this.checkForChange();
     });
   }

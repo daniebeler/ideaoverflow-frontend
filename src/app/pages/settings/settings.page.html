@@ -11,7 +11,7 @@
       </ion-col>
       <ion-col size="auto">
         <button type="button" class="btn-small btn-primary save-btn" (click)="updateUser()"
-          [disabled]="socialsForm.invalid || !unsavedDataExists">
+          [disabled]="socialsForm.invalid || personalForm.invalid || !unsavedDataExists">
           <span>Save changes</span>
         </button>
       </ion-col>
@@ -51,110 +51,100 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
-      <ion-col size-xs="12" size-sm="6">
-        <div class="form-group">
-          <label class="text-label" for="fname">First Name</label>
-          <input type="text" name="fname" id="fname" placeholder="First Name" [(ngModel)]="user.firstname"
-            (ngModelChange)="checkForChange()" />
-        </div>
-      </ion-col>
-      <ion-col size-xs="12" size-sm="6">
-        <div class="form-group">
-          <label class="text-label" for="email">Last Name</label>
-          <input type="text" name="lname" id="lname" placeholder="Last Name" [(ngModel)]="user.lastname"
-            (ngModelChange)="checkForChange()" />
-        </div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size-xs="12" size-sm="6">
-        <div class="form-group" *ngIf="countries">
-          <label class="text-label">Country</label>
-          <select [(ngModel)]="country" (ngModelChange)="checkForChange()">
-            <option value="">--Leave empty--</option>
-            <option *ngFor="let country of countries.countries" [ngValue]="country.code">{{country.name}}</option>
-          </select>
-        </div>
-      </ion-col>
-    </ion-row>
+    <form [formGroup]="personalForm" autocomplete="off">
 
-    <ion-row>
-      <ion-col style="padding-bottom: 0;">
-        <div class="form-group">
-          <label class="text-label" for="fname">Bio</label>
-          <textarea style="resize: none;" rows="5" type="text" name="fname" id="fname"
-            placeholder="Something about myself..." [(ngModel)]="user.bio"
-            (ngModelChange)="checkForChange()"></textarea>
-        </div>
-      </ion-col>
-    </ion-row>
+      <ion-row>
+        <ion-col size-xs="12" size-sm="6">
+          <div class="form-group">
+            <label class="text-label" for="firstname">Firstname</label>
+            <input id="firstname" formControlName="firstname" placeholder="John"
+              [(ngModel)]="user.firstname"/>
+          </div>
+        </ion-col>
 
+        <ion-col size-xs="12" size-sm="6">
+          <div class="form-group">
+            <label class="text-label" for="lastname">Lastname</label>
+            <input id="lastname" formControlName="lastname" placeholder="Doe"
+              [(ngModel)]="user.lastname"/>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size-xs="12">
+          <div class="form-group" *ngIf="countries">
+            <label class="text-label">Country</label>
+            <select [(ngModel)]="country" formControlName="country">
+              <option value="">--Leave empty--</option>
+              <option *ngFor="let country of countries.countries" [ngValue]="country.code">{{country.name}}</option>
+            </select>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col style="padding-bottom: 0;">
+          <div class="form-group">
+            <label class="text-label" for="bio">Bio</label>
+            <textarea style="resize: none;" rows="5" formControlName="bio" id="bio"
+              placeholder="Something about myself..." [(ngModel)]="user.bio"></textarea>
+          </div>
+        </ion-col>
+      </ion-row>
+    </form>
 
     <ion-row>
       <ion-col>
         <h2>Social Media</h2>
-        <form [formGroup]="socialsForm">
+        <form [formGroup]="socialsForm" autocomplete="off">
           <div class="form-group">
             <label class="icon-label" for="instagram">
-              <i>
-                <ion-icon name="logo-instagram" class="logo-instagram"></ion-icon>
-              </i>
+              <ion-icon name="logo-instagram" class="logo-instagram"></ion-icon>
             </label>
             <input class="icon-input" id="instagram" formControlName="instagram" placeholder="Instagram username"
-              [(ngModel)]="user.instagram" (ngModelChange)="checkForChange()" />
+              [(ngModel)]="user.instagram" />
           </div>
 
           <div class="form-group">
             <label class="icon-label" for="twitter">
-              <i>
-                <ion-icon name="logo-twitter" class="logo-twitter"></ion-icon>
-              </i>
+              <ion-icon name="logo-twitter" class="logo-twitter"></ion-icon>
             </label>
             <input class="icon-input" id="twitter" formControlName="twitter" placeholder="Twitter username"
-              [(ngModel)]="user.twitter" (ngModelChange)="checkForChange()" />
+              [(ngModel)]="user.twitter" />
           </div>
 
           <div class="form-group">
             <label class="icon-label" for="dribbble">
-              <i>
-                <ion-icon name="logo-dribbble" class="logo-dribbble"></ion-icon>
-              </i>
+              <ion-icon name="logo-dribbble" class="logo-dribbble"></ion-icon>
             </label>
             <input class="icon-input" id="dribbble" formControlName="dribbble" placeholder="Dribbble username"
-              [(ngModel)]="user.dribbble" (ngModelChange)="checkForChange()" />
+              [(ngModel)]="user.dribbble" />
           </div>
 
           <div class="form-group">
             <label class="icon-label" for="github">
-              <i>
-                <ion-icon name="logo-github" class="logo-github"></ion-icon>
-              </i>
+              <ion-icon name="logo-github" class="logo-github"></ion-icon>
             </label>
             <input class="icon-input" id="github" formControlName="github" placeholder="Github username"
-              [(ngModel)]="user.github" (ngModelChange)="checkForChange()" />
+              [(ngModel)]="user.github" />
           </div>
 
           <div class="form-group">
             <label class="icon-label" for="linkedin">
-              <i>
-                <ion-icon name="logo-linkedin" class="logo-linkedin"></ion-icon>
-              </i>
+              <ion-icon name="logo-linkedin" class="logo-linkedin"></ion-icon>
             </label>
             <input class="icon-input" id="linkedin" formControlName="linkedin" placeholder="Linkedin username"
-              [(ngModel)]="user.linkedin" (ngModelChange)="checkForChange()" />
+              [(ngModel)]="user.linkedin" />
           </div>
 
           <div class="form-group">
             <label class="icon-label" for="website">
-              <i>
-                <ion-icon name="globe-outline" class="logo-website"></ion-icon>
-              </i>
+              <ion-icon name="globe-outline" class="logo-website"></ion-icon>
             </label>
             <input class="icon-input" id="website" type="url" formControlName="website" placeholder="Website URL"
-              [(ngModel)]="user.website" (ngModelChange)="checkForChange()" />
+              [(ngModel)]="user.website" />
           </div>
-
         </form>
       </ion-col>
     </ion-row>
