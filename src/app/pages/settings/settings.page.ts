@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -9,6 +10,7 @@ import { ToastController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
 import hash from 'object-hash';
 import { Subscription } from 'rxjs';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-settings',
@@ -22,6 +24,8 @@ export class SettingsPage implements OnInit, OnDestroy {
   oldPassword: string;
   newPassword1: string;
   newPassword2: string;
+
+  socialsForm: FormGroup;
 
   user: User = null;
   userHash = '12';
@@ -69,7 +73,16 @@ export class SettingsPage implements OnInit, OnDestroy {
     private httpClient: HttpClient,
     private domSanitizer: DomSanitizer,
     private toastController: ToastController
-  ) { }
+  ) {
+    this.socialsForm = new FormGroup({
+      instagram: new FormControl<string | null>('', Validators.pattern(/^([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)$/)),
+      twitter: new FormControl<string | null>('', Validators.pattern(/^[A-Za-z0-9_]{1,15}$/)),
+      dribbble: new FormControl<string | null>(''),
+      github: new FormControl<string | null>('', Validators.pattern(/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i)),
+      linkedin: new FormControl<string | null>(''),
+      website: new FormControl<string | null>('', Validators.pattern(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/)),
+    });
+  }
 
   ngOnInit() {
     this.subscriptions.push(this.httpClient.get('./assets/json/countries.json').subscribe(countries => {
@@ -83,6 +96,10 @@ export class SettingsPage implements OnInit, OnDestroy {
         }
       }));
     }));
+
+    this.socialsForm.valueChanges.subscribe(x => {
+      this.checkForChange();
+    });
   }
 
   gotoHome() {
@@ -108,8 +125,7 @@ export class SettingsPage implements OnInit, OnDestroy {
       message: 'Your settings have been saved.',
       icon: 'information-circle',
       color: 'primary',
-      duration: 3000,
-      position: 'top'
+      duration: 3000
     });
     toast.present();
   }
