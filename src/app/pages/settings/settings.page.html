@@ -57,16 +57,14 @@
         <ion-col size-xs="12" size-sm="6">
           <div class="form-group">
             <label class="text-label" for="firstname">Firstname</label>
-            <input id="firstname" formControlName="firstname" placeholder="John"
-              [(ngModel)]="user.firstname"/>
+            <input id="firstname" formControlName="firstname" placeholder="John" [(ngModel)]="user.firstname" />
           </div>
         </ion-col>
 
         <ion-col size-xs="12" size-sm="6">
           <div class="form-group">
             <label class="text-label" for="lastname">Lastname</label>
-            <input id="lastname" formControlName="lastname" placeholder="Doe"
-              [(ngModel)]="user.lastname"/>
+            <input id="lastname" formControlName="lastname" placeholder="Doe" [(ngModel)]="user.lastname" />
           </div>
         </ion-col>
       </ion-row>
@@ -152,46 +150,35 @@
     <ion-row>
       <ion-col>
         <h2>Change Password</h2>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size-xs="12" size-sm="6">
-        <div class="form-group">
-          <label class="icon-label" for="password"><i>
+
+        <form [formGroup]="passwordForm">
+          <div class="form-group">
+            <label class="icon-label" for="password">
               <ion-icon name="lock-open"></ion-icon>
-            </i></label>
-          <input class="icon-input" type="password" name="passwort" id="password" placeholder="Current Password"
-            [(ngModel)]="oldPassword" />
-        </div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size-xs="12" size-sm="6">
-        <div class="form-group">
-          <label class="icon-label" for="password"><i>
-              <ion-icon name="lock-closed"></ion-icon>
-            </i></label>
-          <input class="icon-input" type="password" name="passwort" id="password" placeholder="New Password"
-            [(ngModel)]="newPassword1" />
-        </div>
-      </ion-col>
-      <ion-col size-xs="12" size-sm="6">
-        <div class="form-group">
-          <label class="icon-label" for="password"><i>
-              <ion-icon name="lock-closed"></ion-icon>
-            </i></label>
-          <input class="icon-input" type="password" name="passwort" id="password" placeholder="New Password"
-            [(ngModel)]="newPassword2" />
-        </div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <div class="row d-flex justify-content-center submit-button-container">
-          <button type="button" class="btn-large btn-primary" style="margin-top: 10px;"
-            (click)="changePassword()">Change
-            Password</button>
-        </div>
+            </label>
+            <input class="icon-input" type="password" name="passwort" id="password" formControlName="old"
+              placeholder="Current Password" [(ngModel)]="oldPassword" />
+          </div>
+
+          <div class="form-group">
+            <label class="icon-label" for="password"><ion-icon name="lock-closed"></ion-icon></label>
+            <input class="icon-input" type="password" name="passwort" id="password" formControlName="new" placeholder="New Password"
+              [(ngModel)]="newPassword1" />
+          </div>
+
+          <div class="form-group">
+            <label class="icon-label" for="password"><ion-icon name="lock-closed"></ion-icon></label>
+            <input class="icon-input" type="password" name="passwort" id="password" formControlName="repeat" placeholder="New Password"
+              [(ngModel)]="newPassword2" />
+          </div>
+
+          <div class="row d-flex justify-content-center submit-button-container">
+            <button type="button" class="btn-large btn-primary" [disabled]="passwordForm.invalid"
+              (click)="changePassword()">Change
+              Password</button>
+          </div>
+
+        </form>
       </ion-col>
     </ion-row>
   </ion-grid>

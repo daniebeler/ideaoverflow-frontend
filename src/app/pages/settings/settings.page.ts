@@ -27,6 +27,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 
   personalForm: FormGroup;
   socialsForm: FormGroup;
+  passwordForm: FormGroup;
 
   user: User = null;
   userHash = '12';
@@ -90,6 +91,12 @@ export class SettingsPage implements OnInit, OnDestroy {
       country: new FormControl<string | null>(''),
       bio: new FormControl<string | null>(''),
     });
+
+    this.passwordForm = new FormGroup({
+      old: new FormControl<string | null>('', Validators.required),
+      new: new FormControl<string | null>('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[\S]{6,}$/)]),
+      repeat: new FormControl<string | null>('', [Validators.required]),
+    });
   }
 
   ngOnInit() {
@@ -135,8 +142,8 @@ export class SettingsPage implements OnInit, OnDestroy {
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Your settings have been saved.',
-      icon: 'information-circle',
-      color: 'primary',
+      icon: 'cloud-done-outline',
+      cssClass: 'custom-toast',
       duration: 3000
     });
     toast.present();

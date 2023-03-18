@@ -362,3 +362,8 @@ quill-editor {
 ion-header {
   border-bottom: 1px solid var(--ion-color-medium);
 }
+
+ion-toast.custom-toast {
+  --background: var(--ion-color-dark);
+  --border-radius: var(--border-radius-big);
+}
