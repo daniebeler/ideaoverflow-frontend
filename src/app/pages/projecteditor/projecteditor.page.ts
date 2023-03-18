@@ -50,10 +50,9 @@ export class ProjectEditorPage implements OnInit, OnDestroy {
       this.mode = 'new';
       this.verifiedAccess = true;
       this.project.body = this.domSanitizer.bypassSecurityTrustHtml('');
-      const subscription1 = this.userService.getLatestUser().pipe(filter(user => Boolean(user))).subscribe((latestUser) => {
+      this.subscriptions.push(this.userService.getLatestUser().pipe(filter(user => Boolean(user))).subscribe((latestUser) => {
         this.project.user.id = latestUser.id;
-      });
-      this.subscriptions.push(subscription1);
+      }));
     } else if (!isNaN(+urlslice)) {
       this.mode = 'edit';
       this.subscriptions.push(
@@ -78,15 +77,13 @@ export class ProjectEditorPage implements OnInit, OnDestroy {
       'Okay',
       () => {
         if (this.mode === 'new') {
-          const subscription3 = this.projectService.createProject(this.project).subscribe(async res => {
+          this.subscriptions.push(this.projectService.createProject(this.project).subscribe(async res => {
             this.redirect(res);
-          });
-          this.subscriptions.push(subscription3);
+          }));
         } else if (this.mode === 'edit') {
-          const subscription4 = this.projectService.updateProject(this.project).subscribe(res => {
+          this.subscriptions.push(this.projectService.updateProject(this.project).subscribe(res => {
             this.redirect(res);
-          });
-          this.subscriptions.push(subscription4);
+          }));
         }
       },
       'Back'
@@ -114,13 +111,12 @@ export class ProjectEditorPage implements OnInit, OnDestroy {
     if (event.target.files != null) {
       const file = event.target.files[0];
       if (file != null) {
-        const subscription5 = this.apiService.uploadImage(file).subscribe((res: any) => {
+        this.subscriptions.push(this.apiService.uploadImage(file).subscribe((res: any) => {
           if (res.data.link) {
             this.project.logo = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
             this.updateSubmitButtonState();
           }
-        });
-        this.subscriptions.push(subscription5);
+        }));
       }
     }
   }
@@ -129,13 +125,12 @@ export class ProjectEditorPage implements OnInit, OnDestroy {
     if (event.target.files != null) {
       const file = event.target.files[0];
       if (file != null) {
-        const subscription5 = this.apiService.uploadImage(file).subscribe((res: any) => {
+        this.subscriptions.push(this.apiService.uploadImage(file).subscribe((res: any) => {
           if (res.data.link) {
             this.project.screenshots.push(this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link));
             this.updateSubmitButtonState();
           }
-        });
-        this.subscriptions.push(subscription5);
+        }));
       }
     }
   }
@@ -169,10 +164,9 @@ export class ProjectEditorPage implements OnInit, OnDestroy {
           if (input.files != null) {
             const file = input.files[0];
             if (file != null) {
-              const subscription6 = this.apiService.uploadImage(file).subscribe((res: any) => {
+              this.subscriptions.push(this.apiService.uploadImage(file).subscribe((res: any) => {
                 data.insertEmbed(range.index, 'image', res.data.link);
-              });
-              this.subscriptions.push(subscription6);
+              }));
             }
           }
         });

@@ -111,10 +111,9 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
           if (input.files != null) {
             const file = input.files[0];
             if (file != null) {
-              const subscription5 = this.apiService.uploadImage(file).subscribe((res: any) => {
+              this.subscriptions.push(this.apiService.uploadImage(file).subscribe((res: any) => {
                 data.insertEmbed(range.index, 'image', res.data.link);
-              });
-              this.subscriptions.push(subscription5);
+              }));
             }
           }
         });

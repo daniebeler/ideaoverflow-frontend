@@ -35,20 +35,18 @@ export class FollowersComponent implements OnInit, OnDestroy {
     if (this.type === 'followers') {
       this.header = 'Followers';
       this.textIfNoFollowers = 'No followers';
-      const subscription1 = this.apiService.getFollowers(this.userId).subscribe(res => {
+      this.subscriptions.push(this.apiService.getFollowers(this.userId).subscribe(res => {
         this.followers = res;
         this.loading = false;
-      });
-      this.subscriptions.push(subscription1);
+      }));
     }
     else {
       this.header = 'Following';
       this.textIfNoFollowers = 'Following nobody';
-      const subscription2 = this.apiService.getFollowees(this.userId).subscribe(res => {
+      this.subscriptions.push(this.apiService.getFollowees(this.userId).subscribe(res => {
         this.followers = res;
         this.loading = false;
-      });
-      this.subscriptions.push(subscription2);
+      }));
     }
   }
 

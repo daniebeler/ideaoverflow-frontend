@@ -72,19 +72,17 @@ export class SettingsPage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    const subscription1 = this.httpClient.get('./assets/json/countries.json').subscribe(countries => {
+    this.subscriptions.push(this.httpClient.get('./assets/json/countries.json').subscribe(countries => {
       this.countries = countries;
-      const subscription2 = this.userService.getLatestUser().subscribe((latestUser) => {
+      this.subscriptions.push(this.userService.getLatestUser().subscribe((latestUser) => {
         this.user = latestUser;
         this.userHash = hash(latestUser);
         if (latestUser) {
           this.country = latestUser.country;
           this.checkForChange();
         }
-      });
-      this.subscriptions.push(subscription2);
-    });
-    this.subscriptions.push(subscription1);
+      }));
+    }));
   }
 
   gotoHome() {
@@ -124,13 +122,12 @@ export class SettingsPage implements OnInit, OnDestroy {
     if (event.target.files != null) {
       const file = event.target.files[0];
       if (file != null) {
-        const subscription3 = this.apiService.uploadImage(file).subscribe((res: any) => {
+        this.subscriptions.push(this.apiService.uploadImage(file).subscribe((res: any) => {
           if (res.data.link) {
             this.user.profileimage = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
             this.checkForChange();
           }
-        });
-        this.subscriptions.push(subscription3);
+        }));
       }
     }
   }

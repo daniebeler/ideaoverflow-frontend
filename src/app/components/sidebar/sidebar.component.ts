@@ -24,7 +24,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    const subscription1 = this.userService.getLatestUser().subscribe((latestUser) => {
+    this.subscriptions.push(this.userService.getLatestUser().subscribe((latestUser) => {
       this.user = latestUser;
       if (latestUser) {
         this.loggedIn = true;
@@ -32,8 +32,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
       else {
         this.loggedIn = false;
       }
-    });
-    this.subscriptions.push(subscription1);
+    }));
   }
 
   search(searchTerm: string) {

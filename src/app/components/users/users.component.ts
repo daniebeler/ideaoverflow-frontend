@@ -23,16 +23,14 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.searchTerm) {
-      const subscription1 = this.apiService.getUsersBySearchterm(this.searchTerm).subscribe(res => {
+      this.subscriptions.push(this.apiService.getUsersBySearchterm(this.searchTerm).subscribe(res => {
         this.users = res;
-      });
-      this.subscriptions.push(subscription1);
+      }));
     }
     else {
-      const subscription2 = this.apiService.getUsers().subscribe(res => {
+      this.subscriptions.push(this.apiService.getUsers().subscribe(res => {
         this.users = res;
-      });
-      this.subscriptions.push(subscription2);
+      }));
     }
   }
 

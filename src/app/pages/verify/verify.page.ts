@@ -20,10 +20,9 @@ export class VerifyPage implements OnInit, OnDestroy {
   ) { }
 
    ngOnInit() {
-    const subscription1 = this.apiService.verify(this.activatedRoute.snapshot.paramMap.get('code')).subscribe(isVerified => {
+    this.subscriptions.push(this.apiService.verify(this.activatedRoute.snapshot.paramMap.get('code')).subscribe(isVerified => {
       this.isVerified = isVerified;
-    });
-    this.subscriptions.push(subscription1);
+    }));
   }
 
   ngOnDestroy(): void {

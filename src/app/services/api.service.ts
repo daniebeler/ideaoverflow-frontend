@@ -186,8 +186,8 @@ export class ApiService {
   // -----------------------------------
 
 
-  register(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'registration/register', data);
+  register(data: any): Observable<ApiResponse> {
+    return this.apiPost('registration/register', data);
   }
 
   login(email: string, password: string): Observable<ApiResponse> {

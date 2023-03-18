@@ -46,13 +46,13 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.currentProfile = this.activatedRoute.snapshot.paramMap.get('username');
-    const subscription1 = this.apiService.getUser(this.currentProfile).subscribe(res => {
+    this.subscriptions.push(this.apiService.getUser(this.currentProfile).subscribe(res => {
       this.user = res;
 
       this.postsHeader = 'Ideas by ' + this.user.firstname + ' ' + this.user.lastname;
       this.projectsHeader = 'Projects by ' + this.user.firstname + ' ' + this.user.lastname;
 
-      const subscription4 = this.userService.getLatestUser().subscribe((latestUser) => {
+      this.subscriptions.push(this.userService.getLatestUser().subscribe((latestUser) => {
         this.latestUser = latestUser;
         if (latestUser) {
           if (latestUser.username === this.currentProfile) {
@@ -67,13 +67,11 @@ export class ProfilePage implements OnInit, OnDestroy {
           this.isMyProfile = false;
           this.amFollowingThisProfile = false;
         }
-      });
+      }));
 
       this.flagUrl = findFlagUrlByIso2Code(this.user.country);
       this.countryName = this.user.country;
-      this.subscriptions.push(subscription4);
-    });
-    this.subscriptions.push(subscription1);
+    }));
   }
 
   async logout() {

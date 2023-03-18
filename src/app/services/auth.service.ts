@@ -51,7 +51,11 @@ export class AuthService {
     }
   }
 
-  register(email, username, password) {
+  async storeToken(token) {
+    await this.storageService.setToken(token);
+  }
+
+  async register(email, username, password) {
 
     const obj = {
       email,
@@ -60,15 +64,25 @@ export class AuthService {
     };
 
     return this.apiService.register(obj).subscribe(async res => {
-      this.alertService.showAlert(
-        res.header,
-        res.message,
-        'Okay', () => {
-          if (res.status === 1) {
-            this.router.navigate(['login']);
+      if (res.status === 'Error') {
+        this.alertService.showAlert(
+          'Error',
+          res.error,
+          'Okay'
+        );
+      } else {
+        this.alertService.showAlert(
+          'Congrats',
+          'The user has been created',
+          'Okay', async () => {
+            this.storeToken(res.data.token);
+            this.decodedUserToken = this.helper.decodeToken(res.data.token);
+            this.authenticationState.next(true);
+            this.userService.fetchUserFromApi(this.getUser().id);
+            this.router.navigate(['']);
           }
-        }
-      );
+        );
+      }
     }),
       catchError(e => {
         this.alertService.showAlert('(ಠ︹ಠ)', e.error.message);

@@ -20,19 +20,17 @@ export class FooterComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    const subscription1 = this.apiService.getNumberOfTotalIdeas().subscribe(numberOfTotalIdeas => {
+    this.subscriptions.push(this.apiService.getNumberOfTotalIdeas().subscribe(numberOfTotalIdeas => {
       this.numberOfTotalIdeas = numberOfTotalIdeas;
-    });
+    }));
 
-    const subscription2 = this.apiService.getNumberOfTotalUsers().subscribe(numberOfTotalUsers => {
+    this.subscriptions.push(this.apiService.getNumberOfTotalUsers().subscribe(numberOfTotalUsers => {
       this.numberOfTotalUsers = numberOfTotalUsers;
-    });
+    }));
 
-    const subscription3 = this.apiService.getNumberOfTotalProjects().subscribe(numberOfTotalProjects => {
+    this.subscriptions.push(this.apiService.getNumberOfTotalProjects().subscribe(numberOfTotalProjects => {
       this.numberOfTotalProjects = numberOfTotalProjects;
-    });
-
-    this.subscriptions.push(subscription1, subscription2, subscription3);
+    }));
   }
 
   ngOnDestroy(): void {

@@ -43,13 +43,12 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    const subscription1 = this.userService.getLatestUser().subscribe((latestUser) => {
+    this.subscriptions.push(this.userService.getLatestUser().subscribe((latestUser) => {
       this.currentUser = latestUser;
       this.allLoadedProjects = [];
       this.skipProjects = -5;
       this.getPosts(false, '');
-    });
-    this.subscriptions.push(subscription1);
+    }));
   }
 
   getPosts(isInitialLoad: boolean, event) {

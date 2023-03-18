@@ -28,11 +28,10 @@ export class SetnewpasswordPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.code = this.activatedRoute.snapshot.paramMap.get('code');
-    const subscription1 = this.apiService.checkCode(this.code).subscribe(res => {
+    this.subscriptions.push(this.apiService.checkCode(this.code).subscribe(res => {
       this.codeIsCorrect = res.exists;
       this.message = res.message;
-    });
-    this.subscriptions.push(subscription1);
+    }));
   }
 
   setPassword() {

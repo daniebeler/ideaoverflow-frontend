@@ -5,7 +5,6 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { IdeasComponent } from './ideas/ideas.component';
 import { FooterComponent } from './footer/footer.component';
 import { FollowersComponent } from './followers/followers.component';
-import { AboutComponent } from './about/about.component';
 import { QuillModule } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
 import { UsersComponent } from './users/users.component';
@@ -21,7 +20,6 @@ import { IdeaComponent } from './idea/idea.component';
     IdeasComponent,
     ProjectsComponent,
     FollowersComponent,
-    AboutComponent,
     IdeaComponent,
     SidebarComponent,
     UsersComponent
@@ -32,7 +30,6 @@ import { IdeaComponent } from './idea/idea.component';
     IdeasComponent,
     ProjectsComponent,
     FollowersComponent,
-    AboutComponent,
     IdeaComponent,
     SidebarComponent,
     UsersComponent,

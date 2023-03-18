@@ -34,16 +34,14 @@ export class IdeaPage implements OnInit, OnDestroy {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (!isNaN(+id)) {
       this.ideaId = +id;
-      const subscription1 = this.ideaService.getIdea(this.ideaId).subscribe(idea => {
+      this.subscriptions.push(this.ideaService.getIdea(this.ideaId).subscribe(idea => {
         this.idea = idea;
-      });
-      this.subscriptions.push(subscription1);
+      }));
     }
 
-    const subscription2 = this.userService.getLatestUser().subscribe((latestUser) => {
+    this.subscriptions.push(this.userService.getLatestUser().subscribe((latestUser) => {
       this.currentUser = latestUser;
-    });
-    this.subscriptions.push(subscription2);
+    }));
   }
 
   votePost(voteValue: number, idea: Idea) {

@@ -42,13 +42,12 @@ export class IdeasComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    const subscription1 = this.userService.getLatestUser().subscribe((latestUser) => {
+    this.subscriptions.push(this.userService.getLatestUser().subscribe((latestUser) => {
       this.currentUser = latestUser;
       this.allLoadedPosts = [];
       this.skipPosts = -5;
       this.getPosts(false, '');
-    });
-    this.subscriptions.push(subscription1);
+    }));
   }
 
   getPosts(isInitialLoad: boolean, event) {

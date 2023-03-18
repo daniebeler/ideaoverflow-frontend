@@ -23,11 +23,10 @@ export class HomePage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    const subscription1 = this.userService.getLatestUser()
+    this.subscriptions.push(this.userService.getLatestUser()
       .subscribe((latestUser) => {
         this.user = latestUser;
-      });
-    this.subscriptions.push(subscription1);
+      }));
   }
 
   ngOnDestroy(): void {
