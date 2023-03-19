@@ -88,6 +88,10 @@ select {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    ion-icon {
+      color: var(--ion-color-dark);
+    }
   }
 
   .rotate{
