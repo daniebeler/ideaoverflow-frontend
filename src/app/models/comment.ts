@@ -8,13 +8,15 @@ export class Comment {
   public projectId: number;
   public body: string;
   public mine: boolean;
+  public creationDate: Date;
 
-  constructor(id: number, user: User, body: string, mine: boolean, ideaId?: number, projectId?: number) {
+  constructor(id: number, user: User, body: string, mine: boolean, creationDate: Date, ideaId?: number, projectId?: number) {
     this.id = id;
     this.user = user;
     this.ideaId = ideaId;
     this.projectId = projectId;
     this.body = body;
     this.mine = mine ?? false;
+    this.creationDate = creationDate;
   }
 }

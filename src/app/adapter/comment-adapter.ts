@@ -15,8 +15,9 @@ export class CommentAdapter implements Adapter<Comment> {
 
   adapt(item: any): Comment {
 
+    item.creation_date = new Date(item.creation_date);
     item.user = this.userAdapter.adapt(item.user);
 
-    return new Comment(item.id, item.user, item.body, item.mine, item.idea_id, item.project_id);
+    return new Comment(item.id, item.user, item.body, item.mine, item.creation_date, item.idea_id, item.project_id);
   }
 }
