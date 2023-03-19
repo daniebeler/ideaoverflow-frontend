@@ -12,6 +12,8 @@ import { IdeaAdapter } from '../adapter/idea-adapter';
 import { StorageService } from './storage.service';
 import { ApiResponseAdapter } from '../adapter/api-response-adapter';
 import { ApiResponse } from '../models/api-response';
+import { CommentAdapter } from '../adapter/comment-adapter';
+import { Comment } from '../models/comment';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 type authStatus = 'Required' | 'Optional';
@@ -27,7 +29,8 @@ export class ApiService {
     private projectAdapter: ProjectAdapter,
     private ideaAdapter: IdeaAdapter,
     private storageService: StorageService,
-    private apiResponseAdapter: ApiResponseAdapter
+    private apiResponseAdapter: ApiResponseAdapter,
+    private commentAdapter: CommentAdapter
   ) { }
 
   getHeader(): HttpHeaders {
@@ -362,6 +365,31 @@ export class ApiService {
     return this.apiPost('idea/update/', data, 'Required');
   }
 
+
+  // -----------------------------------
+  // Comments
+  // -----------------------------------
+
+
+  getCommentsByIdeaId(parameter: string): Observable<Comment[]> {
+    return this.apiGet('comment/byidea/' + parameter, 'Optional').pipe(
+      concatMap(res => {
+        if (res.status !== 'OK') {
+          return [];
+        } else {
+          return of(res);
+        }
+      }), map((res: any) => res.data.map((item) => this.commentAdapter.adapt(item)))
+    );
+  }
+
+  createComment(body: any): Observable<ApiResponse> {
+    return this.apiPost('comment/create/', body, 'Required');
+  }
+
+  deleteComment(commentId: number): Observable<ApiResponse> {
+    return this.apiPost('comment/delete/', { commentId }, 'Required');
+  }
 
   // -----------------------------------
   // Other

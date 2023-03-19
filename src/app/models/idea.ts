@@ -1,4 +1,5 @@
 import { SafeResourceUrl } from '@angular/platform-browser';
+import { Comment } from './comment';
 import { User } from './user';
 
 export class Idea {
@@ -13,6 +14,7 @@ export class Idea {
   public currentUserVoteValue: number;
   public saved: boolean;
   public mine: boolean;
+  public comments: Comment[];
 
   constructor(data: any) {
     this.id = data.id;
@@ -25,5 +27,6 @@ export class Idea {
     this.currentUserVoteValue = data.votevalue;
     this.saved = data.saved;
     this.mine = data.mine ?? false;
+    this.comments = data.comments ?? [];
    }
 }
