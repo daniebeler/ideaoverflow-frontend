@@ -152,8 +152,15 @@ export class SettingsPage implements OnInit, OnDestroy {
   }
 
   updateUser() {
-    this.authService.updateUser(this.user);
-    this.alertService.showToast('Your settings have been saved', 'cloud-done-outline');
+    this.authService.updateUser(this.user).subscribe(async res => {
+      if (res.status === 'OK') {
+        this.userService.fetchUserFromApi(this.authService.getUser().id);
+        this.alertService.showToast('Your settings have been saved', 'cloud-done-outline');
+      }
+      else {
+        this.alertService.showAlert('(ಠ︹ಠ)', res.error);
+      }
+    });
   }
 
   updateColor(color: string) {

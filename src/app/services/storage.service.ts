@@ -7,33 +7,18 @@ const TOKEN_KEY = 'access_token_2';
 })
 export class StorageService {
 
-  private token: string = null;
-
   constructor() {
-    this.init();
   }
 
-  async init() {
-    this.token = localStorage.getItem(TOKEN_KEY);
-  }
-
-  setToken(value: any) {
+  setToken(value: any): void {
     localStorage.setItem(TOKEN_KEY, value);
   }
 
-  getToken() {
+  getToken(): string {
     return localStorage.getItem(TOKEN_KEY);
   }
 
-  removeToken() {
+  removeToken(): void {
     localStorage.removeItem(TOKEN_KEY);
-  }
-
-  setTokenString(value: string){
-    this.token = value;
-  }
-
-  getTokenString(){
-    return this.token;
   }
 }

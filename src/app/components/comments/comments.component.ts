@@ -55,7 +55,6 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
   sendComment() {
     if (this.comment.valid && !this.sending) {
-      console.log(this.comment.value);
       this.sending = true;
       if (this.idea) {
         this.commentService.saveCommentOfIdea(this.idea.id, this.comment.value).subscribe(res => {

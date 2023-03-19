@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { catchError } from 'rxjs/operators';
 import { ApiService } from './api.service';
@@ -10,6 +10,7 @@ import { StorageService } from './storage.service';
 import { UserService } from './user.service';
 import { User } from '../models/user';
 import { tint, shade } from 'tint-shade-color';
+import { ApiResponse } from '../models/api-response';
 
 @Injectable({
   providedIn: 'root'
@@ -128,7 +129,7 @@ export class AuthService {
     this.router.navigate(['login']);
   }
 
-  updateUser(updatedUser: User) {
+  updateUser(updatedUser: User): Observable<ApiResponse> {
     const url: any = updatedUser.profileimage;
     const dataToUpdate = {
       id: this.getUser().id,
@@ -145,15 +146,7 @@ export class AuthService {
       website: updatedUser.website,
       color: updatedUser.color
     };
-    return this.apiService.updateUser(dataToUpdate).subscribe(async res => {
-      if (res.status === 'OK') {
-        this.userService.fetchUserFromApi(this.getUser().id);
-      }
-      else {
-        this.alertService.showAlert('(ಠ︹ಠ)', res.error);
-      }
-
-    });
+    return this.apiService.updateUser(dataToUpdate);
   }
 
   changePassword(oldPassword, newPassword) {

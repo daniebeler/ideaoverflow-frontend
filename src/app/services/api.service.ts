@@ -35,13 +35,13 @@ export class ApiService {
 
   getHeader(): HttpHeaders {
 
-    const token = this.storageService.getTokenString();
+    const token = this.storageService.getToken();
     if (token) {
       return new HttpHeaders({
         // eslint-disable-next-line @typescript-eslint/naming-convention
         'Content-Type': 'application/json; charset=utf-8',
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        Authorization: 'Bearer ' + this.storageService.getTokenString()
+        Authorization: 'Bearer ' + this.storageService.getToken()
       });
     }
 

@@ -17,7 +17,6 @@ export class UserService {
     this.getLatestUser().subscribe(user => {
       if (user) {
         if (user.color) {
-          console.log('imin');
           document.documentElement.style.setProperty('--ion-color-primary', user.color);
           document.documentElement.style.setProperty('--ion-color-primary-shade', shade(user.color, 0.15));
           document.documentElement.style.setProperty('--ion-color-primary-tint', tint(user.color, 0.15));
