@@ -21,10 +21,6 @@ export class SettingsPage implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  oldPassword: string;
-  newPassword1: string;
-  newPassword2: string;
-
   personalForm: FormGroup;
   socialsForm: FormGroup;
   passwordForm: FormGroup;
@@ -99,6 +95,14 @@ export class SettingsPage implements OnInit, OnDestroy {
     });
   }
 
+  get oldPassword() {
+    return this.passwordForm.get('old');
+  }
+
+  get newPassword() {
+    return this.passwordForm.get('new');
+  }
+
   ngOnInit() {
     this.subscriptions.push(this.httpClient.get('./assets/json/countries.json').subscribe(countries => {
       this.countries = countries;
@@ -140,7 +144,7 @@ export class SettingsPage implements OnInit, OnDestroy {
   }
 
   changePassword() {
-    this.authService.changePassword(this.oldPassword, this.newPassword1);
+    this.authService.changePassword(this.oldPassword.value, this.newPassword.value);
   }
 
   onFileChange(event) {

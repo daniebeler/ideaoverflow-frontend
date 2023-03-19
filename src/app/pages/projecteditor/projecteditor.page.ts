@@ -71,23 +71,50 @@ export class ProjectEditorPage implements OnInit, OnDestroy {
   }
 
   async saveProject() {
-    this.alertService.showAlert(
-      'Are you sure?',
-      '',
-      'Okay',
-      () => {
-        if (this.mode === 'new') {
+    if (this.mode === 'new') {
+      this.alertService.showAlert(
+        'Are you sure?',
+        'Your project will be released',
+        'Okay',
+        () => {
           this.subscriptions.push(this.projectService.createProject(this.project).subscribe(async res => {
             this.redirect(res);
           }));
-        } else if (this.mode === 'edit') {
-          this.subscriptions.push(this.projectService.updateProject(this.project).subscribe(res => {
-            this.redirect(res);
-          }));
-        }
-      },
-      'Back'
-    );
+        },
+        'Back'
+      );
+    } else {
+      this.alertService.showAlert(
+        'Are you sure?',
+        'Your project will be updated',
+        'Okay',
+        () => {
+          this.updateProject();
+        },
+        'Back'
+      );
+    }
+  }
+
+  updateProject() {
+    this.subscriptions.push(this.projectService.updateProject(this.project).subscribe(res => {
+      if (res.status === 'Error') {
+        this.alertService.showAlert(
+          'Error',
+          res.error,
+          'Okay'
+        );
+      } else {
+        this.alertService.showAlert(
+          'Done',
+          'Your project has been updated',
+          'Okay',
+          () => {
+            this.router.navigate(['projects/' + this.project.id]);
+          }
+        );
+      }
+    }));
   }
 
   async redirect(res) {

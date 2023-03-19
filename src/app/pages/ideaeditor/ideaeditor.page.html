@@ -16,7 +16,8 @@
       <ion-col size="auto">
         <button type="button" class="btn-small btn-primary" (click)="savePost()"
          [disabled]="!showSubmitButton">
-        <span>Publish</span>
+        <span *ngIf="mode === 'new'">Publish</span>
+        <span *ngIf="mode === 'edit'">Update</span>
       </button>
       </ion-col>
     </ion-row>

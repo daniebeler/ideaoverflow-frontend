@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiResponse } from '../models/api-response';
 import { Project } from '../models/project';
 import { ApiService } from './api.service';
 
@@ -55,7 +56,7 @@ export class ProjectService {
     }
   }
 
-  updateProject(updatedProject: Project): Observable<any> {
+  updateProject(updatedProject: Project): Observable<ApiResponse> {
     const url: any = updatedProject.logo;
 
     let releaseDate = null;

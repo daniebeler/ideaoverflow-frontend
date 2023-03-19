@@ -7,6 +7,7 @@ import { IdeaService } from 'src/app/services/idea.service';
 import hash from 'object-hash';
 import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/services/alert.service';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-ideaeditor',
@@ -16,6 +17,8 @@ import { AlertService } from 'src/app/services/alert.service';
 export class IdeaEditorPage implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
+
+  editorForm: FormGroup;
 
   idea: Idea = new Idea([]);
 
@@ -55,42 +58,69 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
   }
 
   async savePost() {
-    this.alertService.showAlert('Are you sure?',
-      '',
-      'Okay',
-      () => {
-        if (this.mode === 'new') {
-          this.subscriptions.push(this.ideaService.createIdea(this.idea).subscribe(async res => {
-            this.redirect(res);
-          }));
-        } else if (this.mode === 'edit') {
-          this.subscriptions.push(this.ideaService.updateIdea(this.idea).subscribe(res => {
-            this.redirect(res);
-          }));
-        }
-      },
-      'Back'
-    );
-  }
-
-  async redirect(res: boolean) {
-    if (res) {
+    if (this.mode === 'new') {
       this.alertService.showAlert(
-        '👌🏻',
-        'Your idea is online',
+        'Are you sure?',
+        'Your idea will be released',
         'Okay',
         () => {
-          this.router.navigate(['']);
-        }
+          this.createIdea();
+        },
+        'Back'
       );
     } else {
       this.alertService.showAlert(
-        '(ಠ︹ಠ)',
-        'Something went wrong',
-        'Okay'
+        'Are you sure?',
+        'Your idea will be updated',
+        'Okay',
+        () => {
+          this.updateIdea();
+        },
+        'Back'
       );
     }
+  }
 
+  createIdea() {
+    this.subscriptions.push(this.ideaService.createIdea(this.idea).subscribe(res => {
+      if (res.status === 'Error') {
+        this.alertService.showAlert(
+          'Error',
+          res.error,
+          'Okay'
+        );
+      } else {
+        this.alertService.showAlert(
+          'Done',
+          'Your idea is now online',
+          'Okay',
+          () => {
+            this.router.navigate(['ideas/' + this.idea.id]);
+          }
+        );
+      }
+    }));
+  }
+
+  updateIdea() {
+    this.subscriptions.push(this.ideaService.updateIdea(this.idea).subscribe(res => {
+      if (res.status === 'Error') {
+        this.alertService.showAlert(
+          'Error',
+          res.error,
+          'Okay'
+        );
+      } else {
+        this.alertService.showAlert(
+          'Done',
+          'Your idea has been updated',
+          'Okay',
+          () => {
+            this.router.navigate(['ideas/' + this.idea.id]);
+          }
+        );
+      }
+    }));
   }
 
   editor(quill: any) {

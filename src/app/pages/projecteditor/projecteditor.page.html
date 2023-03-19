@@ -29,9 +29,12 @@
     <ion-row style="margin-bottom: 50px;">
       <ion-col style="display: flex;" class="ion-justify-content-center">
         <div class="profile-pic-div">
-          <img [src]="project.logo" id="photo">
+          <img *ngIf="project.logo" [src]="project.logo" id="photo">
           <input type="file" id="file" accept=".png,.jpg," (change)="onFileChange($event)">
-          <label for="file" id="uploadBtn">Change</label>
+          <label *ngIf="project.logo" for="file" id="uploadBtn">Change Icon</label>
+          <label *ngIf="!project.logo" class="btn-small btn-primary" for="file">
+            Upload Logo
+          </label>
         </div>
       </ion-col>
     </ion-row>
@@ -39,7 +42,7 @@
     <ion-row>
       <ion-col size="12">
         <div class="form-group">
-          <label class="text-label" for="fname">Title</label>
+          <label class="text-label" for="fname">Title *</label>
           <input type="text" name="fname" id="fname" placeholder="Title" [(ngModel)]="project.title"
             (ngModelChange)="updateSubmitButtonState()" />
         </div>
@@ -49,7 +52,7 @@
     <ion-row style="padding-bottom: 20px;">
       <ion-col style="padding-bottom: 0;">
         <div class="form-group">
-          <label class="text-label" for="fname">Short description</label>
+          <label class="text-label" for="fname">Short description *</label>
           <textarea style="resize: none;" rows="5" type="text" name="fname" id="fname"
             placeholder="My project in a few words" [(ngModel)]="project.shortDescription"
             (ngModelChange)="updateSubmitButtonState()"></textarea>
@@ -57,7 +60,7 @@
       </ion-col>
     </ion-row>
 
-    <label class="text-label" for="fname">Long description</label>
+    <label class="text-label" for="fname">Long description *</label>
     <quill-editor *ngIf="project.body" [(ngModel)]="project.body.changingThisBreaksApplicationSecurity"
       (onEditorCreated)="editor($event)" trackChanges="all" (ngModelChange)="updateSubmitButtonState()">
     </quill-editor>
