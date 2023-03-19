@@ -15,79 +15,9 @@
 
 <ion-content *ngIf="idea">
   <ion-grid class="container">
-    <ion-row>
+    <ion-row class="idea-wrapper">
       <ion-col>
-        <ion-grid class="post-wrapper">
-          <ion-row>
-            <ion-col style="padding: 0;">
-              <h1 style="margin: 0;">{{idea.title}}</h1>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col style="padding: 0;">
-              <div class="postcontent" [innerHTML]=idea.body></div>
-            </ion-col>
-          </ion-row>
-          <ion-row style="margin-top: 20px;">
-            <ion-col size="auto" class="owner">
-              <a [routerLink]="'/users/' + idea.user.username">
-                <ion-avatar style="height: 30px; width: 30px; --border-radius: var(--border-radius-small)">
-                  <img [src]="idea.user.profileimage">
-                </ion-avatar>
-                <p style="margin-bottom: 0; padding-left: 8px;">{{idea.user.username}}</p>
-              </a>
-
-            </ion-col>
-
-            <ion-col size="auto" *ngIf="idea.currentUserVoteValue === 1" (click)="votePost(0, idea)" class="like"
-              style="display: flex; align-items: center;">
-              <ion-icon name="heart" [ngStyle]="{'color':idea.user.color}" style="width: 30px; height: 25px;">
-              </ion-icon>
-              <p style="margin-bottom: 0; padding-left: 8px;">{{idea.numberOfUpvotes}}</p>
-            </ion-col>
-
-            <ion-col size="auto" *ngIf="idea.currentUserVoteValue !== 1" (click)="votePost(1, idea)" class="like"
-              style="display: flex; align-items: center;">
-              <ion-icon name="heart-outline" style="width: 30px; height: 25px;"></ion-icon>
-              <p style="margin-bottom: 0; padding-left: 8px;">{{idea.numberOfUpvotes}}</p>
-            </ion-col>
-
-            <ion-col size="auto" *ngIf="idea.currentUserVoteValue === -1" (click)="votePost(0, idea)" class="like"
-              style="display: flex; align-items: center;">
-              <ion-icon name="thumbs-down" [ngStyle]="{'color':idea.user.color}"
-                style="width: 30px; height: 25px;"></ion-icon>
-              <p style="margin-bottom: 0; padding-left: 8px;">{{idea.numberOfDownvotes}}</p>
-            </ion-col>
-
-            <ion-col size="auto" *ngIf="idea.currentUserVoteValue !== -1" (click)="votePost(-1, idea)" class="like"
-              style="display: flex; align-items: center;">
-              <ion-icon name="thumbs-down-outline" style="width: 30px; height: 25px;"></ion-icon>
-              <p style="margin-bottom: 0; padding-left: 8px;">{{idea.numberOfDownvotes}}</p>
-            </ion-col>
-
-            <ion-col size="auto" *ngIf="idea.saved" (click)="unsavePost(idea.id)" class="like"
-              style="display: flex; align-items: center;">
-              <ion-icon name="bookmark" [ngStyle]="{'color':idea.user.color}" style="width: 30px; height: 25px;">
-              </ion-icon>
-            </ion-col>
-
-            <ion-col size="auto" *ngIf="!idea.saved" (click)="savePost(idea.id)" class="like"
-              style="display: flex; align-items: center;">
-              <ion-icon name="bookmark-outline" style="width: 30px; height: 25px;"></ion-icon>
-            </ion-col>
-
-            <div *ngIf="currentUser">
-              <ion-col *ngIf="currentUser.id === idea.user.id" size="auto" class="editPost"
-                style="display: flex; align-items: center;">
-                <a [routerLink]="'/ideaeditor/' + idea.id">
-                  <ion-icon name="settings-outline" style="height: 30px; width: 30px;">
-                  </ion-icon>
-                </a>
-
-              </ion-col>
-            </div>
-          </ion-row>
-        </ion-grid>
+        <app-idea-component [post]="idea" [loggedIn]="currentUser !== null"></app-idea-component>
       </ion-col>
     </ion-row>
 

@@ -4,7 +4,7 @@ import { AlertService } from 'src/app/services/alert.service';
 import { IdeaService } from 'src/app/services/idea.service';
 
 @Component({
-  selector: 'app-idea',
+  selector: 'app-idea-component',
   templateUrl: './idea.component.html',
   styleUrls: ['./idea.component.scss'],
 })
