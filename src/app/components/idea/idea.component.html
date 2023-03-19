@@ -16,7 +16,7 @@
   <ion-row style="margin-top: 20px;">
     <ion-col size="auto" class="owner">
       <a [routerLink]="'/users/' + post.user.username">
-        <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
+        <ion-avatar style="height: 30px; width: 30px; --border-radius: var(--border-radius-small)">
           <img [src]="post.user.profileimage">
         </ion-avatar>
         <p style="margin-bottom: 0; padding-left: 8px;">{{post.user.username}}</p>

@@ -39,7 +39,7 @@
               </div>
               <a class="owner" style="display: flex; align-items: center;"
                 [routerLink]="'/users/' + project.user.username">
-                <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
+                <ion-avatar style="height: 30px; width: 30px; --border-radius: var(--border-radius-small)">
                   <img [src]="project.user.profileimage">
                 </ion-avatar>
                 <p style="margin-bottom: 0; padding-left: 8px;">{{project.user.username}}</p>

@@ -51,7 +51,6 @@ export class AlertService {
     const toast = await this.toastController.create({
       message,
       icon,
-      color: 'primary',
       cssClass: 'custom-toast',
       duration: 2500
     });

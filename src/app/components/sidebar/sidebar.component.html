@@ -124,7 +124,7 @@
       <ion-row>
         <ion-col>
           <a [routerLink]="'/users/' + user.username">
-            <ion-avatar style="height: 30px; width: 30px; --border-radius: 50%">
+            <ion-avatar style="height: 30px; width: 30px; --border-radius: var(--border-radius-small)">
               <img [src]="user.profileimage">
             </ion-avatar>
             <p style="margin-bottom: 0; padding-left: 8px;">{{user.username}}</p>

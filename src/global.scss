@@ -364,8 +364,9 @@ ion-header {
 }
 
 ion-toast.custom-toast {
-  --background: var(--ion-color-dark);
+  --background: var(--ion-color-primary);
   --border-radius: var(--border-radius-big);
+  color: var(--ion-color-dark);
 }
 
 ion-header {
