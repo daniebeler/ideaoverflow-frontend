@@ -16,6 +16,7 @@ import { ExternalHrefPipe } from './pipes/external-href.pipe';
 import { ComponentsModule } from './components/components.module';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
+import { TimeAgoPipe } from './pipes/time-ago.pipe';
 
 @NgModule({
   declarations: [AppComponent, ExternalHrefPipe],
@@ -41,7 +42,8 @@ import { BrowserModule } from '@angular/platform-browser';
   exports: [NgOptimizedImage],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    TimeAgoPipe
   ],
   bootstrap: [AppComponent]
 })

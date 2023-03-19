@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { IdeaComponent } from './idea/idea.component';
 import { CommentsComponent } from './comments/comments.component';
+import { TimeAgoPipe } from '../pipes/time-ago.pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CommentsComponent } from './comments/comments.component';
     IdeaComponent,
     SidebarComponent,
     UsersComponent,
-    CommentsComponent
+    CommentsComponent,
+    TimeAgoPipe
   ],
   exports: [
     FooterComponent,

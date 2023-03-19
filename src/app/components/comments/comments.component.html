@@ -30,9 +30,7 @@
             </ion-col>
             <ion-col class="name-wrapper">
               <p class="fullname">{{comment.user.firstname + ' ' + comment.user.lastname}}</p>
-              <p class="username">@{{comment.user.username}} • {{comment.creationDate.toLocaleDateString('en-us', {
-                year: 'numeric', month: 'short', day:
-                'numeric' })}}</p>
+              <p class="username">@{{comment.user.username}} • {{comment.creationDate | timeAgo}}</p>
             </ion-col>
 
             <ion-col size="auto" *ngIf="comment.mine">

@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Comment } from 'src/app/models/comment';
 import { Idea } from 'src/app/models/idea';
 import { Project } from 'src/app/models/project';
+import { TimeAgoPipe } from 'src/app/pipes/time-ago.pipe';
 import { AlertService } from 'src/app/services/alert.service';
 import { CommentService } from 'src/app/services/comment.service';
 
@@ -26,7 +27,8 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
   constructor(
     private commentService: CommentService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private timeAgo: TimeAgoPipe
   ) {
     this.commentForm = new FormGroup({
       comment: new FormControl<string | null>('', [Validators.required, Validators.minLength(1), Validators.maxLength(255)])
@@ -45,6 +47,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
     if (this.idea) {
       this.subscriptions.push(this.commentService.getCommentsOfIdea(this.idea.id).subscribe(comments => {
         this.comments = comments;
+        console.log(comments);
       }));
     } else if (this.project) {
       this.subscriptions.push(this.commentService.getCommentsOfProject(this.project.id).subscribe(comments => {
