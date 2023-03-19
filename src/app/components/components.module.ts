@@ -5,12 +5,13 @@ import { IdeasComponent } from './ideas/ideas.component';
 import { FooterComponent } from './footer/footer.component';
 import { FollowersComponent } from './followers/followers.component';
 import { QuillModule } from 'ngx-quill';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsersComponent } from './users/users.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { RouterModule } from '@angular/router';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { IdeaComponent } from './idea/idea.component';
+import { CommentsComponent } from './comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { IdeaComponent } from './idea/idea.component';
     FollowersComponent,
     IdeaComponent,
     SidebarComponent,
-    UsersComponent
+    UsersComponent,
+    CommentsComponent
   ],
   exports: [
     FooterComponent,
@@ -30,7 +32,9 @@ import { IdeaComponent } from './idea/idea.component';
     IdeaComponent,
     SidebarComponent,
     UsersComponent,
-    NgOptimizedImage
+    CommentsComponent,
+    NgOptimizedImage,
+    ReactiveFormsModule
   ],
   imports: [
     IonicModule,
@@ -38,7 +42,8 @@ import { IdeaComponent } from './idea/idea.component';
     QuillModule,
     FormsModule,
     RouterModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    ReactiveFormsModule
   ]
 })
 export class ComponentsModule { }

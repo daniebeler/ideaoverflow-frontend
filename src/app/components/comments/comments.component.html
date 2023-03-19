@@ -1,0 +1,52 @@
+<ion-grid style="margin: 0; padding: 0">
+  <ion-row class="write-comment-wrapper">
+    <hr>
+    <ion-col>
+      <form [formGroup]="commentForm" autocomplete="off">
+        <div class="form-group">
+          <input type="text" name="comment" id="comment" maxlength="255" formControlName="comment"
+            placeholder="Leave a comment..." />
+        </div>
+      </form>
+    </ion-col>
+
+    <ion-col size="auto">
+      <button type="button" class="btn-small btn-primary" (click)="sendComment()">
+        <ion-icon name="send-outline" [ngClass]="{'rotate': sending}"></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
+
+  <div class="outer-comment-wrapper">
+    <ion-row *ngFor="let comment of comments">
+      <hr>
+      <ion-col>
+        <ion-grid class="comment-wrapper">
+          <ion-row>
+            <ion-col size="auto">
+              <ion-avatar>
+                <img [src]="comment.user.profileimage">
+              </ion-avatar>
+            </ion-col>
+            <ion-col class="name-wrapper">
+              <p class="fullname">{{comment.user.firstname + ' ' + comment.user.lastname}}</p>
+              <p class="username">@{{comment.user.username}}</p>
+            </ion-col>
+
+            <ion-col size="auto" *ngIf="comment.mine">
+              <button type="button" class="btn-small btn-medium" (click)="deleteComment(comment.id)">
+                <ion-icon name="trash-outline"></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              {{comment.body}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-grid>

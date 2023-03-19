@@ -383,6 +383,18 @@ export class ApiService {
     );
   }
 
+  getCommentsByProjectId(parameter: string): Observable<Comment[]> {
+    return this.apiGet('comment/byproject/' + parameter, 'Optional').pipe(
+      concatMap(res => {
+        if (res.status !== 'OK') {
+          return [];
+        } else {
+          return of(res);
+        }
+      }), map((res: any) => res.data.map((item) => this.commentAdapter.adapt(item)))
+    );
+  }
+
   createComment(body: any): Observable<ApiResponse> {
     return this.apiPost('comment/create/', body, 'Required');
   }

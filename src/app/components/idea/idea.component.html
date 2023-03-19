@@ -1,75 +1,74 @@
 <div class="wrapper">
   <ion-grid>
-  <ion-row>
-    <ion-col style="padding: 0;">
-      <a [routerLink]="'/ideas/' + post.id">
-        <h2 class="header">{{post.title}}</h2>
-      </a>
-
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col style="padding: 0;">
-      <div class="postcontent" [innerHTML]=post.body></div>
-    </ion-col>
-  </ion-row>
-  <ion-row style="margin-top: 20px;">
-    <ion-col size="auto" class="owner">
-      <a [routerLink]="'/users/' + post.user.username">
-        <ion-avatar style="height: 30px; width: 30px; --border-radius: var(--border-radius-small)">
-          <img [src]="post.user.profileimage">
-        </ion-avatar>
-        <p style="margin-bottom: 0; padding-left: 8px;">{{post.user.username}}</p>
-      </a>
-
-    </ion-col>
-
-    <ion-col size="auto" *ngIf="post.currentUserVoteValue === 1" (click)="votePost(0, post)" class="like"
-      style="display: flex; align-items: center;">
-      <ion-icon name="heart" [ngStyle]="{'color':post.user.color}" style="width: 30px; height: 25px;">
-      </ion-icon>
-      <p style="margin-bottom: 0; padding-left: 8px;">{{post.numberOfUpvotes}}</p>
-    </ion-col>
-
-    <ion-col size="auto" *ngIf="post.currentUserVoteValue !== 1" (click)="votePost(1, post)" class="like"
-      style="display: flex; align-items: center;">
-      <ion-icon name="heart-outline" style="width: 30px; height: 25px;"></ion-icon>
-      <p style="margin-bottom: 0; padding-left: 8px;">{{post.numberOfUpvotes}}</p>
-    </ion-col>
-
-    <ion-col size="auto" *ngIf="post.currentUserVoteValue === -1" (click)="votePost(0, post)" class="like"
-      style="display: flex; align-items: center;">
-      <ion-icon name="thumbs-down" [ngStyle]="{'color':post.user.color}" style="width: 30px; height: 25px;"></ion-icon>
-      <p style="margin-bottom: 0; padding-left: 8px;">{{post.numberOfDownvotes}}</p>
-    </ion-col>
-
-    <ion-col size="auto" *ngIf="post.currentUserVoteValue !== -1" (click)="votePost(-1, post)" class="like"
-      style="display: flex; align-items: center;">
-      <ion-icon name="thumbs-down-outline" style="width: 30px; height: 25px;"></ion-icon>
-      <p style="margin-bottom: 0; padding-left: 8px;">{{post.numberOfDownvotes}}</p>
-    </ion-col>
-
-    <ion-col size="auto" *ngIf="post.saved" (click)="unsavePost(post.id)" class="like"
-      style="display: flex; align-items: center;">
-      <ion-icon name="bookmark" [ngStyle]="{'color':post.user.color}" style="width: 30px; height: 25px;">
-      </ion-icon>
-    </ion-col>
-
-    <ion-col size="auto" *ngIf="!post.saved" (click)="savePost(post.id)" class="like"
-      style="display: flex; align-items: center;">
-      <ion-icon name="bookmark-outline" style="width: 30px; height: 25px;"></ion-icon>
-    </ion-col>
-
-    <div *ngIf="post.mine">
-      <ion-col size="auto" class="editPost" style="display: flex; align-items: center;">
-        <a [routerLink]="['/ideaeditor/' + post.id]">
-          <ion-icon name="settings-outline" style="height: 30px; width: 30px;">
-          </ion-icon>
+    <ion-row>
+      <ion-col style="padding: 0;">
+        <a [routerLink]="'/ideas/' + post.id">
+          <h2 class="header">{{post.title}}</h2>
+        </a>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col style="padding: 0;">
+        <div class="postcontent" [innerHTML]=post.body></div>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top: 20px;">
+      <ion-col size="auto" class="owner">
+        <a [routerLink]="'/users/' + post.user.username">
+          <ion-avatar style="height: 30px; width: 30px; --border-radius: var(--border-radius-small)">
+            <img [src]="post.user.profileimage">
+          </ion-avatar>
+          <p style="margin-bottom: 0; padding-left: 8px;">{{post.user.username}}</p>
         </a>
 
       </ion-col>
-    </div>
-  </ion-row>
-</ion-grid>
-</div>
 
+      <ion-col size="auto" *ngIf="post.currentUserVoteValue === 1" (click)="votePost(0, post)" class="like"
+        style="display: flex; align-items: center;">
+        <ion-icon name="heart" [ngStyle]="{'color':post.user.color}" style="width: 30px; height: 25px;">
+        </ion-icon>
+        <p style="margin-bottom: 0; padding-left: 8px;">{{post.numberOfUpvotes}}</p>
+      </ion-col>
+
+      <ion-col size="auto" *ngIf="post.currentUserVoteValue !== 1" (click)="votePost(1, post)" class="like"
+        style="display: flex; align-items: center;">
+        <ion-icon name="heart-outline" style="width: 30px; height: 25px;"></ion-icon>
+        <p style="margin-bottom: 0; padding-left: 8px;">{{post.numberOfUpvotes}}</p>
+      </ion-col>
+
+      <ion-col size="auto" *ngIf="post.currentUserVoteValue === -1" (click)="votePost(0, post)" class="like"
+        style="display: flex; align-items: center;">
+        <ion-icon name="thumbs-down" [ngStyle]="{'color':post.user.color}"
+          style="width: 30px; height: 25px;"></ion-icon>
+        <p style="margin-bottom: 0; padding-left: 8px;">{{post.numberOfDownvotes}}</p>
+      </ion-col>
+
+      <ion-col size="auto" *ngIf="post.currentUserVoteValue !== -1" (click)="votePost(-1, post)" class="like"
+        style="display: flex; align-items: center;">
+        <ion-icon name="thumbs-down-outline" style="width: 30px; height: 25px;"></ion-icon>
+        <p style="margin-bottom: 0; padding-left: 8px;">{{post.numberOfDownvotes}}</p>
+      </ion-col>
+
+      <ion-col size="auto" *ngIf="post.saved" (click)="unsavePost(post.id)" class="like"
+        style="display: flex; align-items: center;">
+        <ion-icon name="bookmark" [ngStyle]="{'color':post.user.color}" style="width: 30px; height: 25px;">
+        </ion-icon>
+      </ion-col>
+
+      <ion-col size="auto" *ngIf="!post.saved" (click)="savePost(post.id)" class="like"
+        style="display: flex; align-items: center;">
+        <ion-icon name="bookmark-outline" style="width: 30px; height: 25px;"></ion-icon>
+      </ion-col>
+
+      <div *ngIf="post.mine">
+        <ion-col size="auto" class="editPost" style="display: flex; align-items: center;">
+          <a [routerLink]="['/ideaeditor/' + post.id]">
+            <ion-icon name="settings-outline" style="height: 30px; width: 30px;">
+            </ion-icon>
+          </a>
+
+        </ion-col>
+      </div>
+    </ion-row>
+  </ion-grid>
+</div>
