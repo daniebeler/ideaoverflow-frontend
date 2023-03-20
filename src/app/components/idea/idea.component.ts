@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { Idea } from 'src/app/models/idea';
 import { AlertService } from 'src/app/services/alert.service';
 import { IdeaService } from 'src/app/services/idea.service';
@@ -15,7 +16,8 @@ export class IdeaComponent {
 
   constructor(
     private alertService: AlertService,
-    private ideaService: IdeaService
+    private ideaService: IdeaService,
+    private router: Router
   ) { }
 
   votePost(voteValue: number, idea: Idea) {
@@ -64,5 +66,13 @@ export class IdeaComponent {
     } else {
       this.alertService.showToast('You have to be logged in to save Ideas');
     }
+  }
+
+  gotoIdea(ideaId: number) {
+    this.router.navigate(['/ideas/' + ideaId]);
+  }
+
+  openEditor(ideaId: number) {
+    this.router.navigate(['/ideaeditor/' + ideaId]);
   }
 }

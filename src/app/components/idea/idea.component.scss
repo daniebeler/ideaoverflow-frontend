@@ -9,6 +9,56 @@
   margin-bottom: 5px;
 }
 
+hr {
+  background-color: var(--ion-color-dark);
+  height: 1px;
+  margin: 10px 0;
+}
+
+.profile-row {
+  ion-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  ion-avatar {
+    --border-radius: var(--border-radius-big);
+    height: 50px;
+    width: 50px;
+  }
+
+  .name-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .fullname {
+      margin: 0;
+    }
+
+    .username {
+      margin: 0;
+      font-size: 0.9rem;
+      color: gray;
+    }
+  }
+}
+
+.interaction-row {
+  // display: flex;
+  // justify-content: space-evenly;
+
+  button {
+    display: flex;
+
+    p {
+      padding-left: 8px;
+      margin: 0;
+    }
+  }
+}
+
 .owner {
   background-color: var(--ion-color-dark);
   border-radius: 10px;

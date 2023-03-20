@@ -31,11 +31,11 @@
           <span class="tooltiptext">{{countryName}}</span>
         </div>
       </ion-col>
-      <ion-col size="auto" *ngIf="user.following">
+      <ion-col size="auto" *ngIf="user.following && latestUser">
         <button type="button" class="btn-small btn-medium follow-btn" style="width: 100%;"
           (click)="unfollow()">Unfollow</button>
       </ion-col>
-      <ion-col size="auto" *ngIf="!user.following">
+      <ion-col size="auto" *ngIf="!user.following && latestUser">
         <button type="button" class="btn-small follow-btn" [ngStyle]="{'background-color':user.color}"
           style="width: 100%;" (click)="follow()">Follow</button>
       </ion-col>
