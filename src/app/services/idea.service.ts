@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiResponse } from '../models/api-response';
 import { Idea } from '../models/idea';
 import { ApiService } from './api.service';
 
@@ -27,19 +28,19 @@ export class IdeaService {
     });
   }
 
-  createIdea(idea: Idea): Observable<any> {
+  createIdea(title: string, description: string): Observable<ApiResponse> {
     const obj = {
-      header: idea.title,
-      body: idea.body.changingThisBreaksApplicationSecurity
+      header: title,
+      body: description
     };
     return this.apiService.createIdea(obj);
   }
 
-  updateIdea(idea: Idea): Observable<any> {
+  updateIdea(ideaId: number, title: string, description: string): Observable<ApiResponse> {
     const obj = {
-      title: idea.title,
-      body: idea.body.changingThisBreaksApplicationSecurity,
-      ideaId: idea.id
+      title,
+      body: description,
+      ideaId
     };
     return this.apiService.updateIdea(obj);
   }

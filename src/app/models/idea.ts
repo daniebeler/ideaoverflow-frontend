@@ -11,6 +11,7 @@ export class Idea {
   public user: User;
   public numberOfUpvotes: number;
   public numberOfDownvotes: number;
+  public numberOfComments: number;
   public currentUserVoteValue: number;
   public saved: boolean;
   public mine: boolean;
@@ -24,6 +25,7 @@ export class Idea {
     this.user = data.user;
     this.numberOfUpvotes = data.upvotes;
     this.numberOfDownvotes = data.downvotes;
+    this.numberOfComments = data.numberOfComments ?? 0;
     this.currentUserVoteValue = data.votevalue;
     this.saved = data.saved;
     this.mine = data.mine ?? false;

@@ -54,7 +54,6 @@ export class CommentsComponent implements OnInit, OnDestroy {
     if (this.idea) {
       this.subscriptions.push(this.commentService.getCommentsOfIdea(this.idea.id).subscribe(comments => {
         this.comments = comments;
-        console.log(comments);
       }));
     } else if (this.project) {
       this.subscriptions.push(this.commentService.getCommentsOfProject(this.project.id).subscribe(comments => {

@@ -1,5 +1,5 @@
 <ion-header class="ion-no-border">
-  <ion-grid *ngIf="idea && verifiedAccess" class="container">
+  <ion-grid *ngIf="verifiedAccess && gotAccessStatus && (mode === 'new' || (mode === 'edit' && idea))" class="container">
     <ion-row>
       <ion-col size="auto">
         <button type="button" class="btn-small btn-medium" (click)="goBack()">
@@ -9,47 +9,65 @@
 
       <ion-col>
         <h2 *ngIf="mode === 'new'">New Idea</h2>
-        <h2 *ngIf="mode === 'edit' && idea.title">{{idea.title}}</h2>
-        <h2 *ngIf="mode === 'edit' && !idea.title">Edit idea</h2>
+        <h2 *ngIf="mode === 'edit' && idea?.title">{{idea.title}}</h2>
+        <h2 *ngIf="mode === 'edit' && !idea?.title">Edit idea</h2>
       </ion-col>
 
       <ion-col size="auto">
-        <button type="button" class="btn-small btn-primary" (click)="savePost()"
-         [disabled]="!showSubmitButton">
-        <span *ngIf="mode === 'new'">Publish</span>
-        <span *ngIf="mode === 'edit'">Update</span>
-      </button>
+        <button type="button" *ngIf="mode === 'new'" class="btn-small btn-primary" (click)="confirmCreateIdea()"
+          [disabled]="editorForm.invalid">
+          Publish
+        </button>
+
+        <button type="button" *ngIf="mode === 'edit'" class="btn-small btn-primary" (click)="confirmUpdateIdea()"
+          [disabled]="editorForm.invalid || !showSubmitButton">
+          Update
+        </button>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-header>
 
 <ion-content>
-  <ion-grid *ngIf="idea && verifiedAccess" class="container">
+  <ion-grid *ngIf="verifiedAccess && gotAccessStatus" class="container">
 
     <ion-row style="padding: 40px 0 20px 0;">
       <ion-col>
-        <div class="form-group">
-          <label class="text-label semibold" for="fname">Title</label>
-          <input type="text" name="fname" id="fname" placeholder="Title" [(ngModel)]="idea.title"
-            (ngModelChange)="updateSubmitButtonState()" />
-        </div>
+        <form [formGroup]="editorForm">
+          <div class="form-group">
+            <label class="text-label semibold" for="fname">Title</label>
+            <input type="text" name="fname" id="fname" formControlName="title" placeholder="Title" />
+          </div>
+
+          <div class="form-group">
+            <label class="text-label semibold" for="fname">Description</label>
+            <quill-editor (onEditorCreated)="editor($event)" trackChanges="all" formControlName="description">
+            </quill-editor>
+          </div>
+        </form>
+
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col>
-        <quill-editor *ngIf="idea.body" [(ngModel)]="idea.body.changingThisBreaksApplicationSecurity" [modules]=""
-          (onEditorCreated)="editor($event)" trackChanges="all" (ngModelChange)="updateSubmitButtonState()">
-        </quill-editor>
+
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-grid *ngIf="!verifiedAccess" class="container">
+  <ion-grid *ngIf="!verifiedAccess && gotAccessStatus" class="container">
     <ion-row style="padding: 40px 0 20px 0;">
       <ion-col>
         <h1>Access denied</h1>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="!gotAccessStatus" class="container">
+    <ion-row>
+      <ion-col class="loading-col">
+        <ion-spinner name="crescent"></ion-spinner>
       </ion-col>
     </ion-row>
   </ion-grid>

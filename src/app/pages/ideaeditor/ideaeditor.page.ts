@@ -1,13 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Idea } from 'src/app/models/idea';
 import { ApiService } from 'src/app/services/api.service';
 import { IdeaService } from 'src/app/services/idea.service';
-import hash from 'object-hash';
 import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/services/alert.service';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-ideaeditor',
@@ -20,69 +18,105 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
 
   editorForm: FormGroup;
 
-  idea: Idea = new Idea([]);
+  idea: Idea;
 
   verifiedAccess = false;
-
-  postHash = '12';
+  gotAccessStatus = false;
 
   editorInstance: any = {};
 
   showSubmitButton = false;
 
-  mode = '';
+  mode: 'edit' | 'new' | 'none' = 'none';
 
   constructor(
     private router: Router,
     private ideaService: IdeaService,
     private activatedRoute: ActivatedRoute,
-    private domSanitizer: DomSanitizer,
     private apiService: ApiService,
     private alertService: AlertService
-  ) { }
+  ) {
+    this.editorForm = new FormGroup({
+      title: new FormControl<string | null>('', Validators.required),
+      description: new FormControl<string | null>('', Validators.required)
+    });
+  }
+
+  get title() {
+    return this.editorForm.get('title');
+  }
+
+  get description() {
+    return this.editorForm.get('description');
+  }
 
   ngOnInit() {
     const urlslice = this.activatedRoute.snapshot.paramMap.get('id');
     if (urlslice && urlslice === 'new') {
       this.mode = 'new';
       this.verifiedAccess = true;
-      this.idea.body = this.domSanitizer.bypassSecurityTrustHtml('');
+      this.gotAccessStatus = true;
     } else if (!isNaN(+urlslice)) {
       this.mode = 'edit';
-      this.subscriptions.push(this.ideaService.getIdea(+urlslice).subscribe(post => {
-        this.verifiedAccess = post.mine;
-        this.postHash = hash(post);
-        this.idea = post;
+      this.subscriptions.push(this.ideaService.getIdea(+urlslice).subscribe(idea => {
+        this.verifiedAccess = idea.mine;
+        this.gotAccessStatus = true;
+        this.idea = idea;
+        this.title.setValue(this.idea.title);
+        this.description.setValue(this.idea.body.changingThisBreaksApplicationSecurity);
+
+        this.editorForm.valueChanges.subscribe(() => {
+          this.updateSubmitButtonState();
+        });
       }));
     }
   }
 
+  updateSubmitButtonState() {
+    let show = false;
+    if (this.idea.title && this.idea.body.changingThisBreaksApplicationSecurity) {
+      if (this.idea.title !== this.title.value || this.idea.body.changingThisBreaksApplicationSecurity !== this.description.value) {
+        show = true;
+      }
+    }
+
+    this.showSubmitButton = show;
+  }
+
   async savePost() {
     if (this.mode === 'new') {
-      this.alertService.showAlert(
-        'Are you sure?',
-        'Your idea will be released',
-        'Okay',
-        () => {
-          this.createIdea();
-        },
-        'Back'
-      );
+      this.confirmCreateIdea();
     } else {
-      this.alertService.showAlert(
-        'Are you sure?',
-        'Your idea will be updated',
-        'Okay',
-        () => {
-          this.updateIdea();
-        },
-        'Back'
-      );
+      this.confirmUpdateIdea();
     }
   }
 
+  confirmCreateIdea() {
+    this.alertService.showAlert(
+      'Are you sure?',
+      'Your idea will be released',
+      'Okay',
+      () => {
+        this.createIdea();
+      },
+      'Back'
+    );
+  }
+
+  confirmUpdateIdea() {
+    this.alertService.showAlert(
+      'Are you sure?',
+      'Your idea will be updated',
+      'Okay',
+      () => {
+        this.updateIdea();
+      },
+      'Back'
+    );
+  }
+
   createIdea() {
-    this.subscriptions.push(this.ideaService.createIdea(this.idea).subscribe(res => {
+    this.subscriptions.push(this.ideaService.createIdea(this.title.value, this.description.value).subscribe(res => {
       if (res.status === 'Error') {
         this.alertService.showAlert(
           'Error',
@@ -95,7 +129,7 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
           'Your idea is now online',
           'Okay',
           () => {
-            this.router.navigate(['ideas/' + this.idea.id]);
+            this.router.navigate(['ideas/' + res.data.id]);
           }
         );
       }
@@ -103,7 +137,7 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
   }
 
   updateIdea() {
-    this.subscriptions.push(this.ideaService.updateIdea(this.idea).subscribe(res => {
+    this.subscriptions.push(this.ideaService.updateIdea(this.idea.id, this.title.value, this.description.value).subscribe(res => {
       if (res.status === 'Error') {
         this.alertService.showAlert(
           'Error',
@@ -150,21 +184,6 @@ export class IdeaEditorPage implements OnInit, OnDestroy {
         input.click();
       }
     }
-  }
-
-  updateSubmitButtonState() {
-    let show = false;
-    if (this.idea.title && this.idea.body.changingThisBreaksApplicationSecurity) {
-      if (this.mode === 'edit') {
-        if (this.postHash !== hash(this.idea)) {
-          show = true;
-        }
-      } else {
-        show = true;
-      }
-    }
-
-    this.showSubmitButton = show;
   }
 
   goBack() {

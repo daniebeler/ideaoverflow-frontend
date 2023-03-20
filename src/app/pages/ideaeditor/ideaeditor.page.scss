@@ -2,6 +2,11 @@
   height: 500px !important;
 }
 
+.form-group {
+  position: relative;
+  margin-bottom: 15px;
+}
+
 input,
 textarea,
 select {
@@ -14,4 +19,9 @@ select {
   box-sizing: border-box;
   font-size: 0.8em;
   margin-top: 7px;
+}
+
+.loading-col {
+  display: flex;
+  justify-content: center;
 }
