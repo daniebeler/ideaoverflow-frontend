@@ -4,9 +4,10 @@ import { Subscription } from 'rxjs';
 import { Comment } from 'src/app/models/comment';
 import { Idea } from 'src/app/models/idea';
 import { Project } from 'src/app/models/project';
-import { TimeAgoPipe } from 'src/app/pipes/time-ago.pipe';
+import { User } from 'src/app/models/user';
 import { AlertService } from 'src/app/services/alert.service';
 import { CommentService } from 'src/app/services/comment.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-comments',
@@ -25,10 +26,12 @@ export class CommentsComponent implements OnInit, OnDestroy {
   commentForm: FormGroup;
   sending = false;
 
+  currentUser: User = null;
+
   constructor(
     private commentService: CommentService,
     private alertService: AlertService,
-    private timeAgo: TimeAgoPipe
+    private userService: UserService
   ) {
     this.commentForm = new FormGroup({
       comment: new FormControl<string | null>('', [Validators.required, Validators.minLength(1), Validators.maxLength(255)])
@@ -40,6 +43,10 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.subscriptions.push(this.userService.getLatestUser().subscribe((latestUser) => {
+      this.currentUser = latestUser;
+    }));
+
     this.loadComments();
   }
 
@@ -83,6 +90,10 @@ export class CommentsComponent implements OnInit, OnDestroy {
         }
       });
     }, 'Cancel');
+  }
+
+  showNotLoggedInWarning() {
+    this.alertService.showToast('Please log in to post comments');
   }
 
   ngOnDestroy(): void {

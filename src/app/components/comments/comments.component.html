@@ -11,8 +11,12 @@
     </ion-col>
 
     <ion-col size="auto">
-      <button type="button" class="btn-small btn-primary" (click)="sendComment()">
+      <button *ngIf="currentUser" type="button" class="btn-small btn-primary" (click)="sendComment()">
         <ion-icon name="send-outline" [ngClass]="{'rotate': sending}"></ion-icon>
+      </button>
+
+      <button *ngIf="!currentUser" type="button" class="btn-small btn-primary" (click)="showNotLoggedInWarning()">
+        <ion-icon name="lock-closed-outline" [ngClass]="{'rotate': sending}"></ion-icon>
       </button>
     </ion-col>
   </ion-row>
