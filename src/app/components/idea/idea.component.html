@@ -33,11 +33,9 @@
       </ion-col>
     </ion-row>
 
-    <hr>
-
     <ion-row class="interaction-row">
 
-      <ion-col size="auto">
+      <ion-col size="auto" style="padding-left: 0">
         <button *ngIf="post.currentUserVoteValue === 1" type="button" class="btn-small btn-dark" (click)="votePost(0, post)">
           <ion-icon name="heart" [ngStyle]="{'color':post.user.color}"></ion-icon>
           <p>{{post.numberOfUpvotes}}</p>

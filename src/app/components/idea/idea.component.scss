@@ -49,6 +49,12 @@ hr {
   // display: flex;
   // justify-content: space-evenly;
 
+  margin-top: 5px;
+
+  ion-col {
+    padding-bottom: 0;
+  }
+
   button {
     display: flex;
 
