@@ -33,7 +33,7 @@ export class TimeAgoPipe implements PipeTransform {
                   }}
           }
         }else { // if it's more than 1 day ago
-          const options: any = { year: '2-digit', month: '2-digit', day: '2-digit' };
+          const options: any = { year: 'numeric', month: 'short', day: 'numeric' };
           return new Date(value).toLocaleDateString(undefined, options);
       }
     }

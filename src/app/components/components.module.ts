@@ -14,12 +14,14 @@ import { IdeaComponent } from './idea/idea.component';
 import { CommentsComponent } from './comments/comments.component';
 import { TimeAgoPipe } from '../pipes/time-ago.pipe';
 import { UserBadgeComponent } from './user-badge/user-badge.component';
+import { ProjectComponent } from './project/project.component';
 
 @NgModule({
   declarations: [
     FooterComponent,
     IdeasComponent,
     ProjectsComponent,
+    ProjectComponent,
     FollowersComponent,
     IdeaComponent,
     SidebarComponent,
@@ -32,6 +34,7 @@ import { UserBadgeComponent } from './user-badge/user-badge.component';
     FooterComponent,
     IdeasComponent,
     ProjectsComponent,
+    ProjectComponent,
     FollowersComponent,
     IdeaComponent,
     SidebarComponent,

@@ -1,0 +1,35 @@
+<div>
+  <ion-grid class="project-wrapper">
+    <ion-row *ngIf="project.releaseDate">
+      <ion-col>
+        <p class="release-date">{{project.releaseDate.toLocaleDateString("en-at",{year:"numeric",month:"short",
+          day:"numeric"})}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col *ngIf="project.logo" size="auto">
+        <ion-avatar style="height: 90px; width: 90px; --border-radius: var(--border-radius-small)">
+          <img [src]="project.logo">
+        </ion-avatar>
+      </ion-col>
+      <ion-col class="right-col">
+        <h2>{{project.title}}</h2>
+        <p>{{project.shortDescription}}</p>
+      </ion-col>
+    </ion-row>
+
+    <hr>
+
+    <ion-row class="profile-row">
+      <ion-col>
+        <app-user-badge [user]="project.user" [creationDate]="project.creationDate"></app-user-badge>
+      </ion-col>
+
+      <ion-col size="auto" style="padding-right: 0;" *ngIf="project.mine">
+        <button type="button" class="btn-small btn-dark">
+          <ion-icon name="settings-outline"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

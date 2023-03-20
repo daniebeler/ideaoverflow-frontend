@@ -18,25 +18,7 @@
     <ion-col>
       <ion-list>
         <a [routerLink]="'/projects/' + project.id" *ngFor="let project of allLoadedProjects">
-          <ion-grid class="project-wrapper">
-          <ion-row *ngIf="project.releaseDate">
-            <ion-col>
-              <p class="release-date">{{project.releaseDate.toLocaleDateString("en-at",{year:"numeric",month:"short",
-                day:"numeric"})}}</p>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col *ngIf="project.logo" size="auto">
-              <ion-avatar style="height: 90px; width: 90px; --border-radius: var(--border-radius-small)">
-                <img [src]="project.logo">
-              </ion-avatar>
-            </ion-col>
-            <ion-col class="right-col">
-              <h2>{{project.title}}</h2>
-              <p>{{project.shortDescription}}</p>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+          <app-project [project]="project"></app-project>
         </a>
 
       </ion-list>
@@ -54,7 +36,8 @@
     <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
       <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="6" size-sm="6"
         size-md="5" size-lg="4" size-xl="4">
-        <img ngSrc="./../../../assets/svgs/open-vault.svg" style="width: 100%; padding-bottom: 10px;" alt="" height="150" width="300">
+        <img ngSrc="./../../../assets/svgs/open-vault.svg" style="width: 100%; padding-bottom: 10px;" alt=""
+          height="150" width="300">
       </ion-col>
     </ion-row>
     <ion-row>

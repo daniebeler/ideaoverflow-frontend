@@ -1,20 +1,3 @@
-.project-wrapper {
-  margin-top: 30px;
-  padding: 10px;
-  background-color: var(--ion-color-medium);
-  border-radius: var(--border-radius-big);
-
-  .release-date {
-    margin: 0;
-    font-size: 0.9rem;
-  }
-}
-
-.project-wrapper:hover {
-  cursor: pointer;
-  background-color: var(--ion-color-medium-shade);
-}
-
 .noprojects-grid{
   border-radius: var(--border-radius-big);
   margin-top: 20px;
@@ -34,15 +17,4 @@
 .header-col {
   display: flex;
   align-items: center;
-}
-
-.right-col {
-  h2 {
-    margin-top: 0;
-    margin-bottom: 5px;
-  }
-
-  p {
-    margin: 0;
-  }
 }

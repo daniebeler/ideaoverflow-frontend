@@ -1,9 +1,15 @@
 ion-grid {
   padding: 0;
+
+  ion-col {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 }
 
 .image-wrapper {
   padding-left: 0;
+
 }
 
 .name-wrapper {
@@ -32,7 +38,7 @@ ion-grid {
 }
 
 ion-avatar {
-  --border-radius: var(--border-radius-big);
+  --border-radius: var(--border-radius-small);
   height: 55px;
   width: 55px;
 }
