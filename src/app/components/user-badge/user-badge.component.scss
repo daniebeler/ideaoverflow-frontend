@@ -1,0 +1,38 @@
+ion-grid {
+  padding: 0;
+}
+
+.image-wrapper {
+  padding-left: 0;
+}
+
+.name-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .fullname {
+    margin: 0;
+  }
+
+  .username {
+    margin: 0;
+    font-size: 0.9rem;
+    color: gray;
+
+    span {
+      color: gray;
+    }
+
+    .username-span:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
+
+ion-avatar {
+  --border-radius: var(--border-radius-big);
+  height: 55px;
+  width: 55px;
+}

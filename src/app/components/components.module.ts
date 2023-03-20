@@ -13,6 +13,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { IdeaComponent } from './idea/idea.component';
 import { CommentsComponent } from './comments/comments.component';
 import { TimeAgoPipe } from '../pipes/time-ago.pipe';
+import { UserBadgeComponent } from './user-badge/user-badge.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { TimeAgoPipe } from '../pipes/time-ago.pipe';
     SidebarComponent,
     UsersComponent,
     CommentsComponent,
-    TimeAgoPipe
+    TimeAgoPipe,
+    UserBadgeComponent
   ],
   exports: [
     FooterComponent,
@@ -35,6 +37,7 @@ import { TimeAgoPipe } from '../pipes/time-ago.pipe';
     SidebarComponent,
     UsersComponent,
     CommentsComponent,
+    UserBadgeComponent,
     NgOptimizedImage,
     ReactiveFormsModule
   ],

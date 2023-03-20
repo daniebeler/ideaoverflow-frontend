@@ -21,28 +21,6 @@ hr {
     flex-direction: column;
     justify-content: center;
   }
-
-  ion-avatar {
-    --border-radius: var(--border-radius-big);
-    height: 50px;
-    width: 50px;
-  }
-
-  .name-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    .fullname {
-      margin: 0;
-    }
-
-    .username {
-      margin: 0;
-      font-size: 0.9rem;
-      color: gray;
-    }
-  }
 }
 
 .interaction-row {

@@ -1,0 +1,17 @@
+<ion-grid>
+  <ion-row>
+    <ion-col size="auto" class="image-wrapper">
+      <ion-avatar>
+        <img [src]="user.profileimage">
+      </ion-avatar>
+    </ion-col>
+
+    <ion-col class="name-wrapper">
+      <p class="fullname">{{user.firstname + ' ' + user.lastname}}</p>
+      <p class="username">
+        <span class="username-span" (click)="gotoProfile(user.username)">@{{user.username}}</span>
+        <span *ngIf="creationDate"> • {{creationDate | timeAgo}}</span>
+      </p>
+    </ion-col>
+  </ion-row>
+</ion-grid>

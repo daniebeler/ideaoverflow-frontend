@@ -27,15 +27,11 @@
       <ion-col>
         <ion-grid class="comment-wrapper">
           <ion-row>
-            <ion-col size="auto">
-              <ion-avatar>
-                <img [src]="comment.user.profileimage">
-              </ion-avatar>
+            <ion-col>
+              <app-user-badge [user]="comment.user" [creationDate]="comment.creationDate"></app-user-badge>
             </ion-col>
-            <ion-col class="name-wrapper">
-              <p class="fullname">{{comment.user.firstname + ' ' + comment.user.lastname}}</p>
-              <p class="username">@{{comment.user.username}} • {{comment.creationDate | timeAgo}}</p>
-            </ion-col>
+
+
 
             <ion-col size="auto" *ngIf="comment.mine">
               <button type="button" class="btn-small btn-medium" (click)="deleteComment(comment.id)">

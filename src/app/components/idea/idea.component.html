@@ -16,14 +16,8 @@
     <hr>
 
     <ion-row class="profile-row">
-      <ion-col size="auto" style="padding-left: 0;">
-        <ion-avatar>
-          <img [src]="post.user.profileimage">
-        </ion-avatar>
-      </ion-col>
-      <ion-col class="name-wrapper">
-        <p class="fullname">{{post.user.firstname + ' ' + post.user.lastname}}</p>
-        <p class="username">@{{post.user.username}} • {{post.creationDate | timeAgo}}</p>
+      <ion-col style="padding-left: 0;">
+        <app-user-badge [user]="post.user" [creationDate]="post.creationDate"></app-user-badge>
       </ion-col>
 
       <ion-col size="auto" style="padding-right: 0;" *ngIf="post.mine">
