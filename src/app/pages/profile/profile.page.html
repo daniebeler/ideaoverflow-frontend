@@ -69,14 +69,26 @@
       <ion-row class="top-section" [ngStyle]="{'background-color':user.color}">
         <ion-col>
           <ion-grid>
-            <ion-row>
+            <ion-row class="top-row">
+              <ion-col size="auto" class="stats-col">
+                <h2>{{user.numberOfPosts}}</h2>
+                <p>Ideas</p>
+              </ion-col>
+
               <ion-col size="auto">
                 <ion-avatar class="profile-image" [ngStyle]="{'border-color': user.color}">
                   <img [src]="user.profileimage">
                 </ion-avatar>
               </ion-col>
 
-              <ion-col>
+              <ion-col size="auto" class="stats-col">
+                <h2>{{user.numberOfProjects}}</h2>
+                <p>Projects</p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col class="name-col">
                 <h2 style="margin-bottom: 0;" *ngIf="user.firstname && user.lastname">
                   {{user.firstname}}
                   {{user.lastname}}</h2>
@@ -124,11 +136,11 @@
 
             <ion-row>
               <ion-col>
-                <p style="margin-top: 0;" *ngIf="user.bio">{{user.bio}}</p>
+                <p style="margin-top: 0; text-align: center;" *ngIf="user.bio">{{user.bio}}</p>
               </ion-col>
             </ion-row>
 
-            <ion-row class="fief">
+            <!-- <ion-row class="fief">
               <ion-col size="auto">
                 <p>Followers</p>
                 <h2>{{user.numberOfFollowers}}</h2>
@@ -141,7 +153,7 @@
                 <p>Projects</p>
                 <h2>{{user.numberOfProjects}}</h2>
               </ion-col>
-            </ion-row>
+            </ion-row> -->
           </ion-grid>
 
 

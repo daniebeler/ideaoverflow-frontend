@@ -17,6 +17,29 @@ ion-header {
   border-radius: var(--border-radius-big);
   color: var(--ion-color-dark);
 
+  .top-row {
+    display: flex;
+    justify-content: space-evenly;
+
+    .stats-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      p, h2 {
+        margin: 0;
+      }
+    }
+  }
+
+  .name-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
   h1, h2, p {
     color: var(--ion-color-dark);
   }
