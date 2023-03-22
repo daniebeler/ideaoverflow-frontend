@@ -20,11 +20,12 @@ export class IdeasComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
+
+  postFetchSize = 10;
+
   queryParams: string;
   allLoadedPosts: Idea[] = [];
-  numberOfPosts = 5;
-  skipPosts = -5;
-  loadedUser = false;
+  skipPosts = 0;
 
   showSortingButtons = true;
 
@@ -44,15 +45,12 @@ export class IdeasComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscriptions.push(this.userService.getLatestUser().subscribe((latestUser) => {
       this.currentUser = latestUser;
-      this.allLoadedPosts = [];
-      this.skipPosts = -5;
-      this.getPosts(false, '');
+      this.getPosts();
     }));
   }
 
-  getPosts(isInitialLoad: boolean, event) {
+  getPosts(event?: any) {
     this.loading = true;
-    this.skipPosts = this.skipPosts + 5;
 
     let reverse = false;
     let sort = 'date';
@@ -67,7 +65,7 @@ export class IdeasComponent implements OnInit, OnDestroy {
 
     const params: any = {
       skip: this.skipPosts,
-      take: this.numberOfPosts,
+      take: this.postFetchSize,
       sort,
       reverse
     };
@@ -83,10 +81,11 @@ export class IdeasComponent implements OnInit, OnDestroy {
       params.searchTerm = this.searchTerm;
     }
 
+    this.skipPosts = this.skipPosts + this.postFetchSize;
+
     this.subscriptions.push(this.ideaService.getIdeas(params).subscribe((posts: Idea[]) => {
-      if (isInitialLoad) {
-        event.target.complete();
-      }
+        event?.target.complete();
+
       for (const post of posts) {
         this.allLoadedPosts.push(post);
       }
@@ -107,12 +106,12 @@ export class IdeasComponent implements OnInit, OnDestroy {
       }
     }
     this.allLoadedPosts = [];
-    this.skipPosts = -5;
-    this.getPosts(false, '');
+    this.skipPosts = 0;
+    this.getPosts();
   }
 
   loadData(event) {
-    this.getPosts(true, event);
+    this.getPosts(event);
   }
 
   ngOnDestroy(): void {

@@ -1,4 +1,4 @@
-<div *ngIf="allLoadedProjects.length > 0 || loading; else noProjects">
+<ion-grid *ngIf="allLoadedProjects.length || loading">
   <ion-row>
     <ion-col size="auto" class="header-col">
       <h2 style="margin: 0;">{{header ? header : alternativeHeader}}</h2>
@@ -30,20 +30,27 @@
 
     </ion-col>
   </ion-row>
-</div>
-<ng-template #noProjects>
-  <ion-grid class="noprojects-grid" [ngStyle]="{'background-color': color}">
-    <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
-      <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="6" size-sm="6"
-        size-md="5" size-lg="4" size-xl="4">
-        <img ngSrc="./../../../assets/svgs/open-vault.svg" style="width: 100%; padding-bottom: 10px;" alt=""
-          height="150" width="300">
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col class="ion-text-center">
-        <h2>No projects yet...</h2>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ng-template>
+</ion-grid>
+
+<ion-grid *ngIf="loading" class="container">
+  <ion-row>
+    <ion-col class="loading-col">
+      <ion-spinner name="crescent"></ion-spinner>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-grid *ngIf="!loading && !allLoadedProjects.length" class="noprojects-grid" [ngStyle]="{'background-color': color}">
+  <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
+    <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="6" size-sm="6"
+      size-md="5" size-lg="4" size-xl="4">
+      <img ngSrc="./../../../assets/svgs/open-vault.svg" style="width: 100%; padding-bottom: 10px;" alt="" height="150"
+        width="300">
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="ion-text-center">
+      <h2>No projects yet...</h2>
+    </ion-col>
+  </ion-row>
+</ion-grid>

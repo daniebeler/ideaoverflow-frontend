@@ -1,4 +1,4 @@
-<div *ngIf="allLoadedPosts.length > 0 || loading; else noIdeas">
+<ion-grid *ngIf="allLoadedPosts.length || loading">
   <ion-row>
     <ion-col size="auto" class="header-col">
       <h2 style="margin: 0;">{{header ? header : alternativeHeader}}</h2>
@@ -25,27 +25,34 @@
         </div>
       </ion-list>
 
-      <ion-infinite-scroll *ngIf="allLoadedPosts.length" threshold="100px" (ionInfinite)="loadData($event)">
-        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more posts...">
+      <ion-infinite-scroll *ngIf="allLoadedPosts.length" threshold="50%" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Loading more posts...">
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
 
     </ion-col>
   </ion-row>
-</div>
-<ng-template #noIdeas>
-  <ion-grid class="noideas-grid" [ngStyle]="{'background-color': color}">
-    <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
-      <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="6" size-sm="6"
-        size-md="5" size-lg="4" size-xl="4">
-        <img ngSrc="./../../../assets/svgs/open-vault.svg" style="width: 100%; padding-bottom: 10px;" alt=""
-          height="150" width="300">
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col class="ion-text-center">
-        <h2>No ideas yet...</h2>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ng-template>
+</ion-grid>
+
+<ion-grid *ngIf="loading && !allLoadedPosts.length" class="container">
+  <ion-row>
+    <ion-col class="loading-col">
+      <ion-spinner name="crescent"></ion-spinner>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-grid *ngIf="!loading && !allLoadedPosts.length" class="noideas-grid" [ngStyle]="{'background-color': color}">
+  <ion-row style="display: flex; flex-direction: column;" class="ion-align-items-center">
+    <ion-col style="display: flex; flex-direction: column;" class="ion-align-items-center" size-xs="6" size-sm="6"
+      size-md="5" size-lg="4" size-xl="4">
+      <img ngSrc="./../../../assets/svgs/open-vault.svg" style="width: 100%; padding-bottom: 10px;" alt="" height="150"
+        width="300">
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="ion-text-center">
+      <h2>No ideas yet...</h2>
+    </ion-col>
+  </ion-row>
+</ion-grid>

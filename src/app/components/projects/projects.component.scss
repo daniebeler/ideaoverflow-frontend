@@ -1,4 +1,8 @@
-.noprojects-grid{
+ion-grid {
+  padding: 0;
+}
+
+.noprojects-grid {
   border-radius: var(--border-radius-big);
   margin-top: 20px;
   margin-bottom: 20px;
@@ -17,4 +21,9 @@
 .header-col {
   display: flex;
   align-items: center;
+}
+
+.loading-col {
+  display: flex;
+  justify-content: center;
 }
