@@ -49,11 +49,11 @@
 
           <ion-row *ngIf="project.screenshots">
             <ion-col>
-              <swiper [pagination]="{clickable: true}" [spaceBetween]="20" [slidesPerView]="'auto'">
+              <!-- <swiper-container #swiperRef [pagination]="{clickable: true}" [spaceBetween]="20" [slidesPerView]="'auto'">
                 <ng-template swiperSlide *ngFor="let screenshot of project.screenshots" style="height: 100%;">
                   <img [src]="screenshot" class="swipe-img" alt="">
                 </ng-template>
-              </swiper>
+              </swiper-container> -->
             </ion-col>
           </ion-row>
 

@@ -212,8 +212,8 @@ export class ApiService {
     return this.httpClient.post<any>(environment.api + 'follower/unfollow', data, { headers: this.getHeader() });
   }
 
-  getFollowees(userid: number): Observable<User[]> {
-    return this.apiGet('follower/followeesbyusername/' + userid).pipe(
+  getFollowees(username: string): Observable<User[]> {
+    return this.apiGet('follower/followeesbyusername/' + username).pipe(
       map((data: any) => data.data.map((item) => this.userAdapter.adapt(item)))
     );
   }

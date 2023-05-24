@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Project } from 'src/app/models/project';
@@ -7,6 +7,7 @@ import { ExternalHrefPipe } from 'src/app/pipes/external-href.pipe';
 import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
 import SwiperCore, { EffectFade, EffectCards, Pagination, Swiper } from 'swiper';
+import {register} from 'swiper/element/bundle';
 
 SwiperCore.use([EffectFade, EffectCards, Pagination]);
 
@@ -15,7 +16,11 @@ SwiperCore.use([EffectFade, EffectCards, Pagination]);
   templateUrl: './project.page.html',
   styleUrls: ['./project.page.scss'],
 })
-export class ProjectPage implements OnInit, OnDestroy {
+export class ProjectPage implements OnInit, OnDestroy, AfterViewInit {
+
+  @ViewChild('swiperRef')
+  swiperRef: ElementRef | undefined;
+  swiper?: Swiper;
 
   subscriptions: Subscription[] = [];
 
@@ -45,6 +50,11 @@ export class ProjectPage implements OnInit, OnDestroy {
       this.currentUser = latestUser;
     });
     this.subscriptions.push(subscription2);
+  }
+
+  ngAfterViewInit(): void {
+    register();
+    this.swiper = this.swiperRef?.nativeElement.swiper;
   }
 
   gotoWebsite(url: string) {
