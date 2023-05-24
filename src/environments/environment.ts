@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  api: 'https://api.ideaoverflow.xyz/'
+  api: 'http://localhost:3003/'
 };
